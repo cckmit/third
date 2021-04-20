@@ -1,81 +1,33 @@
-### Typora的使用简单说明
+### 简介
 
-#### 1、标题的使用
+redis是nosql的key-value的数据库，是一个简单的、高效的、分布式的、基于内存的缓存工具。
 
-+ 一级标题ctrl+1
-+ 二级标题 ctrl+2
-+ 三级标题ctrl+3
-+ 四级标题ctrl+4
-+ 五级标题 ctrl+5
+搭设好服务器后，通过网络连接，提供key-value的缓存服务。
 
-#### 2、插入代码块
+在面对大规模和高并发的环境下，关系型数据库显得力不从心，暴露出很多问题。	
 
- 	**输入三个~即插入代码块，或右键插入代码块**
+关系型数据库：表和表之间的关联关系
 
-~~~xml
- <bean id="datasource" class="org.apache.commons.dbcp.BasicDataSource">
-        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
-        <property name="url" value="jdbc:mysql://localhost:3306/beitie?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=GMT%2B8&amp;useSSL=false"></property>
-        <property name="username" value="root"></property>
-        <property name="password" value="beitie"></property>
-    </bean>
-~~~
+nosql数据库：数据之间彼此没有关系
 
-#### 3、常用快捷键
+选择nosql数据库的原因：
 
-+ 加粗：`Ctrl+B`
+1、数据模型比较简单，没有那么多的字段值
 
-  **中国人**
+2、对数据库性能要求比较高
 
-+ 斜体：`Ctrl+I`
+3、不需要高度的数据一致性
 
-  *中国人*
+4、对于给定key，比较容易映射复杂值的环境
 
-+ 字体：`Ctrl+数字`
+redis以及key-value数据库特点：
 
-  ###### 	中国人
+1、数据的持久化，将内存中的数据保存在磁盘中，	重启时可以重新加载使用
 
-+ 下划线：`Ctrl+U`
+2、redis支持String、List、HashSet、Set以及Ordered Set数据类型
 
-  <u>中国人</u>
+3、原子性  单个操作是原子性，多个操作也支持事务
 
-+ 返回开头：`Ctrl+Home`
+4、支持集群，redis支持16个库
 
-+ 返回结尾：`Ctrl+End`
-
-+ 生成表格：`Ctrl+T`
-
-  |      |      |      |
-  | ---- | ---- | ---- |
-  |      |      |      |
-  |      |      |      |
-  |      |      |      |
-
-  
-
-+ 创建链接：Ctrl+K
-
-  [中国人](http://www.baidu.com)
-
-+ 删除线 ：两个波浪线[~~]开头，两个波浪线[~~]结束
-
-  ~~中国人~~
-
-  ~~~java
-  ~~这是删除线~~
-  ~~~
-
-+ 插入代码块：输入三个~ 即{~~~}
-
-+ 插入图片：Ctrl +   Shift  +   I 或者拖动图片即可 
-
-[中国人](http://www.baidu.com)
-
-*H~2~O*
-
-**==HIGHT==**
-
-
-
-![菊花](C:\Users\Administrator\Desktop\Sample Pictures\Chrysanthemum.jpg)
-
+5、消息队列
