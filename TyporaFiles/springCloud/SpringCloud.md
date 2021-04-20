@@ -235,6 +235,8 @@ public interface DeptClientService {
 
 ### Hystrix断路器	
 
+对服务进行熔断、降级
+
 扇出：像扇子展开一样，环环相扣（A调用B和C，B和C调用其他），一旦其中一个服务出现故障，当用户又访问此服务过多时，就会占用过多的资源
 
 hystrix的功能：当某个服务出现异常之时，向调用方返回一个fallback（用以处理异常之时的返回提示信息）
@@ -431,7 +433,7 @@ zuul:
   routes:
     aaa.serviceId: microservicecloud-dept-provider # 当前需要路由映射配置的服务id
     aaa.path:  /mydept/**	# 服务映射实际应该访问的路径
-  ignored-services: microservicecloud-dept-provider # "*"代表忽略所有的微服务
+  ignored-services: microservicecloud-dept-provider #"*"代表忽略所有的微服务 不能通过服务名字对服务进行调用
   prefix: /beitie	# 为所有访问该集群中的服务的请求统一带上前缀（显示标志）
 ```
 
@@ -509,11 +511,19 @@ pwd 查看当前所在的目录位置
 
 4、git add . [application.xml] 添加所有的或者某个文件到index
 
-5、git commit
+git  remote add origin "github上面的ssh访问路径"
 
+5、git commit -m"本次提交的信息备注"
 
+6、git  push 推送到github对应的库
 
+访问github服务器上文件内容格式
 
+/{application}/ {profile}[/{labe1}]
+1 {application}-{profile} .yml
+/{1abe1}/{application}- {profiley. yml
+/ {application}- {profile} .properties
+/ {labe1}/ {application}- {profile}. properties
 
 ### Springcloud Config
 
@@ -536,3 +546,13 @@ git@github.com:beitieforerver/second.git
 https://blog.csdn.net/keyue0459/article/details/105042063
 
 springcloud不支持openssh的私钥匙
+
+
+
+客户端
+
+bootstrap.yml 系统级别的，优先级别高
+
+application.yml 用户级别的，优先级别相对较低
+
+springcloud会创建一个BootStrap Context，作为Application Context的父级，初始化的时候BootStrap Context负责从外部加载配置并进行解析，这两个context共享一个environment。	
