@@ -1,3 +1,6 @@
+---
+spring:
+  profiles: dev
 server:
   port: 7001
 eureka:
@@ -8,6 +11,8 @@ eureka:
     fetch-registry: false         #表明自己就是注册中心，负责维护服务实例，并不需要检索本服务
 
 ---
+spring:
+  profiles: test
 server:
   port: 7002
 eureka:
