@@ -16,7 +16,7 @@ SpringCloud是微服务的框架，而springBoot只是一种微服务的实现
 
 https://www.springcloud.cc/spring-cloud-dalston.html
 
-### SpringCloud官网
+### SpringCloud官网 
 
 https://spring.io/projects/spring-cloud
 
@@ -524,6 +524,48 @@ git  remote add origin "github上面的ssh访问路径"
 /{1abe1}/{application}- {profiley. yml
 / {application}- {profile} .properties
 / {labe1}/ {application}- {profile}. properties
+
+
+
+#### 新机器的操作步骤
+
+1、安装git客户端
+
+2、在磁盘上新建一个文件夹 ，并执行 git init 命令，初始化数据
+
+~~~git
+git init
+~~~
+
+3、生成公钥和私钥 ssh-keygen -t rsa -C "896755700@qq.com"
+
+~~~git
+ssh-keygen -t rsa -C "896755700@qq.com"
+~~~
+
+4、配置全局用户名和邮箱
+
+~~~git
+git config --global set user.name 'beitieforerver'
+git config --global set user.email '896755700@qq.com'
+git config --global --list 
+~~~
+
+5、配置远程服务名
+
+~~~git
+git remote add orgin git@github.com:beitieforerver/third
+~~~
+
+6、从远程服务器拉取数据
+
+~~~git
+git pull origin master
+~~~
+
+
+
+
 
 ### Springcloud Config
 
