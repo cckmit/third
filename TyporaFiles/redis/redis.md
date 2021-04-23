@@ -105,3 +105,77 @@ type key #返回某key的数据类型
 
 3、在一个项目中，key使用统一的命名格式：user:123:password
 
+4、key的命令不区分大小写，但是key的值区分大小写
+
+### 支持类型
+
+String、hash、List、Set、zset
+
+#### String
+
+String类型是二进制安全：
+
+1、编译、解码发生在客户端，执行效率高
+
+2、不要频繁的编解码，不会出现乱码
+
+~~~redis
+get key	#查询当前值
+getrange key startindex endindex #截取当前key值
+set key value #设置key值，key值不存在无法设置成功
+setnx key value #设置key值，key值存在时无法设置，当key不存在时，设置当前值  
+getset key value #先取出a的值然后再赋值
+strlen key #获取当前key的长度	
+del key #删除key
+incr key #自增key，如果key不存在，则新建key，并初始化key值为0，然后再自增1
+decr key #自减key,
+incrby key increment #按照指定值增长
+decrby key decrement #按照指定值减少
+~~~
+
+setnx key value
+
+分布式锁的解决方案之一
+
+incrby key increment
+
+decrby key decrement
+
+##### 应用场景
+
+1、string通常用于保存单个字符或者json格式数据
+
+2、string二进制安全。因此完全可以存入照片
+
+3、计数器（微博数、粉丝数）
+
+​	incr操作具有原子性，无论有多少用户来同时进行读写，都不会出现写入数据的错误。
+
+#### Hash(哈希)
+
+非常相像于一个javabean对象，适合存储javabean对象
+
+~~~
+#取值语法
+hget key field
+hmget key field1 field2 field3
+hgetall key
+
+#赋值语法
+hset key field value
+hmset key field1 value1 field2 value2 field3 value3
+
+#其他
+hkeys key #获取当前key的所有字段
+hlen key #获取当前key的字段数量
+
+#删除
+hdel key field field2 field3 #删除一个或多个字段
+
+hincrby key field increment#使对象中的整形字段增加某个值
+
+hexists key field 判断某个字段是否存在
+	
+~~~
+
+##### 应用场景
