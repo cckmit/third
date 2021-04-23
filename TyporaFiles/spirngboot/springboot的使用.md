@@ -43,3 +43,22 @@ pom文件中引入依赖
 然后选择红色框选内容
 
 ![image-20210422172029681](springboot的使用/image-20210422172029681.png)
+
+配置文件的加载
+
+```xml
+<!--默认加载src下面的三种文件，最后的properties会覆盖之前配置文件定义的内容 -->
+<resource>
+  <directory>${basedir}/src/main/resources</directory>
+  <filtering>true</filtering>
+  <includes>
+    <include>**/application*.yml</include>
+    <include>**/application*.yaml</include>
+    <include>**/application*.properties</include>
+  </includes>
+</resource>
+```
+
+@Value
+
+@ConfigurationProperties
