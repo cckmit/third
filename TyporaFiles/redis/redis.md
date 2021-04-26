@@ -82,6 +82,8 @@ randomkey #随机key
 rename oldkey newkey 	#更改key的名字
 move key db #将某key移入某序号的数据库，redis支持16个数据库
 type key #返回某key的数据类型
+flushall #清空所有数据库的数据
+flushdb #清空当前数据库的数据
 
 ~~~
 
@@ -178,7 +180,7 @@ hexists key field 判断某个字段是否存在
 	
 ~~~
 
-##### 应用场
+##### 应用场景
 
 存储java对象
 
@@ -190,8 +192,47 @@ string存储对象可能问题：
 
 
 
+#### List
+
+类似于java中的LinkedList
+
+##### 常用命令
+
+~~~
+lpush key a b c d e
+rpush key 1 2 3 4 5	
+lpushx key a b c d e
+rpushx key 1 2 3 4 5	
+
+llen key #获取列表长度
+lindex key index #获取列表中的元素
+lrange key start end
+#start 和 end 表示开始和结束 start的0 1 2.  end 用-1 -2 -3
+
+lpop key #弹出左侧第一个元素
+rpop key #弹出右侧第一个元素
+blpop key [key2] timeout	#弹出左侧第一个元素，如果没有则阻塞或者等待时间超时
+brpop key [key2] timeout	#弹出右侧第一个元素，如果没有则阻塞或者等待时间超时
+ltrim key start end 	#start 和 end 表示开始和结束 start的0 1 2.  end 用-1 -2 -3
+
+
+lset key index value	#修改某个索引对应元素的值
+linsert key before/after word value #在第一个word元素前后插入某个值value
+~~~
+
+##### 应用场景
+
+1. 数据量超级大的集合删减，使用lrange命令实现分页的功能
+
+   关注列表、粉丝列表、留言评价、热点新闻等
+
+2. 
+
 ### java连接redis
 
 Jedis
 
 RedisTemplate存入数据时，会进行默认的序列化
+
+
+
