@@ -226,7 +226,74 @@ linsert key before/after word value #在第一个word元素前后插入某个值
 
    关注列表、粉丝列表、留言评价、热点新闻等
 
-2. 
+2. 订单系统
+
+#### Set
+
+类似于java中的hashtable，而不是hashset，是不重复的string的集合
+
+##### 常用命令
+
+~~~
+sadd key m1 m2 m3 #向当前集合中添加数据
+smembers key  #获取当前集合的所有数据
+scard key	#获取当前集合的长度
+srandmember key [count]	#随机集合中的一个值或多个值
+
+sismember key value	#判断是否存在某个值
+srem key value value2 value3 #移除集合中的一个或多个值
+
+spop key [cout]#随机移除一个或者多个集合元素并返回
+smove source destination v1 #将source中的v1移到destination中
+
+sdiff key1 key2 #返回key1和key2的差集，以key1为准
+sdiffstore destination key1 key2
+sinter destination key1 key2 #返回交集
+sinterstore destination key1 key2
+sunion key1 key2 #返回并集
+sunionstore destination key1 key2 #返回并集并存入destination
+~~~
+
+##### 应用场景
+
+1、判断用户名是否存在
+
+2、用于随机的抽奖
+
+3、用于有共同爱好的应用
+
+#### ZSET
+
+##### 特点
+
+1、一种有序集合，不允许重复的string元素的集合
+
+2、不同于set，Zset中的每个元素都包含一个double类型的分数，通过分数的大小进行排序
+
+3、每个元素是惟一的，分数可以重复
+
+4、集合是通过哈希表实现的，所以添加、删除、查找的复杂度为O(1)
+
+##### 常用命令
+
+~~~
+zadd key score1 value1 score2 value2 #向集合中插入数据，也是修改命令
+zcard #获取集合的长度
+zrange key start stop #获取集合的数据，默认按照分数
+zrevrange key start stop #反转获取集合的数据
+
+zrem key memeber #移除集合中的元素member
+zremrangebyrank key start stop #按照排行榜移除元素
+zremrangebyscore key min max #按照分数移除元素
+~~~
+
+应用场景
+
+1、Twitter的信息，时间作为分数，内容作为value插入
+
+2、排行榜，按照人气自动排序
+
+3、新闻热点，按照点阅人数
 
 ### java连接redis
 
@@ -234,5 +301,47 @@ Jedis
 
 RedisTemplate存入数据时，会进行默认的序列化
 
+### 发布订阅
 
+#### 常用命令
 
+~~~
+subscribe channel1 [channel2..] #订阅频道
+psubscribe channel1 message #向频道发布消息
+~~~
+
+#### 应用场景
+
+1、即时聊天、群聊
+
+2、推送消息，微博博主向粉丝推送文章
+
+3、微信公众号模式
+
+4、youtube向订阅者推送消息
+
+### 多数据库
+
+redis下的数据库通过索引找到，而不是通过名称找到，默认连接到0号数据库
+
+#### 常用命令
+
+~~~
+select index #选择或者切换数据库
+move key index #从当前数据库将key移送动指定的数据库
+
+flushdb #清除当前数据库的所有数据
+flushall #清除所有数据库的数据
+~~~
+
+### redis事务
+
+~~~
+multi #开启事务
+exec #执行事务
+discard #取消队列中的所有命令，取消事务
+~~~
+
+1、输入multi命令之后，就会开启事务，在exec执行之前的所有命令都会进入一个任务队列中去，并被序列化，作为一个整体，中间不会额外插入任何其他命令。
+
+2、输入exec之后，这个任务队列就会去执行
