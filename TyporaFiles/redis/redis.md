@@ -70,7 +70,6 @@ redis内存占用较大解决方案：
 
 ~~~
 del key	 #删除key值
-dump key #序列化key，并返回序列化key的值
 exists key 	#判断key是否存在
 expire key #seconds 对key设置过期时间(单位秒)：
 ttl key #检查key剩余时间(-1代表永久有效，-2代表已经失效)
@@ -211,6 +210,7 @@ lrange key start end
 
 lpop key #弹出左侧第一个元素
 rpop key #弹出右侧第一个元素
+lrem count value # 如果count>0,从左边开始移除与value1·
 blpop key [key2] timeout	#弹出左侧第一个元素，如果没有则阻塞或者等待时间超时
 brpop key [key2] timeout	#弹出右侧第一个元素，如果没有则阻塞或者等待时间超时
 ltrim key start end 	#start 和 end 表示开始和结束 start的0 1 2.  end 用-1 -2 -3
@@ -218,6 +218,7 @@ ltrim key start end 	#start 和 end 表示开始和结束 start的0 1 2.  end �
 
 lset key index value	#修改某个索引对应元素的值
 linsert key before/after word value #在第一个word元素前后插入某个值value
+rpoplpush source destination #将source的最右侧元素复制给destination最左侧的元素
 ~~~
 
 ##### 应用场景
