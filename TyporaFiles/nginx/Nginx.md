@@ -96,3 +96,100 @@ yum -y install make zlib zlib-devel gcc-c++ libtool  openssl openssl-devel
 ```c#
 [root@bogon nginx-1.6.2]# /usr/local/webserver/nginx/sbin/nginx -v
 ```
+
+## 常用命令
+
+使用nginx的操作命令前提条件：必须进入nginx的目录：
+
+~~~
+usr/local/webserver/nginx/sbin
+~~~
+
+启动命令
+
+~~~
+./nginx
+~~~
+
+停止命令
+
+~~~
+./nginx -s stop
+~~~
+
+查看版本号
+
+~~~
+./nginx -v
+~~~
+
+查看进程
+
+~~~
+ps -ef | grep nginx
+~~~
+
+## 配置文件
+
+### 位置
+
+~~~c#
+/usr/local/webserver/nginx/conf/nginx.conf
+~~~
+
+### 内容
+
+分为三部分：
+
+#### 全局部分
+
+~~~
+worker_processes:1; 
+~~~
+
+可以支持的最大并发量
+
+#### event部分
+
+主要影响nginx服务器与用户网络连接的关系
+
+~~~
+events {
+	worker_connections 1024;
+	# 允许连接的用户数
+}
+~~~
+
+#### http部分
+
+nginx中配置最为频繁的部分
+
+包括全局块和server块
+
+## 防火墙设置
+
+开放某个端口号
+
+~~~c#
+firewall-cmd --zone=public --add-port=8080/tcp
+~~~
+
+重启防火墙
+
+~~~c#
+firewall-cmd --reload
+~~~
+
+查看开放的端口号
+
+~~~
+firewall-cmd --list-all
+~~~
+
+设置开放的端口号
+
+~~~
+firewall-cmd --add-service=http --permanent
+firewall-cmd --add-port=80/tcp --permanent
+~~~
+
