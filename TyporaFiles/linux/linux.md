@@ -1,0 +1,54 @@
+## 常见问题
+
+### 不能ping通外网ip
+
+1. vim /etc/sysconfig/network-scripts/ifcfg-ens33![image-20210507204009963](linux/image-20210507204009963.png)
+
+   1）将 BOOTPROTO=“DHCP” 改为：BOOTPROTO=“**static**”；
+
+   2）将 ONBOOT=“on” 改为：ONBOOT=“**yes**”；
+
+   3）添加静态ip配置
+
+~~~
+BROADCAST=192.168.220.255 #广播地址（最后一个） 192.168.220.0#网络号（第一个）
+IPADDR=192.168.220.132 #设置的静态ip
+NETMASK=255.255.255.0	#子网掩码 
+GATEWAY=192.168.220.2  #网关 很重要，是连接外部网络的中转站
+DNS1=114.114.114.114 #域名解析服务器 其配置后网络启动后在/etc/resolv.conf的nameserve一致
+~~~
+
+a、外部网络的判断是根据子网掩码来进行判断，是否位于同一个网段，是否属于外部网络
+
+b、ip一共占有32位，一共分为四段，每段分8位，子网掩码中所有位为1的位为广播段，为0的为网络号（开始位置）
+
+c、网关的选择，必须要有路由功能主机
+
+### 无法停止进程
+
+ctrl + c 无法停止，可以试试ctrl  + z
+
+ctrl + z 之后需要杀死进程
+
+### 杀死进程
+
+kill -9 pid
+
+### 查找进程
+
+ps -ef |grep tomcat
+
+ps：显示进程的信息
+
+grep ：文本查找，并把匹配的显示出来
+
+-e：显示所有的进程
+
+-f：全格式显示
+
+服务启动
+
+service network restart | start |stop
+
+service keepalived start |stop |restart
+

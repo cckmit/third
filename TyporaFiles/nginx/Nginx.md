@@ -20,6 +20,107 @@ nginx是一个高性能的http和反向代理的web服务器。占用内存少�
 
 反向代理：客户端无须配置代理服务器，不会暴露真正的服务器
 
+## 负载均衡
+
+将负载平均分配在不同的服务单元上面，减轻服务器的压力
+
+~~~
+server {
+        listen       9001;	#要监听的接口
+        server_name  192.168.220.131; #要监听的主机
+
+        location ~ /edu/ {
+		proxy_pass http://192.168.220.131:8080; #将被代理的服务器
+            root   html;
+            index  index.html index.htm;
+        }
+        location ~ /vod/ {
+            proxy_pass http://192.168.220.131:8081; #将被代理的服务器
+        }
+}
+~~~
+
+
+
+### 分配策略
+
+~~~
+ upstream myserver {
+        server 192.168.220.131:8080;
+        server 192.168.220.131:8081;
+        server 192.168.220.131:8082;
+        server 192.168.220.131:8083 weight=10 #权重规则
+        fair;#执行公平原则，响应时间原则
+        ip_hash;#执行同一个用户访问在同一个服务器上面，实现动静分离
+        
+    }
+    server {
+        listen       80;
+        server_name  192.168.220.131;
+
+        #charset koi8-r;
+
+        #access_log  logs/host.access.log  main;
+
+        location / {
+            root   html;
+           proxy_pass http://myserver;
+            index  index.html index.htm;
+        }
+}
+
+~~~
+
+
+
+**轮询**
+
+默认配置，依次轮流访问服务器
+
+**权重weight**
+
+weight默认值为1，权重越高，分在的负荷越多
+
+**ip_hash**
+
+每个用户访问服务器，会被分配到同一台服务器上面，用于session共享问题
+
+**fair方式**
+
+根据请求的响应时间来分配
+
+## 动静分离
+
+### 实现方法
+
+1、通过将静态文件部署在单独的服务器上设置成单独的域名，目前最流行推崇的方式
+
+~~~
+
+server {
+	listen 80;
+	server_name 192.168.220.131;
+	
+	location /html/ {
+        root /static/; #在root下面新建的static目录
+        autoindex on;
+        charset utf-8;
+	}
+	location /image/ {
+        root /static/;
+        autoindex on;
+        charset utf-8;
+        expire 3d;
+	}
+}
+~~~
+
+
+
+2、将静态和动态文件部署在一起，通过nginx的配置分离开来
+
+expire 设置浏览器缓存的过期时间，当缓存尚未过期之时，拉取静态文件，会判断文件的最后更新时间是否一致，如果一致，则直接从缓存中读取，返回状态304，如果不一致，则重新从服务器下载文件，返回状态200
+
 ## nginx安装
 
 ### 一、安装编译工具及库文件
@@ -166,6 +267,30 @@ nginx中配置最为频繁的部分
 
 包括全局块和server块
 
+~~~
+server {
+        listen       9001;	#要监听的接口
+        server_name  192.168.220.131; #要监听的主机
+
+        location ~ /edu/ {
+		proxy_pass http://192.168.220.131:8080; #将被代理的服务器
+            root   html;
+            index  index.html index.htm;
+        }
+        location ~ /vod/ {
+            proxy_pass http://192.168.220.131:8081; #将被代理的服务器
+        }
+}
+~~~
+
+~ ： 包含正则表达式，区分大小写
+
+~*：包含正则表达式，不区分大小写
+
+^~:不包含正则表达式，用于uri前，要求nginx服务找到与uri匹配程度最高的请求字符串，而不再使用正则表达式匹配
+
+=：完全等于的配置
+
 ## 防火墙设置
 
 开放某个端口号
@@ -193,3 +318,42 @@ firewall-cmd --add-service=http --permanent
 firewall-cmd --add-port=80/tcp --permanent
 ~~~
 
+## 高可用模式
+
+使用keepalived与nginx完成系统的高可用性
+
+1、首先安装keepalived
+
+~~~
+yum install keepalived -y
+~~~
+
+2、更改
+
+## nginx原理
+
+1、一个master引导多个worker
+
+worker通过争抢方式来获取请求
+
+![image-20210507221808484](Nginx/image-20210507221808484.png)
+
+2 、使用多个worker进程的好处
+
+a）多个worker进程共存，即使部分worker进程出现bug，也不会影响整体的部署
+
+b）多个worker共存，可以实现热部署，因为正在处理的进程不需要立即更新配置，闲置的进程可以立即更新配置，等待处理完毕的进程完成任务后也可更新配置
+
+3、worker的配置数量
+
+![image-20210507224431952](Nginx/image-20210507224431952.png)
+
+配置数量应该和cpu的核数保持一致
+
+4、worker连接数
+
+每个请求需要消耗2个（nginx处理无须tomcat服务器处理）或者4个连接数（访问tomcat服务）
+
+5、最大并发量的计算
+
+worker连接数 X woker配置数 /2 （原因来自于4）
