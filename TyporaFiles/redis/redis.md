@@ -483,14 +483,65 @@ ofslave
 
 1、无中心结构：彼此互联，内部使用二进制协议优化传输速度和带宽
 
-2、节点失败超过半数时集群才失效
+2、节点失败超过半数时集群才失效  
 
 3、客户端与redis直连，不需要代理
 
-容错性：从错误中恢复的能力
+容错性：从错误中恢复的能力（可靠性、可用性、可测性）
 
 ![image-20210428194812355](redis/image-20210428194812355.png)
 
+**投票**
+
+​	参与者：master
+
+​	规则：当master与半数的master节点失去连接时，认为当前的master挂掉（宕机）	
 
 
-​	
+
+#### 安装ruby
+
+添加阿里的镜像
+
+~~~
+gem sources -a http://mirrors.aliyun.com/rubygems/
+~~~
+
+~~~
+yum -y install ruby ruby-devel rubygems rpm-build #安装ruby
+~~~
+
+~~~
+gem install redis
+~~~
+
+
+
+ruby时创建集群必须的依赖
+
+![image-20210508172138838](redis/image-20210508172138838.png)
+
+
+
+#### 升级ruby
+
+#### 安装RVM
+
+~~~
+gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+curl -sSL https://get.rvm.io | bash -s stable
+
+#重新加载资源
+source /etc/profile.d/rvm.sh
+#显示可以使用的版本
+rvm list known
+~~~
+
+创建集群
+
+~~~
+./redis-cli --cluster create  127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005 127.0.0.1:7006 -a bestbnf
+#查看节点集群信息
+cluster nodes
+~~~
+

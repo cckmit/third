@@ -52,3 +52,14 @@ service network restart | start |stop
 
 service keepalived start |stop |restart
 
+## Vim使用
+
+1、需要授权的文件需要root进行登录
+
+2、输入i 开始修改文件
+
+3、esc退出编辑状态
+
+4、:wq退出并保存文件 :x和此功能类似
+
+5、：q没有修改的正常退出，：q！强制退出并销毁更改的内容

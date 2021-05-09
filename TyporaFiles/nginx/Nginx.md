@@ -328,7 +328,83 @@ firewall-cmd --add-port=80/tcp --permanent
 yum install keepalived -y
 ~~~
 
-2、更改
+2、更改keepalived的配置文件
+
+~~~
+vim /etc/keepalived/keepalived.conf
+~~~
+
+​		配置文件解释
+
+全局部分
+
+~~~
+global_defs {
+   notification_email {
+     weitieji@gmail.com
+   }
+   notification_email_from 896755700@qq.com
+   smtp_server 192.168.220.131
+   smtp_connect_timeout 30
+   router_id BEI_TIE # name form "/etc/host"  这个是核心配置，配置为唯一的主机名
+   vrrp_skip_check_adv_addr
+   vrrp_strict
+   vrrp_garp_interval 0
+   vrrp_gna_interval 0
+}
+~~~
+
+脚本检测部分
+
+~~~
+vrrp_script chk_http_port {
+	script "/usr/local/src/nginx_check.sh" #script location
+	interval 2	
+	weight 2
+}
+~~~
+
+脚本检测文件nginx_check.sh文件配置
+
+~~~
+#!/bin/bash
+A=`ps -C nginx --no-header |wc -l`        
+if [ $A -eq 0 ];then                            
+    /usr/local/webserver/nginx/sbin/nginx                #重启nginx
+    if [ `ps -C nginx --no-header |wc -l` -eq 0 ];then    #nginx重启失败
+        exit 1
+    else
+        exit 0
+    fi
+else
+    exit 0
+fi
+~~~
+
+
+
+实例配置部分
+
+~~~
+vrrp_instance VI_1 {
+    state MASTER	#若为主机，配置为MASTER，若为从机，配置为BACKUP
+    interface ens33	#网卡名配置 ，输入 ip a 既可看到网卡的名字以及相关信息
+    virtual_router_id 51	#虚拟路由id，要求主机和从机的保持一致
+    priority 100			#优先级，数值越大，优先级越高，主机的优先级别要大于从机的优先级别
+    advert_int 1
+    authentication {
+        auth_type PASS
+        auth_pass 1111
+    }
+    virtual_ipaddress {	#虚拟ip的配置
+        192.168.220.16	
+        192.168.220.17
+        192.168.220.18
+    }
+}
+~~~
+
+
 
 ## nginx原理
 
