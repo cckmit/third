@@ -192,13 +192,29 @@ public RestTemplate getRestTemplate(){
 }
 ```
 
-自定义Irule
+##### 自定义Irule
 
+​		1.AbstractLoadBalancerRule是每个负载均衡策略需要直接继承的类，Ribbon提供的几个负载均衡策略，都继承了这个抽象类。同理，我们如果需要自定义负载均衡策略，也要继承这个抽象类。
 
+​		2.不能放在@ComponentScan所扫描的当前包和子包下
+
+​		3.在主启动类添加@RibbonClient(name="微服务名称", configuration="自定义配置类.class")
+
+**轮询策略**
+
+**随机策略**
+
+**可用过滤策略**
+
+**响应时间权重策略**
+
+**并发量最小可用策略**
 
 #### Feign费恩
 
 声明式web服务客户端	，便于编写web服务客户端，feign继承了Ribbon，只需要定义接口且以声明式的方法，优雅而又简单的实现了服务调用
+
+##### 负载均衡配置
 
 引入pom文件
 
@@ -211,7 +227,24 @@ public RestTemplate getRestTemplate(){
 
 yml文件配置
 
-无须改变
+~~~yml
+#    配置ribbon
+stu-provide:
+  ribbon:
+ 
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #配置规则 随机
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule #配置规则 轮询
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RetryRule #配置规则 重试
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule #配置规则 响应时间权重
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.BestAvailableRule #配置规则 最空闲连接策略
+    ConnectTimeout: 500 #请求连接超时时间
+    ReadTimeout: 1000 #请求处理的超时时间
+    OkToRetryOnAllOperations: true #对所有请求都进行重试
+    MaxAutoRetriesNextServer: 2 #切换实例的重试次数
+    MaxAutoRetries: 1 #对当前实例的重试次数
+~~~
+
+##### 使用方法
 
 创建公共的service，用来定义映射到服务提供者的映射，如下，通过服务名和@RequestMapping映射到服务的提供者，这样，消费者可以通过service直接来进行服务提供者相关服务的访问，就像使用普通的service一样，非常方便
 
@@ -231,7 +264,7 @@ public interface DeptClientService {
 }
 ```
 
-
+##### 
 
 ### Hystrix断路器	
 
@@ -308,7 +341,7 @@ public interface DeptClientService {
 
 #### 服务熔断
 
-一旦某个服务出现故障（异常条件被触发），积极熔断这个服务
+一旦某个服务出现故障（异常条件被触发），及时熔断这个服务
 
 #### 服务降级
 
@@ -403,7 +436,9 @@ public class DeptController_Consumer_feign80 {
 
 ### ZUUL
 
-zull是基于Eureka的对请求的路由和过滤，注册在Eureka集群里面，然后在访问集群中的服务。
+zull是基于Eureka的对请求的路由和过滤，注册在Eureka集群里面，然后再访问集群中的服务。
+
+- 统一管理微服务请求，权限控制、负载均衡、路由转发、监控、安全控制黑名单和白名单等
 
 路由功能是代理外部请求访问到对应的微服务上面，是外部访问的统一入口
 
@@ -433,6 +468,7 @@ zuul:
   routes:
     aaa.serviceId: microservicecloud-dept-provider # 当前需要路由映射配置的服务id
     aaa.path:  /mydept/**	# 服务映射实际应该访问的路径
+    aaa.url: http://myserver/
   ignored-services: microservicecloud-dept-provider #"*"代表忽略所有的微服务 不能通过服务名字对服务进行调用
   prefix: /beitie	# 为所有访问该集群中的服务的请求统一带上前缀（显示标志）
 ```

@@ -332,6 +332,9 @@ yum install keepalived -y
 
 ~~~
 vim /etc/keepalived/keepalived.conf
+ ./7005/src/redis-cli -h 127.0.0.1 -p 7005 -a bestbnf
+
+
 ~~~
 
 ​		配置文件解释
