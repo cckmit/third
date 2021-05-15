@@ -1,81 +1,38 @@
-### Typora的使用简单说明
+# Lamda
 
-#### 1、标题的使用
+## 使用条件
 
-+ 一级标题ctrl+1
-+ 二级标题 ctrl+2
-+ 三级标题ctrl+3
-+ 四级标题ctrl+4
-+ 五级标题 ctrl+5
+Lambda 表达式的使用前提:
 
-#### 2、插入代码块
+- 必须有接口（不能是抽象类），接口中有且仅有一个需要被重写的抽象方法。
+-  必须支持上下文推导，要能够推导出来 Lambda 表达式表示的是哪个接口中的内容。
 
- 	**输入三个~即插入代码块，或右键插入代码块**
+譬如：new Thread（（） -> System out println("重写run方法");）这个地方实现的Runnable接口
 
-~~~xml
- <bean id="datasource" class="org.apache.commons.dbcp.BasicDataSource">
-        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
-        <property name="url" value="jdbc:mysql://localhost:3306/beitie?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=GMT%2B8&amp;useSSL=false"></property>
-        <property name="username" value="root"></property>
-        <property name="password" value="beitie"></property>
-    </bean>
+~~~java
+public class LamdaTest {
+    public interface MathOperation{
+        void operate(int a,int b);
+    };
+    public interface GreteService{
+        void say();
+    }
+    @Test
+    public static void main(String[] args) {
+        MathOperation mathOperation=(a,b)  -> System.out.println(a*b);;
+        mathOperation.operate(1,2);
+        GreteService greteService=() -> System.out.println("hello,world");
+        greteService.say();
+    }
+}
 ~~~
 
-#### 3、常用快捷键
+### 省略规则
 
-+ 加粗：`Ctrl+B`
+- 1. 小括号中的参数类型可以省略。
+- 2. 如果小括号中只有一个参数，那么可以省略小括号。
+- 3. 如果大括号中只有一条语句，那么可以省略大括号，return，分号。
 
-  **中国人**
+### **注意点**
 
-+ 斜体：`Ctrl+I`
-
-  *中国人*
-
-+ 字体：`Ctrl+数字`
-
-  ###### 	中国人
-
-+ 下划线：`Ctrl+U`
-
-  <u>中国人</u>
-
-+ 返回开头：`Ctrl+Home`
-
-+ 返回结尾：`Ctrl+End`
-
-+ 生成表格：`Ctrl+T`
-
-  |      |      |      |
-  | ---- | ---- | ---- |
-  |      |      |      |
-  |      |      |      |
-  |      |      |      |
-
-  
-
-+ 创建链接：Ctrl+K
-
-  [中国人](http://www.baidu.com)
-
-+ 删除线 ：两个波浪线[~~]开头，两个波浪线[~~]结束
-
-  ~~中国人~~
-
-  ~~~java
-  ~~这是删除线~~
-  ~~~
-
-+ 插入代码块：输入三个~ 即{~~~}
-
-+ 插入图片：Ctrl +   Shift  +   I 或者拖动图片即可 
-
-[中国人](http://www.baidu.com)
-
-*H~2~O*
-
-**==HIGHT==**
-
-
-
-![菊花](C:\Users\Administrator\Desktop\Sample Pictures\Chrysanthemum.jpg)
-
+​	表达式中可以使用局部变量和成员变量，并且使用局部变量时不能修改局部变量的值，相当于局部变量被隐形的添加了final；
