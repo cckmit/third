@@ -381,12 +381,9 @@ yum install keepalived -y
 
 ~~~
 vim /etc/keepalived/keepalived.conf
- ./7005/src/redis-cli -h 127.0.0.1 -p 7005 -a bestbnf
-
-
 ~~~
 
-​		配置文件解释
+配置文件解释
 
 全局部分
 
@@ -454,6 +451,14 @@ vrrp_instance VI_1 {
         192.168.220.18
     }
 }
+~~~
+
+启动nginx和keepalived
+
+~~~
+./nginx
+service keepalived start
+./startup.sh
 ~~~
 
 
