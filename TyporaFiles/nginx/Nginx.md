@@ -94,11 +94,14 @@ server {
 ### 分配策略
 
 ~~~
- upstream myserver {
-        server 192.168.220.131:8080;
-        server 192.168.220.131:8081;
-        server 192.168.220.131:8082;
-        server 192.168.220.131:8083 weight=10 #权重规则
+http{
+	resolve 114.114.114.114
+	upstream myserver {
+        server 192.168.220.131:8080 max_fails=3 fail_timeout=15;
+        server 192.168.220.131:8081 backup;
+        server 192.168.220.131:8082 max_conns=100;
+        server 192.168.220.131:8083 weight=10 #权重规则默认值为1
+        server www.example.com
         fair;#执行公平原则，响应时间原则
         ip_hash;#执行同一个用户访问在同一个服务器上面，实现动静分离
         
@@ -116,11 +119,27 @@ server {
            proxy_pass http://myserver;
             index  index.html index.htm;
         }
+	}
 }
+ 
 
 ~~~
 
+max_fails：最大失败次数，默认值为1.超过最大次数时，在fail_timeout之内不会再次向该服务器发送请求。	
 
+fail_timeout：失败超时时间，和max_fail配合使用，默认值为10s
+
+backup：备份服务器，所有服务器挂了才会执行的服务器
+
+max_conns：最大连接数，超过这个连接数，不会再向该服务器发送请求
+
+resolve：为server指定的域名提供域名解析器
+
+ip_hash：根据ip进行计算分配到不同的服务器，局限性非常大，新增或者减少服务器或者服务器宕机均会影响，而且如果有前置的负载均衡策略和后置的负载均衡侧率都会产生影响
+
+hash $request_uri：（包含请求的参数）一致性hash，可以设置为访问资源时的策略，比如下载大型文件，分别缓存在不同的服务器上面，此时设置通过url_hash时就可以同一个资源请求访问到同一台服务器上面，然后就访问了同样的资源，不用过多的缓存资源
+
+hash $uri : uri不包含请求的参数 
 
 **轮询**
 

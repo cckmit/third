@@ -214,11 +214,23 @@ xml中的配置省略
 
 ### Random
 
-### RoundRobin
+随机
+
+### RoundRobin 
+
+轮询
 
 ### LeastActive	
 
+最小活动时间
+
 ### ConsistentHash
+
+一致性hash
+
+### 自定义策略
+
+实现LoadBalance接口
 
 **消费端**
 
@@ -257,6 +269,32 @@ xml中的配置省略
 
 参考springcloud的使用
 
+## 集群容错
+
+### Failover Cluster
+
+失败后重试，配置值failover，配合retries=“2”调整重试次数
+
+### Failfast Cluster
+
+快速失败模式，只要失败，就不再重试，立马返回失败
+
+### Failsafe Cluster
+
+失败安全模式，失败时不报错，通常用于日志的写入（不重要）
+
+### Failback Cluster
+
+失败后自动回复重发，通常用于信息的通知、发送
+
+### Forking Cluster
+
+并行调用多个服务器，	只要一个成功即返回。通常用于实时性要求较高的应用，配合fork=“2”来调整最大的调用服务器量（需要占用较多的服务器资源）
+
+### Broadcast Cluster
+
+广播式调用，逐个调用（全部服务器都需要进行调用），只要有一台服务器报错，则抛出异常，通常用于通知提供者更新缓存	或日志等本地资源。配合broadcast.fail.percent来设置失败节点的比例（当失败超过这个比例时不再进行下一个服务器的调用，并不会改变一台报错，则直接抛出异常）
+
 ## dubbo原理
 
 使用的rpc框架，运用netty的nio（not blocking io）非阻塞io
@@ -264,6 +302,78 @@ xml中的配置省略
 框架设计
 
 ![/dev-guide/images/dubbo-framework.jpg](Dubbo/dubbo-framework.jpg)
+
+## dubbo-admin
+
+1、首先github上下载dubbo-admin源码，完成后进行解压
+
+2、找到dubbo-admin-server项目，并对其进行打包 mvn clean package
+
+3、运行 java -jar dubbo-admin-server-0.3.0-SNAPSHOT.jar
+
+4、在服务提供方加入配置中心ConfigCenter 创建ZK元数据中心节点
+
+~~~java
+package com.beitie.config;
+
+import org.apache.curator.framework.CuratorFramework;
+import org.apache.curator.framework.CuratorFrameworkFactory;
+import org.apache.curator.retry.ExponentialBackoffRetry;
+import org.springframework.context.annotation.Configuration;
+
+import javax.annotation.PostConstruct;
+
+/**
+ * @author betieforever
+ * @description 描述
+ * @date 2021/5/25
+ */
+@Configuration
+public class ConfigCenter {
+    @PostConstruct
+    public void init() throws Exception {
+        CuratorFramework zkClient = CuratorFrameworkFactory.builder().
+                connectString("127.0.0.1:2181").
+                retryPolicy(new ExponentialBackoffRetry(1000, 3)).build();
+        zkClient.start();
+
+        if (zkClient.checkExists().forPath("/dubbo/config/dubbo/dubbo.properties") == null) {
+            zkClient.create().creatingParentsIfNeeded().forPath("/dubbo/config/dubbo/dubbo.properties");
+        }
+        zkClient.setData().forPath("/dubbo/config/dubbo/dubbo.properties", ("dubbo.registry.address=zookeeper://127.0.0.1:2181\n" +
+                "dubbo.metadata-report.address=zookeeper://127.0.0.1:2181").getBytes());
+    }
+//我这是第二个注册中心，所以是2181 这个端口号需要根据你的注册中心修改
+}
+
+~~~
+
+4、进行application.yml文件的配置
+
+~~~yml
+dubbo:
+  application:
+    name: provider_service
+  registry:
+    address: 127.0.0.1:2181
+    protocol: zookeeper
+  protocol:
+    name: dubbo
+    port: 20881
+  monitor:
+    protocol: registry
+  config-center:
+    address: zookeeper://127.0.0.1:2181
+  metadata-report:
+    address: zookeeper://127.0.0.1:2181
+server:
+  port: 9001
+
+~~~
+
+5、找到dubbo-admin-ui项目，进行打包编译，启动前段项目npm run dev
+
+6、启动服务提供方
 
 netstat -aon|findstr "9050"
 
