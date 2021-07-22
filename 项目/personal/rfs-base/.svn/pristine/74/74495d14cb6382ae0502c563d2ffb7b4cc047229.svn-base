@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class  name="cn.redflagsoft.base.bean.ExCfgDatafilterRisk" table="EX_CFG_DATAFILTER_RISK">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>	
+		<property name="name" column="name" type="java.lang.String"/>
+
+		<property name="cataLog" column="catalog" type="byte"/>
+		
+		<property name="conn" column="conn" type="short"/>
+		
+		<property name="riskRuleID" column="riskruleid" type="java.lang.Long"/>
+		
+		<property name="event" column="event" type="java.lang.String"/>
+			
+		<property name="flag" column="flag" type="byte"/>
+		
+		<property name="status" column="status" type="byte"/>
+
+		<property name="remark" column="remark" type="java.lang.String"/>
+		
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,192 @@
+/*
+ * $Id: DatumAttachmentQuery.java 6434 2015-01-15 07:05:07Z lcj $
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.query;
+
+import java.io.Serializable;
+import java.util.List;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.opoo.apps.annotation.Queryable;
+import org.opoo.apps.bean.core.Attachment;
+import org.opoo.ndao.criterion.Order;
+import org.opoo.ndao.hibernate3.HibernateDaoSupport;
+import org.opoo.ndao.support.PageableList;
+import org.opoo.ndao.support.ResultFilter;
+import org.springframework.util.Assert;
+
+import com.google.common.collect.Lists;
+
+import cn.redflagsoft.base.bean.Datum;
+import cn.redflagsoft.base.bean.DatumAttachment;
+import cn.redflagsoft.base.bean.DatumCategory;
+import cn.redflagsoft.base.bean.ObjectData;
+import cn.redflagsoft.base.dao.DatumCategoryDao;
+
+/**
+ * <pre>
+ * # a.id as b_id 是为了跟全部文档列表中的字段保持一致，以便调用同一个function函数
+datumAttachmentList=select distinct new map(a.id as b_id,a.abbr as abbr, a.name as name, a.content as content,b.fileType as fileType,a.publisherName as publisherName,\
+	b.readableFormat as readableFormat,b.protectedFormat as protectedFormat,a.promulgatorAbbr as promulgatorAbbr, a.categoryID as categoryID, \
+	a.publishTime as publishTime, (select name from DatumCategory where id=a.categoryID) as categoryName,a.remark as remark, a.fileNo as fileNo,\
+	a.creationTime as creationTime,b.fileName as fileName) from Datum a,Attachment b, ObjectData o \
+	where a.id=o.datumID and a.content=b.id and a.type=0 and a.status=1;\
+	select count(distinct a.id) From Datum a,Attachment b, ObjectData o where a.id=o.datumID and a.content=b.id and a.type=0 and a.status=1
+	</pre>
+ * @author Alex Lin(lcql@msn.com)
+ *
+ */
+public class DatumAttachmentQuery extends HibernateDaoSupport {
+	private static final Log log = LogFactory.getLog(DatumAttachmentQuery.class);
+	private DatumCategoryDao datumCategoryDao;
+	
+	private static final String BASE_QS = "from Datum a, Attachment b, ObjectData o where a.id=o.datumID and a.content=b.id and a.type="
+			+ Datum.TYPE_DATUM/*0*/ + " and a.status=" + Datum.STATUS_当前资料/*1*/;
+	private static final String SELECT_QS = "select a, b, o " + BASE_QS;
+	private static final String COUNT_QS = "select count(*) " + BASE_QS;
+	
+	
+	/**
+	 * @deprecated 由于list有过滤，所以查询分页出来的数据不准确。
+	 * @param filter
+	 * @return
+	 */
+	public List<DatumAttachmentBean> findDataAttachmentPage(ResultFilter filter){
+		Assert.notNull(filter, "filter is required.");
+		Assert.isTrue(filter.isPageable(), "必须包含分页参数");
+		
+		List<DatumAttachmentBean> list = findDatumAttachmentList(filter);
+		int count = getCount(filter);
+		return new PageableList<DatumAttachmentBean>(list, filter.getFirstResult(), filter.getMaxResults(), count);
+	}
+	
+	/**
+	 * 查询相关资料。
+	 * 
+	 * <p>url类似于
+	 * <code>#WEB_ROOT#json/q/datumAttachmentQuery.findDatumAttachmentList.jspa?q[0].n=o.objectID&q[0].v={param.id}&q[0].t=long&sort=a.categoryID&dir=DESC</code>
+	 * 该方法返回的结果中，相同category不重复。
+	 * 
+	 * @param filter
+	 * @return
+	 */
+	@Queryable(name="findDatumAttachmentList")
+	public List<DatumAttachmentBean> findDatumAttachmentList(ResultFilter filter){
+		if(filter == null){
+			filter = ResultFilter.createEmptyResultFilter();
+		}
+		Order order = Order.desc("a.creationTime");
+		if(filter.getOrder() == null){
+			filter.setOrder(order);
+		}else{
+			filter.setOrder(order.add(filter.getOrder()));
+		}
+		
+		List<Object[]> objectArrayList = getQuerySupport().find(SELECT_QS, filter);
+		List<DatumAttachmentBean> list = Lists.newArrayList();
+		List<Long> categoryIDs = Lists.newArrayList();
+		for(Object[] objects: objectArrayList){
+			Datum datum = (Datum) objects[0];
+			Attachment att = (Attachment) objects[1];
+			ObjectData objectData = (ObjectData) objects[2];
+			Long categoryID = datum.getCategoryID();
+			
+//			DatumAttachmentBean bean = new DatumAttachmentBean(datum, att, objectData);
+//			list.add(bean);
+			
+			if(categoryID == null || categoryID.longValue() <= 0L){
+				list.add(new DatumAttachmentBean(datum, att, objectData));
+			}else{
+				//同种资料只取最新的，所以排序条件很重要
+				if(!categoryIDs.contains(categoryID)){
+					DatumAttachmentBean bean = new DatumAttachmentBean(datum, att, objectData);
+					bean.setCategoryName(getCategoryName(categoryID));
+					categoryIDs.add(categoryID);
+					list.add(bean);
+				}else{
+					log.warn("集合中已经存在categoryID: " + categoryID);
+					continue;
+				}
+			}
+		}
+
+		return list;
+	}
+	
+	/**
+	 * @param categoryID
+	 * @return
+	 */
+	private String getCategoryName(Long categoryID) {
+		DatumCategory category = datumCategoryDao.get(categoryID);
+		return category != null ? category.getName() : null;
+	}
+
+	private int getCount(ResultFilter filter){
+		return getQuerySupport().getInt(COUNT_QS, filter != null ? filter.getCriterion() : null);
+	}
+	
+	/**
+	 * @return the datumCategoryDao
+	 */
+	public DatumCategoryDao getDatumCategoryDao() {
+		return datumCategoryDao;
+	}
+
+	/**
+	 * @param datumCategoryDao the datumCategoryDao to set
+	 */
+	public void setDatumCategoryDao(DatumCategoryDao datumCategoryDao) {
+		this.datumCategoryDao = datumCategoryDao;
+	}
+
+	public static class DatumAttachmentBean extends DatumAttachment implements Serializable{
+		private static final long serialVersionUID = -5305345756886820913L;
+		private Long b_id;
+		private String categoryName;
+		
+		/**
+		 * @param datum
+		 * @param attachment
+		 */
+		public DatumAttachmentBean(Datum datum, Attachment attachment, ObjectData objectData) {
+			super(datum, attachment);
+			this.b_id = datum.getId();
+		}
+
+		/**
+		 * @return the b_id
+		 */
+		public Long getB_id() {
+			return b_id;
+		}
+
+		/**
+		 * @param b_id the b_id to set
+		 */
+		public void setB_id(Long b_id) {
+			this.b_id = b_id;
+		}
+
+		/**
+		 * @return the categoryName
+		 */
+		public String getCategoryName() {
+			return categoryName;
+		}
+
+		/**
+		 * @param categoryName the categoryName to set
+		 */
+		public void setCategoryName(String categoryName) {
+			this.categoryName = categoryName;
+		}
+	}
+}

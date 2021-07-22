@@ -1,0 +1,27 @@
+/*
+ * $Id$
+ * TaskMatterHibernateDao.java
+ * 
+ * Copyright 2007-2008 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ */
+package cn.redflagsoft.base.dao.hibernate3;
+
+import java.util.List;
+
+import cn.redflagsoft.base.bean.TaskMatter;
+import cn.redflagsoft.base.dao.TaskMatterDao;
+
+/**
+ * @author Administrator
+ *
+ */
+public class TaskMatterHibernateDao extends AbstractBaseHibernateDao<TaskMatter,Long> implements TaskMatterDao{
+
+	@SuppressWarnings("unchecked")
+	public List<TaskMatter> findTaskMatterByTaskSn(Long taskSN) {
+		String hql = "from TaskMatter where taskSN=?";
+		return getHibernateTemplate().find(hql, new Object[]{taskSN});
+	}
+
+}

@@ -1,0 +1,50 @@
+/*
+ * $Id: WorkEvent.java 3996 2010-10-18 06:56:46Z lcj $
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.event2;
+
+import org.opoo.apps.event.v2.Event;
+
+import cn.redflagsoft.base.bean.Work;
+
+/**
+ * @author Alex Lin(alex@opoo.org)
+ *
+ */
+public class WorkEvent extends Event<WorkEvent.Type, Work> {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4697726240463343972L;
+	private Work oldWork;
+	/**
+	 * @param eventType
+	 * @param source
+	 */
+	public WorkEvent(Type eventType, Work source) {
+		super(eventType, source);
+	}
+	
+	public WorkEvent(Type eventType, Work oldWork, Work newWork) {
+		super(eventType, newWork);
+		this.oldWork = oldWork;
+	}
+	
+	public Work getOldWork(){
+		return oldWork;
+	}
+	
+	public Work getNewWork(){
+		return getSource();
+	}
+
+	public static enum Type{
+		CREATED, UPDATED, DELETED;
+	} 
+}

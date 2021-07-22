@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+
+    <bean id="transactionManagement"  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="myAspect1" class="com.beitie.test.aop.aspect.CustomAspectOne"></bean>
+    <tx:advice id="mybatis_advice" transaction-manager="transactionManagement">
+        <tx:attributes>
+            <tx:method name="doSave*" propagation="REQUIRED"/>
+            <tx:method name="doUpdate*" propagation="REQUIRED"/>
+            <tx:method name="doDelete*" propagation="REQUIRED"/>
+            <tx:method name="view*"  propagation="SUPPORTS" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+    <aop:config>
+        <aop:advisor advice-ref="mybatis_advice" pointcut="execution(* com.beitie.service.impl.*.*(..))"></aop:advisor>
+        <aop:aspect ref="myAspect1">
+            <aop:before method="checkAuthority" pointcut="execution(* com.beitie.test.aop.sevice.impl.*.add(..))"></aop:before>
+            <aop:after-returning method="WriteLog" pointcut="execution(* com.beitie.test.aop.sevice.impl.*.update(..))" returning="result"></aop:after-returning>
+            <aop:around method="aroundAdvice" pointcut="execution(* com.beitie.test.aop.sevice.impl.*.delete(..))"></aop:around>
+        </aop:aspect>
+    </aop:config>
+    <tx:annotation-driven transaction-manager="transactionManagement"></tx:annotation-driven>
+</beans>

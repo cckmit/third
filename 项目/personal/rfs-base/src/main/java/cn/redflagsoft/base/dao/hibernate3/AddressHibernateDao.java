@@ -1,0 +1,32 @@
+/*
+ * $Id: AddressHibernateDao.java 3996 2010-10-18 06:56:46Z lcj $
+ * AddressHibernateDao.java
+ * 
+ * Copyright 2007-2008 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ */
+package cn.redflagsoft.base.dao.hibernate3;
+
+import java.util.List;
+
+
+import cn.redflagsoft.base.bean.Address;
+import cn.redflagsoft.base.dao.AddressDao;
+
+/**
+ * @author Administrator
+ *
+ */
+public class AddressHibernateDao extends AbstractBaseHibernateDao<Address,Long> implements AddressDao{
+	
+
+	@SuppressWarnings("unchecked")
+	public Address getAddress(String name) {
+		List<Address> list = getHibernateTemplate().find("from Address where name=?", name);
+		if(list != null && !list.isEmpty()){
+			return list.get(0);
+		}
+		return null;
+	}
+
+}

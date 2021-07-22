@@ -1,0 +1,69 @@
+/*
+ * $Id$
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.process.impl;
+
+import java.util.Date;
+import java.util.Map;
+
+import org.opoo.apps.Model;
+import org.opoo.apps.security.User;
+import org.opoo.apps.security.UserHolder;
+
+import cn.redflagsoft.base.process.AbstractWorkProcess;
+import cn.redflagsoft.base.process.WorkProcessException;
+import cn.redflagsoft.base.process.annotation.ProcessType;
+import cn.redflagsoft.base.service.SmsgService;
+import cn.redflagsoft.base.service.SmsgService.UserSmsgCounts;
+
+/**
+ * 检查当前用户新消息的数量。
+ * 
+ * @author Alex Lin
+ *
+ */
+@ProcessType(CheckNewMessageWorkProcess.TYPE)
+public class CheckNewMessageWorkProcess extends AbstractWorkProcess {
+	public static final int TYPE = 6022;
+	private SmsgService smsgService;
+
+	/**
+	 * @return the smsgService
+	 */
+	public SmsgService getSmsgService() {
+		return smsgService;
+	}
+
+	/**
+	 * @param smsgService the smsgService to set
+	 */
+	public void setSmsgService(SmsgService smsgService) {
+		this.smsgService = smsgService;
+	}
+
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.process.WorkProcess#execute(java.util.Map, boolean)
+	 */
+	public Object execute(Map<?, ?> parameters, boolean needLog) throws WorkProcessException {
+		//Clerk clerk = UserClerkHolder.getNullableClerk();
+		//int count = smsgService.getUserUnreadSmsgCount(clerk.getId());
+		//getUserSmsgCount(clerk.getId(), SmsgReceiver.READ_STATUS_未读);
+		//int count = messageService.getPersonalMsgCount(clerk.getId(), includeEntityMsg, Msg.READ_STATUS_UNREAD);
+		User user = UserHolder.getUser();
+		int newPublicMsgCount = 0;//messageService.getPublicMsgCount();
+		UserSmsgCounts counts = smsgService.getUserSmsgCounts(user.getUserId());
+		Model model = new Model();
+		model.setLimit(counts.getUnreadCount());
+		model.setItemCount(counts.getTotalCount());
+		model.setStart(newPublicMsgCount);
+		model.setMessage(true, "checktime at " + (new Date()), null);
+		return model;
+	}
+}

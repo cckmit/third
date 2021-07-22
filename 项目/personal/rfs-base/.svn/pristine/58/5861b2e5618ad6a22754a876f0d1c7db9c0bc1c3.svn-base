@@ -1,0 +1,167 @@
+/*
+ * $Id$
+ * 
+ * Copyright 2007-2008 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.service.impl;
+
+import java.math.BigDecimal;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.opoo.apps.event.EventDispatcher;
+import org.opoo.apps.event.EventListener;
+import org.opoo.apps.event.SimpleEventDispatcher;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.util.Assert;
+
+import cn.redflagsoft.base.bean.Risk;
+import cn.redflagsoft.base.bean.RiskEntry;
+import cn.redflagsoft.base.bean.RiskMonitorable;
+import cn.redflagsoft.base.event.RiskEntryEvent;
+import cn.redflagsoft.base.service.RiskMonitorableService;
+import cn.redflagsoft.base.service.RiskService;
+import cn.redflagsoft.base.util.RiskMonitorableUtils;
+
+/**
+ * @author Alex Lin
+ * @param <RiskEntryEvent>
+ *
+ */
+public class RiskMonitorableServiceImpl implements RiskMonitorableService, EventListener<RiskEntryEvent>, EventDispatcher<RiskEntryEvent>,InitializingBean{
+	private EventDispatcher<RiskEntryEvent> dispatcher = new SimpleEventDispatcher<RiskEntryEvent>();
+	private RiskService riskService;
+	private static final Log log = LogFactory.getLog(RiskMonitorableServiceImpl.class);
+	
+	public RiskMonitorableServiceImpl(){
+		super();
+		addEventListener(RiskEntryEvent.VALUE_CHANGE, this);
+	}
+	/**
+	 * 在一个RiskMonitorable被创建的时候，应该调用这个方法来生成其Risk信息。
+	 * 
+	 * @param riskMonitorable
+	 * @return
+	 */
+	public RiskMonitorable createRisksForRiskMonitorable(RiskMonitorable riskMonitorable, Long dutyerId){
+		return RiskMonitorableUtils.createRisksForRiskMonitorable(riskService, riskMonitorable, dutyerId);
+	}
+	/**
+	 * 
+	 * @param old
+	 * @param newObj
+	 */
+	public void updateRiskValueIfNeeded(RiskMonitorable old, RiskMonitorable newObj){
+		RiskMonitorableUtils.updateRiskValueIfNeeded(riskService, old, newObj);
+	}
+	
+	
+	public void updateRiskDutyer(RiskMonitorable rm, String objectAttr,	Long dutyerID) {
+		RiskEntry re = rm.getRiskEntryByObjectAttr(objectAttr);
+		if(re != null){
+			riskService.updateRiskDutyer(re.getRiskID(), dutyerID);
+		}else{
+			log.debug("被监控对象的RiskEntry不存在，对象：" + rm + "，属性：" + objectAttr);
+		}
+	}
+
+	
+	public void setRiskScale(RiskMonitorable rm, String objectAttr, BigDecimal scaleValue, byte scaleId) {
+		RiskEntry riskEntry = rm.getRiskEntryByObjectAttr(objectAttr);
+		if(riskEntry != null) {
+			riskService.updateRiskScale(riskEntry.getRiskID(), scaleValue, scaleId);
+		} else {
+			log.debug("被监控对象的RiskEntry不存在，对象：" + rm + "，属性：" + objectAttr);
+		}
+	}
+	
+	
+	public Byte getRiskValueUnit(RiskMonitorable rm, String objectAttr) {
+		RiskEntry riskEntry = rm.getRiskEntryByObjectAttr(objectAttr);
+		if(riskEntry != null) {
+			Risk risk = riskService.getRiskById(riskEntry.getRiskID());
+			return risk.getValueUnit();
+		} else {
+			log.debug("被监控对象的RiskEntry不存在，对象：" + rm + "，属性：" + objectAttr + " 返回 ValueUnit = 0");
+			return null;
+		}
+	}
+	
+	
+	public BigDecimal getRiskScale(RiskMonitorable rm, String objectAttr, byte scaleId) {
+		RiskEntry riskEntry = rm.getRiskEntryByObjectAttr(objectAttr);
+		if(riskEntry != null) {
+			return riskService.getRiskScale(riskEntry.getRiskID(), scaleId);
+		} else {
+			log.debug("被监控对象的RiskEntry不存在，对象：" + rm + "，属性：" + objectAttr + " 返回 ScaleValue = null");
+			return null;
+		}
+	}
+	
+	
+	/* (non-Javadoc)
+	 * @see org.opoo.apps.event.EventListener#perform(org.opoo.apps.event.Event)
+	 */
+	public void perform(RiskEntryEvent event) {
+		if(event.getEventType() == RiskEntryEvent.VALUE_CHANGE){
+			riskService.updateRiskValue(event.getObject().getRiskID(), event.getValue());
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see org.opoo.apps.event.EventDispatcher#addEventListener(int, org.opoo.apps.event.EventListener)
+	 */
+	public void addEventListener(int arg0, EventListener<RiskEntryEvent> arg1) {
+		dispatcher.addEventListener(arg0, arg1);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.opoo.apps.event.EventDispatcher#dispatchEvent(org.opoo.apps.event.Event)
+	 */
+	public void dispatchEvent(RiskEntryEvent arg0) {
+		dispatcher.dispatchEvent(arg0);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.opoo.apps.event.EventDispatcher#hasEventListener(int, org.opoo.apps.event.EventListener)
+	 */
+	public boolean hasEventListener(int arg0, EventListener<RiskEntryEvent> arg1) {
+		return dispatcher.hasEventListener(arg0, arg1);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.opoo.apps.event.EventDispatcher#removeEventListener(int, org.opoo.apps.event.EventListener)
+	 */
+	public void removeEventListener(int arg0, EventListener<RiskEntryEvent> arg1) {
+		dispatcher.removeEventListener(arg0, arg1);
+	}
+
+
+
+	
+
+
+	/**
+	 * @return the riskService
+	 */
+	public RiskService getRiskService() {
+		return riskService;
+	}
+	/**
+	 * @param riskService the riskService to set
+	 */
+	public void setRiskService(RiskService riskService) {
+		this.riskService = riskService;
+	}
+	/* (non-Javadoc)
+	 * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+	 */
+	public void afterPropertiesSet() throws Exception {
+		Assert.notNull(riskService, "riskService 不能为空");
+	}
+
+}

@@ -1,0 +1,29 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.ObjectRule" table="OBJECT_RULE">
+		<id name="sn" column="SN" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		
+		<property name="type" column="TP" type="int"/>
+		
+		<property name="objectID" column="OBJECTID" type="java.lang.Long"/>
+		
+		<property name="ruleID" column="RULEID" type="java.lang.Long"/>
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+		
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+		
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+	</class>
+</hibernate-mapping>
+

@@ -1,0 +1,40 @@
+/*
+ * $Id$
+ * ObjectTaskHibernateDao.java
+ * 
+ * Copyright 2007-2008 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ */
+package cn.redflagsoft.base.dao.hibernate3;
+
+import java.util.List;
+
+import cn.redflagsoft.base.bean.ObjectTask;
+import cn.redflagsoft.base.bean.RFSObject;
+import cn.redflagsoft.base.bean.Task;
+import cn.redflagsoft.base.dao.ObjectTaskDao;
+
+/**
+ * @author mwx
+ *
+ */
+public class ObjectTaskHibernateDao extends AbstractBaseHibernateDao<ObjectTask,Long> implements ObjectTaskDao{
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.dao.ObjectTaskDao#findObjectsByTaskSN(java.lang.Long)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<RFSObject> findObjectsByTaskSN(Long taskSN) {
+		String qs = "select a from RFSObject a, ObjectTask b where a.id=b.objectID and b.taskSN=?";
+		return getHibernateTemplate().find(qs, taskSN);
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.dao.ObjectTaskDao#findTasksByObjectID(java.lang.Long)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Task> findTasksByObjectID(Long objectID) {
+		String qs = "select a from Task a, ObjectTask b where a.sn=b.taskSN and b.objectID=?";
+		return getHibernateTemplate().find(qs, objectID);
+	}
+}

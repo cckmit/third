@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.CautionCheck" table="CAUTION_CHECK">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+	
+	
+	<property name="cautionId" column="CAUTION_ID" type="java.lang.Long"/>
+	
+	<property name="cautionName" column="CAUTION_NAME" type="java.lang.String"/>
+	
+	<property name="cautionCode" column="CAUTION_CODE" type="java.lang.String"/>
+	
+	<property name="checkFileId" column="CHECK_FILEID" type="java.lang.Long"/>
+	
+	<property name="checkFileNo" column="CHECK_FILENO" type="java.lang.String"/>
+	
+	<property name="checkResult" column="CHECK_RESULT" type="java.lang.String"/>
+	
+	<property name="checkerId" column="CHECKER_ID" type="java.lang.Long"/>
+	
+	<property name="checkerName" column="CHECKER_NAME" type="java.lang.String"/>
+	
+	<property name="checkTime" column="CHECK_TIME" type="java.sql.Timestamp"/>
+	
+	<property name="checkOrgId" column="CHECK_ORGID" type="java.lang.Long"/>
+	
+	<property name="checkOrgName" column="CHECK_ORGNAME" type="java.lang.String"/>
+	
+	
+	
+	
+	<property name="status" column="STATUS" type="byte"/>
+	
+	<property name="type" column="TP" type="int"/>
+		
+	<property name="remark" column="REMARK" type="java.lang.String"/>
+		
+	<property name="creator" column="CREATOR" type="java.lang.Long"/>
+		
+	<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+	<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+		
+	<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+
+	</class>
+</hibernate-mapping>

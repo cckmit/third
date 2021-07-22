@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.Log" table="LOG">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		
+		<property name="module" column="MODULE" type="java.lang.String"/>
+		
+		<property name="type" column="TP" type="java.lang.String"/>
+		
+		<property name="title" column="TITLE" type="java.lang.String"/>
+		
+		<property name="content" column="CONTENT" type="java.lang.String"/>
+			
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,53 @@
+/*
+ * $Id: Statistics.java 6179 2013-01-23 07:20:33Z lcj $
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.stat;
+
+import java.util.Map;
+
+/**
+ * @author Alex Lin(lcql@msn.com)
+ *
+ */
+public interface Statistics {
+	/**
+	 * Are statistics logged
+	 */
+	boolean isStatisticsEnabled();
+	/**
+	 * Enable statistics logs (this is a dynamic parameter)
+	 */
+	void setStatisticsEnabled(boolean b);
+	
+	void clear();
+	
+	long getStartTime();
+	
+	long getSchemeExecutionCount();
+	
+	long getSchemeExecutionMaxTime();
+	
+	String getSchemeExecutionMaxTimeSchemeInfo();
+	
+	void setOperationThreshold(long threshold);
+	
+	long getOperationThreshold();
+	
+	/**
+	 * log in info level the main statistics
+	 */
+	void logSummary();
+	
+	
+	String[] getSchemeNames();
+	
+	SchemeStatistics getSchemeStatistics(String schemeName);
+	
+	Map<String,Long> getSchemeStatisticsMap(String schemeName);
+}

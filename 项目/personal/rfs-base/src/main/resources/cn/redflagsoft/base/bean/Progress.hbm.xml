@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping>
+<class name="cn.redflagsoft.base.bean.Progress" table="PROGRESS">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned"/>18660274m3.14159260000000138
+										 18660270m3.1415926000000005935604
+		</id>
+		
+		<property name="refObjectId" column="REF_OBJ_ID" type="java.lang.Long" />
+	    
+	    <property name="refObjectName" column="REF_OBJ_NAME" type="java.lang.String"/>
+	    
+	    <property name="refObjectType" column="REF_OBJ_TYPE" type="int"/>
+	    
+		<property name="title" column="TITLE" type="java.lang.String"/>
+		
+		<property name="description" column="DESCRIPTION " type="java.lang.String" />
+		
+		<property name="periodProgress" column="PRD_PROG " type="java.math.BigDecimal"/>
+		
+		<property name="monthProgress" column="MON_PROG " type="java.math.BigDecimal"/>
+		
+		<property name="quarterProgress" column="QUA_PROG " type="java.math.BigDecimal"/>
+		
+		<property name="yearProgress" column="YEA_PROG " type="java.math.BigDecimal"/>
+		
+		<property name="progress" column="PROG" type="java.math.BigDecimal"/>
+		
+		<property name="progress1" column="PROG1" type="java.math.BigDecimal"/>
+		
+		<property name="progress2" column="PROG2" type="java.math.BigDecimal"/>
+		
+		<property name="progress3" column="PROG3" type="java.math.BigDecimal"/>
+		
+		<property name="progress4" column="PROG4" type="java.math.BigDecimal"/>
+		
+		<property name="progress5" column="PROG5" type="java.math.BigDecimal"/>
+		
+		<property name="comment" column="CMT " type="java.lang.String"/>
+		
+		<property name="flags" column="FLAGS" type="int"/>
+		
+		<property name="orgId" column="ORG_ID" type="java.lang.Long"/>
+		
+		<property name="orgName" column="ORG_NAME " type="java.lang.String"/>
+		
+		<property name="reporterId" column="REPORTER_ID" type="java.lang.Long"/>
+		
+		<property name="reporterName" column="REPORTER_NAME " type="java.lang.String"/>
+		
+		<property name="reportTime" column="REPORT_TIME" type="java.sql.Timestamp"/>
+		
+		<property name="belongTime" column="BELONG_TIME" type="java.sql.Timestamp"/>
+		
+		<property name="issue1" column="ISSUE1" type="java.lang.String"/>
+		
+		<property name="issue2" column="ISSUE2" type="java.lang.String"/>
+		
+		<property name="type" column="TP" type="int"/>
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+			
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+			
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+			
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+			
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+</class>
+</hibernate-mapping>

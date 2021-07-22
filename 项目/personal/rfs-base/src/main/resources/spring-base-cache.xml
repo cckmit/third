@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="GBK"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<!-- 菜单的缓存 -->
+	<bean id="menuCache" parent="cacheBean" depends-on="cacheManager">
+		<constructor-arg value="menuCache"></constructor-arg>
+	</bean>
+	
+	<!-- 操作的缓存 -->
+	<bean id="actionCache" parent="cacheBean" depends-on="cacheManager">
+		<constructor-arg value="actionCache"></constructor-arg>
+	</bean>
+	
+	<bean id="clerkCacheBean" parent="cacheBean" depends-on="cacheManager">
+		<constructor-arg value="clerkCache"></constructor-arg>
+	</bean>
+	
+	
+	<bean id="clerkCache" class="cn.redflagsoft.base.cache.impl.ClerkCacheImpl">
+  		<constructor-arg ref="clerkCacheBean"></constructor-arg>
+  	</bean>
+  	
+  	
+  	<!-- 数据导入时的缓存 -->
+	<bean id="importDataCache" parent="cacheBean" depends-on="cacheManager">
+		<constructor-arg value="importDataCache"></constructor-arg>
+	</bean>
+	
+	
+	<!-- 权限缓存 -->
+	<bean id="permsCache" parent="cacheBean" depends-on="cacheManager">
+		<constructor-arg value="permsCache"></constructor-arg>
+	</bean>
+	
+	<bean id="userPermsCache" parent="cacheBean" depends-on="cacheManager">
+		<constructor-arg value="userPermsCache"></constructor-arg>
+	</bean>
+	
+	<bean id="groupPermsCache" parent="cacheBean" depends-on="cacheManager">
+		<constructor-arg value="groupPermsCache"></constructor-arg>
+	</bean>
+	
+	<bean id="workDefCache" parent="cacheBean" depends-on="cacheManager">
+		<constructor-arg value="workDefCache"></constructor-arg>
+	</bean>
+	
+	<bean id="taskDefCache" parent="cacheBean" depends-on="cacheManager">
+		<constructor-arg value="taskDefCache"></constructor-arg>
+	</bean>
+	
+	
+	<bean id="bizStatisticsDefinitionCache" parent="cacheBean" depends-on="cacheManager">
+		<constructor-arg value="bizStatisticsDefinitionCache"></constructor-arg>
+	</bean>
+  
+  	<bean id="riskRuleCache" parent="cacheBean" depends-on="cacheManager">
+		<constructor-arg value="riskRuleCache"></constructor-arg>
+	</bean>
+	
+	<bean id="riskCache" parent="cacheBean" depends-on="cacheManager">
+		<constructor-arg value="riskCache"></constructor-arg>
+	</bean>
+	
+	<bean id="matterAffairCache" parent="cacheBean" depends-on="cacheManager">
+		<constructor-arg value="matterAffairCache"></constructor-arg>
+	</bean>
+	
+	<bean id="matterAffairListCache" parent="cacheBean" depends-on="cacheManager">
+		<constructor-arg value="matterAffairListCache"></constructor-arg>
+	</bean>
+	
+	<bean id="holidaysCache" parent="cacheBean" depends-on="cacheManager">
+		<constructor-arg value="holidaysCache"></constructor-arg>
+	</bean>
+	
+	<bean id="fileNoCache" parent="cacheBean" depends-on="cacheManager">
+		<constructor-arg value="fileNoCache"></constructor-arg>
+	</bean>
+	
+	<bean id="infoConfigCache" parent="cacheBean" depends-on="cacheManager">
+		<constructor-arg value="infoConfigCache"></constructor-arg>
+	</bean>
+	
+	<bean id="exCfgDatafilterRiskListCache" parent="cacheBean" depends-on="cacheManager">
+		<constructor-arg value="exCfgDatafilterRiskListCache"></constructor-arg>
+	</bean>
+	
+	<bean id="exCfgDatafilterRiskCache" parent="cacheBean" depends-on="cacheManager">
+		<constructor-arg value="exCfgDatafilterRiskCache"></constructor-arg>
+	</bean>
+	
+	<bean id="datumCategoryCache" parent="cacheBean" depends-on="cacheManager">
+		<constructor-arg value="datumCategoryCache"></constructor-arg>
+	</bean>
+	
+	<bean id="eventMsgCache" parent="cacheBean" depends-on="cacheManager">
+		<constructor-arg value="eventMsgCache"></constructor-arg>
+	</bean>
+	
+	<bean id="eventMsgListCache" parent="cacheBean" depends-on="cacheManager">
+		<constructor-arg value="eventMsgListCache"></constructor-arg>
+	</bean>
+	
+	<bean id="bizDutyersConfigCache" parent="cacheBean" depends-on="cacheManager">
+		<constructor-arg value="bizDutyersConfigCache"></constructor-arg>
+	</bean>
+	
+	<bean id="bizDutyersConfigIDCache" parent="cacheBean" depends-on="cacheManager">
+		<constructor-arg value="bizDutyersConfigIDCache"></constructor-arg>
+	</bean>
+	
+	<bean id="glossaryCacheBean" parent="cacheBean" depends-on="cacheManager">
+		<constructor-arg value="glossaryCache"></constructor-arg>
+	</bean>
+	
+	<bean id="glossaryCache" class="cn.redflagsoft.base.cache.impl.GlossaryCacheImpl">
+		<constructor-arg ref="glossaryCacheBean"></constructor-arg>
+	</bean>
+</beans>
+

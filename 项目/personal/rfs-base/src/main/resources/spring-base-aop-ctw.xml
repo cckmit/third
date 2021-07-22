@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="GBK"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+   	   xmlns:tx="http://www.springframework.org/schema/tx"
+   	   xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       			http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+       			http://www.springframework.org/schema/tx
+                http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+                http://www.springframework.org/schema/aop
+                http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+                http://www.springframework.org/schema/context
+                http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+                
+	<context:spring-configured></context:spring-configured>
+	
+	<bean id="taskWorkHandlerForWorkSchemeInterceptor" class="cn.redflagsoft.base.scheme.interceptor.TaskWorkHandlerForWorkSchemeInterceptor">
+		<property name="taskService" ref="taskService"/>
+     	<property name="workService" ref="workService"/>
+     	<property name="datumService" ref="datumService"/>
+     	<!-- <property name="mattersHandler" ref="mattersHandler"></property> -->
+     	<property name="eventMsgService" ref="eventMsgService"/>
+     	<property name="bizTrackNodeInstanceService" ref="bizTrackNodeInstanceService"></property>
+		<property name="eventDispatcher" ref="eventDispatcher"/>
+		<property name="attachmentManager" ref="attachmentManager"></property>
+		<property name="objectsService" ref="objectsService"></property>
+		<property name="executor" ref="scheduledExecutor"></property>
+		<!-- <property name="workDefProvider" ref="workDefProvider"></property> -->
+	</bean>
+	
+	<bean id="parametersSetter" class="cn.redflagsoft.base.aop.ParametersSetter"/>
+	
+	 <bean id="baseTransactionAspect" factory-method="aspectOf"  
+	 		class="cn.redflagsoft.base.aop.aspect.TransactionAspect">  
+        <property name="transactionManager" ref="transactionManager"></property>  
+    </bean> 
+    
+     <bean id="annotationTransactionAspect" factory-method="aspectOf"  
+	 		class="org.springframework.transaction.aspectj.AnnotationTransactionAspect">  
+        <property name="transactionManager" ref="transactionManager"></property>  
+    </bean> 
+	
+	 <bean id="baseAspect" factory-method="aspectOf"  
+	 		class="cn.redflagsoft.base.aop.aspect.BaseAspect">  
+        <property name="taskWorkHandlerForWorkSchemeInterceptor" ref="taskWorkHandlerForWorkSchemeInterceptor"></property>  
+    	<property name="parametersSetter" ref="parametersSetter"></property>
+    </bean> 
+   
+   	<bean id="baseAuditAspect" factory-method="aspectOf"  
+	 		class="cn.redflagsoft.base.aop.aspect.AuditAspect">  
+		<property name="auditManager" ref="auditManager"></property> 
+		<property name="bizLogService" ref="bizLogService"></property>
+	</bean>
+</beans>
+

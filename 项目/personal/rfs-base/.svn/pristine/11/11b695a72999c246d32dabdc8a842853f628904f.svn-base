@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="GBK"?>
+<acl>
+	<defaultAce id="default" name="DefaultAce">
+		<entry index="1" name="查询" mask="R" perms="1"/>
+		<entry index="2" name="创建" mask="C" perms="2"/>
+		<entry index="3" name="更新" mask="U" perms="4"/>
+		<entry index="4" name="删除" mask="D" perms="8"/>
+	</defaultAce>
+	<ace id="project" name="项目">
+		<entry index="1" name="项目更新" mask="U" perms="4"/>
+		<entry index="2" name="项目进度报告上传" mask="P" perms="128"/>
+		<entry index="3" name="项目问题反映" mask="I" perms="256"/>
+	</ace>
+	<ace id="projectNewPlan" name="新开工计划">
+		<entry index="1" name="业务办理" mask="A" perms="16"/>
+	</ace>
+	<ace id="projectDrawingsDesign" name="施工图设计">
+		<entry index="1" name="业务办理" mask="A" perms="16"/>
+	</ace>
+	<ace id="projectDemolition" name="征地拆迁">
+		<entry index="1" name="业务办理" mask="A" perms="16"/>
+	</ace>
+	<ace id="subporjectBid" name="招投标">
+		<entry index="1" name="业务办理" mask="A" perms="16"/>
+		<entry index="2" name="业务删除" mask="D" perms="8"/>
+	</ace>
+	<ace id="subprojectBuildKaiGong" name="开工建设许可">
+		<entry index="1" name="业务办理" mask="A" perms="16"/>
+		<entry index="2" name="业务删除" mask="D" perms="8"/>
+	</ace>
+	<ace id="subprojectConstructionOrganize" name="施工组织计划">
+		<entry index="1" name="业务办理" mask="A" perms="16"/>
+		<entry index="2" name="业务删除" mask="D" perms="8"/>
+	</ace>
+	<ace id="subprojectBuild" name="施工建设">
+		<entry index="1" name="业务办理" mask="A" perms="16"/>
+		<entry index="2" name="业务删除" mask="D" perms="8"/>
+	</ace>
+	<ace id="projectAcceptanceJiaoGong" name="交工验收">
+		<entry index="1" name="业务办理" mask="A" perms="16"/>
+	</ace>
+	<ace id="projectReceive" name="接养">
+		<entry index="1" name="业务办理" mask="A" perms="16"/>
+	</ace>
+	<ace id="projectAcceptanceJunGong" name="竣工验收">
+		<entry index="1" name="业务办理" mask="A" perms="16"/>
+	</ace>
+</acl>

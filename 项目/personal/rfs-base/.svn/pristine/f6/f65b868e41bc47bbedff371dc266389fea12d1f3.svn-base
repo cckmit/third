@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.RoleMenuRemark" table="ROLE_MENU_REMARK">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		<property name="roleId" column="ROLEID" type="long" not-null="true"/>
+		<property name="menuId" column="MENUID" type="long" not-null="true"/>
+		<property name="name" column="NAME" type="string" length="100"></property>
+		<property name="label" column="LABEL" type="string" length="100"></property>
+		<property name="remark1" column="REMARK1" type="string" length="100"></property>
+		<property name="remark2" column="REMARK2" type="string" length="100"></property>
+		
+		<!-- 
+		<property name="type" column="TP" type="int"/>
+		<property name="status" column="STATUS" type="byte"/>
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+		
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+		-->
+		
+	</class>
+</hibernate-mapping>

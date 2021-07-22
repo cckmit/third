@@ -1,0 +1,751 @@
+/*
+ * $Id$
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.scheme.schemes.user;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.opoo.apps.Model;
+import org.opoo.apps.QueryParameter;
+import org.opoo.apps.security.AuthorityUtils;
+import org.opoo.apps.security.DaoUserService;
+import org.opoo.apps.security.Group;
+import org.opoo.apps.security.GroupManager;
+import org.opoo.apps.security.User;
+import org.opoo.apps.security.UserManager;
+import org.opoo.ndao.criterion.Restrictions;
+import org.opoo.ndao.support.ResultFilter;
+import org.springframework.security.GrantedAuthority;
+import org.springframework.security.GrantedAuthorityImpl;
+import org.springframework.util.Assert;
+
+import cn.redflagsoft.base.bean.Clerk;
+import cn.redflagsoft.base.scheme.AbstractScheme;
+import cn.redflagsoft.base.scheme.SchemeException;
+import cn.redflagsoft.base.security.Authority;
+import cn.redflagsoft.base.security.BaseAuthority;
+import cn.redflagsoft.base.security.Menu;
+import cn.redflagsoft.base.security.MenuGroup;
+import cn.redflagsoft.base.security.MenuManager;
+import cn.redflagsoft.base.security.Property;
+import cn.redflagsoft.base.service.ClerkService;
+import cn.redflagsoft.base.vo.UserClerkVO;
+
+/**
+ * 角色管理。
+ * 
+ * @author Alex Lin
+ *
+ */
+public class GroupScheme extends AbstractScheme {
+	public static final Log log = LogFactory.getLog(GroupScheme.class);
+	private UserManager userManager;
+	private ClerkService clerkService;
+	private MenuManager menuManager;
+	private Long id;
+	private List<String> authorities;
+	private String username;
+	private List<String> usernames;
+	private List<String> menus;
+	private List<Property> properties;
+	private String groupName;
+	private List<Long> ids;
+	private List<QueryParameter> q;
+	private Group group;
+	
+	
+	
+	
+	private GroupManager getGroupManager(){
+		return (GroupManager) userManager;
+	}
+	
+	private List<Group> wrapGroups(List<Group> gps){
+		List<Group> list = new ArrayList<Group>();
+		for(Group g : gps){
+			//系统用户组，不能操作。
+//			if(g.getId() == 0L){
+//				continue;
+//			}
+			Group group = new Group(g.getId(), g.getName());
+			list.add(group);
+		}
+		return list;
+	}
+	
+	/**
+	 * 查询所有的用户组。
+	 * 
+	 * @return
+	 */
+	public List<Group> viewFindGroups(){
+		List<Group> list = getGroupManager().findGroups();
+		list = wrapGroups(list);
+		
+		if(log.isDebugEnabled()){
+			
+		}
+		
+		return list;
+	}
+	
+	/**
+	 * 查询指定用户组。
+	 * id不能为空。
+	 * 
+	 * @return
+	 */
+	public Group viewGetGroupInfo(){
+		Group g = getGroupManager().getGroup(id);
+		
+		return g;
+	}
+	
+	
+	/**
+	 * 新建用户组。
+	 * groupName
+	 * @return
+	 */
+	public Object doCreateGroup(){
+		Assert.notNull(groupName, "用户组名称不能为空。");
+		//Assert.notNull(group.getId(), "用户组ID不能为空。");
+		getGroupManager().createGroup(groupName, new ArrayList<GrantedAuthority>());
+		return "用户组创建成功。";
+	}
+	
+	
+	/**
+	 * 删除用户组。
+	 * ids 用户组id集合
+	 * 
+	 * @return
+	 */
+	public Object doDeleteGroups(){
+		Model m = new Model();
+		
+		if(ids == null || ids.isEmpty()){
+			m.setMessage(false, "请选择要删除的用户组", null);
+			return m;
+		}
+		
+		m.setItemCount(0);
+		m.setLimit(0);
+		
+		//删除groups
+		for(Long id: ids){
+			//系统用户组，不能删除。
+			if(id.longValue() == 0L){
+				m.setLimit(m.getLimit() + 1);
+			}else{
+				getGroupManager().deleteGroup(id);
+				m.setItemCount(m.getItemCount() + 1);
+			}
+		}
+		
+		
+		
+		//处理结果
+		String msg = "";
+		if(m.getItemCount() == 0){
+			msg = "删除失败！";
+			m.setSuccess(false);
+		}else{
+			msg = "成功删除 " + m.getItemCount() + " 个用户组！";
+		}
+		
+		if(m.getLimit() > 0){
+			msg += "未删除 " + m.getLimit() + " 个系统用户组。";
+		}
+		m.setMessage(msg);
+		
+		return m;
+	}
+	
+	/**
+	 * 修改
+	 * id,groupName
+	 * 
+	 * @return
+	 */
+	public Object doUpdateGroup(){
+		Assert.notNull(id, "用户组ID不能为空");
+		Assert.notNull(group, "用户组不能为空");
+		Assert.notNull(group.getName(), "用户组名称不能为空");
+		getGroupManager().renameGroup(id, group.getName());
+		return "用户组修改成功";
+	}
+	
+	
+	/**
+	 * 
+	 */
+	
+	
+	/**
+	 * 查询用户组权限。
+	 * id
+	 * @return
+	 */
+	public List<Authority> viewFindGroupAuthorities(){
+		List<BaseAuthority> list = findGroupAuthorities();
+		return UserScheme.baseAuthoritiesToAuthorities(list);
+	}
+	
+	private List<BaseAuthority> findGroupAuthorities(){
+		List<GrantedAuthority> list = getGroupManager().findGroupAuthorities(id);
+		if(userManager instanceof DaoUserService){
+			list = AuthorityUtils.dropRolePrefix(list, ((DaoUserService) userManager).getRolePrefix());
+		}
+		
+		List<BaseAuthority> gas = new ArrayList<BaseAuthority>();
+		for(GrantedAuthority ga: list){
+			//System.out.println(ga);
+			BaseAuthority a = valueOfGrantedAuthority(ga);
+			if(a != null){
+				gas.add(a);
+			}
+		}
+		
+		return gas;
+	}
+	
+	private BaseAuthority valueOfGrantedAuthority(GrantedAuthority ga){
+		String role = ga.getAuthority();
+		if(role.length() == 6 && role.startsWith("M")){
+			//菜单
+		}else
+		{
+			try{
+				return BaseAuthority.valueOf(role);
+			}catch(Exception e){
+				if(log.isDebugEnabled()){
+					log.debug(e);
+				}
+			}
+		}
+		return null;
+	}
+	
+	
+	
+	/**
+	 * 查询候选权限。
+	 * id
+	 * 
+	 * @return
+	 */
+	public List<Authority> viewFindCandidateGroupAuthorities(){
+		List<BaseAuthority> groupAuthorities = findGroupAuthorities();
+		BaseAuthority[] all = BaseAuthority.values();
+		List<BaseAuthority> candidate = new ArrayList<BaseAuthority>();
+		for(BaseAuthority a: all){
+			if(!groupAuthorities.contains(a)){
+				candidate.add(a);
+			}
+		}
+		return UserScheme.baseAuthoritiesToAuthorities(candidate);
+	}
+	
+	
+	/**
+	 * 更新用户组权限。
+	 * id,authorities集合
+	 * @return
+	 */
+	public Object doUpdateGroupAuthorities(){
+		List<BaseAuthority> groupAuthorities = findGroupAuthorities();
+		List<BaseAuthority> auths = new ArrayList<BaseAuthority>();
+		//System.out.println(groupAuthorities);
+		//System.out.println(authorities);
+		if(authorities != null){
+			for(String auth:authorities){
+				BaseAuthority ba = BaseAuthority.valueOf(auth);
+				auths.add(ba);
+			}
+		}
+		System.out.println(auths);
+		
+		//提交的 - db中的 --> 增加
+		List<BaseAuthority> result = new ArrayList<BaseAuthority>(auths);
+		result.removeAll(groupAuthorities);
+		for(BaseAuthority ba: result){
+			//System.out.println("add " + ba);
+			getGroupManager().addGroupAuthority(id, new GrantedAuthorityImpl(ba.name()));
+		}
+		
+		
+		//db中的 - 提交的 --> 删除
+		List<BaseAuthority> delete = new ArrayList<BaseAuthority>(groupAuthorities);
+		delete.removeAll(auths);
+		for(BaseAuthority ba: delete){
+			//System.out.println("remove " + ba);
+			getGroupManager().removeGroupAuthority(id, new GrantedAuthorityImpl(ba.name()));
+		}
+		
+		String msg = "新增了 " + result.size() + " 个权限, 删除了 " + delete.size() + " 个权限。";
+		
+		return msg;
+	}
+	
+	/**
+	 * 查询用户组中成员。
+	 * id
+	 * @return
+	 */
+	public List<UserClerkVO> viewFindUsersInGroup(){
+		List<User> users = getGroupManager().findUsersInGroup(id);
+		List<UserClerkVO> userClerks = new ArrayList<UserClerkVO>();
+		for(User user: users){
+			Clerk clerk = clerkService.getClerk(user.getUserId());
+			if(clerk == null){
+				log.warn("找不到用户对应的clerk：" + user.getUsername());
+			}else{
+				UserClerkVO vo = new UserClerkVO(user, clerk);
+				userClerks.add(vo);
+			}
+		}
+		
+		return userClerks;
+	}
+	
+	
+	/**
+	 * 查询可添加用户。
+	 *  id, username
+	 * @return
+	 */
+	public List<UserClerkVO> viewFindCandidateUsers(){
+		ResultFilter filter = ResultFilter.createEmptyResultFilter();
+		if(q != null && !q.isEmpty()){
+			QueryParameter param = q.get(0);
+			if("username".equals(param.getN()) && param.getV() != null){
+				filter.setCriterion(Restrictions.like("a.username", "%" + param.getV() + "%"));
+			}
+		}
+		List<UserClerkVO> ucs = clerkService.findUserClerkVOs(filter);
+		List<User> users = getGroupManager().findUsersInGroup(id);
+		for(Iterator<UserClerkVO> it = ucs.iterator() ; it.hasNext() ;){
+			if(contains(users, it.next())){
+				it.remove();
+			}
+		}
+		
+		return ucs;
+	}
+	
+	/**
+	 * 
+	 * @param us
+	 * @param uc
+	 * @return
+	 */
+	private boolean contains(List<User> us, UserClerkVO uc){
+		for(User u: us){
+			if(u.getUsername().equals(uc.getUsername())){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
+	/**
+	 * 向用户组添加用户。
+	 * id,username
+	 * @return
+	 */
+	public Object doAddUserToGroup(){
+		getGroupManager().addUserToGroup(username, id);
+		return "添加用户成功！";
+	}
+	
+	/**
+	 * 向用户组添加多个用户。
+	 * 
+	 * @return
+	 */
+	public Object doAddUsersToGroup(){
+		Assert.notNull(id, "用户组不能为空");
+		Assert.notEmpty(usernames, "必须选择要添加的用户");
+		for(String username: usernames){
+			//System.out.println(username);
+			getGroupManager().addUserToGroup(username, id);
+		}
+		
+		return "成功添加了 "  + usernames.size() + " 个用户";
+	}
+	
+	/**
+	 * 从用户组中删除成员。
+	 * id，username
+	 * @return
+	 */
+	public Object doRemoveUserFromGroup(){
+		if(id.longValue() == 0L){
+			if("rfsa".equalsIgnoreCase(username) || "sys".equalsIgnoreCase(username)){
+				throw new SchemeException("不能从系统管理组中删除系统用户: " + username);
+				//throw new InsufficientAuthenticationException("");
+			}
+		}
+		getGroupManager().removeUserFromGroup(username, id);
+		return "成功移除了用户";
+	}
+	/**
+	 * 从用户组中删除多个成员。
+	 * id，username集合
+	 * @return
+	 */
+	public Object doRemoveUsersFromGroup(){
+		if(usernames == null || usernames.isEmpty()){
+			throw new IllegalArgumentException("必须指定要删除的用户。");
+		}
+		int n = 0;
+		for(String username: usernames){
+			if(id.longValue() == 0L){
+				if("rfsa".equalsIgnoreCase(username) || "sys".equalsIgnoreCase(username)){
+					log.warn("不能从系统组中删除系统用户: " + username);
+					n++;
+					continue;
+				}
+			}
+			getGroupManager().removeUserFromGroup(username, id);
+		}
+		return "从当前用户组成功移除了 " + (usernames.size() - n) + " 个用户。" +
+				(n > 0 ? "其中 " + n + " 个系统用户不能删除。" : "");
+	}
+	
+	
+	/**
+	 * 查询用户组菜单。
+	 * id
+	 * 
+	 * @return
+	 */
+	public List<MenuGroup> viewFindGroupMenus(){
+		List<MenuGroup> menus = getMenuManager().findAllMenus();
+		List<String> list = findGroupMenus();
+		for(MenuGroup mg: menus){
+			for(Menu m: mg.getMenus()){
+				if(list.contains(m.getAuthority())){
+					m.setChecked(1);
+				}
+			}
+		}
+		
+		return menus;
+	}
+	
+	/**
+	 * 更新用户组菜单。
+	 * 
+	 * id,菜单主键集合
+	 * @return
+	 */
+	public Object doUpdateGroupMenus(){
+		List<String> have = findGroupMenus();
+		
+		//加
+		List<String> adds = new ArrayList<String>(menus);
+		adds.removeAll(have);
+		for(String menuId: adds){
+			getGroupManager().addGroupAuthority(id, new GrantedAuthorityImpl(menuId));
+		}
+		
+		//减
+		List<String> subs = new ArrayList<String>(have);
+		subs.removeAll(menus);
+		for(String menuId: subs){
+			getGroupManager().removeGroupAuthority(id, new GrantedAuthorityImpl(menuId));
+		}
+		
+		String msg = "当前用户组新增了 " + adds.size() + " 个菜单项, 删除了 " + subs.size() + " 个菜单项。";
+		
+		return msg;
+	}
+	
+	
+	private List<String> findGroupMenus(){
+		List<GrantedAuthority> list = getGroupManager().findGroupAuthorities(id);
+		if(userManager instanceof DaoUserService){
+			list = AuthorityUtils.dropRolePrefix(list, ((DaoUserService) userManager).getRolePrefix());
+		}
+		
+		List<String> result = new ArrayList<String>();
+		for(Iterator<GrantedAuthority> it = list.iterator(); it.hasNext();){
+			String role = it.next().getAuthority();
+			if(role.length() == 6 && role.startsWith("M")){
+				result.add(role);
+			}
+		}
+		return result;
+	}
+	
+	
+	
+	
+	/**
+	 * 获取组属性。
+	 * 
+	 * id
+	 * @return
+	 * @deprecated since 1.5.3
+	 */
+	public List<Property> viewFindGroupProperties_BAK(){
+		Group g = getGroupManager().getGroup(id);
+		Map<String, String> props = g.getProperties();
+		Set<String> names = Property.getNames();
+		List<Property> list = new ArrayList<Property>();
+		for(String name: names){
+			String value = props.get(name);
+			Property p = new Property(name, value);
+			list.add(p);
+		}
+		return list;
+	}
+	
+	/**
+	 * 获取角色的属性，包括定义和未定义的属性。
+	 * id is required.
+	 * @since 1.5.3
+	 * @return
+	 */
+	public List<Property> viewFindGroupProperties(){
+		Group g = getGroupManager().getGroup(id);
+		Map<String, String> props = new TreeMap<String,String>(g.getProperties());
+		Set<String> names = Property.getNames();
+		List<Property> list = new ArrayList<Property>();
+		for(String name: names){
+			String value = props.remove(name);
+			Property p = new Property(name, value);
+			list.add(p);
+		}
+		if(!props.isEmpty()){
+			for(Map.Entry<String, String> entry: props.entrySet()){
+				Property p = new Property(entry.getKey(), entry.getValue());
+				list.add(p);
+			}
+		}
+		return list;
+	}
+
+	
+	/**
+	 * 更新用户组属性。
+	 * id,properties
+	 * @return
+	 */
+	public Object doUpdateGroupProperties(){
+		Map<String, String> props = new HashMap<String, String>();
+		for(Property p: properties){
+			if(StringUtils.isNotBlank(p.getValue()) && StringUtils.isNotBlank(p.getName())){
+				props.put(p.getName(), p.getValue());
+			}
+		}
+		getGroupManager().updateGroupProperties(id, props);
+		return "保存用户组属性成功！";
+	}
+	
+	
+
+	
+	/**
+	 * @return the userManager
+	 */
+	public UserManager getUserManager() {
+		return userManager;
+	}
+
+	/**
+	 * @param userManager the userManager to set
+	 */
+	public void setUserManager(UserManager userManager) {
+		this.userManager = userManager;
+	}
+
+	/**
+	 * @return the clerkService
+	 */
+	public ClerkService getClerkService() {
+		return clerkService;
+	}
+
+	/**
+	 * @param clerkService the clerkService to set
+	 */
+	public void setClerkService(ClerkService clerkService) {
+		this.clerkService = clerkService;
+	}
+
+	/**
+	 * @return the menuManager
+	 */
+	public MenuManager getMenuManager() {
+		return menuManager;
+	}
+
+	/**
+	 * @param menuManager the menuManager to set
+	 */
+	public void setMenuManager(MenuManager menuManager) {
+		this.menuManager = menuManager;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the authorities
+	 */
+	public List<String> getAuthorities() {
+		return authorities;
+	}
+
+	/**
+	 * @param authorities the authorities to set
+	 */
+	public void setAuthorities(List<String> authorities) {
+		this.authorities = authorities;
+	}
+
+	/**
+	 * @return the username
+	 */
+	public String getUsername() {
+		return username;
+	}
+
+	/**
+	 * @param username the username to set
+	 */
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	/**
+	 * @return the usernames
+	 */
+	public List<String> getUsernames() {
+		return usernames;
+	}
+
+	/**
+	 * @param usernames the usernames to set
+	 */
+	public void setUsernames(List<String> usernames) {
+		this.usernames = usernames;
+	}
+
+	/**
+	 * @return the menus
+	 */
+	public List<String> getMenus() {
+		return menus;
+	}
+
+	/**
+	 * @param menus the menus to set
+	 */
+	public void setMenus(List<String> menus) {
+		this.menus = menus;
+	}
+
+	/**
+	 * @return the properties
+	 */
+	public List<Property> getProperties() {
+		return properties;
+	}
+
+	/**
+	 * @param properties the properties to set
+	 */
+	public void setProperties(List<Property> properties) {
+		this.properties = properties;
+	}
+
+
+
+	/**
+	 * @return the groupName
+	 */
+	public String getGroupName() {
+		return groupName;
+	}
+
+	/**
+	 * @param groupName the groupName to set
+	 */
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
+	}
+
+	/**
+	 * @return the ids
+	 */
+	public List<Long> getIds() {
+		return ids;
+	}
+
+	/**
+	 * @param ids the ids to set
+	 */
+	public void setIds(List<Long> ids) {
+		this.ids = ids;
+	}
+
+	/**
+	 * @return the q
+	 */
+	public List<QueryParameter> getQ() {
+		return q;
+	}
+
+	/**
+	 * @param q the q to set
+	 */
+	public void setQ(List<QueryParameter> q) {
+		this.q = q;
+	}
+
+	/**
+	 * @return the group
+	 */
+	public Group getGroup() {
+		return group;
+	}
+
+	/**
+	 * @param group the group to set
+	 */
+	public void setGroup(Group group) {
+		this.group = group;
+	}
+	
+}

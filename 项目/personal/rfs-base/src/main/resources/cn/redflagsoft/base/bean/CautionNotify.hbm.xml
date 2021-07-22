@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.CautionNotify" table="CAUTION_NOTIFY">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+	
+	
+	<property name="cautionId" column="CAUTION_ID" type="java.lang.Long"/>
+	
+	<property name="cautionName" column="CAUTION_NAME" type="java.lang.String"/>
+	
+	<property name="cautionCode" column="CAUTION_CODE" type="java.lang.String"/>
+	
+	<property name="notifyFileId" column="NOTIFY_FILEID" type="java.lang.Long"/>
+	
+	<property name="notifyFileNo" column="NOTIFY_FILENO" type="java.lang.String"/>
+	
+	<property name="notifyMsgCode" column="NOTIFY_MSG_CODE" type="java.lang.String"/>
+	
+	<property name="notifyTargetId" column="NOTIFY_TARGET_ID" type="java.lang.Long"/>
+	
+	<property name="notifyTargetName" column="NOTIFY_TARGET_NAME" type="java.lang.String"/>
+	
+	<property name="notifyContent" column="NOTIFY_CONTENT" type="java.lang.String"/>
+	
+	<property name="notifyTime" column="NOTIFY_TIME" type="java.sql.Timestamp"/>
+	
+	<property name="notifyClerkId" column="NOTIFY_CLERKID" type="java.lang.Long"/>
+	
+	<property name="notifyClerkName" column="NOTIFY_CLERKNAME" type="java.lang.String"/>
+	
+	
+	
+	
+	<!-- 当前表的status为业务状态，rfs_object表的status为归档状态  -->
+	<property name="status" column="STATUS" type="byte"/>
+	
+	<property name="type" column="TP" type="int"/>
+		
+	<property name="remark" column="REMARK" type="java.lang.String"/>
+		
+	<property name="creator" column="CREATOR" type="java.lang.Long"/>
+		
+	<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+	<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+		
+	<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+
+	</class>
+</hibernate-mapping>

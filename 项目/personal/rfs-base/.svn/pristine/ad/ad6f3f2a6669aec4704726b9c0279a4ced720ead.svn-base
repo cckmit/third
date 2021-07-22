@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="GBK"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	
+	<bean id="baseAuditConfigutationProvider" class="org.opoo.apps.orm.hibernate3.ConfigurationProviderImpl">
+        <property name="sessionFactoryBeanName" value="sessionFactory"/>
+        <property name="mappingResources">
+            <list> 
+	            <value>cn/redflagsoft/base/bean/AuditLog.hbm.xml</value>
+	       	</list>
+	    </property>
+	</bean>
+
+	<bean id="auditLogDao" class="cn.redflagsoft.base.dao.hibernate3.AuditLogHibernateDao" parent="baseDao"/>
+	
+	<bean id="auditManagerImpl" class="cn.redflagsoft.base.audit.impl.AuditManagerImpl">
+		<property name="auditLogDao" ref="auditLogDao"></property>
+		<property name="executor" ref="scheduledExecutor"></property>
+	</bean>
+
+</beans>
+

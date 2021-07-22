@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.commons.ObjectAdmin" table="OBJECT_ADMIN" 
+		abstract="true" discriminator-value="0">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		
+		<discriminator column="D" type="short" not-null="true"></discriminator>
+		
+		<property name="clerkId" column="CLERK_ID" type="java.lang.Long" />
+		
+		<property name="clerkName" column="CLERK_NAME" type="java.lang.String" />
+
+		<property name="fileNo" column="FILENO" type="java.lang.String" />
+
+		<property name="fileId" column="FILEID" type="java.lang.Long" />
+		
+		
+		<property name="objId" column="OBJ_ID" type="long"/>
+		<property name="objName" column="OBJ_NAME" type="java.lang.String"/>
+		<property name="objType" column="OBJ_TYPE" type="int"/>
+		
+
+		<property name="operateTime" column="OPERATE_TIME" type="java.sql.Timestamp" />
+
+		<property name="operateCommand" column="OPERATE_COMMAND" type="java.lang.String" />
+	
+		<property name="operateDesc" column="OPERATE_DESC" type="java.lang.String" />
+		
+		<property name="operateMode" column="OPERATE_MODE" type="java.lang.String" />
+
+		<property name="description" column="DESCRIPTION" type="java.lang.String" />
+
+		<property name="approveTime" column="APPROVE_TIME" type="java.sql.Timestamp" />
+		
+		<property name="approveOrgId" column="APPROVE_ORG_ID" type="java.lang.Long" />
+		
+		<property name="approveOrgName" column="APPROVE_ORG_NAME" type="java.lang.String" />
+
+		<property name="approveClerkId" column="APPROVE_CLERK_ID" type="java.lang.Long" />
+
+		<property name="approveClerkName" column="APPROVE_CLERK_NAME" type="java.lang.String" />
+		
+		<property name="string0" column="S1" type="java.lang.String" />
+
+		<property name="string1" column="S2" type="java.lang.String" />
+
+		<property name="string2" column="S3" type="java.lang.String" />
+		
+		<property name="string3" column="S4" type="java.lang.String" />
+		
+		<property name="string4" column="S5" type="java.lang.String" />
+
+	
+		<property name="type" column="TP" type="int" />
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+			
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+			
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+			
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+			
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+		
+		
+		<subclass name="cn.redflagsoft.base.bean.commons.ObjectArchive" discriminator-value="301">
+		</subclass>
+
+		<subclass name="cn.redflagsoft.base.bean.commons.ObjectCancel" discriminator-value="303">
+		</subclass>
+		
+		<subclass name="cn.redflagsoft.base.bean.commons.ObjectFinish" discriminator-value="310">
+		</subclass>
+		
+		<subclass name="cn.redflagsoft.base.bean.commons.ObjectInvalid" discriminator-value="304">
+		</subclass>
+		
+		<subclass name="cn.redflagsoft.base.bean.commons.ObjectPause" discriminator-value="306">
+		</subclass>
+		
+		<subclass name="cn.redflagsoft.base.bean.commons.ObjectPublish" discriminator-value="305">
+		</subclass>
+		
+		<subclass name="cn.redflagsoft.base.bean.commons.ObjectShelve" discriminator-value="309">
+		</subclass>
+		
+		<subclass name="cn.redflagsoft.base.bean.commons.ObjectTrans" discriminator-value="308">
+		</subclass>
+		
+		<subclass name="cn.redflagsoft.base.bean.commons.ObjectUnarchive" discriminator-value="302">
+		</subclass>
+		
+		<subclass name="cn.redflagsoft.base.bean.commons.ObjectWake" discriminator-value="307">
+		</subclass>
+	</class>
+</hibernate-mapping>

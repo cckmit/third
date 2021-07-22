@@ -1,0 +1,302 @@
+/*
+ * $Id: CreateObjectTaskHandler.java 5585 2012-05-02 03:53:45Z lcj $
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.service.impl;
+
+import java.util.Date;
+import java.util.List;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.opoo.apps.util.DateUtils;
+import org.opoo.ndao.criterion.Criterion;
+import org.opoo.ndao.criterion.Logic;
+import org.opoo.ndao.criterion.Restrictions;
+import org.opoo.ndao.support.ResultFilter;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
+
+import cn.redflagsoft.base.bean.RFSObject;
+import cn.redflagsoft.base.bean.Task;
+import cn.redflagsoft.base.dao.TaskDao;
+import cn.redflagsoft.base.service.EventMsgService;
+import cn.redflagsoft.base.service.ObjectHandler;
+import cn.redflagsoft.base.service.TaskService;
+import cn.redflagsoft.base.support.CriterionProvider;
+import cn.redflagsoft.base.support.TimeBuilder;
+import cn.redflagsoft.base.support.TimeDescriptor;
+import cn.redflagsoft.base.support.TimeFrequency;
+
+/**
+ * 
+ * @author Alex Lin(lcql@msn.com)
+ *
+ */
+public class CreateObjectTaskHandler implements ObjectHandler<RFSObject, Task>, InitializingBean, CriterionProvider {
+	private static final Log log = LogFactory.getLog(CreateObjectTaskHandler.class);
+	private static final boolean IS_DEBUG_ENABLED = log.isDebugEnabled();
+	
+	private TaskService taskService;
+	private TaskDao taskDao;
+	private EventMsgService eventMsgService;
+	
+	private int taskType = 0;
+	private int workType = 0;
+	private List<Long> matterIds;
+	private boolean requireCheck = true;//是否在创建task之前再做一次检查，如果查询对象时已经检查过，一般也可能不需要再次检查
+
+	private TimeDescriptor beginTimeDescriptor = TimeDescriptor.StartOfMonth;
+	private TimeFrequency frequency = TimeFrequency.Monthly;
+
+	
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.service.ObjectHandler#handle(java.lang.Object)
+	 */
+	public Task handle(RFSObject object) {
+		//Task是否已经创建
+		if (requireCheck && isTaskCreated(object)) {
+			log.debug("该对象对应的本期的task已经创建");
+			return null;
+		}
+		
+		
+		if(IS_DEBUG_ENABLED){
+			log.debug("开始为对象创建Task：" + object);
+		}
+		
+		try{
+			return createTask(object);
+		}catch(Exception e){
+			log.error("为对象对象Task出错：" + object, e);
+			return null;
+		}
+	}
+	
+	private boolean isTaskCreated(RFSObject object){
+		Date[] dates = parseStartAndEndTime(frequency);
+		if(dates == null){
+			return false;
+		}
+		Date start = dates[0];
+		Date end = dates[1];
+
+		ResultFilter filter = new ResultFilter();
+		Logic logic = Restrictions.logic(Restrictions.eq("type", taskType))
+				.and(Restrictions.eq("refObjectId", object.getId()))
+				.and(Restrictions.eq("refObjectType", object.getObjectType()))
+				.and(Restrictions.ge("beginTime", start))
+				.and(Restrictions.le("beginTime", end));
+		filter.setCriterion(logic);
+		int count = taskDao.getCount(filter);
+		if(log.isDebugEnabled()){
+			String s = String.format("type=%s and refObjectId=%s and refObjectType=%s and beginTime>=%s and beginTime<=%s",
+					taskType, object.getId(), object.getObjectType(), start, end);
+			log.debug(s + " --> " + count);
+		}
+		return count > 0;
+	}
+	
+	static Date[] parseStartAndEndTime(TimeFrequency frequency){
+		Date start, end;
+		Date now = new Date();
+		if(frequency == TimeFrequency.None){
+			return null;
+		}else if(frequency == TimeFrequency.Daily){
+			start = DateUtils.toStartOfDay(now);
+			end = DateUtils.toEndOfDay(now);
+		}else if(frequency == TimeFrequency.Weekly){
+			start = new TimeBuilder.StartOfWeekTimeBuilder().build();
+			end = new TimeBuilder.EndOfWeekTimeBuilder().build();
+		}else if(frequency == TimeFrequency.Monthly){
+			start = new TimeBuilder.StartOfMonthTimeBuilder().build();
+			end = new TimeBuilder.EndOfMonthTimeBuilder().build();
+		}else if(frequency == TimeFrequency.Yearly){
+			start = new TimeBuilder.StartOfYearTimeBuilder().build();
+			end = new TimeBuilder.EndOfYearTimeBuilder().build();
+		}else{
+			throw new IllegalArgumentException("Frequency is not valid.");
+		}
+		return new Date[]{start, end};
+	}
+	
+	@Transactional(propagation=Propagation.REQUIRES_NEW)
+	protected Task createTask(RFSObject object){
+		if(object.getDutyClerkID() != null){
+			Task task = new Task();
+			//task.setSn(taskSN);
+			task.setType(getTaskType());
+			task.setActiveWorkSN(0L);
+			task.setClerkID(object.getDutyClerkID());			//当前办理人
+			task.setClerkName(object.getDutyClerkName());
+			task.setBeginTime(beginTimeDescriptor.getTime());
+			//task = taskService.createTask(task, mids, objectId, (short) 1, entityID);
+			//FIXME: 责任人暂时没有，责任人可能应该从配置中读取
+			Long dutyerID = null;
+			Long[] mids = matterIds.toArray(new Long[matterIds.size()]);
+			task = taskService.createTask(task, mids, object, (short) 1, dutyerID);
+			if(workType > 0){
+				eventMsgService.dealEventMsg(object.getObjectType(),object.getId(), task.getType(),task.getSn(), workType, (short)1);
+			}
+			return task;
+		}else{
+			log.debug("对象的责任人为null，无法创建task：" + object);
+			return null;
+		}
+	}
+	
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.support.CriterionProvider#getCriterion()
+	 */
+	public Criterion getCriterion() {
+		Date[] dates = parseStartAndEndTime(frequency);
+		if(dates == null){
+			return null;
+		}
+//		return Restrictions.sql("id not in (select distinct t.refObjectId from Task t where t.type=? and t.beginTime>=? and t.beginTime<=?)",
+//				new Object[]{taskType, dates[0], dates[1]});
+		//为了性能问题而改用这个语句，要注意主对象的别名，默认是a
+		return Restrictions.sql("not exists (select t.sn from Task t where t.refObjectId=a.id and t.type=? and t.beginTime>=? and t.beginTime<=?)",
+				new Object[]{taskType, dates[0], dates[1]});
+	}
+
+	/* (non-Javadoc)
+	 * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+	 */
+	public void afterPropertiesSet() throws Exception {
+		Assert.isTrue(taskType > 0, "必须指定taskType");
+		Assert.notNull(beginTimeDescriptor, "必须指定task开始时间的描述");
+		Assert.notNull(frequency, "必须指定频度");
+		Assert.notEmpty(matterIds, "必须指定matterIds");
+	}
+
+	/**
+	 * @return the taskType
+	 */
+	public int getTaskType() {
+		return taskType;
+	}
+
+	/**
+	 * @param taskType the taskType to set
+	 */
+	public void setTaskType(int taskType) {
+		this.taskType = taskType;
+	}
+
+	/**
+	 * @return the beginTimeDesc
+	 */
+	public String getBeginTimeDescriptor() {
+		return beginTimeDescriptor.name();
+	}
+
+	/**
+	 * @param beginTimeDesc the beginTimeDesc to set
+	 */
+	public void setBeginTimeDescriptor(String beginTimeDesc) {
+		Assert.notNull(beginTimeDesc, "必须指定task开始时间的描述");
+		//IllegalArgumentException will cause
+		beginTimeDescriptor = TimeDescriptor.valueOf(beginTimeDesc);;
+	}
+
+	/**
+	 * @return the taskService
+	 */
+	public TaskService getTaskService() {
+		return taskService;
+	}
+
+	/**
+	 * @param taskService the taskService to set
+	 */
+	public void setTaskService(TaskService taskService) {
+		this.taskService = taskService;
+	}
+
+	/**
+	 * @return the eventMsgService
+	 */
+	public EventMsgService getEventMsgService() {
+		return eventMsgService;
+	}
+
+	/**
+	 * @param eventMsgService the eventMsgService to set
+	 */
+	public void setEventMsgService(EventMsgService eventMsgService) {
+		this.eventMsgService = eventMsgService;
+	}
+
+	/**
+	 * @return the workType
+	 */
+	public int getWorkType() {
+		return workType;
+	}
+
+	/**
+	 * @param workType the workType to set
+	 */
+	public void setWorkType(int workType) {
+		this.workType = workType;
+	}
+	/**
+	 * @return the matterIds
+	 */
+	public List<Long> getMatterIds() {
+		return matterIds;
+	}
+	/**
+	 * @param matterIds the matterIds to set
+	 */
+	public void setMatterIds(List<Long> matterIds) {
+		this.matterIds = matterIds;
+	}
+	/**
+	 * @return the frequency
+	 */
+	public String getFrequency() {
+		return frequency.name();
+	}
+	/**
+	 * @param frequency the frequency to set
+	 */
+	public void setFrequency(String frequency) {
+		Assert.notNull(frequency, "必须指定处理频度");
+		this.frequency = TimeFrequency.valueOf(frequency);
+	}
+	
+	
+	/**
+	 * @return the taskDao
+	 */
+	public TaskDao getTaskDao() {
+		return taskDao;
+	}
+	/**
+	 * @param taskDao the taskDao to set
+	 */
+	public void setTaskDao(TaskDao taskDao) {
+		this.taskDao = taskDao;
+	}
+	/**
+	 * @return the requireCheck
+	 */
+	public boolean isRequireCheck() {
+		return requireCheck;
+	}
+	/**
+	 * @param requireCheck the requireCheck to set
+	 */
+	public void setRequireCheck(boolean requireCheck) {
+		this.requireCheck = requireCheck;
+	}
+}

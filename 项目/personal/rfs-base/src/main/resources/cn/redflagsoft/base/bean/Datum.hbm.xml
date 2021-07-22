@@ -1,0 +1,81 @@
+<?xml version="1.0"  encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.Datum" table="DATUM">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		<property name="workSN" column="OBJECTID" type="java.lang.Long"/>
+		
+		<property name="type" column="TP" type="int"/>
+		
+		<property name="code" column="CODE" type="java.lang.String"/>
+		
+		<property name="name" column="NAME" type="java.lang.String"/>
+		
+		<property name="abbr" column="ABBR" type="java.lang.String"/>
+		
+		<property name="sn" column="SN" type="java.lang.String"/>
+		
+		<property name="referSN" column="REFERSN" type="java.lang.String"/>
+		
+		<property name="locus" column="LOCUS" type="java.lang.String"/>
+		
+		<property name="brief" column="BRIEF" type="java.lang.String"/>
+		
+		<property name="content" column="CONTENT" type="java.lang.String"/>
+		
+		<property name="form" column="FORM" type="java.lang.String"/>
+		
+		<property name="format" column="FORMAT" type="byte"/>
+		
+		<property name="origin" column="ORIGIN" type="byte"/>
+		
+		<property name="categoryID" column="CATEGORYID" type="java.lang.Long"/>
+		
+		<property name="promulgator" column="PROMULGATOR" type="java.lang.Long"/>
+		
+		<property name="promulgatorAbbr" column="PROMULGATOR_ABBR" type="java.lang.String"/>
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+		
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+		
+		<property name="orderNo" column="ORDERNO" type="short"/>
+		
+		
+		<property name="fileNo" column="FILE_NO" type="java.lang.String"/>
+		
+		<property name="publishOrgId" column="PUBLISH_ORG_ID" type="java.lang.Long"/>
+		
+		<property name="publishOrgName" column="PUBLISH_ORG_NAME" type="java.lang.String"/>
+
+		<property name="publisherId" column="PUBLISHER_ID" type="java.lang.Long"/>
+		
+		<property name="publisherName" column="PUBLISHER_NAME" type="java.lang.String"/>
+		
+		<property name="physicalNo" column="PHYSICAL_NO" type="java.lang.String"/>
+		
+		<property name="barcode" column="BARCODE" type="java.lang.String"/>
+
+		<property name="subject" column="SUBJECT" type="java.lang.String"/>
+  
+		<property name="securityLevel" column="SECURITY_LEVEL" type="java.lang.Integer"/>
+	  
+	  	<property name="keywords" column="KEYWORDS" type="java.lang.String"/>
+	  
+	  	<property name="dispatchOrgId" column="DISPATCH_ORGID" type="java.lang.Long"/>
+	  
+	  	<property name="dispatchOrgName" column="DISPATCH_ORGNAME" type="java.lang.String"/>
+	  
+	 	<property name="dispatchTime" column="DISPATCH_TIME" type="java.sql.Timestamp"/>
+	  
+	  	<property name="publishTime" column="PUBLISH_TIME" type="java.sql.Timestamp"/>
+	</class>
+</hibernate-mapping>

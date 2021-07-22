@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.Job" table="JOB">
+		<id name="sn" column="SN" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		<property name="type" column="TP" type="int"/>
+		
+		<property name="code" column="CODE" type="java.lang.String"/>
+		
+		<property name="objectNum" column="OBJECT_NUM" type="byte"/>
+		
+		<property name="matterNum" column="MATTER_NUM" type="byte"/>
+		
+		<property name="threadNum" column="THREAD_NUM" type="byte"/>
+		
+		<property name="beginTime" column="BEGIN_TIME" type="java.sql.Timestamp"/>
+		
+		<property name="hangTime" column="HANG_TIME" type="java.sql.Timestamp"/>
+		
+		<property name="wakeTime" column="WAKE_TIME" type="java.sql.Timestamp"/>
+		
+		<property name="endTime" column="END_TIME" type="java.sql.Timestamp"/>
+		
+		<property name="timeUnit" column="TIME_UNIT" type="byte"/>
+		
+		<property name="timeLimit" column="TIME_LIMIT" type="short"/>
+		
+		<property name="timeUsed" column="TIME_USED" type="short"/>
+		
+		<property name="hangLimit" column="HANG_LIMIT" type="short"/>
+		
+		<property name="timeHang" column="TIME_HANG" type="short"/>
+		
+		<property name="delayLimit" column="DELAY_LIMIT" type="short"/>
+		
+		<property name="timeDelay" column="TIME_DELAY" type="short"/>
+		
+		<property name="hangTimes" column="HANG_TIMES" type="byte"/>
+		
+		<property name="hangUsed" column="HANG_USED" type="byte"/>
+		
+		<property name="delayTimes" column="DELAY_TIMES" type="byte"/>
+		
+		<property name="delayUsed" column="DELAY_USED" type="byte"/>
+		
+		<property name="result" column="RESULT" type="byte"/>
+		
+		<property name="bizInstance" column="BIZ_INSTANCE" type="java.lang.Long"/>
+		
+		<property name="bizTrack" column="BIZ_TRACK" type="java.lang.Long"/>
+		
+		<property name="clerkID" column="CLERKID" type="java.lang.Long"/>
+		
+        <property name="dutyerID" column="DUTYERID" type="java.lang.Long"/>
+        
+        <property name="dutyerType" column="DUTYER_TYPE" type="short"/>			
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+		
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+		
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+	</class>
+</hibernate-mapping>

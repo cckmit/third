@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="GBK"?>
+<!--
+  ~ $Revision: 13 $
+  ~ $Date: 2010-11-26 13:04:02 +0800 (鏄熸湡浜�, 26 鍗佷竴鏈� 2010) $
+  ~
+  ~ Copyright (C) 2009 Alex Lin. All rights reserved.
+  ~
+  ~
+-->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+  xmlns:os="http://www.opoo.org/schema/security" 
+  elementFormDefault="qualified"
+  targetNamespace="http://www.opoo.org/schema/security"
+  >
+  <!-- 
+  <attributeGroup name="entry-point.attlist">
+    <attribute name="pattern" use="required" type="string">
+      <annotation>
+        <documentation><![CDATA[
+        	定义一个 URL 路径，符合该路径的 URL 将采用指定的 loginFormUrl 登录。
+        ]]></documentation>
+      </annotation>
+    </attribute>
+    <attribute name="login-page" use="required" type="string">
+      <annotation>
+        <documentation>登录页面。</documentation>
+      </annotation>
+    </attribute>
+  </attributeGroup>
+  
+  
+
+ <element name="entry-points">
+    <annotation>
+      <documentation>定义一组 EntryPoint。</documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element maxOccurs="unbounded" name="entry-point">
+          <annotation>
+            <documentation>指定一个 EntryPoint。</documentation>
+          </annotation>
+          <complexType>
+            <attributeGroup ref="os:entry-point.attlist"/>
+          </complexType>
+        </element>
+      </sequence>
+      <attribute name="id" type="ID">
+       <annotation>
+        <documentation>A bean identifier, used for referring to the bean elsewhere in the context.</documentation>
+       </annotation>
+     </attribute>
+    </complexType>
+  </element>
+  -->
+  
+  <simpleType name="boolean">
+    <restriction base="token">
+      <enumeration value="true"/>
+      <enumeration value="false"/>
+    </restriction>
+  </simpleType>
+  
+  <attributeGroup name="form-login.attlist">
+    <attribute name="pattern" type="string" use="required">
+      <annotation>
+        <documentation><![CDATA[定义一个 URL 路径，符合该路径的 URL 将采用指定的 loginFormUrl 登录。]]></documentation>
+      </annotation>
+    </attribute>
+    <attribute name="target-url" type="string">
+      <annotation>
+        <documentation><![CDATA[符合 URL 路径的登录后的目标 URL。]]></documentation>
+      </annotation>
+    </attribute>
+    <attribute name="login-page" type="string">
+      <annotation>
+        <documentation><![CDATA[登录页面。]]></documentation>
+      </annotation>
+    </attribute>
+  </attributeGroup>
+  
+  <attributeGroup name="form-login-entry-point.attlist">
+  	<attribute name="id" type="ID" use="required">
+       <annotation>
+        <documentation>A bean identifier, used for referring to the bean elsewhere in the context.</documentation>
+       </annotation>
+      </attribute>
+      <attribute name="login-page" type="string" use="required">
+      	<annotation>
+      		<documentation><![CDATA[登录页面。]]></documentation>
+      	</annotation>
+      </attribute>
+      <attribute name="always-use-default-target" type="os:boolean">
+      	<annotation>
+      		<documentation><![CDATA[使用始终使用默认的目标 URL。]]></documentation>
+      	</annotation>
+      </attribute>
+      <attribute name="force-https" type="os:boolean">
+      	<annotation>
+      		<documentation><![CDATA[使用Https。]]></documentation>
+      	</annotation>
+      </attribute>
+  </attributeGroup>
+  
+  
+  <element name="form-login-entry-point">
+  	<annotation>
+      <documentation>定义一个FormLogin 的 EntryPoint。</documentation>
+    </annotation>
+    <complexType>
+      	
+      	<choice minOccurs="0" maxOccurs="unbounded">
+    		<element ref="os:form-login-map" maxOccurs="1"></element>
+    	</choice>
+        <attributeGroup ref="os:form-login-entry-point.attlist"></attributeGroup>
+      	
+<!--      	<element name="form-login">-->
+<!--      		<annotation>-->
+<!--      			<documentation>Form Login Definition.</documentation>-->
+<!--      		</annotation>-->
+<!--  			<complexType>-->
+<!--				<attributeGroup ref="os:form-login.attlist"></attributeGroup>-->
+<!--  			</complexType>-->
+<!--      	</element>-->
+    </complexType>
+  </element>
+
+    <element name="form-login-map">
+  	<annotation>
+  		<documentation>Form Login Map</documentation>
+  	</annotation>
+  	<complexType> 
+  		<sequence>
+  			<choice minOccurs="1" maxOccurs="unbounded">
+  				<element name="form-login">
+		      		<annotation>
+		      			<documentation>Form Login Definition.</documentation>
+		      		</annotation>
+		  			<complexType>
+						<attributeGroup ref="os:form-login.attlist"></attributeGroup>
+		  			</complexType>
+		      	</element>
+  			</choice>
+  		</sequence>
+  		
+  	  <attribute name="path-type">
+      	<annotation>
+      		<documentation><![CDATA[比较模式]]></documentation>
+      	</annotation>
+      	<simpleType>
+      		<restriction base="token">
+      			<enumeration value="ant"></enumeration>
+      			<enumeration value="regex"></enumeration>
+      		</restriction>
+      	</simpleType>
+      </attribute>
+      
+      <attribute name="lowercase-comparisons" type="os:boolean">
+      	<annotation>
+			<documentation>Whether test URLs should be converted to lower case prior to comparing
+          with defined path patterns. If unspecified, defaults to "true".</documentation>      	
+      	</annotation>
+      </attribute>
+
+	  <attribute name="strip-query-string-from-urls" type="os:boolean">
+	  	<annotation>
+			<documentation></documentation>	  	
+	  	</annotation>
+	  </attribute>
+  	</complexType>
+  </element>
+</schema>

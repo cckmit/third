@@ -1,0 +1,109 @@
+/*
+ * $Id: TaskBizInfoHibernateDao.java 6301 2013-08-13 02:40:36Z thh $
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.dao.hibernate3;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import cn.redflagsoft.base.bean.Clerk;
+import cn.redflagsoft.base.bean.Org;
+import cn.redflagsoft.base.bean.TaskBizInfo;
+import cn.redflagsoft.base.dao.TaskBizInfoDao;
+import cn.redflagsoft.base.event2.ClerkNameChangeListener;
+import cn.redflagsoft.base.event2.OrgAbbrChangeListener;
+import cn.redflagsoft.base.event2.OrgBeforeDeleteListener;
+
+
+/**
+ * @author Alex Lin(alex@opoo.org)
+ *
+ */
+public class TaskBizInfoHibernateDao extends AbstractBaseHibernateDao<TaskBizInfo, Long> implements TaskBizInfoDao,
+		OrgAbbrChangeListener,ClerkNameChangeListener, OrgBeforeDeleteListener {
+	
+	private static final Log log = LogFactory.getLog(TaskBizInfoHibernateDao.class);
+	
+	public void orgAbbrChange(Org org, String oldAbbr, String newAbbr) {
+		if(log.isDebugEnabled()){
+			log.debug("单位信息发生了变化，同步更新项目中的相关单位：" + oldAbbr + " --> " + newAbbr);
+		}
+		
+		String qs1 = "update TaskBizInfo set acptApplyOrgName=? where acptApplyOrgId=?";
+		String qs2 = "update TaskBizInfo set drDocReceiveOrgName=? where drDocReceiveOrgId=?";
+		String qs3 = "update TaskBizInfo set rcdAcceptOrgName=? where rcdAcceptOrgId=?";
+		String qs4 = "update TaskBizInfo set acvDocPublishOrgName=? where acvDocPublishOrgId=?";
+		
+		Object[] values = new Object[]{newAbbr, org.getId()};
+		int rows1 = getQuerySupport().executeUpdate(qs1, values);
+		int rows2 = getQuerySupport().executeUpdate(qs2, values);
+		int rows3 = getQuerySupport().executeUpdate(qs3, values);
+		int rows4 = getQuerySupport().executeUpdate(qs4, values);
+		
+		//清理缓存
+		if((rows1 + rows2 + rows3 + rows4) > 0 && getCache() != null){
+			getCache().clear();
+			if(log.isDebugEnabled()){
+				log.debug("清理了项目缓存");
+			}
+		}
+		if(log.isDebugEnabled()){
+			log.debug("共更新申请单位(acptApplyOrgName) ‘" + rows1 
+					+ "’ 个，发文单位(drDocReceiveOrgName) ‘" 
+					+ rows2 + "’ 个，受理单位(rcdAcceptOrgName) ‘"
+					+ rows3 + "’ 个，工程资料发布单位(acvDocPublishOrgName)‘"
+					+ rows4 + "’个‘");
+		}
+		
+	}
+
+	public void clerkNameChange(Clerk clerk, String oldName, String newName) {
+		if(log.isDebugEnabled()){
+			log.debug("人员信息发生了变化，同步更新PrjBudget的相关人员信息：" + oldName + " --> " + newName);
+		}
+		String qs1 = "update TaskBizInfo set acptApplyClerkName=? where acptApplyClerkId=?";
+		String qs2 = "update TaskBizInfo set acptOperateClerkName=? where acptOperateClerkId=?";
+		String qs3 = "update TaskBizInfo set acptClerkName=? where acptClerkId=?";
+		
+		String qs4 = "update TaskBizInfo set daOperateClerkName=? where daOperateClerkId=?";
+		String qs5 = "update TaskBizInfo set daClerkName=? where daClerkId=?";
+		
+		String qs6 = "update TaskBizInfo set drClerkName=? where drClerkId=?";
+		String qs7 = "update TaskBizInfo set drOperateClerkName=? where drOperateClerkId=?";
+		
+		String qs8 = "update TaskBizInfo set rcdApplyClerkName=? where rcdApplyClerkId=?";
+		//String qs9 = "update TaskBizInfo set rcdAcceptClerkName=? where rcdAcceptClerkId=?";
+		String qs10 = "update TaskBizInfo set rcdOperateClerkName=? where rcdOperateClerkId=?";
+		String qs11 = "update TaskBizInfo set rcdClerkName=? where rcdClerkId=?";
+		
+		String qs12 = "update TaskBizInfo set acvClerkName=? where acvClerkId=?";
+		String qs13 = "update TaskBizInfo set acvOperateClerkName=? where acvOperateClerkId=?";
+		
+		Object[] values = new Object[]{newName, clerk.getId()};
+		int rows = executeBatchUpdate(new String[]{qs1, qs2, qs3, qs4, qs5, qs6, qs7, qs8, /*qs9,*/ qs10, qs11, qs12,qs13}, values);
+		
+		//清理缓存
+		if((rows) > 0 && getCache() != null){
+			getCache().clear();
+			if(log.isDebugEnabled()){
+				log.debug("清理了TaskBizInfo缓存");
+			}
+		}
+		if(log.isDebugEnabled()){
+			log.debug("共更新TaskBizInfo的相关人员信息 ‘" + rows + "’个"); 
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.event2.OrgBeforeDeleteListener#orgBeforeDelete(cn.redflagsoft.base.bean.Org)
+	 */
+	public void orgBeforeDelete(Org org) {
+		doBeforeDeleteOrg(org, "acptApplyOrgId", "drDocReceiveOrgId", "rcdAcceptOrgId", "acvDocPublishOrgId");
+	}
+}

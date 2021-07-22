@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="GBK"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+   	   xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       			http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+       			http://www.springframework.org/schema/tx
+                http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+                http://www.springframework.org/schema/aop
+                http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+               
+                
+    <bean id="params" class="cn.redflagsoft.base.aop.interceptor.ParametersInterceptor"/>
+    <alias name="params" alias="parametersSetter"/>
+    
+	<bean id="validationInterceptor" class="cn.redflagsoft.base.aop.interceptor.ValidationInterceptor"/>
+
+    <!-- interceptors -->
+	<bean id="parametersInterceptor" class="cn.redflagsoft.base.aop.interceptor.ParametersInterceptor"/>
+	
+	<bean id="taskWorkHandlerForWorkSchemeInterceptor" class="cn.redflagsoft.base.scheme.interceptor.TaskWorkHandlerForWorkSchemeInterceptor">
+		<property name="taskService" ref="taskService"/>
+     	<property name="workService" ref="workService"/>
+     	<property name="datumService" ref="datumService"/>
+     	<property name="eventMsgService" ref="eventMsgService"/>
+     	<!-- <property name="mattersHandler" ref="mattersHandler"></property> -->
+     	<property name="bizTrackNodeInstanceService" ref="bizTrackNodeInstanceService"></property>
+		<property name="eventDispatcher" ref="eventDispatcher"/>
+		<property name="attachmentManager" ref="attachmentManager"></property>
+		<property name="objectsService" ref="objectsService"></property>
+		<property name="executor" ref="scheduledExecutor"></property>
+		<!-- <property name="workDefProvider" ref="workDefProvider"></property> -->
+	</bean>
+	
+	<bean id="parametersCheckBeforeAdvice" class="cn.redflagsoft.base.scheme.interceptor.ParametersCheckBeforeAdvice"></bean>
+	
+	<bean id="printAfterReturningAdvice" class="cn.redflagsoft.base.aop.interceptor.PrintAfterReturningAdvice">
+		<property name="printHandler" ref="printHandler"></property>
+	</bean>
+    
+    <bean id="auditInterceptor" class="cn.redflagsoft.base.aop.interceptor.AuditInterceptor">
+    	<property name="auditManager" ref="auditManager"></property>
+    </bean>
+	 	
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="add*" propagation="REQUIRED" />
+            <tx:method name="delete*" propagation="REQUIRED" />
+            <tx:method name="update*" propagation="REQUIRED" />
+            <tx:method name="save*" propagation="REQUIRED" />
+            <tx:method name="execute" propagation="REQUIRED" />
+            <tx:method name="create*" propagation="REQUIRED" />
+            <tx:method name="scheme" propagation="REQUIRED" />
+            <tx:method name="do*" propagation="REQUIRED" />
+            <!-- <tx:method name="*" propagation="true" /> -->
+        </tx:attributes>
+    </tx:advice>
+
+    <tx:advice id="txAdvice2" transaction-manager="transactionManager">
+    	<tx:attributes>
+    		<tx:method name="checkRiskGrade" propagation="REQUIRED"/>
+    	</tx:attributes>
+    </tx:advice>
+    
+
+	<!-- (* com.xyz.service..*.*(..)) -->
+    <aop:config proxy-target-class="true">
+        <!--
+        <aop:pointcut id="allManagerMethod" expression="execution(* cn.redflagsoft.touchstone.workscheme..*.*(..))" />
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="allManagerMethod" />
+        -->
+        
+        <aop:pointcut id="processMethods" expression="execution(* cn.redflagsoft.base.process.WorkProcess.execute(..))"/>
+        <aop:pointcut id="workschemeDoMethods" expression="execution(* cn.redflagsoft..*WorkScheme.do*(..))"/>
+        <aop:pointcut id="schemeDoMethods" expression="execution(* cn.redflagsoft..*Scheme.do*(..))"/>
+        <aop:pointcut id="schemeViewMethods" expression="execution(* cn.redflagsoft..*Scheme.view*(..))"/>
+		<aop:pointcut id="actions" expression="execution(public String *..struts2.*Action*.*(..))"/>
+		
+		<!-- 以下3配置目前不正确 -->
+		<aop:pointcut id="anyPublicMethodInAtSecuredType" expression="execution(public * ((@org.springframework.security.annotation.Secured *)+).*(..)) && @this(org.springframework.security.annotation.Secured)"/>
+		<aop:pointcut id="securedMethod" expression="execution(* *(..)) && @annotation(org.springframework.security.annotation.Secured)"/>
+		
+		<aop:pointcut id="auditMethods" expression="execution(* *(..)) && @annotation(cn.redflagsoft.base.aop.annotation.Audit)"/>
+		
+		<!-- WorkScheme deprected
+        <aop:advisor advice-ref="txAdvice" pointcut="execution(* cn.redflagsoft.base.workscheme..*.scheme(..))" />
+        -->
+        
+		<aop:advisor advice-ref="txAdvice2" pointcut="execution(* cn.redflagsoft.base.service.impl.RiskServiceImpl.checkRiskGrade(..))"/>
+		
+		
+		<aop:advisor pointcut-ref="processMethods" advice-ref="txAdvice"/>
+		<aop:advisor pointcut-ref="processMethods" advice-ref="params"/>
+		
+		<aop:advisor pointcut-ref="schemeDoMethods" advice-ref="txAdvice"/>
+		<aop:advisor pointcut-ref="schemeDoMethods" advice-ref="params"/>
+		<aop:advisor pointcut-ref="schemeDoMethods" advice-ref="validationInterceptor"/>
+		
+		<aop:advisor pointcut-ref="schemeViewMethods" advice-ref="params"/>
+		
+		<aop:advisor pointcut-ref="workschemeDoMethods" advice-ref="taskWorkHandlerForWorkSchemeInterceptor"/>
+		<aop:advisor pointcut-ref="workschemeDoMethods" advice-ref="parametersCheckBeforeAdvice"/>
+		
+		<aop:advisor pointcut-ref="actions" advice-ref="printAfterReturningAdvice"/>
+		
+		<aop:advisor advice-ref="aspectJSecurityInterceptor" pointcut-ref="anyPublicMethodInAtSecuredType"/>
+		<aop:advisor advice-ref="aspectJSecurityInterceptor" pointcut-ref="securedMethod"/>
+		
+		<aop:advisor advice-ref="auditInterceptor" pointcut-ref="auditMethods"/>
+    </aop:config>
+    
+
+	
+	
+	<!-- 测试aspectj自定代理 -->
+	<!--  
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+	<bean class="cn.redflagsoft.base.aop.aspect.ParametersAspect"/>
+	-->
+</beans>
+

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.Help" table="HELP">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="title" column="TITLE" type="string"/>
+		<property name="scene" column="SCENE" type="string"/>
+		<property name="url" column="URL" type="string"/>
+		<property name="content" column="CONTENT" type="string"/>
+		<property name="summary" column="SUMMARY" type="string"/>
+		<property name="path" column="PATH" type="string"/>
+		<property name="x" column="X" type="int"/>
+		<property name="y" column="Y" type="int"/>
+		<property name="width" column="W" type="int"/>
+		<property name="height" column="H" type="int"/>
+
+		
+		
+		<property name="type" column="TP" type="int"/>
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+			
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+			
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+			
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+			
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+	</class>
+</hibernate-mapping>

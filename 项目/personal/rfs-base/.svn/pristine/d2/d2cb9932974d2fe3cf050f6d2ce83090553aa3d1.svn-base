@@ -1,0 +1,34 @@
+/*
+ * $Id$
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.service;
+
+import java.util.Date;
+
+import org.opoo.apps.security.User;
+
+import cn.redflagsoft.base.bean.Progress;
+import cn.redflagsoft.base.bean.RFSObject;
+
+/**
+ * @author Alex Lin(lcql@msn.com)
+ *
+ */
+public interface ObjectProgressManager {
+	/**
+	 * 通过WorkScheme创建指定对象的进度报告对象，并开始进度报告的Task和监察。
+	 * @param object 对象
+	 * @param title 标题
+	 * @param belongTime 所属时间，所属月份
+	 * @param createObjectProgressWorkSchemeInfo 创建进度报告时真正调用的WorkScheme信息
+	 * @param authUser 操作者，可为空，为空时取“定时任务”
+	 * @return
+	 */
+	Progress createObjectProgressByWorkScheme(RFSObject object, String title, Date belongTime, String createObjectProgressWorkSchemeInfo, User authUser);
+}

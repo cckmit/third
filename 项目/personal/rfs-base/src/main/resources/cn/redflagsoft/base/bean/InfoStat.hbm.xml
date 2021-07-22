@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.InfoStat" table="INFO_STAT">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		<property name="objectType" column="OBJECT_TYPE" type="int" not-null="true"/>
+		
+		<property name="infoConfigId" column="INFOCONFIGID" type="java.lang.Long"/>
+		
+		<property name="completeInfoCount" column="COMPLETEINFOCOUNT" type="int"/>
+		
+		<property name="incompleteInfoCount" column="INCOMPLETEINFOCOUNT" type="int"/>
+		
+		<property name="dutyEntityId" column="DUTYENTITYID" type="java.lang.Long"/>
+		
+		<property name="dutyEntityName" column="DUTYENTITYNAME" type="java.lang.String"/>
+		
+		<property name="type" column="TP" type="int"/>
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+		
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+		
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+	</class>
+</hibernate-mapping>

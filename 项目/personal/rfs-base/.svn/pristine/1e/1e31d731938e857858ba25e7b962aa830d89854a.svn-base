@@ -1,0 +1,18 @@
+/*
+ * $Id$
+ * 
+ * Copyright 2007-2008 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ */
+package cn.redflagsoft.base.dao.hibernate3;
+
+import cn.redflagsoft.base.bean.Code;
+import cn.redflagsoft.base.dao.CodeDao;
+
+/**
+ * @author mwx
+ *
+ */
+public class CodeHibernateDao extends AbstractBaseHibernateDao<Code, String> implements CodeDao {
+
+}

@@ -1,0 +1,181 @@
+/*
+ * $Id: SystemMessageImpl.java 4400 2011-05-17 06:36:04Z lcj $
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.service.impl;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.opoo.apps.security.User;
+
+import cn.redflagsoft.base.bean.VersionableBean;
+import cn.redflagsoft.base.service.SystemMessage;
+
+/**
+ *
+ */
+public class SystemMessageImpl extends VersionableBean implements SystemMessage {
+	private static final long serialVersionUID = 3911489528348483979L;
+	private String subject;
+	private String content;
+	private Date expirationTime;
+	private long limit = 0;
+	private PublishStatus publishStatus = PublishStatus.DRAFT; 
+	
+	/**
+	 * 用于缓存Reader对象，Key是sessionid，Value是reader对象。
+	 */
+	private transient Map<String,Reader> readers = new ConcurrentHashMap<String, Reader>();
+
+	/**
+	 * 
+	 */
+	public SystemMessageImpl() {
+		super();
+	}
+
+	/**
+	 * @param subject
+	 * @param content
+	 */
+	public SystemMessageImpl(String subject, String content) {
+		super();
+		this.subject = subject;
+		this.content = content;
+		this.setCreationTime(new Date());
+	}
+
+	/**
+	 * @return the subject
+	 */
+	public String getSubject() {
+		return subject;
+	}
+
+	/**
+	 * @param subject the subject to set
+	 */
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	/**
+	 * @return the content
+	 */
+	public String getContent() {
+		return content;
+	}
+
+	/**
+	 * @param content the content to set
+	 */
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	/**
+	 * @return the expirationTime
+	 */
+	public Date getExpirationTime() {
+		return expirationTime;
+	}
+
+	/**
+	 * @param expirationTime the expirationTime to set
+	 */
+	public void setExpirationTime(Date expirationTime) {
+		this.expirationTime = expirationTime;
+	}
+
+	/**
+	 * @return the limit
+	 */
+	public long getLimit() {
+		return limit;
+	}
+
+	/**
+	 * @param limit the limit to set
+	 */
+	public void setLimit(long limit) {
+		this.limit = limit;
+	}
+
+	/**
+	 * @return the publishStatus
+	 */
+	public PublishStatus getPublishStatus() {
+		return publishStatus;
+	}
+
+	/**
+	 * @param publishStatus the publishStatus to set
+	 */
+	public void setPublishStatus(PublishStatus publishStatus) {
+		this.publishStatus = publishStatus;
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.service.SystemMessage#getReaders()
+	 */
+	public List<Reader> getReaders() {
+		return new ArrayList<Reader>(readers.values());
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.service.SystemMessage#getMsgId()
+	 */
+	public long getMsgId() {
+		return getId();
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.service.SystemMessage#addLoadedUser(java.lang.String, org.opoo.apps.security.User)
+	 */
+	public Reader addLoadedUser(String sessionId, User user) {
+		Reader reader = getReader(sessionId);
+		if(reader == null){
+			reader = new Reader(sessionId, user);
+		}
+		reader.loadNow();
+		readers.put(sessionId, reader);
+		return reader;
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.service.SystemMessage#addConfirmedUser(java.lang.String, org.opoo.apps.security.User)
+	 */
+	public Reader addConfirmedUser(String sessionId, User user) {
+		Reader reader = getReader(sessionId);
+		if(reader == null){
+			reader = new Reader(sessionId, user);
+		}
+		reader.confirmNow();
+		readers.put(sessionId, reader);
+		return reader;
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.service.SystemMessage#getReader(java.lang.String)
+	 */
+	public Reader getReader(String sessionId) {
+		return readers.get(sessionId);
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.service.SystemMessage#containsReader(java.lang.String)
+	 */
+	public boolean containsReader(String sessionId) {
+		return readers.containsKey(sessionId);
+	}
+
+}

@@ -1,0 +1,61 @@
+/*
+ * $Id$
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.event;
+
+import org.springframework.context.ApplicationEvent;
+
+import cn.redflagsoft.base.bean.Risk;
+
+/**
+ * @author Alex Lin
+ *
+ */
+public class RiskEvent extends ApplicationEvent {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2835413665257493552L;
+	public static final int CREATE = 1;
+	public static final int CHANGE = 2;
+	public static final int FINISH = 9;
+	
+	
+	private final int type;
+	private Risk oldRisk;
+	public RiskEvent(Object source, int type) {
+		super(source);
+		this.type = type;
+	}
+	public RiskEvent(Object source, int type, Risk old) {
+		this(source, type);
+		this.oldRisk = old;
+	}
+	
+	
+	/**
+	 * @return the type
+	 */
+	public int getType() {
+		return type;
+	}
+	/**
+	 * @return the oldRisk
+	 */
+	public Risk getOldRisk() {
+		return oldRisk;
+	}
+	/**
+	 * @param oldRisk the oldRisk to set
+	 */
+	public void setOldRisk(Risk oldRisk) {
+		this.oldRisk = oldRisk;
+	}
+
+}

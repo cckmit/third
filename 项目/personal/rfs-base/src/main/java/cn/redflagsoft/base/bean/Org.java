@@ -1,0 +1,409 @@
+/*
+ * $Id: Org.java 6256 2013-06-25 09:43:35Z lf $
+ * 
+ * Copyright 2007-2008 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ */
+package cn.redflagsoft.base.bean;
+
+import java.io.Serializable;
+
+import org.opoo.ndao.Domain;
+import org.springframework.core.Ordered;
+
+/**
+ * @author Alex Lin
+ * @author $Author: lf $
+ * @version $Revision: 6256 $
+ */
+public class Org extends VersionableBean implements Observable, LabelDataBean, Domain<Long>, Ordered {
+	public static long MAX_SYS_ID = 99L;
+	
+	private static final long serialVersionUID = 4486929017305769401L;
+	private Long id;
+	private Long objectID;
+	private String code;
+	private String name;
+	private String abbr;
+	private String entityCode;
+	private String license;
+	private String authorizer;
+	private String holder;
+	private String manager;
+	private short parents;
+	private short children;
+	private String telNo;
+	private String faxNo;
+	private String legalAddr;
+	private String workAddr;
+	private Integer displayOrder;
+	
+	private Long parentOrgId;			//父级单位ID 
+	private String districtCode;		//行政区划代码 
+	private String districtName;		//行政区划名称	
+	
+	private Long categoryId;				//机构ID(2013-06-25)
+	private String categoryName;			//机构Name(2013-06-25)
+	
+
+	public Long getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
+	}
+	
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+
+	public Org() {
+	}
+
+	/**
+	 * 对象
+	 * 
+	 * @return Long
+	 */
+	public Long getObjectID() {
+		return this.objectID;
+	}
+
+	/**
+	 * @param objectID
+	 */
+	public void setObjectID(Long objectID) {
+		this.objectID = objectID;
+	}
+
+	/**
+	 * 显示名称ID
+	 * 
+	 * @return Serializable
+	 */
+	public Serializable getData() {
+		return getId();
+	}
+
+	/**
+	 * 显示名称
+	 * 
+	 * @return String
+	 */
+	public String getLabel() {
+		return getAbbr();
+	}
+
+	/**
+	 * 唯一标示
+	 * 
+	 * 默认为0,表示本单位.系统唯一.
+	 * @return Long
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * 代码
+	 * 
+	 * @return String
+	 */
+	public String getCode() {
+		return code;
+	}
+
+	/**
+	 * @param code
+	 */
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	/**
+	 * 名称
+	 * 
+	 * 一般名称在50个汉字之内.
+	 * @return String
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * 简称
+	 * 
+	 * 一般简称在8个汉字之内.
+	 * @return String
+	 */
+	public String getAbbr() {
+		return abbr;
+	}
+
+	/**
+	 * @param abbr
+	 */
+	public void setAbbr(String abbr) {
+		this.abbr = abbr;
+	}
+
+	/**
+	 * 机构号码
+	 * 
+	 * 组积机构代码.
+	 * @return String
+	 */
+	public String getEntityCode() {
+		return entityCode;
+	}
+
+	/**
+	 * @param entityCode
+	 */
+	public void setEntityCode(String entityCode) {
+		this.entityCode = entityCode;
+	}
+
+	/**
+	 * 执照号码
+	 * 
+	 * 批准执照号码.
+	 * @return String
+	 */
+	public String getLicense() {
+		return license;
+	}
+
+	/**
+	 * @param license
+	 */
+	public void setLicense(String license) {
+		this.license = license;
+	}
+
+	/**
+	 * 批准机关
+	 * 
+	 * @return String
+	 */
+	public String getAuthorizer() {
+		return authorizer;
+	}
+
+	/**
+	 * @param authorizer
+	 */
+	public void setAuthorizer(String authorizer) {
+		this.authorizer = authorizer;
+	}
+
+	/**
+	 * 法人代表
+	 * 
+	 * 一般法人名字在15个汉字之内.
+	 * @return String
+	 */
+	public String getHolder() {
+		return holder;
+	}
+
+	/**
+	 * @param holder
+	 */
+	public void setHolder(String holder) {
+		this.holder = holder;
+	}
+
+	/**
+	 * 负责人
+	 * 
+	 * 一般法人名字在15个汉字之内.
+	 * @return String
+	 */
+	public String getManager() {
+		return manager;
+	}
+
+	/**
+	 * @param manager
+	 */
+	public void setManager(String manager) {
+		this.manager = manager;
+	}
+
+	/**
+	 * 上级单位
+	 * 
+	 * 上级单位数量,默认为0,表示忽略.
+	 * @return short
+	 */
+	public short getParents() {
+		return parents;
+	}
+
+	/**
+	 * @param parents
+	 */
+	public void setParents(short parents) {
+		this.parents = parents;
+	}
+
+	/**
+	 * 下级单位
+	 * 
+	 * 下级单位数量,默认为0,表示忽略.
+	 * @return short
+	 */
+	public short getChildren() {
+		return children;
+	}
+
+	/**
+	 * @param children
+	 */
+	public void setChildren(short children) {
+		this.children = children;
+	}
+
+	/**
+	 * 电话号码
+	 * 
+	 * @return String
+	 */
+	public String getTelNo() {
+		return telNo;
+	}
+
+	/**
+	 * @param telNo
+	 */
+	public void setTelNo(String telNo) {
+		this.telNo = telNo;
+	}
+
+	/**
+	 * 传真号码
+	 * 
+	 * @return String
+	 */
+	public String getFaxNo() {
+		return faxNo;
+	}
+
+	/**
+	 * @param faxNo
+	 */
+	public void setFaxNo(String faxNo) {
+		this.faxNo = faxNo;
+	}
+
+	/**
+	 * 注册地址
+	 * 
+	 * @return String
+	 */
+	public String getLegalAddr() {
+		return legalAddr;
+	}
+
+	/**
+	 * @param legalAddr
+	 */
+	public void setLegalAddr(String legalAddr) {
+		this.legalAddr = legalAddr;
+	}
+
+	/**
+	 * 办公地址
+	 * 
+	 * @return String
+	 */
+	public String getWorkAddr() {
+		return workAddr;
+	}
+
+	/**
+	 * @param workAddr
+	 */
+	public void setWorkAddr(String workAddr) {
+		this.workAddr = workAddr;
+	}
+
+	public Integer getDisplayOrder() {
+		return displayOrder;
+	}
+
+	public void setDisplayOrder(Integer displayOrder) {
+		this.displayOrder = displayOrder;
+	}
+
+	public int getOrder() {
+		if(displayOrder != null){
+			return displayOrder.intValue();
+		}
+		return 0;
+	}
+	
+	
+	public Long getParentOrgId() {
+		return parentOrgId;
+	}
+
+	public void setParentOrgId(Long parentOrgId) {
+		this.parentOrgId = parentOrgId;
+	}
+
+	public String getDistrictCode() {
+		return districtCode;
+	}
+
+	public void setDistrictCode(String districtCode) {
+		this.districtCode = districtCode;
+	}
+
+	public String getDistrictName() {
+		return districtName;
+	}
+
+	public void setDistrictName(String districtName) {
+		this.districtName = districtName;
+	}
+	
+	/**
+	 * 同{@link #getDistrictName()} 。
+	 * @see #getDistrictName()
+	 * @return
+	 */
+	public String getDistrictCodeLabel(){
+		return getDistrictName();
+	}
+	
+	/**
+	 * 同{@link #setDistrictName(String)} 。
+	 * @see #setDistrictName(String)
+	 * @param districtName
+	 */
+	public void setDistrictCodeLabel(String districtName){
+		setDistrictName(districtName);
+	}
+	
+}

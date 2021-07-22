@@ -1,0 +1,147 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd"
+       >
+       
+    <bean id="scheduledExecutor" class="java.util.concurrent.ScheduledThreadPoolExecutor" 
+    	destroy-method="shutdownNow">
+    	<constructor-arg value="6"></constructor-arg>
+    </bean>
+    
+	<bean id="eventListenerManager" class="org.opoo.apps.event.v2.WrappedEventListenerManager"/>
+    
+    <!-- global event dispatcher -->
+	<bean id="eventDispatcher" class="org.opoo.apps.event.v2.NonBlockingEventDispatcher" >
+		<constructor-arg ref="eventListenerManager"></constructor-arg>
+		<property name="executor" ref="scheduledExecutor"></property>
+	</bean>
+	
+	<bean id="autoRegistrar" class="org.opoo.apps.event.v2.AutoEventRegistrar">
+        <property name="eventDispatcher" ref="eventDispatcher"/>
+        <property name="eventListenerManager" ref="eventListenerManager"></property>
+    </bean>
+
+
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
+		<property name="url" value="jdbc:hsqldb:hsql://localhost:20100/" />
+		<property name="username" value="sa" />
+		<property name="password" value="" />
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mappingResources">
+			<list>
+				<value>org/opoo/apps/conversion/Conversion.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<!-- <prop key="hibernate.hbm2ddl.auto">create</prop> -->
+				<prop key="hibernate.connection.autocommit">true</prop>
+			</props>
+		</property>
+	</bean>
+ 
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+    
+   	<bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
+        <constructor-arg ref="transactionManager"/>
+    </bean>
+ 
+ 	<bean id="conversionDao" class="org.opoo.apps.conversion.dao.impl.ConversionDaoImpl">
+ 		<property name="sessionFactory" ref="sessionFactory"></property>
+ 	</bean>
+ 
+ 
+ 	<bean id="idGeneratorProvider" class="org.opoo.apps.id.TimestampIdGeneratorProvider"></bean>
+    
+    <bean id="fileStorageProvider" class="com.jivesoftware.eos.fs.FileStorageProvider">
+    	<constructor-arg index="0" value="cv-test-sp"></constructor-arg>
+    	<constructor-arg index="1">
+    		<props>
+    			<prop key="rootDirectory">e:/cv-test-sp</prop>
+    		</props>
+    	</constructor-arg>
+    </bean>
+    
+    <bean id="storage" class="org.opoo.storage.eos.ExternalOpaqueStorage">
+    	<constructor-arg ref="fileStorageProvider"></constructor-arg>
+    </bean>
+    
+    <bean id="conversionStorageService" class="org.opoo.apps.conversion.impl.ConversionStorageServiceImpl">
+    	<property name="conversionDao" ref="conversionDao"></property>
+    	<property name="idGeneratorProvider" ref="idGeneratorProvider"></property>
+    	<property name="conversionErrorStepsCache">
+    		<bean class="org.opoo.cache.MapCache"><constructor-arg value="stepsCache"/></bean>
+    	</property>
+    	<property name="conversionArtifactCache">
+    		<bean class="org.opoo.cache.MapCache"><constructor-arg value="artifactCache"/></bean>
+    	</property>
+    	<property name="conversionRevisionCache">
+    		<bean class="org.opoo.cache.MapCache"><constructor-arg value="revisionCache"/></bean>
+    	</property>
+    	<property name="conversionRevisionIdCache">
+    		<bean class="org.opoo.cache.MapCache"><constructor-arg value="revisionIdCache"/></bean>
+    	</property>
+    	<property name="storage" ref="storage"></property>
+    </bean>
+    
+    <bean id="conversionStorageServiceProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+   		<property name="transactionManager" ref="transactionManager"></property>
+		<property name="target" ref="conversionStorageService"></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+    
+    <bean id="conversionManagerImpl" class="org.opoo.apps.conversion.v2.ConversionManagerImplV2">
+    	<property name="conversionStorageService" ref="conversionStorageServiceProxy"></property>
+    	<property name="processCache">
+    		<bean class="org.opoo.cache.MapCache"><constructor-arg value="processCache"/></bean>
+    	</property>
+    	<property name="conversionProviders">
+    		<list>
+    			<ref bean="docConversionProvider"/>
+    		</list>
+    	</property>
+    </bean>
+    
+    <bean id="docConversionProvider" class="org.opoo.apps.conversion.v2.doc.DocConversionProvider">
+    	<property name="conversionStorageService" ref="conversionStorageService"></property>
+    	<property name="dispatcher" ref="eventDispatcher"></property>
+    </bean>
+    
+    <bean id="conversionEventListener" class="org.opoo.apps.conversion.v2.ConversionManagerImplV2$ConversionEventListener">
+    	<property name="conversionManagerImpl" ref="conversionManagerImpl"></property>
+    </bean>
+    
+    <bean id="testPdfRequestEventListener" class="org.opoo.apps.conversion.v2.doc.listener.TestPdfRequestEventListener">
+    	<property name="dispatcher" ref="eventDispatcher"></property>
+    </bean>
+    
+     <bean id="testReviewRequestEventListener" class="org.opoo.apps.conversion.v2.doc.listener.TestPreviewRequestEventListener">
+    	<property name="dispatcher" ref="eventDispatcher"></property>
+    </bean>
+    
+     <bean id="testThumbnailRequestEventListener" class="org.opoo.apps.conversion.v2.doc.listener.TestThumbnailRequestEventListener">
+    	<property name="dispatcher" ref="eventDispatcher"></property>
+    </bean>
+</beans>

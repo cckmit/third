@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.AuditLog" table="AUDIT_LOG">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		<property name="userId" column="USERID" type="long" not-null="true"/>
+		<property name="username" column="USER_NAME" type="string"></property>
+		<property name="timestamp" column="TIMESTAMP_" type="java.sql.Timestamp" not-null="true"/>
+		<property name="node" column="NODE_" type="string" length="200" not-null="true"/>
+		<property name="details" column="DETAILS_" type="string" length="2000"></property>
+		<property name="description" column="DESC_" type="string" length="1000"></property>
+		<property name="operation" column="OPERATION_" type="string" length="100"></property>
+		<component name="domain">
+			<property name="id" column="DOMAIN_ID" type="string" length="100"></property>
+			<property name="type" column="DOMAIN_TYPE" type="string" length="200"></property>
+		</component>
+	</class>
+</hibernate-mapping>

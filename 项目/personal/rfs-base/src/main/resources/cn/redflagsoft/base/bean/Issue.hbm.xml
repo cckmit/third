@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping>
+<subclass name="cn.redflagsoft.base.bean.Issue" 
+		extends="cn.redflagsoft.base.bean.RFSObject"
+		discriminator-value="201">	
+		<join table="ISSUE" fetch="select">
+	        <key column="ID"/>
+		<property name="grade" type="short" column="GRADE"/>
+		
+		<property name="type" column="TP" type="int"/>
+		
+		<property name="sn" column="SN" type="java.lang.String" />
+		  
+		<property name="name" column="NAME" type="java.lang.String"/>
+		 
+		<property name="description" column="DESCRIPTION" type="java.lang.String"/>
+		
+	    <property name="progress" column="PROGRESS" type="java.lang.String"/>
+	    
+	    <property name="refObjectId" column="REF_OBJ_ID" type="java.lang.Long" />
+	    
+	    <property name="refObjectName" column="REF_OBJ_NAME" type="java.lang.String"/>
+	    
+	    <property name="refObjectType" column="REF_OBJ_TYPE" type="java.lang.Integer"/>
+	    
+		<property name="flags" column="FLAGS" type="int"/>
+		
+		<property name="orgId" column="ORG_ID" type="java.lang.Long"/>
+		
+		<property name="orgName" column="ORG_NAME " type="java.lang.String"/>
+		
+	    <property name="reporterId" column="REPORTER_ID" type="java.lang.Long"/>
+		
+		<property name="reporterName" column="REPORTER_NAME " type="java.lang.String"/>
+		
+		<property name="reportTime" column="REPORT_TIME" type="java.sql.Timestamp"/>
+		
+		<property name="belongTime" column="BELONG_TIME" type="java.sql.Timestamp"/>
+	    
+	    <!-- 当前表的status为业务状态，rfs_object表的status为归档状态  -->
+	    <property name="bizStatus" column="STATUS" type="byte"/>
+	    
+	    <property name="remark" column="REMARK" type="java.lang.String"/>
+			
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+			
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+			
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+			
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+	    </join>
+</subclass>
+</hibernate-mapping>

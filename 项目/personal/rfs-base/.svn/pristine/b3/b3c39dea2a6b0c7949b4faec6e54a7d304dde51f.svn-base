@@ -1,0 +1,171 @@
+/*
+ * $Id$
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.service.impl;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.opoo.apps.event.v2.EventDispatcher;
+import org.opoo.apps.event.v2.EventDispatcherAware;
+import org.opoo.apps.security.User;
+
+import cn.redflagsoft.base.event2.SystemMessageEvent;
+import cn.redflagsoft.base.service.SystemMessage;
+import cn.redflagsoft.base.service.SystemMessage.PublishStatus;
+import cn.redflagsoft.base.service.SystemMessageManager;
+
+/**
+ * @author Alex Lin(alex@opoo.org)
+ *
+ */
+public class SystemMessageManagerImpl implements SystemMessageManager, EventDispatcherAware {
+	private static final Log log = LogFactory.getLog(SystemMessageManagerImpl.class);
+	
+	private boolean autoPublish = true;
+	private Map<Long, SystemMessage> messages = new ConcurrentHashMap<Long, SystemMessage>();
+	private static long currentMessageId = 1;
+	private EventDispatcher eventDispatcher;
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.service.SystemMessageManager#getMessage(long)
+	 */
+	public SystemMessage getMessage(long msgId) {
+		return messages.get(msgId);
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.service.SystemMessageManager#findMessages()
+	 */
+	public List<SystemMessage> findMessages() {
+		List<SystemMessage> list = new ArrayList<SystemMessage>(messages.values());
+		Collections.sort(list, new Comparator<SystemMessage>(){
+			public int compare(SystemMessage o1, SystemMessage o2) {
+				return (int)(o1.getMsgId() - o2.getMsgId());
+			}});
+		return list;
+	}
+	
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.service.SystemMessageManager#loadMessages(org.opoo.apps.security.User)
+	 */
+	public List<SystemMessage> loadMessages(User user) {
+		throw new UnsupportedOperationException();
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.service.SystemMessageManager#publishMessage(cn.redflagsoft.base.service.SystemMessage)
+	 */
+	public SystemMessage publishMessage(SystemMessage message) {
+		message.setPublishStatus(PublishStatus.NORMAL);
+		dispatchEvent(SystemMessageEvent.Type.PUBLISH, message);
+		return message;
+	}
+	
+	protected void dispatchEvent(SystemMessageEvent.Type type, SystemMessage msg){
+		if(eventDispatcher != null){
+			eventDispatcher.dispatchEvent(new SystemMessageEvent(type, msg));
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.service.SystemMessageManager#removeMessage(long)
+	 */
+	public SystemMessage removeMessage(long messageId) {
+		return messages.remove(messageId);
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.service.SystemMessageManager#createMessage(java.lang.String, java.lang.String, java.util.Date, long)
+	 */
+	public SystemMessage createMessage(String subject, String content, Date expirationTime, long limit, PublishStatus publishStatus) {
+		SystemMessageImpl impl = new SystemMessageImpl(subject, content);
+		impl.setCreationTime(new Date());
+		impl.setLimit(limit);
+		impl.setId(currentMessageId++);
+		if(publishStatus == null){
+			if(autoPublish){
+				impl.setPublishStatus(PublishStatus.NORMAL);
+				dispatchEvent(SystemMessageEvent.Type.PUBLISH, impl);
+			}else{
+				impl.setPublishStatus(PublishStatus.DRAFT);
+			}
+		}else{
+			impl.setPublishStatus(publishStatus);
+		}
+		messages.put(impl.getMsgId(), impl);
+		return impl;
+	}
+
+	/**
+	 * @return the autoPublish
+	 */
+	public boolean isAutoPublish() {
+		return autoPublish;
+	}
+
+	/**
+	 * @param autoPublish the autoPublish to set
+	 */
+	public void setAutoPublish(boolean autoPublish) {
+		this.autoPublish = autoPublish;
+	}
+
+	/**
+	 * @return the eventDispatcher
+	 */
+	public EventDispatcher getEventDispatcher() {
+		return eventDispatcher;
+	}
+
+	/**
+	 * @param eventDispatcher the eventDispatcher to set
+	 */
+	public void setEventDispatcher(EventDispatcher eventDispatcher) {
+		this.eventDispatcher = eventDispatcher;
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.service.SystemMessageManager#loadMessages(java.lang.String, org.opoo.apps.security.User)
+	 */
+	public List<SystemMessage> loadMessages(String sessionId, User user) {
+		List<SystemMessage> list = new ArrayList<SystemMessage>();
+		Iterator<SystemMessage> iterator = messages.values().iterator();
+		Date now = new Date();
+		while(iterator.hasNext()){
+			SystemMessage message = iterator.next();
+			if(message.getPublishStatus() == PublishStatus.NORMAL){
+				Date expirationTime = message.getExpirationTime();
+				if(expirationTime != null && expirationTime.after(now)){
+					message.setPublishStatus(PublishStatus.EXPIRE);
+					if(log.isDebugEnabled()){
+						log.debug("消息过期：" + message.getSubject());
+					}
+				}else if(!message.containsReader(sessionId)){
+					message.addLoadedUser(sessionId, user);
+					list.add(message);
+				}
+			}
+//			if(message.getPublishStatus() == PublishStatus.NORMAL && !message.containsReader(user)){
+//				list.add(message);
+//			}
+		}
+		return list;
+	}
+
+}

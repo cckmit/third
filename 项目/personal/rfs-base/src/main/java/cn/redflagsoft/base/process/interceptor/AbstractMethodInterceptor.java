@@ -1,0 +1,30 @@
+/*
+ * $Id: AbstractMethodInterceptor.java 3996 2010-10-18 06:56:46Z lcj $
+ * 
+ * Copyright 2007-2008 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ */
+package cn.redflagsoft.base.process.interceptor;
+
+import org.aopalliance.intercept.MethodInterceptor;
+import org.aopalliance.intercept.MethodInvocation;
+
+/**
+ * @author Alex Lin
+ *
+ */
+public abstract class AbstractMethodInterceptor implements MethodInterceptor {
+	public static final String WORK_PROCESS_EXECUTE_METHOD_NAME = "execute";
+
+	/* (non-Javadoc)
+	 * @see org.aopalliance.intercept.MethodInterceptor#invoke(org.aopalliance.intercept.MethodInvocation)
+	 */
+	public Object invoke(MethodInvocation invocation) throws Throwable {
+		if(WORK_PROCESS_EXECUTE_METHOD_NAME.equals(invocation.getMethod().getName())){
+			return doInvoke(invocation);
+		}
+		return invocation.proceed();
+	}
+	
+	protected abstract Object doInvoke(MethodInvocation invocation) throws Throwable;
+}

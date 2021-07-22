@@ -1,0 +1,80 @@
+/*
+ * $Id: RiskMonitorable.java 5189 2011-12-12 04:52:47Z lcj $
+ * 
+ * Copyright 2007-2008 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.bean;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+/**
+ * @author Alex Lin
+ *
+ */
+public interface RiskMonitorable {
+	/**
+	 * 被监控对象的Id。
+	 * 
+	 * @return
+	 */
+	Long getId();
+	/**
+	 * 被监控对象的类型。
+	 * 
+	 * @return
+	 */
+	int getObjectType();
+	
+	/**
+	 * 设置被监控对象的风险项。
+	 * 
+	 * @param entries
+	 */
+	void setRiskEntries(List<RiskEntry> entries);
+	
+	/**
+	 * 向被监控对象增加一个风险项。
+	 * 
+	 * @param entry
+	 */
+	void addRiskEntry(RiskEntry entry);
+	
+	/**
+	 * 返回当前对象的全部风险项。
+	 * 
+	 * @return
+	 */
+	List<RiskEntry> getRiskEntries();
+	
+	/**
+	 * 根据风险项的属性值从当前被监控对象中查找对应的风险项。
+	 * 
+	 * @param attr
+	 * @return
+	 */
+	RiskEntry getRiskEntryByObjectAttr(String attr);
+	
+	/**
+	 * 删除指定风险
+	 * @param riskId
+	 */
+	void removeRiskEntry(RiskEntry riskEntry);
+	
+	/**
+	 * 删除所有风险
+	 */
+	void removeAllRiskEntries();
+	
+	/**
+	 * 获取指定被监控属性的值。
+	 * 
+	 * @param objectAttr
+	 * @return
+	 */
+	BigDecimal getRiskValue(String objectAttr);
+}

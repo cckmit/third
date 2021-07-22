@@ -1,0 +1,5 @@
+com\beitie\provider\service\DeptService.class
+com\beitie\provider\service\impl\DeptServiceImpl.class
+com\beitie\provider\dao\DeptDao.class
+com\beitie\provider\Dept_Provider_Hystrix8080.class
+com\beitie\provider\handler\DeptController_Provider_8080.class

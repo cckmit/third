@@ -1,0 +1,153 @@
+/*
+ * $Id: CautionCheckWorkScheme.java 5971 2012-08-03 05:57:13Z lcj $
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.scheme.schemes.caution;
+
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.opoo.util.Assert;
+
+import cn.redflagsoft.base.bean.Caution;
+import cn.redflagsoft.base.bean.CautionCheck;
+import cn.redflagsoft.base.bean.MatterAffair;
+import cn.redflagsoft.base.bean.RFSObject;
+import cn.redflagsoft.base.scheme.AbstractWorkScheme;
+import cn.redflagsoft.base.scheme.Scheme;
+import cn.redflagsoft.base.scheme.SchemeException;
+import cn.redflagsoft.base.scheme.SchemeInvoker;
+import cn.redflagsoft.base.scheme.SchemeParametersBuilder;
+import cn.redflagsoft.base.scheme.WorkScheme;
+import cn.redflagsoft.base.scheme.schemes.caution.AbstractCautionWorkScheme;
+import cn.redflagsoft.base.service.CautionCheckService;
+import cn.redflagsoft.base.service.SmsgService;
+import cn.redflagsoft.base.service.CallSmsgOrCallCautionNotifyService;
+import cn.redflagsoft.base.service.FormDataLoader;
+
+
+/**
+ * 警示复核
+ * @author Administrator
+ */
+public class CautionCheckWorkScheme extends AbstractCautionWorkScheme implements SchemeParametersBuilder{
+	private CautionCheckService cautionCheckService;
+	private CautionCheck cautionCheck;
+	private SmsgService smsgService;
+	private CallSmsgOrCallCautionNotifyService callSmsgOrCallCautionNotifyService;
+
+	public CallSmsgOrCallCautionNotifyService getCallSmsgOrCallCautionNotifyService() {
+		return callSmsgOrCallCautionNotifyService;
+	}
+	public void setCallSmsgOrCallCautionNotifyService(
+			CallSmsgOrCallCautionNotifyService callSmsgOrCallCautionNotifyService) {
+		this.callSmsgOrCallCautionNotifyService = callSmsgOrCallCautionNotifyService;
+	}
+	public SmsgService getSmsgService() {
+		return smsgService;
+	}
+	public void setSmsgService(SmsgService smsgService) {
+		this.smsgService = smsgService;
+	}
+
+	private FormDataLoader base_formDataLoader;
+	
+//	private Long id;
+	
+//	public Long getId() {
+//		return id;
+//	}
+//	public void setId(Long id) {
+//		this.id = id;
+//	}
+	
+	public CautionCheckService getCautionCheckService() {
+		return cautionCheckService;
+	}
+	public FormDataLoader getBase_formDataLoader() {
+		return base_formDataLoader;
+	}
+	public void setBase_formDataLoader(FormDataLoader baseFormDataLoader) {
+		base_formDataLoader = baseFormDataLoader;
+	}
+	public void setCautionCheckService(CautionCheckService cautionCheckService) {
+		this.cautionCheckService = cautionCheckService;
+	}
+	
+	public CautionCheck getCautionCheck() {
+		return cautionCheck;
+	}
+	public void setCautionCheck(CautionCheck cautionCheck) {
+		this.cautionCheck = cautionCheck;
+	}
+	
+	
+	/**
+	 * 警示复核
+	 * @return
+	 * @throws Exception 
+	 */
+	public Object doCheck() throws Exception{
+		Assert.notNull(getCautionCheck(), "事实复核对象不能为空");
+		Caution caution = (Caution)getObject();
+		Assert.notNull(caution, "警示对象不能为空");
+		CautionCheck cautionCheck2 = getCautionCheckService().saveOrUpdateCautionCheck(caution, getCautionCheck());
+		Assert.notNull(cautionCheck2);
+		addRelatedItem(cautionCheck2);
+		
+		finishMatters();
+		
+
+		//注意，finishMatters()默认执行的tag为0的，所以把小于等于0点必须去掉
+		if(caution.getGrade() > 0 && cautionCheck2.getCheckResultName().equals(CautionCheck.CHECK_OK)){
+			finishMatter(caution.getGrade());
+		}
+		
+		
+		// 如果复核的结果 不符合事实情况，则不处理消息，及短信告知。
+		if(cautionCheck2.getCheckResultName().equals(CautionCheck.CHECK_OK)){
+			// 处理消息（消息发布） 及 发送以后消息以后，产生短信告知。
+			callSmsgOrCallCautionNotifyService.callSmsg(caution);
+			callSmsgOrCallCautionNotifyService.callCautionNotify(caution,null);
+		}else{
+			Scheme scheme2 = getSchemeManager().getScheme("finishCaution");
+			Map<String,Object> map2 = new HashMap<String,Object>();
+			map2.put("objectId", caution.getId());
+			map2.put("cautionFinish.operateDescLabel","");
+			((AbstractWorkScheme)scheme2).setParameters(map2);
+			SchemeInvoker.invoke(scheme2);
+		}
+		
+		return "业务处理成功！";
+	}
+	
+	public Object viewGetFormData(){
+		Assert.notNull(getObjectId(), "ObjectId is required");
+		Assert.notNull(getTaskType(), "taskType is required");
+		
+		CautionCheck cautionCheck = getCautionCheckService().getCautionCheckByCautionId(getObjectId());
+		return base_formDataLoader.buildFormData(cautionCheck, getObjectId(), Caution.OBJECT_TYPE, getTaskType());
+	}
+	
+	
+	public Map<String, Object> buildParameters(MatterAffair m,
+			WorkScheme w, RFSObject rfsObj, RFSObject rfsObj2) {
+		if("doAvoid".equals(this.getMethod()) || "avoid".equals(this.getMethod())){
+			Map<String,Object> map = new HashMap<String, Object>();
+			//组装参数
+			
+			map.put("objectId", rfsObj.getId() + "");
+			
+			return map;
+		}else{
+			throw new SchemeException("无法构建调用WorkScheme所需的参数.");
+		}
+		
+	}
+}

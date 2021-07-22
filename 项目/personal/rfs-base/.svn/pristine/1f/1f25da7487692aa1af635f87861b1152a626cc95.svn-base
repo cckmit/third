@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.Glossary" table="GLOSSARY">
+		<id name="rn" column="RN" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		
+		<property name="category" column="CATEGORY" type="short"/>
+		
+		<property name="code" column="CODE" type="int"/>
+		
+		<property name="displayOrder" column="DISPLAY_ORDER" type="short"/>
+		
+		<property name="term" column="TERM" type="java.lang.String"/>
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+		
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+		
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+	</class>
+</hibernate-mapping>

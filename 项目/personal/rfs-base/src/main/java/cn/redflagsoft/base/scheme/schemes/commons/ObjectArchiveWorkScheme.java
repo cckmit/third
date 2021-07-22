@@ -1,0 +1,52 @@
+/*
+ * $Id: ObjectArchiveWorkScheme.java 5604 2012-05-04 06:26:30Z lcj $
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.scheme.schemes.commons;
+
+import cn.redflagsoft.base.bean.commons.ObjectArchive;
+
+/**
+ * @author Alex Lin(lcql@msn.com)
+ *
+ */
+public class ObjectArchiveWorkScheme extends AbstractObjectAdminWorkScheme {
+	private ObjectArchive archive;
+	
+	/**
+	 * @return the archive
+	 */
+	public ObjectArchive getArchive() {
+		return archive;
+	}
+
+	/**
+	 * @param archive the archive to set
+	 */
+	public void setArchive(ObjectArchive archive) {
+		this.archive = archive;
+	}
+
+	public Object doScheme(){
+		return archive(archive);
+	}
+	
+	/**
+	 * 归档。
+	 * 将该方法单独定义，便于在继承中重写，因为do方法不能重写。
+	 * @param archive
+	 * @return
+	 */
+	protected Object archive(ObjectArchive archive){
+		ObjectArchive archive2 = getObjectAdminService().archiveObject(getObject(), archive);
+		addRelatedItem(archive2);
+
+		getMattersHandler().finishMatters(getTask(), getWork(), getObject(), getMatterVO().getMatterIds());
+		return "归档成功！";
+	}
+}

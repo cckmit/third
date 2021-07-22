@@ -1,0 +1,125 @@
+/*
+ * $Id: ClerkService.java 5884 2012-06-19 03:28:04Z lf $
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.service;
+
+import java.util.List;
+
+import org.opoo.ndao.criterion.Criterion;
+import org.opoo.ndao.criterion.Order;
+import org.opoo.ndao.support.PageableList;
+import org.opoo.ndao.support.ResultFilter;
+
+import cn.redflagsoft.base.bean.Clerk;
+import cn.redflagsoft.base.vo.UserClerkVO;
+
+public interface ClerkService {
+	/**
+	 * 查找指定id的人员。
+	 * @param id
+	 * @return
+	 */
+	Clerk getClerk(Long id);
+	/**
+	 * 
+	 * @param clerk
+	 * @return
+	 */
+	Clerk updateClerk(Clerk clerk);
+	/**
+	 * 删除人员。
+	 * @param clerk
+	 * @return
+	 */
+	int deleteClerk(Clerk clerk);
+	/**
+	 * 保存人员。
+	 * @param clerk
+	 * @return
+	 */
+	Clerk saveClerk(Clerk clerk);
+	/**
+	 * 根据人员id集合删除多个人员。
+	 * @param ids
+	 * @return 实际删除人员的数量
+	 */
+	int deleteClerks(List<Long> ids);
+	
+	
+	/**
+	 * 查询人员列表。
+	 * 
+	 * @param filter
+	 * @return
+	 */
+	List<Clerk> findClerks(ResultFilter filter);
+	
+	
+	/**
+	 * 分页查询人员。
+	 * 
+	 * @param filter
+	 * @return
+	 */
+	PageableList<Clerk> findPageableClerks(ResultFilter filter);
+	
+	/**
+	 * 根据指定的关键字搜索指定单位的人员。
+	 * 
+	 * @param base 基本查询条件
+	 * @param order 基本排序条件
+	 * @param orgId 单位id
+	 * @param includeSuborgClerks 是否包含下级单位的人员
+	 * @return 检索到的人员列表
+	 */
+	List<Clerk> findClerks(Criterion base, Order order, Long orgId, boolean includeSuborgClerks);
+	
+	/**
+	 * 根据查询条件查询指定人员分组指定单位的人员。
+	 * @param clerkGroupId 人员分组ID
+	 * @param base 基本查询条件,该条件只针对clerk表
+	 * @param order 排序条件
+	 * @param orgId 单位
+	 * @param includeSuborgClerks 是否包含下级单位的人员
+	 * @return 查询结果集合
+	 */
+	List<Clerk> findClerksInGroup(long clerkGroupId, Criterion base, Order order, Long orgId, boolean includeSuborgClerks);
+	
+	/**
+	 * 查询系统用户列表。
+	 * 
+	 * @param filter
+	 * @return
+	 */
+	List<UserClerkVO> findUserClerkVOs(ResultFilter filter);
+	
+	/**
+	 * 根据基本查询条件查询指定部门的用户。
+	 * 
+	 * @param base 基本查询条件
+	 * @param order 基本排序条件
+	 * @param orgId 单位id
+	 * @param includeSuborgUsers 是否包含下级部门的用户
+	 * @return 检索到的用户列表
+	 */
+	List<UserClerkVO> findUserClerkVOs(Criterion base, Order order, Long orgId, boolean includeSuborgUsers);
+	
+	
+	/**
+	 * 根据人员的ID集合构建人员集合。
+	 * 
+	 * @param clerkIds 人员id集合
+	 * @param orderClerkIds 用于排序的人员id的集合，可以为null，如果为空，则以clerkIds的顺序为准
+	 * @param includeSystemClerks 是否包含系统用户关联的人员
+	 * @return 人员集合
+	 */
+	List<Clerk> buildClerkList(List<Long> clerkIds, List<Long> orderClerkIds, boolean includeSystemClerks);
+	
+	
+}

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       					http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<!-- License Manager is fairly global -->
+    <bean id="licenseManager" class="org.opoo.apps.license.AppsLicenseManager" factory-method="getInstance" destroy-method="shutdown"/>
+    
+    <bean id="executor" class="org.opoo.util.task.ExecutorDemo"/>
+    <bean id="scheduledExecutor" class="java.util.concurrent.ScheduledThreadPoolExecutor" 
+    	destroy-method="shutdownNow">
+    	<constructor-arg value="6"></constructor-arg>
+    </bean>
+    
+	<!-- Global Timer for timed execution tasks. -->
+    <bean id="taskTimer" class="org.springframework.scheduling.timer.TimerFactoryBean">
+        <property name="daemon" value="false"/>
+    </bean>
+
+    <!-- Spring task executor replaces the custom task engine. -->
+    <bean id="minuteTaskExecutor" class="org.springframework.scheduling.timer.TimerTaskExecutor">
+        <property name="delay" value="60000"/>
+        <property name="timer" ref="taskTimer"/>
+    </bean>
+    
+	<bean id="eventListenerManager" class="org.opoo.apps.event.v2.WrappedEventListenerManager"/>
+    
+    <!-- global event dispatcher -->
+	<bean id="eventDispatcher" class="org.opoo.apps.event.v2.BlockingEventDispatcher" >
+		<constructor-arg ref="eventListenerManager"></constructor-arg>
+	</bean>
+	
+	
+	<bean id="dataSource" class="org.opoo.apps.database.DataSourceFactoryBean"/>
+	
+	<!-- <bean id="taskEngine" class="org.opoo.util.task.TaskEngine"></bean> -->
+</beans>
+

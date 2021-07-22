@@ -1,0 +1,27 @@
+/*
+ * $Id: PropertyExtractor.java 4342 2011-04-22 02:17:01Z lcj $
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.service;
+
+/**
+ * 属性提取器。
+ * 
+ * <p>从指定对象中提取特定属性的值。
+ * @author Alex Lin(alex@opoo.org)
+ *
+ */
+public interface PropertyExtractor<T,P> {
+	/**
+	 * 提取指定对象的特定属性。
+	 * 
+	 * @param t
+	 * @return
+	 */
+	P extract(T t);
+}

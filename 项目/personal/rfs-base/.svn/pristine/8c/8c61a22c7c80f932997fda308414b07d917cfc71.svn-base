@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="cn.redflagsoft.base.bean.BizDatum" table="BIZ_DATUM">
+        <id name="sn" column="SN" type="java.lang.Long">
+            <generator class="assigned" />
+        </id>
+        
+		<property name="type" column="TP" type="int"/>        
+        
+        <property name="jobSN" column="JOBSN" type="java.lang.Long"/>
+        
+        <property name="taskSN" column="TASKSN" type="java.lang.Long"/>
+        
+        <property name="workSN" column="WORKSN" type="java.lang.Long"/>
+        
+        <property name="processSN" column="PROCESSSN" type="java.lang.Long"/>
+        
+        <property name="datumID" column="DATUMID" type="java.lang.Long"/>
+        
+        <property name="count" column="CNT" type="java.lang.Short"/>
+        
+        <property name="displayOrder" column="DISPLAY_ORDER" type="byte"/>
+       
+        <property name="orgNum" column="ORG_NUM" type="byte"/>
+        
+        <property name="copyNum" column="COPY_NUM" type="byte"/>
+        
+        <property name="status" column="STATUS" type="byte"/>
+		
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+		
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>        
+    </class>
+</hibernate-mapping>

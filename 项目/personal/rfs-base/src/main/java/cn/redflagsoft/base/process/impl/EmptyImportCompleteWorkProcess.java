@@ -1,0 +1,51 @@
+/*
+ * $Id: EmptyImportCompleteWorkProcess.java 4615 2011-08-21 07:10:37Z lcj $
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.process.impl;
+
+import java.util.Map;
+
+import org.opoo.apps.Model;
+import org.opoo.apps.ModelAware;
+
+import cn.redflagsoft.base.process.AbstractWorkProcess;
+import cn.redflagsoft.base.process.WorkProcessException;
+import cn.redflagsoft.base.process.annotation.ProcessType;
+
+/**
+ * @author Alex Lin
+ *
+ */
+@ProcessType(EmptyImportCompleteWorkProcess.TYPE)
+public class EmptyImportCompleteWorkProcess extends AbstractWorkProcess implements ModelAware{
+	public static final int TYPE = 9999;
+	private Model model;
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.process.WorkProcess#execute(java.util.Map, boolean)
+	 */
+	@SuppressWarnings("unchecked")
+	public Object execute(Map parameters, boolean needLog) throws WorkProcessException {
+		return "OK";
+	}
+
+	/* (non-Javadoc)
+	 * @see org.opoo.apps.ModelAware#getModel()
+	 */
+	public Model getModel() {
+		return model;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.opoo.apps.ModelAware#setModel(org.opoo.apps.Model)
+	 */
+	public void setModel(Model arg0) {
+		model = arg0;		
+	}
+
+}

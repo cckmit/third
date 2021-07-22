@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       					http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<!-- <import resource="spring-boot.xml"/> -->
+	<import resource="spring-base-cache.xml"/>
+	<import resource="spring-base-dao.xml"/>
+	<import resource="spring-base-service.xml"/>
+	<import resource="spring-base-event.xml"/>
+	<import resource="spring-base-web.xml"/>
+	<!-- 要经过判断是否已经CTW(AspectJ Compile Time Weaving)，然后决定使用哪个AOP配置 -->
+	<!-- <import resource="spring-base-aop.xml"/> -->
+	<import resource="spring-base-task.xml"/>
+	
+	<import resource="spring-base2-dao.xml"/>
+	<import resource="spring-base2-service.xml"/>
+	<import resource="spring-base2-event.xml"/>
+	<import resource="spring-base2-task.xml"/>
+</beans>

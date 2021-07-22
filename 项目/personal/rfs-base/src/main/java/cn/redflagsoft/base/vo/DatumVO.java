@@ -1,0 +1,64 @@
+/*
+ * $Id: DatumVO.java 3996 2010-10-18 06:56:46Z lcj $
+ * 
+ * Copyright 2007-2008 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ */
+package cn.redflagsoft.base.vo;
+
+/**
+ * @author Alex Lin
+ *
+ */
+public class DatumVO implements java.io.Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3133695691987783617L;
+	private int operation;
+	private Long datumCategoryId;
+	private Long attachmentId;
+	private String fileNo;
+	/**
+	 * @return the operation
+	 */
+	public int getOperation() {
+		return operation;
+	}
+	/**
+	 * @param operation the operation to set
+	 */
+	public void setOperation(int operation) {
+		this.operation = operation;
+	}
+	/**
+	 * @return the datumCategoryId
+	 */
+	public Long getDatumCategoryId() {
+		return datumCategoryId;
+	}
+	/**
+	 * @param datumCategoryId the datumCategoryId to set
+	 */
+	public void setDatumCategoryId(Long datumCategoryId) {
+		this.datumCategoryId = datumCategoryId;
+	}
+	/**
+	 * @return the attachmentId
+	 */
+	public Long getAttachmentId() {
+		return attachmentId;
+	}
+	/**
+	 * @param attachmentId the attachmentId to set
+	 */
+	public void setAttachmentId(Long attachmentId) {
+		this.attachmentId = attachmentId;
+	}
+	public String getFileNo() {
+		return fileNo;
+	}
+	public void setFileNo(String fileNo) {
+		this.fileNo = fileNo;
+	}
+}

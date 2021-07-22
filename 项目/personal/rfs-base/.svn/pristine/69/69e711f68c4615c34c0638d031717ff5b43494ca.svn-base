@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.Clue" table="CLUE">
+		<id name="sn" column="SN" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		
+		<property name="objectId" column="OBJECTID" type="java.lang.Long"/>
+		
+		<property name="category" column="CATEGORY" type="byte"/>
+		
+		<property name="bizType" column="BIZ_TYPE" type="int"/>
+		
+		<property name="bizId" column="BIZID" type="java.lang.Long"/>
+		
+		<property name="bizSN" column="BIZSN" type="java.lang.Long"/>
+		
+		<property name="bizTrack" column="BIZ_TRACK" type="java.lang.Long"/>
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+	</class>
+</hibernate-mapping>

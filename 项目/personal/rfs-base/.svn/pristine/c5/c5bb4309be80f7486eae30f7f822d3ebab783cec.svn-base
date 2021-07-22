@@ -1,0 +1,82 @@
+/*
+ * $Id$
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.security;
+
+/**
+ * A class to represent the two modes of permissions - additive and negative. Additive
+ * permissions are permissions that should be 'added' to the permissions retrieved from a
+ * parent object(s), while negative permissions are permissions that permission should be '
+ * revoked' or 'removed' from permissions retrieved from parent object(s).
+ *
+ * @javadoc api
+ */
+public class PermissionType {
+
+    /**
+     * The additive permission type indicates that the permission should be 'added' to the
+     * permissions retrieved from a parent object(s). This means that if the permission
+     * has been already set in a parent object, it will be inherited by all child objects.<p>
+     *
+     * As an example, setting an 'additive' permission to read messages for a community will cause
+     * that permission to be inherited by all child communities asuch that the final permissions 
+     * for child communities will be the global permissions, plus parent community permissions 
+     * (recursively up the community tree) plus the individual community specific permissions.
+     */
+    public static final PermissionType ADDITIVE = new PermissionType(1);
+
+    /**
+     * The negative permission type indicates that the permission should be 'revoked' or
+     * 'removed' from permissions retrieved from parent object(s). This means that if the
+     * permission has been already set in a parent object that permission will be removed
+     * and will not be inherited for the object for which permissions are being set upon.<p>
+     *
+     * As an example, setting a 'negative' permission to read messages for a community will cause
+     * that permission to be removed from permissions inherited from parent communities and the
+     * global permissions. Thus that permission will no longer be inherited by all child
+     * communities such that the final permissions for that community and all child communities 
+     * will not include the specified permission.
+     */
+    public static final PermissionType NEGATIVE = new PermissionType(2);
+
+    private int id;
+
+    private PermissionType(int id) {
+        this.id = id;
+    }
+
+    /**
+     * Returns the id of the PermissionType
+     *
+     * @return the id of the PermissionType.
+     */
+    public int getId() {
+        return id;
+    }
+
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        else if (object instanceof PermissionType && id == (((PermissionType)object).id)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public int hashCode() {
+        return id;
+    }
+
+    public String toString() {
+        return String.valueOf(id);
+    }
+}

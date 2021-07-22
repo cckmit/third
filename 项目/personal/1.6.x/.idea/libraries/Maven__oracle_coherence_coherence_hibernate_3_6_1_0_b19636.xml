@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: oracle-coherence:coherence-hibernate:3.6.1.0-b19636">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.m2/repository/oracle-coherence/coherence-hibernate/3.6.1.0-b19636/coherence-hibernate-3.6.1.0-b19636.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.m2/repository/oracle-coherence/coherence-hibernate/3.6.1.0-b19636/coherence-hibernate-3.6.1.0-b19636-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.m2/repository/oracle-coherence/coherence-hibernate/3.6.1.0-b19636/coherence-hibernate-3.6.1.0-b19636-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

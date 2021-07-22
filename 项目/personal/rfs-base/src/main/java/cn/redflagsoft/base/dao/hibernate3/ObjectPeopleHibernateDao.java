@@ -1,0 +1,95 @@
+/*
+ * $Id: ObjectPeopleHibernateDao.java 4615 2011-08-21 07:10:37Z lcj $
+ * ObjectPeopleHibernateDao.java
+ * 
+ * Copyright 2007-2008 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ */
+package cn.redflagsoft.base.dao.hibernate3;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.opoo.ndao.criterion.Order;
+import org.springframework.orm.hibernate3.HibernateCallback;
+
+import cn.redflagsoft.base.bean.Clerk;
+import cn.redflagsoft.base.bean.ObjectPeople;
+import cn.redflagsoft.base.bean.RFSObject;
+import cn.redflagsoft.base.dao.ObjectPeopleDao;
+
+/**
+ * @author mwx
+ *
+ */
+public class ObjectPeopleHibernateDao extends AbstractBaseHibernateDao<ObjectPeople,Long> implements ObjectPeopleDao{
+
+	@SuppressWarnings("unchecked")
+	public List<Clerk> findClerksByObjectId(Long objectId, int type) {
+		String hql = "select a from Clerk a,ObjectPeople b where b.peopleID=a.id and b.objectID=? and b.type=?";
+		return getHibernateTemplate().find(hql, new Object[]{objectId, type});
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<RFSObject> findObjectsByPeopleId(Long peopleId, int type) {
+		String hql = "select a from RFSObject a,ObjectPeople b where b.objectID=a.id and b.peopleID=? and b.type=?";
+		return getHibernateTemplate().find(hql, new Object[]{peopleId, type});
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Long> findPeopleIdsByObjectId(Long objectId, int type){
+		String hql = "select peopleID from ObjectPeople where objectID=? and type=?";
+		return  getHibernateTemplate().find(hql, new Object[]{objectId, type});
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Long> findObjectIdsByPeopleId(Long peopleId, int type){
+		String hql = "select objectID from ObjectPeople where peopleId=? and type=?";
+		return  getHibernateTemplate().find(hql, new Object[]{peopleId, type});
+	}
+	
+	public int getObjectPeopleCount(Long objectId, Long peopleId, int type,int objectType){
+		String sql = "select count(*) from ObjectPeople c where c.type=? and c.objectID=? and c.peopleID=? and objectType=?";
+		List<?> list = getHibernateTemplate().find(sql, new Object[]{type,objectId, peopleId,objectType});
+		try {
+			return ((Number)list.get(0)).intValue();
+		} catch (Exception e) {
+			System.out.println(e);
+			return 0;
+		}
+	}
+
+	public int removeObjectPeople(final Long objectId, final Long peopleId, final int type,final int objectType) {	
+		final String hql = "delete from ObjectPeople where objectID=? and peopleID=? and type=? and objectType=?";
+	    return ((Number)getHibernateTemplate().execute(new HibernateCallback(){
+			public Object doInHibernate(Session session) throws HibernateException, SQLException {
+				return session.createQuery(hql)
+				.setLong(0, objectId)
+				.setLong(1, peopleId)
+				.setInteger(2, type)
+				.setInteger(3, objectType)
+				.executeUpdate();
+			}
+	    })).intValue();
+	}
+
+	@SuppressWarnings("unchecked")
+	public <T extends RFSObject> List<T> findObjectsByPeopleId(Class<T> objectClass, int objectType, long peopleId,
+			int type, Order order) {
+		String hql = "select a from " + objectClass.getName() + " a,ObjectPeople b where b.objectID=a.id " +
+				"and b.objectType=? and b.peopleID=? and b.type=?";
+		if(order != null){
+			hql += " order by " + order.toString();
+		}
+		return getHibernateTemplate().find(hql, new Object[]{objectType, peopleId, type});
+	}
+
+
+	@SuppressWarnings("unchecked")
+	public List<Long> findObjectIdsByPeopleId(Long peopleId, int type, int objectType) {
+		String hql = "select objectID from ObjectPeople where peopleId=? and type=? and objectType=?";
+		return  getHibernateTemplate().find(hql, new Object[]{peopleId, type, objectType});
+	}
+}

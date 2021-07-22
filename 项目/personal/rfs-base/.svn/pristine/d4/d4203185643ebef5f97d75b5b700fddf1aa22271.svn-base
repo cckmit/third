@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class  name="cn.redflagsoft.base.bean.RiskLog" table="RISK_LOG">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>	
+		
+		<property name="objectID" column="OBJECTID" type="java.lang.Long"/>
+		
+		<property name="type" column="TP" type="int"/>
+		
+		<property name="category" column="category" type="short"/>
+		
+		<property name="thingCode" column="THINGCODE" type="java.lang.String"/>
+		
+		<property name="thingName" column="THINGNAME" type="java.lang.String"/>
+		
+		<property name="objectType" column="OBJECT_TYPE" type="int"/>
+		
+		<property name="dutyerType" column="DUTYER_TYPE" type="short"/>
+		
+		<property name="dutyerID" column="DUTYERID" type="java.lang.Long"/>
+		
+		<property name="valueSign" column="VALUE_SIGN" type="byte"/>
+		
+		<property name="valueType" column="VALUE_TYPE" type="byte"/>
+		
+		<property name="valueUnit" column="VALUE_UNIT" type="byte"/>
+		
+		<property name="valueFormat" column="VALUE_FORMAT" type="java.lang.String"/>
+		
+		<property name="valueSource" column="VALUE_SOURCE" type="byte"/>
+		
+		<property name="value" column="VAL" type="java.math.BigDecimal"/>
+		
+		<property name="grade" column="GRADE" type="byte"/>
+		
+		<property name="scaleValue1" column="SCALE_VALUE1" type="java.math.BigDecimal"/>
+		
+		<property name="scaleValue2" column="SCALE_VALUE2" type="java.math.BigDecimal"/>
+		
+		<property name="scaleValue3" column="SCALE_VALUE3" type="java.math.BigDecimal"/>
+		
+		<property name="scaleValue4" column="SCALE_VALUE4" type="java.math.BigDecimal"/>
+		
+		<property name="scaleValue5" column="SCALE_VALUE5" type="java.math.BigDecimal"/>
+		
+		<property name="scaleValue6" column="SCALE_VALUE6" type="java.math.BigDecimal"/>
+		
+		<property name="scaleValue" column="SCALE_VALUE" type="java.math.BigDecimal"/>
+		
+		<property name="scaleMark" column="SCALE_MARK" type="byte"/>
+		
+		<property name="pause" column="PAUSE" type="byte"/>
+		
+		<property name="refType" column="REF_TYPE" type="int"/>
+		
+		<property name="refID" column="REFID" type="java.lang.Long"/>
+		
+		<property name="refObjectId" column="REF_OBJECTID" type="java.lang.Long"/>
+		
+		<property name="refObjectType" column="REF_OBJECT_TYPE" type="int"/>
+		
+		<property name="name" column="NAME" type="java.lang.String"/>
+		
+		<property name="juralLimit" column="JURAL_LIMIT" type="java.lang.String"/>
+		
+		<property name="conclusionTpl1" column="CONCLUSIONTPL1" type="java.lang.String"/>
+		
+		<property name="conclusionTpl2" column="CONCLUSIONTPL2" type="java.lang.String"/>
+		
+		<property name="conclusionTpl3" column="CONCLUSIONTPL3" type="java.lang.String"/>
+		
+		<property name="conclusionTpl4" column="CONCLUSIONTPL4" type="java.lang.String"/>
+		
+		<property name="conclusionTpl5" column="CONCLUSIONTPL5" type="java.lang.String"/>
+		
+		<property name="conclusionTpl6" column="CONCLUSIONTPL6" type="java.lang.String"/>
+		
+		<property name="conclusion" column="CONCLUSION" type="java.lang.String"/>
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+		
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+		
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+		
+		<property name="systemID" column="SYSTEMID" type="java.lang.Long"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+		
+		<property name="objectAttr" column="OBJECT_ATTR" type="java.lang.String"/>
+		
+		<property name="ruleID" column="RULEID" type="java.lang.Long"/>
+		
+		<property name="taskSN" column="TASKSN" type="java.lang.Long"/>
+	
+		<property name="taskName" column="TASK_NAME" type="java.lang.String"/>
+		
+		<property name="itemID" column="ITEMID" type="java.lang.String"/>
+		
+		<property name="itemName" column="ITEMNAME" type="java.lang.String"/>
+		<!-- 新增字段 -->
+		<property name="projectID" column="PROJECT_ID" type="java.lang.Long"/>
+		<property name="projectSn" column="PROJECT_SN" type="java.lang.String"/>
+		<property name="projectName" column="PROJECT_NAME" type="java.lang.String"/>
+		<property name="timeUsed" column="TIMEUSED" type="java.lang.Integer"/>
+		<property name="timeRemain" column="TIMEREMAIN" type="java.lang.Integer"/>
+		<property name="busiType" column="BUSITYPE" type="java.lang.Integer"/>
+			
+		<property name="p3ID" column="P3_ID" type="java.lang.Long"/>
+		
+		<property name="initValue" column="INIT_VALUE" type="java.math.BigDecimal"/>
+		
+		<property name="busiStartTime" column="busi_start_time" type="java.sql.Timestamp"/>
+		
+		<property name="busiEndTime" column="busi_end_time" type="java.sql.Timestamp"/>
+		
+		<!-- 20120224 -->
+		<property name="superviseOrgId" column="SUPERVISE_ORGID" type="java.lang.Long"/>
+		<property name="superviseOrgAbbr" column="SUPERVISE_ORGABBR" type="java.lang.String"/>
+		<property name="dutyerOrgId" column="DUTYER_ORGID" type="java.lang.Long"/>
+		<property name="dutyerOrgName" column="DUTYER_ORGNAME" type="java.lang.String"/>
+		<property name="dutyerDeptId" column="DUTYER_DEPTID" type="java.lang.Long"/>
+		<property name="dutyerDeptName" column="DUTYER_DEPTNAME" type="java.lang.String"/>
+		<property name="dutyerLeaderId" column="DUTYER_LEADERID" type="java.lang.Long"/>
+		<property name="dutyerLeaderName" column="DUTYER_LEADERNAME" type="java.lang.String"/>
+		<property name="dutyerLeaderMobNo" column="DUTYER_LEADERMOBNO" type="java.lang.String"/>
+		<property name="dutyerManagerId" column="DUTYER_MANAGERID" type="java.lang.Long"/>
+		<property name="dutyerManagerName" column="DUTYER_MANAGERNAME" type="java.lang.String"/>
+		<property name="dutyerManagerMobNo" column="DUTYER_MANAGERMOBNO" type="java.lang.String"/>
+		<property name="dutyerMobNo" column="DUTYERMOBNO" type="java.lang.String"/>
+		
+		<property name="dutyerName" column="DUTYERNAME" type="java.lang.String"/>
+		<property name="refTaskTypeName" column="REFTASKTYPENAME" type="java.lang.String"/>
+		<property name="content" column="CONTENT" type="java.lang.String"/>
+		
+		<property name="objectCode" column="OBJECT_CODE" type="java.lang.String"/>
+	</class>
+</hibernate-mapping>

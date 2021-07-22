@@ -1,0 +1,518 @@
+/*
+ * $Id: QueryActionV3.java 6357 2014-03-07 03:43:55Z lcj $
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.web.struts2;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.opoo.apps.Model;
+import org.opoo.apps.QueryParameter;
+import org.opoo.apps.exception.QueryException;
+import org.opoo.apps.license.annotation.ProductModule;
+import org.opoo.apps.query.Query;
+import org.opoo.apps.query.QueryManager;
+import org.opoo.apps.query.ResultFilterBuilder;
+import org.opoo.apps.security.User;
+import org.opoo.apps.security.UserHolder;
+import org.opoo.apps.util.StringUtils;
+import org.opoo.apps.web.struts2.AbstractAppsAction;
+import org.opoo.ndao.support.PageableList;
+import org.opoo.ndao.support.ResultFilter;
+import org.opoo.util.Assert;
+
+import cn.redflagsoft.base.aop.annotation.PrintAfter;
+import cn.redflagsoft.base.bean.Clerk;
+import cn.redflagsoft.base.bean.SelectResult;
+import cn.redflagsoft.base.security.UserClerkHolder;
+import cn.redflagsoft.base.service.SelectDataSourceService;
+import cn.redflagsoft.base.support.QueryParametersWrapper;
+import cn.redflagsoft.base.support.RFSQueryParameters;
+import cn.redflagsoft.base.web.struts2.interceptor.Printable;
+
+import com.google.common.collect.Maps;
+import com.opensymphony.xwork2.Action;
+import com.opensymphony.xwork2.ActionContext;
+
+/**
+ * @author Alex Lin
+ *
+ */
+@ProductModule(edition = "common", module = "base")
+public class QueryActionV3 extends AbstractAppsAction implements Printable, RFSQueryParameters {
+	private static final Log log = LogFactory.getLog(QueryActionV3.class);
+	
+	private static final long serialVersionUID = -570789477406604890L;
+	private List<String> eps;//entity id params，部门参数
+	private List<String> ups;//user id params，用户参数
+	private String printConfig;
+	private boolean xlsExport = false;
+	private String selectId;
+	private String id;
+	private String target;
+	private String methodName;
+	private List<QueryParameter> parameters;
+	private List<QueryParameter> staticParameters;
+	//尽量跟其它属性不要冲突
+	private String queryKey__;
+	private boolean requireRefreshExcelRowHeight = true;
+	
+	private QueryManager queryManager;
+	private SelectDataSourceService selectDataSourceService;
+	private ResultFilterBuilder resultFilterBuilder;
+	
+	
+	/**
+	 * @return the requireRefreshExcelRowHeight
+	 */
+	public boolean isRequireRefreshExcelRowHeight() {
+		return requireRefreshExcelRowHeight;
+	}
+	/**
+	 * @param requireRefreshExcelRowHeight the requireRefreshExcelRowHeight to set
+	 */
+	public void setRequireRefreshExcelRowHeight(boolean requireRefreshExcelRowHeight) {
+		this.requireRefreshExcelRowHeight = requireRefreshExcelRowHeight;
+	}
+	/**
+	 * @return the eps
+	 */
+	public List<String> getEps() {
+		return eps;
+	}
+	/**
+	 * @param eps the eps to set
+	 */
+	public void setEps(List<String> eps) {
+		//System.out.println(this + " set eps:" + eps);
+		if(eps != null && !eps.isEmpty()){
+			if(!isValidPropertyList(eps)){
+				addFieldError("eps", "invalue eps value");
+				return;
+			}
+		}
+		this.eps = eps;
+	}
+	/**
+	 * @return the ups
+	 */
+	public List<String> getUps() {
+		return ups;
+	}
+	/**
+	 * @param ups the ups to set
+	 */
+	public void setUps(List<String> ups) {
+		//System.out.println(this + " set ups:" + ups);
+		if(ups != null && !ups.isEmpty()){
+			if(!isValidPropertyList(ups)){
+				addFieldError("ups", "invalid ups value");
+				return;
+			}
+		}
+		this.ups = ups;
+	}
+	/**
+	 * @return the printConfig
+	 */
+	public String getPrintConfig() {
+		return printConfig;
+	}
+	/**
+	 * @param printConfig the printConfig to set
+	 */
+	public void setPrintConfig(String printConfig) {
+		this.printConfig = printConfig;
+	}
+	/**
+	 * @return the xlsExport
+	 */
+	public boolean isXlsExport() {
+		return xlsExport;
+	}
+	/**
+	 * @param xlsExport the xlsExport to set
+	 */
+	public void setXlsExport(boolean xlsExport) {
+		this.xlsExport = xlsExport;
+	}
+	
+	public String getSelectId() {
+		return selectId;
+	}
+	public void setSelectId(String selectId) {
+		this.selectId = selectId;
+	}
+	
+	public String getSid(){
+		return getSelectId();
+	}
+	public void setSid(String sid){
+		setSelectId(sid);
+	}
+	
+	
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
+	/**
+	 * @return the target
+	 */
+	public String getTarget() {
+		return target;
+	}
+	/**
+	 * @param target the target to set
+	 */
+	public void setTarget(String target) {
+		this.target = target;
+	}
+	/**
+	 * @return the methodName
+	 */
+	public String getMethodName() {
+		return methodName;
+	}
+	/**
+	 * @param methodName the methodName to set
+	 */
+	public void setMethodName(String methodName) {
+		setM(methodName);
+	}
+	public void setM(String methodName){
+//		if(!StringUtils.isAlphanumeric(methodName)){
+//			throw new IllegalArgumentException("methodName is not valid.");
+//		}
+		if(methodName != null && !StringUtils.isValidMethodName(methodName)){
+			addFieldError("methodName", "Invalid methodName");
+			return;
+		}
+		this.methodName = methodName;
+	}
+	public String getM(){
+		return this.methodName;
+	}
+	
+	/**
+	 * @return the parameters
+	 */
+	public List<QueryParameter> getParameters() {
+		List<QueryParameter> list = new ArrayList<QueryParameter>();
+		if(parameters != null){
+			list.addAll(parameters);
+		}
+		if(staticParameters != null){
+			list.addAll(staticParameters);
+		}
+		
+		if(hasEpsOrUps()){
+			String clerkEntityID = "-123";
+			String userId = "-123";
+			Clerk clerk = UserClerkHolder.getNullableClerk();
+			if(clerk != null){
+				clerkEntityID = "" + clerk.getEntityID();
+				userId = "" + clerk.getId();
+			}else{
+				User user = UserHolder.getNullableUser();
+				if(user != null){
+					userId = "" + user.getUserId();
+				}
+			}
+			
+			//Clerk clerk = UserClerkHolder.getClerk();
+			if(eps != null && !eps.isEmpty()){
+				//String clerkEntityID = "" + clerk.getEntityID();
+				for(String ep: eps){
+					list.add(new QueryParameter(ep, clerkEntityID, "=", "long"));
+				}
+			}
+			if(ups != null && !ups.isEmpty()){
+				//String userId = "" + clerk.getId();
+				for(String up: ups){
+					list.add(new QueryParameter(up, userId, "=", "long"));
+				}
+			}
+			
+			if(log.isDebugEnabled()){
+				log.debug("用户或者单位相关的查询参数合并后的查询参数为：" + list);
+			}
+		}
+		return list;
+	}
+	/**
+	 * @param parameters the parameters to set
+	 */
+	public void setParameters(List<QueryParameter> parameters) {
+		this.parameters = parameters;
+	}
+	
+	public void setQ(List<QueryParameter> parameters) {
+		this.parameters = parameters;
+	}
+	
+	public List<QueryParameter> getQ(){
+		return this.parameters;
+	}
+	
+	//?s[0]
+	public List<QueryParameter> getS(){
+		return this.staticParameters;
+	}
+	
+	public void setS(List<QueryParameter> s){
+		this.staticParameters = s;
+	}
+	
+	public Map<String, ?> getRawParameters() {
+		@SuppressWarnings("unchecked")
+		Map<String, ?> map = ActionContext.getContext().getParameters();
+		if(hasEpsOrUps()){
+			Clerk clerk = UserClerkHolder.getClerk();
+			Map<String,Object> result = Maps.newHashMap();
+			if(map != null){
+				result.putAll(map);
+			}
+			if(eps != null && !eps.isEmpty()){
+				String clerkEntityID = "" + clerk.getEntityID();
+				for(String ep: eps){
+					result.put(ep, clerkEntityID);
+				}
+			}
+			if(ups != null && !ups.isEmpty()){
+				String userId = "" + clerk.getId();
+				for(String up: ups){
+					result.put(up, userId);
+				}
+			}
+			if(log.isDebugEnabled()){
+				log.debug("用户或者单位相关的查询参数合并后的原始参数为：" + result);
+			}
+			return result;
+		}else{
+			return map;
+		}
+		//return ActionContext.getContext().getParameters();
+	}
+	
+	public String getQueryKey__() {
+		return queryKey__;
+	}
+	public void setQueryKey__(String queryKey__) {
+		this.queryKey__ = queryKey__;
+	}
+	
+	/////////////////////
+	/**
+	 * @return the queryManager
+	 */
+	public QueryManager getQueryManager() {
+		return queryManager;
+	}
+	/**
+	 * @param queryManager the queryManager to set
+	 */
+	public void setQueryManager(QueryManager queryManager) {
+		this.queryManager = queryManager;
+	}
+	/**
+	 * @return the selectDataSourceService
+	 */
+	public SelectDataSourceService getSelectDataSourceService() {
+		return selectDataSourceService;
+	}
+	/**
+	 * @param selectDataSourceService the selectDataSourceService to set
+	 */
+	public void setSelectDataSourceService(
+			SelectDataSourceService selectDataSourceService) {
+		this.selectDataSourceService = selectDataSourceService;
+	}
+	/**
+	 * @return the resultFilterBuilder
+	 */
+	public ResultFilterBuilder getResultFilterBuilder() {
+		return resultFilterBuilder;
+	}
+	/**
+	 * @param resultFilterBuilder the resultFilterBuilder to set
+	 */
+	public void setResultFilterBuilder(ResultFilterBuilder resultFilterBuilder) {
+		this.resultFilterBuilder = resultFilterBuilder;
+	}
+	
+	//////////////////////////////
+	@PrintAfter
+	private String execute(String key, Class<?> expectedType){
+		Query<?> query = queryManager.getQuery(key);
+		Object result = query.execute(new QueryParametersWrapper(this));
+		if(expectedType != null && result != null){
+			if(!expectedType.isInstance(result)){
+				throw new QueryException("返回值类型不正确，要求类型'" 
+						+ expectedType.getName() + "'，实际类型'"
+						+ result.getClass().getName() + "'");
+			}
+		}
+		if(result instanceof List){
+			model.setRows((List<?>) result);
+		}else if(result instanceof Model){
+			model = (Model) result;
+		}else{
+			model.setData((Serializable) result);
+		}
+		return SUCCESS;
+	}
+
+	private String execute(String key){
+		return execute(key, null);
+	}
+	
+	/**
+	 * 主要的查询方法，统一了其它所有方法。
+	 * 推荐使用这个方法。
+	 */
+	public String execute() throws Exception{
+		Assert.notNull(queryKey__, "查询标识不能为空");
+		return execute(queryKey__);
+	}
+	
+	@Deprecated
+	public String list() throws Exception{
+		Assert.notBlank(target, "查询target不能为空");
+		return execute(target + ".list", List.class);
+	}
+	@Deprecated
+	public String page() throws Exception{
+		Assert.notBlank(target, "查询target不能为空");
+		return execute(target + ".page", PageableList.class);
+	}
+	@Deprecated
+	public String dynlist() throws Exception{
+		Assert.notBlank(target, "查询target不能为空");
+		Assert.notBlank(methodName, "查询methodName不能为空");
+		return execute(target + "." + methodName, List.class);
+	}
+	@Deprecated
+	public String dynpage() throws Exception{
+		Assert.notBlank(target, "查询target不能为空");
+		Assert.notBlank(methodName, "查询methodName不能为空");
+		return execute(target + "." + methodName, PageableList.class);
+	}
+	@Deprecated
+	public String get() throws Exception{
+		Assert.notBlank(target, "查询target不能为空");
+		return execute(target + ".get", Serializable.class);
+	}
+	@Deprecated
+	public String namedQueryList() throws Exception{
+		Assert.notBlank(target, "查询target不能为空");
+		return execute(target + ".list2", List.class);
+	}
+	@Deprecated
+	public String list2() throws Exception{
+		return namedQueryList();
+	}
+	@Deprecated
+	public String namedQueryPageableList() throws Exception{
+		Assert.notBlank(target, "查询target不能为空");
+		return execute(target + ".page2", PageableList.class);
+	}
+	@Deprecated
+	public String page2() throws Exception{
+		return namedQueryPageableList();
+	}
+	
+	@Deprecated
+	public String labeldata() throws Exception{
+		Assert.notBlank(target, "查询target不能为空");
+		return execute(target + ".label", List.class);
+	}
+	
+	/**
+	 * 指定指定的类的指定方法，根据返回值的类型确定是放在rows中还是data中。
+	 * @return
+	 * @throws Exception
+	 */
+	public String invoke()throws Exception{
+		Assert.notBlank(target, "查询target不能为空");
+		String key = target;
+		if(StringUtils.isNotBlank(methodName)){
+			key += "." + methodName;
+		}
+		return execute(key);
+	}
+	
+	/**
+	 * 查询选择器数据。可带查询条件。
+	 * @return
+	 * @throws Exception
+	 */
+	@PrintAfter
+	public String select() throws Exception{
+		Assert.notBlank(getSelectId(), "必须指定选择器ID。");
+		
+		ResultFilter filter = resultFilterBuilder.buildResultFilter(null, new QueryParametersWrapper(this));
+		SelectResult result = selectDataSourceService.findSelectResult(getSelectId(), filter);
+		
+		if(result != null){
+			model.setRows(result.getSelectDataList());
+			model.setData(result.getSelectDataSource());
+		}else{
+			model.setMessage(false, "查询结果无效", null);
+		}
+		return Action.SUCCESS;
+	}
+	
+	private boolean hasEpsOrUps(){
+		if(eps != null && !eps.isEmpty()){
+			return true;
+		}
+		if(ups != null && !ups.isEmpty()){
+			return true;
+		}
+		return false;
+	}
+	
+	private boolean isValidPropertyList(List<String> list){
+		if(list != null){
+			for(String str: list){
+				if(!StringUtils.isValidPropertyName(str)){
+					return false;
+				}
+			}
+			return true;
+		}else{
+			return false;
+		}
+	}
+	/* (non-Javadoc)
+	 * @see com.opensymphony.xwork2.ActionSupport#validate()
+	 */
+	@Override
+	public void validate() {
+		super.validate();
+		//System.out.println("执行了validate(): " + this.hasErrors());
+	
+		if(log.isDebugEnabled()){
+			log.debug("validate(): " + hasErrors());
+		}
+	}
+}

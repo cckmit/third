@@ -1,0 +1,2 @@
+# $Id$
+objectTaskList=select a, b from RFSObject a, Task b, ObjectTask c where a.id=c.objectID and b.sn=c.taskSN

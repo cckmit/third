@@ -1,0 +1,112 @@
+/*
+ * $Id$
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.query;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.opoo.apps.AppsGlobals;
+import org.opoo.apps.Labelable;
+import org.opoo.apps.annotation.Queryable;
+import org.opoo.apps.util.DateUtils;
+import org.opoo.ndao.support.ResultFilter;
+
+import cn.redflagsoft.base.bean.DefaultLabelDataBean;
+import cn.redflagsoft.base.util.MapUtils;
+
+import com.google.common.collect.Lists;
+
+/**
+ * @author Alex Lin(lcql@msn.com)
+ *
+ */
+public class ProgressBelongTimesQuery {
+	private static final Log log = LogFactory.getLog(ProgressBelongTimesQuery.class);
+	
+	static SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+	static SimpleDateFormat format2 = new SimpleDateFormat("yyyy年MM月");
+	
+	/**
+	 * 查询进度报告的所属月份，可指定参数 startTime, endTime, count.
+	 * 三个参数都制定时，取最大的日期范围。
+	 * 
+	 * @param filter
+	 * @return
+	 */
+	@Queryable(name="findProgressBelongTimes")
+	public List<Labelable> findProgressBelongTimes(ResultFilter filter){
+		Date startTime = null;
+		Date endTime = null;
+		int count = 13;
+		
+		if(filter != null && filter.getRawParameters() != null){
+			Map<String, ?> map = filter.getRawParameters();
+			count = MapUtils.getInteger(map, "count", count);
+			if(count < 1){
+				count = 13;
+			}
+			
+			String startTimeString = MapUtils.getString(map, "startTime");
+			if(StringUtils.isNotBlank(startTimeString)){
+				try {
+					startTime = AppsGlobals.parseDate(startTimeString);
+				} catch (ParseException e) {
+					//
+				}
+			}
+			
+			String endTimeString = MapUtils.getString(map, "endTime");
+			if(StringUtils.isNotBlank(endTimeString)){
+				try {
+					endTime = AppsGlobals.parseDate(endTimeString);
+				} catch (ParseException e) {
+					//
+				}
+			}
+		}
+		
+		if(endTime == null){
+			//则结束时间等于本月
+			endTime = new Date();
+		}
+		
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(endTime);
+		DateUtils.toStartOfDay(calendar);
+		calendar.set(Calendar.DAY_OF_MONTH, 1);
+		Date time = calendar.getTime();
+		
+		if(log.isDebugEnabled()){
+			log.debug("结束时间为：" + time);
+		}
+		
+		List<Labelable> list = Lists.newArrayList();
+		int i = 0;
+		do{
+			String label = format2.format(time);
+			String data = format1.format(time);
+			DefaultLabelDataBean bean = new DefaultLabelDataBean(label, data);
+			list.add(bean);
+			
+			i++;
+			calendar.add(Calendar.MONTH, -1);
+			time = calendar.getTime();
+		}while(i < count || (startTime != null && startTime.getTime() <= time.getTime()));
+		
+		return list;
+	}
+}

@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping>
+<!--
+    Created by the Middlegen Hibernate plugin 2.1, by Alex Lin(alex@opoo.org, http://www.lcql.com, http://www.opoo.org)
+    Copyright(c) 2008
+-->
+
+<class name="org.opoo.apps.security.bean.LiveUser" table="SEC_USERS">
+<!--	<cache usage="nonstrict-read-write"/>-->
+    <id name="username" type="java.lang.String" column="USERNAME" length="50">
+        <generator class="assigned" />
+    </id>
+	
+	<property name="password" type="java.lang.String" column="PASSWORD" not-null="true" length="50"/>
+	<property name="enabled" type="boolean" column="ENABLED" not-null="true"/>
+	<property name="accountExpireTime" type="java.sql.Timestamp" column="ACCOUNT_EXPIRE_TIME"/>
+	<property name="accountNonLocked" type="boolean" column="ACCOUNT_NON_LOCKED"/>
+	<property name="credentialsExpireTime" type="java.sql.Timestamp" column="CREDENTIALS_EXPIRE_TIME"/>
+	<property name="lastLoginTime" type="java.sql.Timestamp" column="LAST_LOGIN_TIME"/>
+	<property name="loginTime" type="java.sql.Timestamp" column="LOGIN_TIME"/>
+	<property name="loginCount" type="int" column="LOGIN_COUNT"/>
+	<property name="tryLoginCount" type="int" column="TRY_LOGIN_COUNT"/>
+	<property name="userId" type="java.lang.Long" column="USERID" not-null="true"/>
+	<property name="externalUserId" type="java.lang.String" column="EXTERNAL_USER_ID"/>
+	<property name="loginAddress" type="java.lang.String" column="LOGIN_ADDRESS" not-null="false" length="150"/>
+	<property name="onlineStatus" type="org.opoo.apps.security.dao.hibernate3.UserOnlineStatusType" column="ONLINE_STATUS" not-null="false"/>
+	<property name="creationTime" type="java.sql.Timestamp" column="CTIME"/>
+	<property name="creator" type="java.lang.String" column="CREATOR" length="50"/>
+	<property name="modificationTime" type="java.sql.Timestamp" column="MTIME"/>
+	<property name="modifier" type="java.lang.String" column="MODIFIER" length="50"/>
+	
+	<map name="properties" lazy="false" table="SEC_USERS_PROP" cascade="delete">
+		<key column="USERNAME"/>
+   		<map-key column="PROPNAME" type="string" length="50"/>
+   		<element column="PROPVALUE" type="string" length="200"/>
+	</map>
+</class>
+
+<class name="org.opoo.apps.security.bean.UserAuthority" table="SEC_UA">
+    <id name="id" type="java.lang.Long" column="ID">
+        <generator class="assigned" />
+    </id>
+	
+	<property name="username" type="java.lang.String" column="USERNAME" not-null="true" length="50"/>
+	<property name="authority" type="java.lang.String" column="AUTHORITY" not-null="true" length="50"/>
+</class>
+
+
+<class name="org.opoo.apps.security.Group" table="SEC_GROUPS">
+    <id name="id" type="java.lang.Long" column="ID">
+        <generator class="assigned" />
+    </id>
+	
+	<property name="name" type="java.lang.String" column="NAME" not-null="true" length="50"/>
+	
+	<map name="properties" lazy="false" table="SEC_GROUPS_PROP" cascade="delete">
+		<key column="GROUPID" not-null="true"/>
+   		<map-key column="PROPNAME" type="string" length="50"/>
+   		<element column="PROPVALUE" type="string" length="200"/>
+	</map>
+</class>
+
+<class name="org.opoo.apps.security.bean.GroupAuthority" table="SEC_GA">
+    <id name="id" type="java.lang.Long" column="ID">
+        <generator class="assigned" />
+    </id>
+	
+	<property name="groupId" type="java.lang.Long" column="GROUPID" not-null="true"/>
+	<property name="authority" type="java.lang.String" column="AUTHORITY" not-null="true" length="50"/>
+</class>
+
+
+<class name="org.opoo.apps.security.bean.GroupMember" table="SEC_GM">
+    <id name="id" type="java.lang.Long" column="ID">
+        <generator class="assigned" />
+    </id>
+	
+	<property name="groupId" type="java.lang.Long" column="GROUPID" not-null="true"/>
+	<property name="username" type="java.lang.String" column="USERNAME" not-null="true" length="50"/>
+</class>
+
+</hibernate-mapping>

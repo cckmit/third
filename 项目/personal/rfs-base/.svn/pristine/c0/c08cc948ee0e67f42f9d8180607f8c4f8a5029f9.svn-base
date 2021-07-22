@@ -1,0 +1,60 @@
+/*
+ * $Id$
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.bean;
+
+/**
+ * @author Alex Lin(alex@opoo.org)
+ *
+ */
+public class RFSObjectDescriptor extends RFSEntityDescriptor implements RFSObjectable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 126225525229342483L;
+	private String name;
+
+	/**
+	 * 
+	 */
+	public RFSObjectDescriptor() {
+	}
+	
+	/**
+	 * @param objectType
+	 * @param id
+	 */
+	public RFSObjectDescriptor(int objectType, long id, String name) {
+		super(objectType, id);
+		this.name = name;
+	}
+
+	/**
+	 * @param bean
+	 */
+	public RFSObjectDescriptor(RFSObjectable bean) {
+		super(bean);
+		this.name = bean.getName();
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+}

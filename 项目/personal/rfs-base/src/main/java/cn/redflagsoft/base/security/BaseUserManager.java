@@ -1,0 +1,192 @@
+/*
+ * $Id: BaseUserManager.java 6335 2013-12-11 06:30:56Z lcj $
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.security;
+
+import java.util.Date;
+import java.util.List;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.opoo.apps.security.DaoUserManager;
+import org.opoo.apps.security.Group;
+import org.opoo.apps.security.MutableUser;
+import org.opoo.apps.security.User.OnlineStatus;
+import org.springframework.dao.DataAccessException;
+import org.springframework.security.userdetails.UserDetails;
+import org.springframework.security.userdetails.UsernameNotFoundException;
+
+import com.google.common.collect.Lists;
+
+/**
+ * @author Alex Lin(lcql@msn.com)
+ *
+ */
+public class BaseUserManager extends DaoUserManager {
+	private static final Log log = LogFactory.getLog(BaseUserManager.class);
+	
+	public void addUserToGroup(String username, Long groupId) {
+		if(AuthUtils.isInternalUser(username)){
+			log.warn("试图修改内部用户的角色：" + username);
+			return;
+		}
+		
+		super.addUserToGroup(username, groupId);
+	}
+	
+	public void addUserToGroup(String username, String groupName) {
+		if(AuthUtils.isInternalUser(username)){
+			log.warn("试图修改内部用户的角色：" + username);
+			return;
+		}
+		super.addUserToGroup(username, groupName);
+	}
+
+	public void createUser(UserDetails user) {
+		if(AuthUtils.isInternalUser(user)){
+			throw new IllegalArgumentException("不能创建内部用户");
+		}
+		
+		super.createUser(user);
+	}
+	
+	public void deleteUser(String username) {
+		if(AuthUtils.isInternalUser(username)){
+			log.warn("试图删除内部用户：" + username);
+			return;
+		}
+		
+		super.deleteUser(username);
+	}
+	
+	public List<Group> findGroupsOfUser(String username){
+		if(AuthUtils.isInternalUser(username)){
+			return Lists.newArrayList();
+		}
+		
+		return super.findGroupsOfUser(username);
+	}
+	
+	public UserDetails loadUserByUserId(Long userId){
+		InternalUser user = AuthUtils.getInternalUser(userId);
+		if(user != null){
+			return user;
+		}
+		
+		return super.loadUserByUserId(userId);
+	}
+	
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
+		if(AuthUtils.isInternalUser(username)){
+			return AuthUtils.getInternalUser(username);
+		}
+		
+		return super.loadUserByUsername(username);
+	}
+	
+	public void loginFailure(String username) {
+		if(AuthUtils.isInternalUser(username)){
+			InternalUser user = AuthUtils.getInternalUser(username);
+			if(user instanceof MutableUser){
+				MutableUser mu = (MutableUser) user;
+				mu.setTryLoginCount(mu.getTryLoginCount() + 1);
+				mu.setOnlineStatus(OnlineStatus.OFFLINE);
+			}
+			return;
+		}
+		
+		super.loginFailure(username);
+	}
+	
+	public void loginSuccess(UserDetails user) {
+		if(AuthUtils.isInternalUser(user)){
+			InternalUser iu = AuthUtils.getInternalUser(user);
+			if(iu instanceof MutableUser){
+				MutableUser mu = (MutableUser) iu;
+				
+				if(user instanceof org.opoo.apps.security.User){
+					org.opoo.apps.security.User ud = (org.opoo.apps.security.User) user;
+					mu.setLoginAddress(ud.getLoginAddress());
+					if(log.isDebugEnabled()){
+						log.debug(user.getUsername() + " 已登录次数：" + ud.getLoginCount());
+					}
+				}
+				
+				mu.setLoginCount(mu.getLoginCount() + 1);
+				mu.setTryLoginCount(0);
+				mu.setLastLoginTime(mu.getLoginTime());
+				mu.setLoginTime(new Date());
+				mu.setOnlineStatus(OnlineStatus.ONLINE);
+			}
+			return;
+		}
+		
+		super.loginSuccess(user);
+	}
+	
+	public void logout(UserDetails user) {
+		if(AuthUtils.isInternalUser(user)){
+			InternalUser iu = AuthUtils.getInternalUser(user);
+			if(iu instanceof MutableUser){
+				MutableUser mu = (MutableUser) iu;
+				mu.setOnlineStatus(OnlineStatus.OFFLINE);
+			}
+			
+			return;
+		}
+		
+		super.logout(user);
+	}
+	
+	 public void removeUserFromGroup(String username, Long groupId) {
+		 if(AuthUtils.isInternalUser(username)){
+			 log.warn("不能处理内部用户：" + username + " -> removeUserFromGroup");
+			 return;
+		 }
+		 
+		 super.removeUserFromGroup(username, groupId);
+	 }
+	 
+	 public void removeUserFromGroup(String username, String groupName) {
+		 if(AuthUtils.isInternalUser(username)){
+			 log.warn("不能处理内部用户：" + username + " -> removeUserFromGroup");
+			 return;
+		 }
+		 super.removeUserFromGroup(username, groupName);
+	 }
+	 
+	 public UserDetails updatePassword(String username, String newPassword){
+		 if(AuthUtils.isInternalUser(username)){
+			InternalUser iu = AuthUtils.getInternalUser(username);
+			if(iu instanceof RFSA){
+				RFSA mu = (RFSA) iu;
+				newPassword = encodePassword(mu, newPassword);
+				mu.setPassword(newPassword);
+			}else{
+				log.warn("该用户不能修改密码：" + username);
+			}
+			return iu;
+		 }
+		 
+		 return super.updatePassword(username, newPassword);
+	 }
+	 
+	 public void updateUser(UserDetails user) {
+		 if(AuthUtils.isInternalUser(user)){
+			 log.warn("该用户不能更改: " + user.getUsername());
+			 return;
+		 }
+		 
+		 super.updateUser(user);
+	 }
+	 
+	 public boolean userExists(String username) {
+		 return super.userExists(username);
+	 }
+}

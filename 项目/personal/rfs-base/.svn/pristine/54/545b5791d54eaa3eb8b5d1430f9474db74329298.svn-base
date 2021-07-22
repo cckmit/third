@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.TaskMatter" table="TASK_MATTER">
+		<id name="sn" column="SN" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		
+		<property name="type" column="TP" type="int"/>
+		
+		<property name="taskSN" column="TASKSN" type="java.lang.Long"/>
+		
+		<property name="matterID" column="MATTERID" type="java.lang.Long"/>
+		
+		<property name="bizRoute" column="BIZ_ROUTE" type="java.lang.Integer"/>
+		
+		<property name="displayOrder" column="DISPLAY_ORDER" type="byte"/>
+		
+		<property name="result" column="RESULT" type="byte"/>
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="createWork" column="CWORK" type="java.lang.Integer"/>
+		
+		<property name="modificationWork" column="MWORK" type="java.lang.Integer"/>
+		
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+		
+		<property name="matterCode" column="MATTER_CODE" type="java.lang.String"/>
+		
+		<property name="matterName" column="MATTER_NAME" type="java.lang.String"/>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.ManagementAccount" table="TMP_NS_GWJ_REPORT1">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		
+		<property name="projectId" column="PROJECTID" type="java.lang.Long"/>
+
+		<property name="abbr" column="ABBR" type="java.lang.String"/>
+		
+		<property name="kind" column="KIND" type="java.lang.String"/>
+		
+		<property name="investScale" column="INVEST_SCALE" type="java.lang.String"/>
+
+		<property name="planInvest" column="PLAN_INVEST" type="java.math.BigDecimal"/>
+		
+		<property name="yearPlanInvest" column="YEAR_PLAN_INVEST" type="java.math.BigDecimal"/>
+		
+		<property name="yearContent" column="YEAR_CONTENT" type="java.lang.String"/>
+		
+		<property name="progressSituation" column="PROGRESS_SITUATION" type="java.lang.String"/>
+		
+		<property name="visualPrograss" column="VISUAL_PROGRASS" type="java.lang.String"/>
+		
+		<property name="actualInvest" column="ACTUAL_INVEST" type="java.math.BigDecimal"/>
+		
+		<property name="investLimit" column="INVEST_LIMIT" type="java.lang.String"/>
+		
+		<property name="questions" column="QUESTIONS" type="java.lang.String"/>
+		
+		<property name="director" column="DIRECTOR" type="java.lang.String"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+		
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+		
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+		<property name="type" column="TP" type="int"/>
+		
+		<property name="status" column="STATUS" type="short"/>
+
+	</class>
+</hibernate-mapping>

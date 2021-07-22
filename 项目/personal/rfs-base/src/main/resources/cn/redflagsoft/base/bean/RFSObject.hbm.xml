@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.RFSObject" table="RFS_OBJECT" discriminator-value="not null" 
+		polymorphism="explicit">
+		<!-- <cache usage="nonstrict-read-write"/>-->
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		
+		<discriminator column="OBJ_TYPE" type="int"/>
+		
+		<!-- 
+		<property name="category" column="CATEGORY" type="short"/>	
+		-->	
+		
+		<property name="systemID" column="SYSTEMID" type="java.lang.Long"/>
+		
+		<property name="lifeStage" column="LIFE_STAGE" type="int"/>
+		
+		<property name="manager" column="MANAGER" type="java.lang.Long"/>
+		
+		<property name="managerType" column="MANAGER_TYPE" type="byte"/>
+		
+		<property name="tag" column="TAG" type="short"/>
+		
+		<!-- 归档状态：通常在子类的映射文件中定义，方便调试 -->
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<!-- 业务状态：通常在子类的映射文件中定义-->
+		<!-- 
+		<property name="bizStatus" column="BIZ_STATUS" type="byte"/>
+		 -->
+		
+		<property name="riskEntryDescription" column="RISK_ENTRY_DESCRIPTION" type="java.lang.String"/>
+		
+		<property name="activeMatter" column="ACTIVE_MATTER" type="java.lang.Long"/>
+		
+		<property name="activeTaskSN" column="ACTIVE_TASKSN" type="java.lang.Long"/>
+		
+		<property name="activeDutyerID" column="ACTIVE_DUTYERID" type="java.lang.Long"/>
+		
+		<property name="dutyClerkID" column="duty_ClerkID" type="java.lang.Long"/>
+		
+		<property name="dutyClerkName" column="duty_Clerk_NAME" type="java.lang.String"/>
+		
+		<property name="dutyDepartmentID" column="duty_Department_ID" type="java.lang.Long"/>
+		
+		<property name="dutyDepartmentName" column="duty_Department_Name" type="java.lang.String"/>
+		
+		<property name="dutyEntityID" column="duty_ENTITY_ID" type="java.lang.Long"/>
+		
+		<property name="dutyEntityName" column="duty_ENTITY_Name" type="java.lang.String"/>
+		
+		<property name="dutyerLeader1Id" column="DUTYER_LEADER1_ID" type="java.lang.Long"/>
+			
+		<property name="dutyerLeader1Name" column="DUTYER_LEADER1_NAME" type="java.lang.String"/>
+		
+		<property name="dutyerLeader2Id" column="DUTYER_LEADER2_ID" type="java.lang.Long"/>
+		
+		<property name="dutyerLeader2Name" column="DUTYER_LEADER2_NAME" type="java.lang.String"/>
+		
+		<property name="state" column="STATE" type="byte"/>
+		
+		<property name="archiveId" column="ARCHIVE_ID" type="java.lang.Long"/>
+		<property name="unarchiveId" column="UNARCHIVE_ID" type="java.lang.Long"/>
+		<property name="publishId" column="PUBLISH_ID" type="java.lang.Long"/>
+		<property name="pauseId" column="PAUSE_ID" type="java.lang.Long"/>
+		<property name="wakeId" column="WAKE_ID" type="java.lang.Long"/>
+		<property name="cancelId" column="CANCEL_ID" type="java.lang.Long"/>
+		<property name="transId" column="TRANS_ID" type="java.lang.Long"/>
+		<property name="shelveId" column="SHELVE_ID" type="java.lang.Long"/>
+		<property name="deleteId" column="DELETE_ID" type="java.lang.Long"/>
+		<property name="finishId" column="FINISH_ID" type="java.lang.Long"/>
+		<property name="manageMode" column="MANAGE_MODE" type="byte"/>
+		
+<!--		<property name="riskGrade" column="RISK_GRADE" type="byte"/>
+		<property name="riskGrade">
+			<formula>
+	            ( select max(risk.grade) 
+	            from Risk risk 
+	            where risk.objectID = id )
+	        </formula>
+        </property>
+        -->
+		
+	</class>
+</hibernate-mapping>

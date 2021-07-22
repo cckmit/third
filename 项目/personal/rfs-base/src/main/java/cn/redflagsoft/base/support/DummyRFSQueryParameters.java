@@ -1,0 +1,228 @@
+/*
+ * $Id: DummyRFSQueryParameters.java 5361 2012-03-02 01:01:13Z lcj $
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.support;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.opoo.apps.QueryParameter;
+import org.opoo.apps.security.User;
+import org.opoo.apps.security.UserHolder;
+import org.opoo.ndao.criterion.Order;
+
+import cn.redflagsoft.base.bean.Clerk;
+import cn.redflagsoft.base.security.UserClerkHolder;
+import cn.redflagsoft.base.web.struts2.QueryActionV3;
+
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+
+/**
+ * @author Alex Lin(lcql@msn.com)
+ * @deprecated 在 {@link QueryActionV3}中自行处理参数，所以不再需要这个类来做类似处理。
+ */
+public class DummyRFSQueryParameters implements RFSQueryParameters {
+	private static final Log log = LogFactory.getLog(DummyRFSQueryParameters.class);
+	
+	private static final long serialVersionUID = 6136260678215140962L;
+	private String dir;
+	private String sort;
+	private Order order;
+	private int maxResults;
+	private int start = -1;
+	private List<QueryParameter> parameters = Lists.newArrayList();
+	private Map<String, Object> rawParameters = Maps.newHashMap();
+	private List<String> eps = Lists.newArrayList();
+	private List<String> ups = Lists.newArrayList();
+	
+	//private int maxPageSize = AbstractAppsAction.PAGE_SIZE_MAX;
+	//private int defaultPageSize = AbstractAppsAction.DEFAULT_PAGE_SIZE;
+
+	public DummyRFSQueryParameters(RFSQueryParameters parent) {
+		this.dir = parent.getDir();
+		this.maxResults = parent.getMaxResults();
+		this.order = parent.getOrder();
+		this.sort = parent.getSort();
+		this.start = parent.getStart();
+
+		//处理查询参数
+		List<QueryParameter> ps = parent.getParameters();
+		if(ps != null && ps.size() > 0){
+			this.parameters.addAll(ps);
+		}
+		
+		//处理原始参数
+		Map<String, ?> rps = parent.getRawParameters();
+		if(rps != null && rps.size() > 0){
+			this.rawParameters.putAll(rps);
+		}
+		
+		//if(parent instanceof RFSQueryParameters){
+		//RFSQueryParameters p = (RFSQueryParameters) parent;
+		this.eps = parent.getEps();
+		this.ups = parent.getUps();
+		boolean hasEpsOrUps = false;
+		
+		if(eps != null && !eps.isEmpty()){
+			Clerk clerk = UserClerkHolder.getClerk();
+			String clerkEntityID = "" + clerk.getEntityID();
+			for(String ep: eps){
+				rawParameters.put(ep, clerkEntityID);
+				parameters.add(new QueryParameter(ep, clerkEntityID, "=", "long"));
+			}
+			hasEpsOrUps = true;
+		}
+		if(ups != null && !ups.isEmpty()){
+			User user = UserHolder.getUser();
+			String userId = "" + user.getUserId();
+			for(String up: ups){
+				rawParameters.put(up, userId);
+				parameters.add(new QueryParameter(up, userId, "=", "long"));
+			}
+			hasEpsOrUps = true;
+		}
+		
+		if(hasEpsOrUps && log.isDebugEnabled()){
+			log.debug("用户或者单位相关的查询参数合并后的原始参数为：" + rawParameters);
+			log.debug("用户或者单位相关的查询参数合并后的查询参数为：" + parameters);
+		}
+		//}
+	}
+
+	/**
+	 * 
+	 */
+	public DummyRFSQueryParameters() {
+		super();
+//		maxPageSize = AppsGlobals.getProperty("maxPageSize", AbstractAppsAction.PAGE_SIZE_MAX);
+//		defaultPageSize = AppsGlobals.getProperty("defaultPageSize", AbstractAppsAction.DEFAULT_PAGE_SIZE);
+//		
+//		if(log.isDebugEnabled()){
+//			log.debug(String.format("默认页面大小 %s，最大页面大小 %s。", defaultPageSize, maxPageSize));
+//		}
+	}
+	
+	/**
+	 * @return the dir
+	 */
+	public String getDir() {
+		return dir;
+	}
+	/**
+	 * @param dir the dir to set
+	 */
+	public void setDir(String dir) {
+		this.dir = dir;
+	}
+	/**
+	 * @return the sort
+	 */
+	public String getSort() {
+		return sort;
+	}
+	/**
+	 * @param sort the sort to set
+	 */
+	public void setSort(String sort) {
+		this.sort = sort;
+	}
+	/**
+	 * @return the order
+	 */
+	public Order getOrder() {
+		return order;
+	}
+	/**
+	 * @param order the order to set
+	 */
+	public void setOrder(Order order) {
+		this.order = order;
+	}
+	/**
+	 * @return the maxResults
+	 */
+	public int getMaxResults() {
+//		if (maxResults <= 0){
+//			return defaultPageSize;
+//		}
+//		if(maxResults > maxPageSize){
+//			return maxPageSize;
+//		}
+		return maxResults;
+	}
+	/**
+	 * @param maxResults the maxResults to set
+	 */
+	public void setMaxResults(int maxResults) {
+		this.maxResults = maxResults;
+	}
+	/**
+	 * @return the start
+	 */
+	public int getStart() {
+		return start;
+	}
+	/**
+	 * @param start the start to set
+	 */
+	public void setStart(int start) {
+		this.start = start;
+	}
+	/**
+	 * @return the parameters
+	 */
+	public List<QueryParameter> getParameters() {
+		return parameters;
+	}
+	/**
+	 * @param parameters the parameters to set
+	 */
+	public void setParameters(List<QueryParameter> parameters) {
+		this.parameters = parameters;
+	}
+	/**
+	 * @return the rawParameters
+	 */
+	public Map<String, Object> getRawParameters() {
+		return rawParameters;
+	}
+	/**
+	 * @param rawParameters the rawParameters to set
+	 */
+	public void setRawParameters(Map<String, Object> rawParameters) {
+		this.rawParameters = rawParameters;
+	}
+	/**
+	 * @return the eps
+	 */
+	public List<String> getEps() {
+		return eps;
+	}
+	/**
+	 * @param eps the eps to set
+	 */
+	public void setEps(List<String> eps) {
+		this.eps = eps;
+	}
+	/**
+	 * @return the ups
+	 */
+	public List<String> getUps() {
+		return ups;
+	}
+	/**
+	 * @param ups the ups to set
+	 */
+	public void setUps(List<String> ups) {
+		this.ups = ups;
+	}
+}

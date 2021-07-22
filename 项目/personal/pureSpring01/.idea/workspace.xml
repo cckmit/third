@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="54b6ae79-196f-49a3-846b-e39f15353643" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="spring-beans.schema" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="D:/worksoft/apache-maven-3.2.5" />
+        <option name="userSettingsFile" value="D:\worksoft\apache-maven-3.2.5\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1jBrJfGJ5y4kEFVJOhkw4pb2sOQ" />
+  <component name="ProjectViewState">
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="project.structure.last.edited" value="Facets" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.beitie.service.impl" />
+      <recent name="com.beitie.dao.impl" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.CGLIBProxyTest.proxyTest">
+    <configuration name="BeanFactoryLocalTest.getApplicationContextTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="pureSpring01" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.beitie.factory.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.beitie.factory" />
+      <option name="MAIN_CLASS_NAME" value="com.beitie.factory.BeanFactoryLocalTest" />
+      <option name="METHOD_NAME" value="getApplicationContextTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CGLIBProxyTest.proxyTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="pureSpring01" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.beitie.aop.cglib.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.beitie.aop.cglib" />
+      <option name="MAIN_CLASS_NAME" value="com.beitie.aop.cglib.CGLIBProxyTest" />
+      <option name="METHOD_NAME" value="proxyTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JDKProxyTest.studentStudyTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="pureSpring01" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.beitie.aop.jdk.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.beitie.aop.jdk" />
+      <option name="MAIN_CLASS_NAME" value="com.beitie.aop.jdk.JDKProxyTest" />
+      <option name="METHOD_NAME" value="studentStudyTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="VideoPlayerServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="pureSpring01" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.beitie.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.beitie.service" />
+      <option name="MAIN_CLASS_NAME" value="com.beitie.service.VideoPlayerServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="VideoPlayerTest.testVideoPlayer" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="pureSpring01" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.beitie.bean.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.beitie.bean" />
+      <option name="MAIN_CLASS_NAME" value="com.beitie.bean.VideoPlayerTest" />
+      <option name="METHOD_NAME" value="testVideoPlayer" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.CGLIBProxyTest.proxyTest" />
+        <item itemvalue="JUnit.JDKProxyTest.studentStudyTest" />
+        <item itemvalue="JUnit.BeanFactoryLocalTest.getApplicationContextTest" />
+        <item itemvalue="JUnit.VideoPlayerTest.testVideoPlayer" />
+        <item itemvalue="JUnit.VideoPlayerServiceTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="StructureViewFactory">
+    <option name="ACTIVE_ACTIONS" value=",ALPHA_COMPARATOR" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="54b6ae79-196f-49a3-846b-e39f15353643" name="Default Changelist" comment="" />
+      <created>1603288255996</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1603288255996</updated>
+      <workItem from="1603288259670" duration="6008000" />
+      <workItem from="1603375488570" duration="85000" />
+      <workItem from="1603375625784" duration="5814000" />
+      <workItem from="1603462398213" duration="3886000" />
+      <workItem from="1603810207361" duration="2461000" />
+      <workItem from="1603894060602" duration="3853000" />
+      <workItem from="1603979533538" duration="4881000" />
+      <workItem from="1604584975996" duration="2346000" />
+      <workItem from="1617940270819" duration="607000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="488" y="72" key="#com.intellij.ide.util.MemberChooser" timestamp="1603980260011">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="488" y="72" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1603980260011" />
+    <state x="333" y="288" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1603811990716">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="333" y="288" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1366.728@0.0.1366.728" timestamp="1603811990716" />
+    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1603288500523">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1603288500523" />
+    <state width="1322" height="174" key="GridCell.Tab.0.bottom" timestamp="1603984540543">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1322" height="174" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1603984540543" />
+    <state width="1322" height="174" key="GridCell.Tab.0.center" timestamp="1603984540542">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1322" height="174" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1603984540542" />
+    <state width="1322" height="174" key="GridCell.Tab.0.left" timestamp="1603984540542">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1322" height="174" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1603984540542" />
+    <state width="1322" height="174" key="GridCell.Tab.0.right" timestamp="1603984540542">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1322" height="174" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1603984540542" />
+    <state x="184" y="0" key="SettingsEditor" timestamp="1603379629606">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="184" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1603379629606" />
+    <state x="290" y="60" width="786" height="608" key="find.popup" timestamp="1603811904639">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="290" y="60" width="786" height="608" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1603811904639" />
+    <state x="53" y="58" key="new project wizard" timestamp="1604585921244">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="53" y="58" key="new project wizard/0.0.1366.728@0.0.1366.728" timestamp="1604585921244" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1604585786471">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1604585786471" />
+    <state x="384" y="46" key="spring file set editor" timestamp="1603375529179">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="384" y="46" key="spring file set editor/0.0.1366.728@0.0.1366.728" timestamp="1603375529179" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/beitie/aop/jdk/JDKProxy.java</url>
+          <line>6</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

@@ -1,0 +1,157 @@
+/*
+ * $Id: FileNoManagerImpl.java 5508 2012-04-11 08:02:27Z lcj $
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.service.impl;
+
+import java.util.Calendar;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.opoo.apps.el.Expression;
+import org.opoo.cache.Cache;
+import org.springframework.beans.factory.annotation.Required;
+
+import cn.redflagsoft.base.NotFoundException;
+import cn.redflagsoft.base.bean.FileNo;
+import cn.redflagsoft.base.dao.FileNoDao;
+import cn.redflagsoft.base.el.velocity.ExpressionFactoryImpl;
+import cn.redflagsoft.base.service.FileNoManager;
+
+import com.google.common.collect.Maps;
+
+/**
+ * @author Alex Lin(lcql@msn.com)
+ *
+ */
+public class FileNoManagerImpl implements FileNoManager {
+	private Cache<String, FileNo> fileNoCache;
+	private FileNoDao fileNoDao;
+	
+	private static ExpressionFactoryImpl exprFactory = new ExpressionFactoryImpl();
+	private static Map<String, Expression> exprMap = new ConcurrentHashMap<String, Expression>();
+	
+	
+
+	/**
+	 * @param fileNoCache the fileNoCache to set
+	 */
+	@Required
+	public void setFileNoCache(Cache<String, FileNo> fileNoCache) {
+		this.fileNoCache = fileNoCache;
+	}
+
+	/**
+	 * @param fileNoDao the fileNoDao to set
+	 */
+	@Required
+	public void setFileNoDao(FileNoDao fileNoDao) {
+		this.fileNoDao = fileNoDao;
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.service.FileNoManager#getFileNo(java.lang.String)
+	 */
+	public FileNo getFileNo(String uid) {
+		FileNo fileNo = fileNoCache.get(uid);
+		if(fileNo == null){
+			fileNo = fileNoDao.getByUid(uid);
+			if(fileNo != null){
+				fileNoCache.put(uid, fileNo);
+			}
+		}
+		if(fileNo == null){
+			throw new NotFoundException("文号定义没有找到：" + uid);
+		}
+		return fileNo;
+	}
+	
+	protected FileNo getFileNoByUid(String uid){
+		FileNo fileNo = getFileNo(uid);
+//		if(fileNo == null){
+//			throw new NotFoundException("文号定义没有找到：" + uid);
+//		}
+		return fileNo;
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.service.FileNoManager#generateFileNo(java.lang.String)
+	 */
+	public String generateFileNo(String uid) {
+		FileNo fileNo = getFileNoByUid(uid);
+		return generateFileNo(fileNo.getTemplate(), fileNo.getIncrementValue() + 1, fileNo.getIncrementStringLength());
+	}
+	
+	public static String generateFileNo(String template, int incrementValue, int incrementStringLength){
+		Expression expr = exprMap.get(template);
+		if(expr == null){
+			expr = exprFactory.createExpression(template);
+			exprMap.put(template, expr);
+		}
+		
+		Calendar c = Calendar.getInstance();
+		int year = c.get(Calendar.YEAR);
+		int month = c.get(Calendar.MONTH) + 1;
+		int date = c.get(Calendar.DAY_OF_MONTH);
+		
+		Map<String,Object> context = Maps.newHashMap();
+		context.put("value", toString(incrementValue, incrementStringLength));
+		context.put("year", year + "");
+		context.put("shortYear", (year + "").substring(2));
+		context.put("month", toString(month, 2));
+		context.put("shortMonth", month + "");
+		context.put("date", toString(date, 2));
+		context.put("shortDate", date + "");
+		return expr.getValue(context);
+	}
+	
+	
+	private static String toString(int value, int lenth){
+		if(lenth <= 1){
+			return value + "";
+		}else{
+			String str = "" + value;
+			if(str.length() > lenth){
+				return str;
+			}else{
+				str = "000000000000000000000000000000" + str;
+				return str.substring(str.length() - lenth);
+			}
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.service.FileNoManager#updateFileNo(java.lang.String, java.lang.String)
+	 */
+	public FileNo updateFileNo(String uid, String lastFileNo) {
+		FileNo fileNo = getFileNoByUid(uid);
+		fileNo.setLastFileNo(lastFileNo);
+		if(fileNo.isAutoIncrement()){
+			fileNo.setIncrementValue(fileNo.getIncrementValue() + 1);
+		}
+
+		FileNo update = fileNoDao.update(fileNo);
+		//fileNoCache.put(uid, fileNo);
+		fileNoCache.remove(uid);
+		return update;
+	}
+
+	
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.service.FileNoManager#resetFileNoAutoIncrementValue(String, int)
+	 */
+	public FileNo resetFileNoAutoIncrementValue(String uid, int value) {
+		FileNo fileNo = getFileNoByUid(uid);
+		fileNo.setIncrementValue(value);
+		
+		FileNo update = fileNoDao.update(fileNo);
+		//fileNoCache.put(uid, fileNo);
+		fileNoCache.remove(uid);
+		return update;
+	}
+}

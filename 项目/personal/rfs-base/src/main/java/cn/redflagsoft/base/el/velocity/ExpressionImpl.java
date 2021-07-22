@@ -1,0 +1,75 @@
+/*
+ * $Id: ExpressionImpl.java 4342 2011-04-22 02:17:01Z lcj $
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.el.velocity;
+
+import java.io.IOException;
+import java.io.StringWriter;
+import java.util.Map;
+
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.Velocity;
+import org.apache.velocity.context.Context;
+import org.opoo.apps.el.Expression;
+import org.opoo.util.IOUtils;
+
+/**
+ * 使用Velocity实现的表达式解析类。
+ * 
+ * 
+ * @author Alex Lin(alex@opoo.org)
+ *
+ */
+public class ExpressionImpl implements Expression {
+	
+	private String expr;
+
+	
+	
+	public ExpressionImpl(String expr) {
+		super();
+		this.expr = expr;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.opoo.apps.el.Expression#getExpressionString()
+	 */
+	public String getExpressionString() {
+		return expr;
+	}
+	public String toString(){
+		return ExpressionImpl.class.getName() + "@" + hashCode()
+			+ "[" + expr + "]";
+	}
+
+	/* (non-Javadoc)
+	 * @see org.opoo.apps.el.Expression#getValue(java.lang.Object)
+	 */
+	public String getValue(Object context) throws RuntimeException {
+		Context ctx = null;
+		if(context instanceof Map){
+			ctx = new VelocityContext((Map<?, ?>)context);
+		}else if(context instanceof Context){
+			ctx = new VelocityContext((Context)context);
+		}else{
+			ctx = new VelocityContext();
+			ctx.put("context", context);
+		}
+		StringWriter out = new StringWriter();
+		try {
+			Velocity.evaluate(ctx, out, "apps.el", expr);
+			return out.toString();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}finally{
+			IOUtils.close(out);
+		}
+	}
+
+}

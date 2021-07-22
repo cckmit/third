@@ -1,0 +1,178 @@
+/*
+ * $Id$
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.security.impl;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URL;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.dom4j.Document;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.util.ResourceUtils;
+
+import cn.redflagsoft.base.security.Ace;
+import cn.redflagsoft.base.security.Ace.Entry;
+import cn.redflagsoft.base.security.AceManager;
+
+/**
+ * ACE管理器。
+ *
+ * @author lf
+ * @author Alex Lin(alex@opoo.org)
+ */
+public class AceManagerImpl implements AceManager, InitializingBean {
+	private static final Log log = LogFactory.getLog(AceManagerImpl.class);
+	private Map<String, Ace> map;
+	private Resource resource;
+
+	public Map<String, Ace> getMap() {
+		return map;
+	}
+
+	public void setMap(Map<String, Ace> map) {
+		this.map = map;
+	}
+
+	public Resource getResource() {
+//		if(resource == null){
+//			try {
+//				resource = new ClassPathResource("acl.xml");
+//			} catch (Exception e) {
+//				//
+//				log.warn("加载默认的ACE(acl-default.xml)，系统中可能没有配置有效的ACE(acl.xml)。");
+//				resource = new ClassPathResource("acl-default.xml");
+//			}
+//		}
+		return resource;
+	}
+	
+	private URL getResourceURL() throws IOException{
+		Resource res = getResource();
+		URL url = null;
+		try {
+			url = res.getURL();
+		} catch (FileNotFoundException e) {
+			log.warn("加载默认的ACE(acl-default.xml)，系统中可能没有配置有效的ACE(acl.xml)。");
+			url = new ClassPathResource("acl-default.xml").getURL();
+		}
+		return url;
+	}
+
+	public void setResource(Resource resource) {
+		this.resource = resource;
+	}
+
+	public Ace getAce(String aceId) {
+		Map<String, Ace> mp = getMap();
+		return mp.get(aceId);
+	}
+
+	public Set<Ace> getAcl() {
+		Set<String> keySet = map.keySet();
+		Set<Ace> result = new LinkedHashSet<Ace>();
+		for (String k : keySet) {
+			result.add(map.get(k));
+		}
+		return result;
+	}
+	
+	public void afterPropertiesSet() throws Exception {
+		if(map == null || map.isEmpty()){
+			loadAcl();
+		}else{
+			log.debug("Acl set by property: " + map);
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void loadAcl() throws Exception{
+		map = new LinkedHashMap<String, Ace>();
+		
+		SAXReader saxReader = new SAXReader();
+		saxReader.setEncoding("GBK");
+		//File f = new File(filepath);
+		//ClassPathResource resource = new ClassPathResource("acl.xml");
+//		Resource rs = getResource();
+		URL url = getResourceURL();
+		log.debug("Load acl from " + url);
+		Document document = saxReader.read(url.openStream());
+//		parseXMLToMap(document);
+//	}
+//
+//	@SuppressWarnings( { "unchecked" })
+//	private void parseXMLToMap(Document document) {
+		List<Element> aceNodes = document.getRootElement().elements();
+		for (Element node : aceNodes) {
+			if(!"ace".equals(node.getName())){
+				continue;
+			}
+			
+			String id = node.attributeValue("id");
+			String name = node.attributeValue("name");
+			Ace ace = new Ace();
+			ace.setId(id);
+			ace.setName(name);
+			
+			List<Element> list = node.elements();
+			Set<Entry> set = new LinkedHashSet<Entry>();
+			for (Element e : list) {
+				String mask = e.attributeValue("mask");
+				String entryName = e.attributeValue("name");
+				String order = e.attributeValue("index");
+				String perms = e.attributeValue("perms");
+				Ace.Entry en = new Ace.Entry();
+				en.setMask(mask);
+				en.setName(entryName);
+				en.setOrder(Integer.parseInt(order));
+				en.setPermission(Long.parseLong(perms));
+				set.add(en);
+			}
+			ace.setEntrySet(set);
+			map.put(id, ace);
+			
+			if(log.isDebugEnabled()){
+				log.debug("ACE - " + id + " : " + name);
+			}
+		}
+	}
+
+	public static void main(String[] args) throws Exception {
+		AceManagerImpl impl = new AceManagerImpl();
+		impl.setResource(new ClassPathResource("acl-sample.xml"));
+		impl.afterPropertiesSet();
+		Map<String, Ace> map2 = impl.map;
+		System.out.println(map2);
+		
+//		String string = JSONUtil.serialize(map2);
+//		System.out.println(string);
+		System.out.println(impl.getAcl());
+		Set<Ace> set = impl.getAcl();
+		for (Ace ace : set) {
+			System.out.println(ace.getName());
+		}
+		
+		URL url = ResourceUtils.getURL("classpath:spring-web.xml");
+		System.out.println(url);
+		ClassPathResource rr = new ClassPathResource("spring-web2.xml");
+		System.out.println(new ClassPathResource("acl-default.xml").getURL());
+		System.out.println(rr);
+	}
+}

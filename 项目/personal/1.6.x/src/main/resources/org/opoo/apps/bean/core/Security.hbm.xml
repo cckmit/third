@@ -1,0 +1,219 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="org.opoo.apps.bean.security">
+<!--
+    Created by the Middlegen Hibernate plugin 2.1, by Alex Lin(alex@opoo.org, http://www.lcql.com, http://www.opoo.org)
+    Copyright(c) 2008
+    -->
+	
+	<class name="DepartmentBean" table="T_SEC_DEPARTMENT">
+        <id name="id" type="java.lang.Long" column="ID">
+            <generator class="assigned" />
+        </id>
+        <property name="name" type="java.lang.String" column="NAME" not-null="true" />
+        <property name="code" type="java.lang.String" column="CODE" not-null="true" />
+        <property name="shortName" type="java.lang.String" column="SHORTNAME" not-null="true" />
+		<property name="supDepartmentId" type="java.lang.Long" column="SUP_DEPT_ID"/>
+		<property name="websiteName" type="java.lang.String" column="WEBSITE_NAME"/>
+		<property name="websiteURL" type="java.lang.String" column="WEBSITE_URL"/>
+		<property name="status" type="java.lang.String" column="STATUS"/>
+		<property name="creationTime" type="java.sql.Timestamp" column="CTIME"/>
+		<property name="createdBy" type="java.lang.String" column="CREATED_BY"/>
+		<property name="modificationTime" type="java.sql.Timestamp" column="MTIME"/>
+		<property name="modifiedBy" type="java.lang.String" column="MODIFIED_BY"/>
+		
+		<map name="properties" lazy="false" table="T_SEC_DEPARTMENT_PROP">
+			<key column="DEPT_ID"/>
+    		<map-key column="NAME" type="string"/>
+    		<element column="PROPVALUE" type="string"/>
+		</map>
+    </class>
+	
+    <class name="UserBean" table="T_SEC_USER">
+        <id name="id" type="java.lang.Long" column="ID">
+            <generator class="assigned" />
+        </id>
+        <property name="name" type="java.lang.String" column="NAME" not-null="true" length="50" />
+        <property name="username" type="java.lang.String" column="USERNAME" not-null="true" length="32" />
+        <property name="password" type="java.lang.String" column="PASSWORD" not-null="true" length="32" />
+        <property name="departmentId" type="java.lang.Long" column="DEPT_ID" not-null="true" />
+        <property name="email" type="java.lang.String" column="EMAIL" length="200" />
+		<property name="sex" type="java.lang.String" column="SEX" />
+		<property name="cellphoneNumber" type="java.lang.String" column="CELLPHONE_NUMBER" />
+		<property name="phoneNumber" type="java.lang.String" column="PHONE_NUMBER" />
+		<property name="accountExpireTime" type="java.sql.Timestamp" column="ACCOUNT_EXPIRE_TIME"/>
+		<property name="credentialsExpireTime" type="java.sql.Timestamp" column="CREDENTIALS_EXPIRE_TIME"/>
+		<property name="enabled" type="boolean" column="ENABLED"/>
+		<property name="accountNonLocked" type="boolean" column="ACCOUNT_NON_LOCKED"/>
+		<property name="lastLoginTime" type="java.sql.Timestamp" column="LAST_LOGIN_TIME"/>
+		<property name="tryCount" type="int" column="TRY_COUNT"/>
+		<property name="creationTime" type="java.sql.Timestamp" column="CTIME"/>
+		<property name="createdBy" type="java.lang.String" column="CREATED_BY"/>
+		<property name="modificationTime" type="java.sql.Timestamp" column="MTIME"/>
+		<property name="modifiedBy" type="java.lang.String" column="MODIFIED_BY"/>
+		
+		
+		<map name="properties" lazy="false" table="T_SEC_USER_PROP" cascade="delete">
+			<key column="USER_ID"/>
+    		<map-key column="NAME" type="string"/>
+    		<element column="PROPVALUE" type="string"/>
+		</map>
+		
+		<set name="roleIds" table="T_SEC_USER_ROLE" lazy="false" cascade="delete">
+			<key column="USER_ID"/>
+			<element column="ROLE_ID" type="long"/>
+		</set>
+    </class>
+	
+	
+    <class name="RoleBean" table="T_SEC_ROLE">
+        <id name="id" type="java.lang.Long" column="ID">
+            <generator class="assigned" />
+        </id>
+        <property name="name" type="java.lang.String" column="NAME" not-null="true" />
+        <property name="description" type="java.lang.String" column="DESCRIPTION" />
+        <property name="departmentId" type="java.lang.Long" column="DEPT_ID" not-null="true" />
+        <property name="permissions" type="long" column="PERMISSIONS" />
+    </class>
+	<!--
+	<class name="AceBean">
+        <id name="id" type="java.lang.Long" column="ID">
+            <generator class="assigned" />
+        </id>
+		<property name="moduleId" type="java.lang.Long" column="MODULE_ID" not-null="true" />
+        <property name="permissions" type="long" column="PERMISSIONS" />
+        <property name="scope" type="int" column="SCOPE" />
+		
+		<union-subclass name="RoleAce" table="T_SEC_ROLEACE">
+    		<property name="sid" type="java.lang.Long" column="ROLE_ID" not-null="true" />
+			<set name="departmentIds" table="T_SEC_ROLEACE_DEPARTMENTS" lazy="false" cascade="delete">
+				<key column="ROLEACE_ID"/>
+				<element column="DEPT_ID" type="java.lang.Long"/>
+			</set>
+    	</union-subclass>
+
+		<union-subclass name="UserAce" table="T_SEC_USERACE">
+    		<property name="sid" type="java.lang.Long" column="USER_ID" not-null="true" />
+			<set name="departmentIds" table="T_SEC_USERACE_DEPARTMENTS" lazy="false" cascade="delete">
+				<key column="USERACE_ID"/>
+				<element column="DEPT_ID" type="java.lang.Long"/>
+			</set>
+    	</union-subclass>
+	</class>
+	-->
+	
+	<class name="AceBean" table="T_SEC_ACE">
+		<id name="id" type="java.lang.Long" column="ID">
+            <generator class="assigned" />
+        </id>
+		<property name="sid" type="java.lang.Long" column="SID" not-null="true" />
+		<property name="sidType" type="int" column="SID_TYPE" not-null="true" />
+		<property name="moduleId" type="java.lang.Long" column="MODULE_ID" not-null="true" />
+        <property name="permissions" type="long" column="PERMISSIONS" not-null="true"/>
+        <property name="departmentScope" type="int" column="SCOPE" not-null="true"/>
+		<property name="spsxScope" type="int" column="SPSX_SCOPE" not-null="true"/>
+		
+		<set name="departmentIds" table="T_SEC_ACE_DEPARTMENTS" lazy="false" cascade="delete">
+			<key column="ACE_ID"/>
+			<element column="DEPT_ID" type="java.lang.Long"/>
+		</set>
+		
+		<set name="spsxIds" table="T_SEC_ACE_SPSXS" lazy="false" cascade="delete">
+			<key column="ACE_ID"/>
+			<element column="SPSX_ID" type="java.lang.String"/>
+		</set>
+	</class>
+	
+	<class name="ObjectSourceBean" table="T_SEC_OBJECT_SOURCE">
+        <id name="id" type="java.lang.Long" column="ID">
+            <generator class="assigned" />
+        </id>
+        <property name="sid" type="long" column="SID" not-null="true" />
+        <property name="sidType" type="int" column="SID_TYPE" />
+        <property name="sourceType" type="int" column="SRC_TYPE" not-null="true" />
+        <property name="source" type="string" column="SRC" />
+    </class>
+	
+	<class name="ModuleBean" table="T_SEC_MODULE">
+        <id name="id" type="java.lang.Long" column="ID">
+            <generator class="assigned" />
+        </id>
+        <property name="name" type="string" column="NAME" not-null="true" />
+        <property name="description" type="string" column="DESCRIPTION" />
+        <property name="uniqueName" type="string" column="UNIQUE_NAME" not-null="true" />
+		<property name="application" type="string" column="APP" />
+		<property name="parentId" type="java.lang.Long" column="PARENT_ID" />
+		<property name="displayOrder" type="int" column="D_ORDER" />
+    	<list name="operations" table="T_SEC_MODULE_OPERATION" lazy="false" cascade="delete">
+		    <key column="MODULE_ID"/>
+		    <list-index column="LIST_INDEX"/>
+		    <composite-element class="org.opoo.apps.security.Operation">
+		        <property name="opid" column="OPID"/>
+		        <property name="name" column="NAME"/>
+		        <property name="description" column="DESCRIPTION"/>
+				<property name="urlSource" column="URL_SOURCE"/>
+				<property name="methodSource" column="METHOD_SOURCE"/>
+		    </composite-element>
+		</list>
+	</class>
+	
+	
+	<!--
+    <class name="RoleModulePermissionsBean" table="T_SEC_ROLE_MODULE_PERMISSIONS">
+        <id name="id" type="java.lang.Long" column="ID">
+            <generator class="assigned" />
+        </id>
+        <property name="roleId" type="java.lang.Long" column="ROLE_ID" not-null="true" />
+        <property name="moduleId" type="java.lang.Long" column="MODULE_ID" not-null="true" />
+        <property name="permissions" type="long" column="PERMISSIONS" />
+        <property name="scope" type="int" column="SCOPE" />-->
+		<!--
+		<set name="departments" lazy="false">
+		    <key column="RMP_ID"/>
+		    <one-to-many class="org.opoo.apps.bean.RmpDepartmentsBean"/>
+		</set>
+		--><!--
+		<set name="departmentIds" table="T_SEC_RMP_DEPARTMENTS" lazy="false" cascade="delete">
+			<key column="RMP_ID"/>
+			<element column="DEPT_ID" type="long"/>
+		</set>
+    </class>-->
+	
+	
+	<!--
+    <class name="org.opoo.apps.bean.UserRoleBean" table="T_SEC_USER_ROLE">
+        <id name="id" type="java.lang.Long" column="ID">
+            <generator class="assigned" />
+        </id>
+        <property name="userId" type="java.lang.Long" column="USER_ID" not-null="true" />
+        <property name="roleId" type="java.lang.Long" column="ROLE_ID" not-null="true" />
+    </class>
+    <class name="org.opoo.apps.bean.UserProperty" table="T_SEC_USER_PROP">
+        <id name="id" type="java.lang.Long" column="ID">
+            <generator class="assigned" />
+        </id>
+        <property name="userId" type="java.lang.Long" column="USER_ID" not-null="true" />
+        <property name="name" type="java.lang.String" column="NAME" not-null="true" />
+        <property name="value" type="java.lang.String" column="PROPVALUE" not-null="true" />
+    </class>
+    <class name="org.opoo.apps.bean.DepartmentProperty" table="T_SEC_DEPARTMENT_PROP">
+        <id name="id" type="java.lang.Long" column="ID">
+            <generator class="assigned" />
+        </id>
+        <property name="departmentId" type="java.lang.Long" column="DEPT_ID" not-null="true" />
+        <property name="name" type="java.lang.String" column="NAME" not-null="true" />
+        <property name="value" type="java.lang.String" column="PROPVALUE" not-null="true" />
+    </class>
+	
+    <class name="org.opoo.apps.bean.RmpDepartmentsBean" table="T_SEC_RMP_DEPARTMENTS">
+        <id name="id" type="java.lang.Long" column="ID">
+            <generator class="assigned" />
+        </id>
+        <property name="rmpId" type="java.lang.Long" column="RMP_ID" not-null="true" />
+        <property name="departmentId" type="java.lang.Long" column="DEPT_ID" not-null="true" />
+    </class>
+	
+	-->
+</hibernate-mapping>

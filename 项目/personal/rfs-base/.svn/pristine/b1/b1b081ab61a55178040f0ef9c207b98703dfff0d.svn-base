@@ -1,0 +1,6 @@
+# $Id$
+sysid=select new map(current as current, id as next) from SysId a; select count(*) from SysId a
+
+#SQL Query table action
+action.list|SQL=select id, name, location from action2
+

@@ -1,0 +1,30 @@
+/*
+ * $Id$
+ * 
+ * Copyright 2007-2008 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ */
+package cn.redflagsoft.base.dao.hibernate3;
+
+
+import java.util.List;
+
+import org.opoo.apps.bean.core.Attachment;
+
+import cn.redflagsoft.base.bean.SmsgAttachment;
+import cn.redflagsoft.base.dao.SmsgAttachmentDao;
+
+/**
+ * @author py
+ *
+ */
+public class SmsgAttachmentHibernateDao extends AbstractBaseHibernateDao<SmsgAttachment,Long> implements SmsgAttachmentDao{
+
+
+	@SuppressWarnings("unchecked")
+	public List<Attachment> findSmsgAttachments(Long smsgId) {
+		String hql = "select distinct a from Attachment a ,SmsgAttachment b where a.id = b.fileId and b.smsgId = ?";
+		return getHibernateTemplate().find(hql,new Object[]{smsgId});
+	}
+	
+}

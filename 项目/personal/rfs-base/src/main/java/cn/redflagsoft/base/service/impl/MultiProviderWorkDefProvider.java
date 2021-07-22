@@ -1,0 +1,131 @@
+/*
+ * $Id: MultiProviderWorkDefProvider.java 4615 2011-08-21 07:10:37Z lcj $
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.service.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.opoo.cache.Cache;
+import org.opoo.cache.MapCache;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+
+import cn.redflagsoft.base.bean.WorkDef;
+import cn.redflagsoft.base.service.WorkDefProvider;
+
+
+/**
+ * 
+ * @author Alex Lin(alex@opoo.org)
+ *
+ */
+public class MultiProviderWorkDefProvider implements WorkDefProvider, InitializingBean, ApplicationContextAware {
+	private final static Log log = LogFactory.getLog(MultiProviderWorkDefProvider.class);
+	
+	private Cache<Integer, WorkDef> cache = new MapCache<Integer, WorkDef>();
+	private List<WorkDefProvider> providers;
+	private ApplicationContext applicationContext;
+	
+	/**
+	 * @param cache the cache to set
+	 */
+//	@Required
+	public void setWorkDefCache(Cache<Integer, WorkDef> cache) {
+		this.cache = cache;
+	}
+
+	public WorkDef getWorkDef(int type) {
+		if(providers == null || providers.isEmpty()){
+			return null;
+		}
+		WorkDef workDef = cache.get(type);
+		if(workDef == null){
+			//workDef = new MultiProviderWorkDef(type);
+			workDef = getWorkDefFromProviders(providers, type);
+			if(workDef != null){
+				cache.put(type, workDef);
+			}else{
+				log.warn("找不到Work定义：" + type);
+				//将找不到的进行缓存，减少重复查找
+				//cache.put(type, DummyWorkDef.INSTANCE);
+			}
+		}//else if(workDef instanceof DummyWorkDef){
+		//	return null;
+		//}
+		return workDef;
+	}
+	
+	private WorkDef getWorkDefFromProviders(List<WorkDefProvider> providers, int workType){
+		for(WorkDefProvider provider: providers){
+			WorkDef def = provider.getWorkDef(workType);
+			if(def != null){
+				return def;
+			}
+		}
+		return null;
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public void afterPropertiesSet() throws Exception {
+		if(providers == null){
+			providers = new ArrayList<WorkDefProvider>();
+		}
+		if(applicationContext != null){
+			Map<String, WorkDefProvider> map = applicationContext.getBeansOfType(WorkDefProvider.class);
+			//System.out.println(map);
+			if(map != null){
+				for(WorkDefProvider wdp: map.values()){
+					if(wdp != this){
+						providers.add(wdp);
+					}
+				}
+			}
+		}
+		log.info("WorkDefProvider(s): " + providers);	
+	}
+	
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+		this.applicationContext = applicationContext;
+	}
+	
+	
+//	private static class DummyWorkDef implements WorkDef, Serializable{
+//		private static final long serialVersionUID = -7715815395902541072L;
+//		
+//		private static final WorkDef INSTANCE = new DummyWorkDef();
+//
+//		/* (non-Javadoc)
+//		 * @see cn.redflagsoft.base.bean.WorkDef#getWorkType()
+//		 */
+//		public short getWorkType() {
+//			return 0;
+//		}
+//
+//		/* (non-Javadoc)
+//		 * @see cn.redflagsoft.base.bean.WorkDef#getName()
+//		 */
+//		public String getName() {
+//			return null;
+//		}
+//
+//		/* (non-Javadoc)
+//		 * @see cn.redflagsoft.base.bean.WorkDef#getTaskType()
+//		 */
+//		public short getTaskType() {
+//			return 0;
+//		}
+//	}
+}

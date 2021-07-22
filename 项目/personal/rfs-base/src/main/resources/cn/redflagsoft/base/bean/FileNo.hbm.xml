@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.FileNo" table="FILENO">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		<property name="uid" column="UID_" type="java.lang.String"  not-null="true"/>
+		
+		<property name="description" column="DESCRIPTION" type="java.lang.String" />
+		
+		<property name="template" column="TPL" type="java.lang.String"  />
+		
+		<property name="autoIncrement" column="AUTO_INCREMENT" type="boolean" not-null="true"/>
+		
+		<property name="incrementValue" column="INCREMENT_VALUE" type="int" not-null="true"/>
+		
+		<property name="incrementStringLength" column="INCREMENT_STR_LEN" type="int" />
+		
+		<property name="lastFileNo" column="LAST_FILENO" type="java.lang.String"  />
+		
+		<property name="displayOrder" column="DISPLAY_ORDER" type="int"  not-null="true"/>
+		
+		<property name="type" column="TP" type="int"/>
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+		
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+		
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+		
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+		
+	</class>
+</hibernate-mapping>

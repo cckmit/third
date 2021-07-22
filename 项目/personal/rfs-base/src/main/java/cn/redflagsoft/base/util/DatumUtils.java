@@ -1,0 +1,37 @@
+/*
+ * $Id: DatumUtils.java 3996 2010-10-18 06:56:46Z lcj $
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.util;
+
+import cn.redflagsoft.base.bean.Datum;
+
+/**
+ * @author Alex Lin
+ *
+ */
+public abstract class DatumUtils {
+
+	public static String IMAGE_TYPES = "*.jpg;*.jpeg;*.png;*.gif";
+	public static String VIDEO_IMAGES = "*.mp4,*.flv";
+	
+	public static short determinType(String fileType){
+		
+		fileType = fileType.toLowerCase();
+		
+		if(IMAGE_TYPES.indexOf("*." + fileType) != -1){
+			return Datum.TYPE_IMAGE;
+		}
+		
+		if(VIDEO_IMAGES.indexOf("*." + fileType) != -1){
+			return Datum.TYPE_VIDEO;
+		}
+		
+		return Datum.TYPE_ATTACHEMENTS;
+	}
+}

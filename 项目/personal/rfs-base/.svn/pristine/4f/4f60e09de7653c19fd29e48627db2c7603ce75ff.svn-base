@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+    <package name="json-base" extends="json" namespace="/json">
+	    <action name="query" class="queryAction"/>
+	    <action name="process" class="processAction"/>
+	    <action name="workscheme" class="workSchemeAction"/>
+	    <action name="scheme" class="schemeAction"/>
+	    <action name="select" class="queryAction" method="select"/>
+	    
+	    <action name="query/*" class="queryAction">
+			<param name="target">{1}</param>
+		</action>
+		
+		<action name="dynlist/*/*" class="queryAction" method="dynlist">
+			<param name="target">{1}</param>
+			<param name="methodName">{2}</param>
+		</action>
+		
+		<action name="dynpage/*/*" class="queryAction" method="dynpage">
+			<param name="target">{1}</param>
+			<param name="methodName">{2}</param>
+		</action>
+		
+		<action name="invoke/*/*" class="queryAction" method="invoke">
+			<param name="target">{1}</param>
+			<param name="methodName">{2}</param>
+		</action>
+		
+		<action name="process/*" class="processAction">
+			<param name="processType">{1}</param>
+		</action>
+		
+		<action name="scheme/*/*" class="schemeAction">
+			<param name="s">{1}</param>
+			<param name="m">{2}</param>
+		</action>
+		
+		<!-- Simple Scheme Action, method name is specified in Spring IOC -->
+		<action name="s/*" class="schemeAction">
+			<param name="s">{1}</param>
+		</action>
+		
+		<action name="select/*" class="queryAction" method="select">
+			<param name="sid">{1}</param>
+		</action>
+		
+		<action name="q/*" class="queryAction" method="execute">
+			<param name="queryKey__">{1}</param>
+		</action>
+    </package>
+    
+   <package name="xml-base" extends="xml" namespace="/xml">
+	    <action name="query" class="queryAction"/>
+	    <action name="process" class="processAction"/>
+	    <action name="workscheme" class="workSchemeAction"/>
+	    <action name="scheme" class="schemeAction"/>
+	    <action name="select" class="queryAction" method="select"/>
+	    
+	    <action name="query/*" class="queryAction">
+			<param name="target">{1}</param>
+		</action>
+		
+		<action name="dynlist/*/*" class="queryAction" method="dynlist">
+			<param name="target">{1}</param>
+			<param name="methodName">{2}</param>
+		</action>
+		
+		<action name="dynpage/*/*" class="queryAction" method="dynpage">
+			<param name="target">{1}</param>
+			<param name="methodName">{2}</param>
+		</action>
+		
+		<action name="invoke/*/*" class="queryAction" method="invoke">
+			<param name="target">{1}</param>
+			<param name="methodName">{2}</param>
+		</action>
+		
+		<action name="process/*" class="processAction">
+			<param name="processType">{1}</param>
+		</action>
+		
+		<action name="scheme/*/*" class="schemeAction">
+			<param name="s">{1}</param>
+			<param name="m">{2}</param>
+		</action>
+		
+		<!-- Simple Scheme Action, method name is specified in Spring IOC -->
+		<action name="s/*" class="schemeAction">
+			<param name="s">{1}</param>
+		</action>
+		
+		<action name="select/*" class="queryAction" method="select">
+			<param name="sid">{1}</param>
+		</action>
+		
+		<action name="q/*" class="queryAction" method="execute">
+			<param name="queryKey__">{1}</param>
+		</action>
+    </package>
+
+
+</struts>

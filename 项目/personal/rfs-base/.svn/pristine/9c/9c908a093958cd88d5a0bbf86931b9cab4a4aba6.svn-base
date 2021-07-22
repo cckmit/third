@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="cn.redflagsoft.base.bean.BizTrackNode" table="BIZ_TRACK_NODE">
+        <id name="sn" column="SN" type="java.lang.Long">
+            <generator class="assigned" />
+        </id>
+        <property name="trackSN" column="TRACKSN" type="java.lang.Long"/>
+
+        <property name="sectNo" column="SECTNO" type="byte"/>
+
+        <property name="stepNo" column="STEPNO" type="byte"/>
+        
+        <property name="seatNo" column="SEATNO" type="byte"/>
+
+        <property name="summary" column="SUMMARY" type="byte"/>
+        
+        <property name="bizName" column="BIZ_NAME" type="java.lang.String"/>
+        
+        <property name="dutyer" column="DUTYER" type="java.lang.String"/>
+        
+        <property name="dutyerID" column="DUTYERID" type="java.lang.Long"/>
+        
+        <property name="timeLimit" column="TIME_LIMIT" type="short"/>
+        
+        <property name="timeUnit" column="TIME_UNIT" type="byte"/>
+        
+        <property name="bizType" column="BIZ_TYPE" type="int"/>
+
+        <property name="result" column="RESULT" type="byte"/>
+        
+        <property name="status" column="STATUS" type="byte"/>
+    </class>
+</hibernate-mapping>

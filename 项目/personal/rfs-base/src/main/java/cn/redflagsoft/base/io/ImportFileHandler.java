@@ -1,0 +1,254 @@
+/*
+ * $Id: ImportFileHandler.java 6214 2013-05-22 07:19:09Z lcj $
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.io;
+
+import java.io.File;
+import java.io.FileInputStream;
+
+import jxl.Workbook;
+import jxl.write.Label;
+import jxl.write.WritableCell;
+import jxl.write.WritableSheet;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.opoo.apps.Model;
+import org.opoo.apps.bean.core.Attachment;
+import org.opoo.apps.file.handler.FileHandler;
+import org.opoo.apps.file.handler.FileHandlerChain;
+import org.opoo.apps.file.handler.FileInfo;
+import org.opoo.cache.Cache;
+import org.opoo.ndao.domain.KeyHolder;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.ApplicationEventPublisherAware;
+import org.springframework.util.Assert;
+
+import cn.redflagsoft.base.event.FileImportEvent;
+
+/**
+ * @author Alex Lin
+ *
+ */
+public class ImportFileHandler implements FileHandler, InitializingBean, ApplicationEventPublisherAware {
+	private static final Log log = LogFactory.getLog(ImportFileHandler.class);
+	private ImportView importView;
+	private Cache<Long, Model> cache;// = new NullCache<Long, Model>();
+	private ApplicationEventPublisher applicationEventPublisher;
+	
+	/* (non-Javadoc)
+	 * @see org.opoo.apps.file.handler.FileHandler#handle(org.opoo.apps.Model, org.opoo.apps.file.handler.InputFile, org.opoo.apps.file.handler.FileHandlerChain)
+	 */
+	public Model handle(Model model, FileInfo inputFile, FileHandlerChain chain) throws Exception {
+		//忽略之前的输入model
+		if(log.isDebugEnabled()){
+			log.debug("文件保存后输入的Model为：" + model);
+			if(model != null && model.getData() instanceof Attachment){
+				Attachment a = (Attachment) model.getData();
+				log.debug("文件保存后的ID为：" + a.getId());
+			}
+		}
+		checkExcelEnd(inputFile.getFile());
+		
+		//FileInputStream in= new FileInputStream(inputFile.getFile());
+		
+		Model m = getImportView().doImport(new FileInputStream(inputFile.getFile()));
+
+		
+		m.setMessage("数据上传成功。");		
+
+		putIntoCache(m, model);
+		
+		
+		//发出事件
+		if(applicationEventPublisher != null){
+			applicationEventPublisher.publishEvent(new FileImportEvent(m, inputFile));
+		}
+		
+		return chain.handle(m, inputFile);
+	}
+	
+	private void putIntoCache(Model model, Model input){
+		if(cache == null){
+			if(log.isWarnEnabled()){
+				log.warn("缓存没有配置，无法将导入的内容临时保存起来。");
+			}
+			return;
+		}
+		
+		long key = System.currentTimeMillis();
+		//防止key重复
+		while(cache.containsKey(key)){
+			key++;
+		}
+		
+	
+//		KeyHolder<Long> holder = new KeyHolder<Long>();
+//		holder.setId(key);
+//		model.setData(holder);
+		
+		AttachmentHolder holder = new AttachmentHolder();
+		holder.setId(key);
+		if(input != null){
+			Object data = input.getData();
+			if(data instanceof Attachment){
+				//注意，Attachment必须是可以序列化的，不能使AttachmentExt类，
+				//否则在放进 coherence 缓存时会出错。
+				Attachment a = getExactAttachmentInstance((Attachment) input.getData());
+				//holder.setAttachment((Attachment) input.getData());
+				holder.setAttachment(a);
+			}
+		}
+		model.setData(holder);
+		
+		//使用 Coherence 缓存时，key 和 model 都必须能序列化。
+		cache.put(key, model);
+		
+		if(log.isDebugEnabled()){
+			log.debug("cache model for: " + key);
+		}
+	}
+	
+	/**
+	 * 获取确切的 Attachment 实例，而不是子类。保证可以序列化。
+	 * @param att
+	 * @return
+	 */
+	private static Attachment getExactAttachmentInstance(Attachment att){
+		if(att == null){
+			return null;
+		}
+		if(Attachment.class.equals(att.getClass())){
+			return att;
+		}
+		
+		Attachment a = new Attachment();
+		a.setContentType(att.getContentType());
+		a.setFetchCount(att.getFetchCount());
+		a.setFileName(att.getFileName());
+		a.setFileSize(att.getFileSize());
+		a.setFileType(att.getFileType());
+		a.setId(att.getId());
+		a.setLocation(att.getLocation());
+		a.setProtectedFormat(att.getProtectedFormat());
+		a.setReadableFormat(att.getReadableFormat());
+		a.setStoreName(att.getStoreName());
+		a.setStoreTime(att.getStoreTime());
+		
+		return a;
+	}
+
+
+	/**
+	 * @return the importView
+	 */
+	public ImportView getImportView() {
+		return importView;
+	}
+
+	/**
+	 * @param importView the importView to set
+	 */
+	public void setImportView(ImportView importView) {
+		this.importView = importView;
+	}
+
+	/**
+	 * @return the cache
+	 */
+	public Cache<Long, Model> getCache() {
+		return cache;
+	}
+
+	/**
+	 * @param cache the cache to set
+	 */
+	public void setCache(Cache<Long, Model> cache) {
+		this.cache = cache;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+	 */
+	public void afterPropertiesSet() throws Exception {
+		Assert.notNull(cache, "导入对象的缓存不能为空");
+	}
+
+	
+	
+	public static class AttachmentHolder extends KeyHolder<Long>{
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1075302023217371137L;
+		private Attachment attachment;
+		/**
+		 * @return the attachment
+		 */
+		public Attachment getAttachment() {
+			return attachment;
+		}
+		/**
+		 * @param attachment the attachment to set
+		 */
+		public void setAttachment(Attachment attachment) {
+			this.attachment = attachment;
+		}
+	}
+
+
+
+	/* (non-Javadoc)
+	 * @see org.springframework.context.ApplicationEventPublisherAware#setApplicationEventPublisher(org.springframework.context.ApplicationEventPublisher)
+	 */
+	public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
+		this.applicationEventPublisher = applicationEventPublisher;
+	}
+	
+	public void checkExcelEnd(File file){	
+		try {
+			jxl.Workbook rw = jxl.Workbook.getWorkbook(file);	
+			jxl.write.WritableWorkbook  wwb = Workbook.createWorkbook(file, rw);
+			 WritableSheet sheet0 = wwb.getSheet(0);
+			 int rows=sheet0.getRows();
+			 int columns=sheet0.getColumns();
+			 int index=0;
+			   for(int i=rows-1;(i>=0)&&(index==0);i--){
+				   for(int j=columns-1;j>=0;j--){   
+					   WritableCell cell=sheet0.getWritableCell(j,i);
+					   if(cell!=null){
+						   if(!"".equals(cell.getContents())&&(!"".equals(cell.getContents().trim()))){
+							   if("end".equals(cell.getContents())){
+								   wwb.write();
+								   wwb.close();  
+								   rw.close();	
+								   return;
+							   }
+							   //System.out.println(cell.getContents());
+							   index=i+1;
+							   break;	  
+						   }  
+					   }  
+				   }
+			   }
+			   sheet0.removeRow(index);
+			   Label l=new Label(0,index,"end");
+			   sheet0.addCell(l);
+			   wwb.write();
+			   wwb.close();  
+			   rw.close();	
+			   
+		} catch (Exception e) {
+			log.error("checkExcelEnd error", e);
+		}
+	}
+
+}

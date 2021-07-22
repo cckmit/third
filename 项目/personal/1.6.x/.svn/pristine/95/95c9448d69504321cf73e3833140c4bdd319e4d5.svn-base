@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:util="http://www.springframework.org/schema/util"
+        xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
+http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd"
+       >
+       
+	<bean id="scheduledExecutor" class="java.util.concurrent.ScheduledThreadPoolExecutor" 
+    	destroy-method="shutdownNow">
+    	<constructor-arg value="6"></constructor-arg>
+    </bean>
+    
+	<bean id="eventListenerManager" class="org.opoo.apps.event.v2.WrappedEventListenerManager"/>
+    
+    <!-- global event dispatcher -->
+	<bean id="eventDispatcher" class="org.opoo.apps.event.v2.BlockingEventDispatcher" >
+		<constructor-arg ref="eventListenerManager"></constructor-arg>
+		<!-- <property name="executor" ref="scheduledExecutor"></property> -->
+	</bean>
+	
+	<bean id="autoRegistrar" class="org.opoo.apps.event.v2.AutoEventRegistrar">
+        <property name="eventDispatcher" ref="eventDispatcher"/>
+        <property name="eventListenerManager" ref="eventListenerManager"></property>
+    </bean>
+    
+       
+       
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName">
+			<value>org.hsqldb.jdbcDriver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:hsqldb:hsql://localhost:20100/</value>
+		</property>
+		<property name="username">
+			<value>sa</value>
+		</property>
+	</bean>
+    
+    <!-- SessionFactory -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="hibernateProperties">
+			<props>
+				 <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+				 <prop key="hibernate.hbm2ddl.auto">none</prop>
+				 <prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+		<property name="mappingResources">
+            <list>
+				<value>org/opoo/apps/dv/office/model/OfficeConversion.hbm.xml</value>
+            </list>
+        </property>
+	</bean>
+    
+    
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+    
+    <bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
+        <constructor-arg ref="transactionManager"/>
+    </bean>
+    
+    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+    	<property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+
+
+	<bean id="officeConversionDao" class="org.opoo.apps.dv.office.dao.impl.OfficeConversionHibernateDao">
+ 		<property name="sessionFactory" ref="sessionFactory"></property>
+ 		<property name="idGeneratorProvider" ref="idGeneratorProvider"></property>
+ 	</bean>
+ 
+ 	<bean id="idGeneratorProvider" class="org.opoo.apps.id.TimestampIdGeneratorProvider"></bean>
+ 	
+ 	<!--
+ 	<bean id="fileStorageProvider" class="com.jivesoftware.eos.fs.FileStorageProvider">
+    	<constructor-arg index="0" value="cv-test-sp"></constructor-arg>
+    	<constructor-arg index="1">
+    		<props>
+    			<prop key="rootDirectory">e:/cv-test-sp</prop>
+    		</props>
+    	</constructor-arg>
+    </bean>
+    -->
+    
+    <bean id="fileStorageProvider" class="org.opoo.apps.dv.office.TestFileStorageProvider"/>
+    
+    <bean id="storage" class="org.opoo.storage.eos.ExternalOpaqueStorage">
+    	<constructor-arg ref="fileStorageProvider"></constructor-arg>
+    </bean>
+ 	
+
+ 	<bean id="officeConversionStorageService" class="org.opoo.apps.dv.office.impl.TestOfficeConversionStorageServiceImpl">
+ 		<property name="conversionErrorStepsCache">
+ 			<bean class="org.opoo.cache.MapCache"><constructor-arg value="conversionErrorStepsCache"/></bean>
+ 		</property>
+ 		<property name="conversionMetaDataCache">
+ 			<bean class="org.opoo.cache.MapCache"><constructor-arg value="conversionMetaDataCache"/></bean>
+ 		</property>
+ 		<property name="conversionMetaDataIDCache">
+ 			<bean class="org.opoo.cache.MapCache"><constructor-arg value="conversionMetaDataIDCache"/></bean>
+ 		</property>
+ 		<property name="conversionArtifactCache">
+ 			<bean class="org.opoo.cache.MapCache"><constructor-arg value="conversionArtifactCache"/></bean>
+ 		</property>
+ 		<property name="conversionArtifactCountCache">
+ 			<bean class="org.opoo.cache.MapCache"><constructor-arg value="conversionArtifactCountCache"/></bean>
+ 		</property>
+ 		<property name="storage" ref="storage"></property>
+ 		<property name="conversionDao" ref="officeConversionDao"></property>
+ 	</bean>
+
+
+	<bean id="officeConversionStorageServiceProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager"></property>
+		<property name="target" ref="officeConversionStorageService"></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="save*">PROPAGATION_REQUIRED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED</prop>
+				<prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="officeConversionConfig" class="org.opoo.apps.dv.office.impl.TestOfficeConversionConfigImpl"/>
+	
+	<bean id="magicMimeTypeIdentifier" class="org.semanticdesktop.aperture.mime.identifier.magic.MagicMimeTypeIdentifier">
+		<constructor-arg value="/mimetypes.xml"></constructor-arg>
+	</bean>
+	
+	<bean id="mimeTypeManagerImpl" class="org.opoo.apps.service.impl.MimeTypeManagerImpl">
+		<property name="magicMimeTypeIdentifier" ref="magicMimeTypeIdentifier"></property>
+	</bean>
+	
+	<bean id="coProviderFactory" class="org.opoo.apps.dv.provider.SpringConvertibleObjectProviderFactory">
+		<property name="providerBeans">
+			<util:map map-class="java.util.concurrent.ConcurrentHashMap">
+				<entry key="-1988" value="testConvertibleObjectProvider"></entry>
+				<entry key="9999" value="attachmentConvertibleObjectProvider"></entry>
+			</util:map>
+		</property>
+	</bean>
+
+	<bean id="testConvertibleObjectProvider" class="org.opoo.apps.dv.provider.TestConvertibleObjectProvider"
+		scope="prototype">
+	</bean>
+	
+	<bean id="attachmentConvertibleObjectProvider"
+		class="org.opoo.apps.dv.provider.AttachmentConvertibleObjectProvider"
+		scope="prototype">
+	</bean>
+	
+	<bean id="appsObjectLoader" class="org.opoo.apps.dv.office.TestAppsObjectLoader"/>
+	<!-- 
+	private Cache<Long, ConversionProcessInfo> processCache;
+	private ConverterFactory converterFactory;
+	private AppsLicenseManager licenseManager;
+	private Executor executor;
+	private MimeTypeManager mimeTypeManager;
+	private OfficeConversionConfig conversionConfig;
+	
+	protected C conversionStorageService;
+	protected ConvertibleObjectProviderFactory coProviderFactory;
+	protected AppsObjectLoader appsObjectLoader;
+	 -->
+	<bean id="officeConversionManager" class="org.opoo.apps.dv.office.impl.TestOfficeConversionManagerImpl">
+		<property name="processCache">
+ 			<bean class="org.opoo.cache.MapCache"><constructor-arg value="processCache"/></bean>
+ 		</property>
+ 		<property name="converterFactory" ref="officeConverterFactory"></property>
+ 		<!-- licenseManager -->
+ 		<property name="executor" ref="scheduledExecutor"></property>
+ 		<property name="mimeTypeManager" ref="mimeTypeManagerImpl"></property>
+ 		<property name="conversionConfig" ref="officeConversionConfig"></property>
+ 		<property name="conversionStorageService" ref="officeConversionStorageServiceProxy"></property>
+		<property name="convertibleObjectProviderFactory" ref="coProviderFactory"></property>
+		<property name="appsObjectLoader" ref="appsObjectLoader"></property>
+	</bean>
+	
+	<bean id="eventListener" class="org.opoo.apps.dv.office.impl.OfficeConversionManagerImpl$ConversionEventListener">
+		<property name="conversionManager" ref="officeConversionManager"></property>
+	</bean>
+	<!--
+	<import resource="spring-dv-genericconverter.xml"/>
+	-->
+	<import resource="spring-dv-jiveconverter.xml"/>
+</beans>

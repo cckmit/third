@@ -1,0 +1,355 @@
+/*
+ * $Id$
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.bean;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import org.opoo.apps.Labelable;
+import org.opoo.apps.bean.SerializableEntity;
+import org.opoo.ndao.domain.Versionable;
+
+import cn.redflagsoft.base.util.CodeMapUtils;
+
+/**
+ * 任务定义。
+ * 
+ * @author Alex Lin(alex@opoo.org)
+ *
+ */
+public class TaskDefinition extends SerializableEntity<Integer> implements /*TaskDef,*/ VersionLogable, Versionable, Labelable {
+
+	/**
+	 * 
+	 */
+	public static final int VISIBILITY_未做限定= 0;
+	public static final int VISIBILITY_常规业务类查询= 100;          //即系统实际用户查询）可见
+	public static final int VISIBILITY_业务状态图标可见性= 200;      //查询可见
+	public static final int VISIBILITY_其它= 99999;
+	
+	public static final byte LAYER_阶段任务 = 1;
+	public static final byte LAYER_普通任务 = 2;
+	
+	public static final byte STATUS_在用 = 1;
+	public static final byte STATUS_停用 = 0;
+	
+	private static final long serialVersionUID = 2969716686232200640L;
+
+	private Integer parentTaskType;				//上级任务类型
+	private String name;						// 任务名称
+	private int displayOrder;					//顺序
+	private byte layer;							//层级(任务的层次、级别，1为阶段任务，2为普通任务。)
+	private int type;							//性质(1即来即办、2受理办结、3多环节流程 )
+	private byte status;						//状态  (1当前在用,0 未使用)
+	private String remark;						//备注
+	private Long creator;						//创建者
+	private Long modifier;						//最后修改者
+	private Date creationTime;					//创建时间
+	private Date modificationTime;				//最后修改时间
+	private String lifeStageFieldName;			//生命阶段字段
+	private String summaryTemplate;				//摘要模板                 
+	private int visibility = 0;                 //可见范围。0 未做限定；100 常规业务类查询（即系统实际用户查询）可见；200 ‘业务状态图标可见性’查询可见 ；99999 其他。缺省为100。 
+	private String typeAlias;					//类型的别名
+	private String dutyer;						//责任单位（主体）描述，例如建设单位、发改局等
+	private int dutyRef = 0; 					// 与对象责任人的关系.(0:忽略，1:task责任人即对象责任人）
+	private int hasGuide = 0;
+	
+	private String bizSummaryTemplate;          //业务状况模板
+	private int calculateFlag;					//计算时限用的标识
+	private int dutyerType = BizDef.DUTYER_TYPE_UNKNOWN;
+	
+	public int getDutyRef() {
+		return dutyRef;
+	}
+
+	public void setDutyRef(int dutyRef) {
+		this.dutyRef = dutyRef;
+	}
+
+	public String getTypeAlias() {
+		return typeAlias;
+	}
+
+	public void setTypeAlias(String typeAlias) {
+		this.typeAlias = typeAlias;
+	}
+
+	public String getSummaryTemplate() {
+		return summaryTemplate;
+	}
+
+	public void setSummaryTemplate(String summaryTemplate) {
+		this.summaryTemplate = summaryTemplate;
+	}
+
+	/**
+	 * @return the lifeStageFieldName
+	 */
+	public String getLifeStageFieldName() {
+		return lifeStageFieldName;
+	}
+
+	/**
+	 * @param lifeStageFieldName the lifeStageFiledName to set
+	 */
+	public void setLifeStageFieldName(String lifeStageFieldName) {
+		this.lifeStageFieldName = lifeStageFieldName;
+	}
+
+	public int getTaskType(){
+		return getId();
+	}
+	
+	public void setTaskType(int taskType){
+		setId(taskType);
+	}
+	
+	/**
+	 * @return the parentTaskType
+	 */
+	public Integer getParentTaskType() {
+		return parentTaskType;
+	}
+	/**
+	 * @param parentTaskType the parentTaskType to set
+	 */
+	public void setParentTaskType(Integer parentTaskType) {
+		this.parentTaskType = parentTaskType;
+	}
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	/**
+	 * @return the displayOrder
+	 */
+	public int getDisplayOrder() {
+		return displayOrder;
+	}
+	/**
+	 * @param displayOrder the displayOrder to set
+	 */
+	public void setDisplayOrder(int displayOrder) {
+		this.displayOrder = displayOrder;
+	}
+	/**
+	 * @return the layer
+	 */
+	public byte getLayer() {
+		return layer;
+	}
+	/**
+	 * @param layer the layer to set
+	 */
+	public void setLayer(byte layer) {
+		this.layer = layer;
+	}
+	/**
+	 * @return the type
+	 */
+	public int getType() {
+		return type;
+	}
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(int type) {
+		this.type = type;
+	}
+	/**
+	 * @return the status
+	 */
+	public byte getStatus() {
+		return status;
+	}
+	/**
+	 * @param status the status to set
+	 */
+	public void setStatus(byte status) {
+		this.status = status;
+	}
+	/**
+	 * @return the remark
+	 */
+	public String getRemark() {
+		return remark;
+	}
+	/**
+	 * @param remark the remark to set
+	 */
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	/**
+	 * @return the creator
+	 */
+	public Long getCreator() {
+		return creator;
+	}
+	/**
+	 * @param creator the creator to set
+	 */
+	public void setCreator(Long creator) {
+		this.creator = creator;
+	}
+	/**
+	 * @return the modifier
+	 */
+	public Long getModifier() {
+		return modifier;
+	}
+	/**
+	 * @param modifier the modifier to set
+	 */
+	public void setModifier(Long modifier) {
+		this.modifier = modifier;
+	}
+	/**
+	 * @return the creationTime
+	 */
+	public Date getCreationTime() {
+		return creationTime;
+	}
+	/**
+	 * @param creationTime the creationTime to set
+	 */
+	public void setCreationTime(Date creationTime) {
+		this.creationTime = creationTime;
+	}
+	/**
+	 * @return the modificationTime
+	 */
+	public Date getModificationTime() {
+		return modificationTime;
+	}
+	/**
+	 * @param modificationTime the modificationTime to set
+	 */
+	public void setModificationTime(Date modificationTime) {
+		this.modificationTime = modificationTime;
+	}
+
+
+	public int getVisibility() {
+		return visibility;
+	}
+
+	public void setVisibility(int visibility) {
+		this.visibility = visibility;
+	}
+	
+	public String getVisibilityName()  {
+		return CodeMapUtils.getCodeName(TaskDefinition.class, "VISIBILITY", getVisibility());
+	}
+
+	/**
+	 * @return the dutyer
+	 */
+	public String getDutyer() {
+		return dutyer;
+	}
+
+	/**
+	 * @param dutyer the dutyer to set
+	 */
+	public void setDutyer(String dutyer) {
+		this.dutyer = dutyer;
+	}
+
+	public String getBizSummaryTemplate() {
+		return bizSummaryTemplate;
+	}
+
+	public void setBizSummaryTemplate(String bizSummaryTemplate) {
+		this.bizSummaryTemplate = bizSummaryTemplate;
+	}
+
+	/**
+	 * @return the calculateFlag
+	 */
+	public int getCalculateFlag() {
+		return calculateFlag;
+	}
+
+	/**
+	 * @param calculateFlag the calculateFlag to set
+	 */
+	public void setCalculateFlag(int calculateFlag) {
+		this.calculateFlag = calculateFlag;
+	}
+
+	/**
+	 * @return the dutyerType
+	 */
+	public int getDutyerType() {
+		return dutyerType;
+	}
+
+	/**
+	 * @param dutyerType the dutyerType to set
+	 */
+	public void setDutyerType(int dutyerType) {
+		this.dutyerType = dutyerType;
+	}
+	
+	
+	public String getDutyerTypeName(){
+		return CodeMapUtils.getCodeName(Glossary.CATEGORY_BIZ_DEF_DUTYER_TYPE, getDutyerType());
+	}
+
+	/**
+	 * @return the hasGuide
+	 */
+	public int getHasGuide() {
+		return hasGuide;
+	}
+
+	/**
+	 * @param hasGuide the hasGuide to set
+	 */
+	public void setHasGuide(int hasGuide) {
+		this.hasGuide = hasGuide;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.opoo.apps.Labelable#getData()
+	 */
+	public Serializable getData() {
+		return getTaskType();
+	}
+
+	/* (non-Javadoc)
+	 * @see org.opoo.apps.Labelable#getLabel()
+	 */
+	public String getLabel() {
+		return getName();
+	}
+	
+//	private List<Short> subTaskTypes;
+	
+//	/* (non-Javadoc)
+//	 * @see cn.redflagsoft.base.bean.TaskDef#getSubTaskTypes()
+//	 */
+//	public List<Short> getSubTaskTypes() {
+//		return subTaskTypes;
+//	}
+//	
+//	public void setSubTaskTypes(List<Short> subTaskTypes){
+//		this.subTaskTypes = subTaskTypes;
+//	}
+}

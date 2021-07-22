@@ -1,0 +1,125 @@
+/*
+ * $Id$
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.service.impl;
+
+import java.util.List;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.opoo.cache.Cache;
+import org.opoo.cache.NullCache;
+
+import cn.redflagsoft.base.bean.ExCfgDatafilterRisk;
+import cn.redflagsoft.base.dao.ExCfgDatafilterRiskDao;
+import cn.redflagsoft.base.service.ExCfgDatafilterRiskService;
+
+import com.google.common.collect.Lists;
+
+/**
+ * @author Alex Lin(lcql@msn.com)
+ *
+ */
+public class ExCfgDatafilterRiskServiceImpl implements ExCfgDatafilterRiskService {
+	private static final Log log = LogFactory.getLog(ExCfgDatafilterRiskServiceImpl.class);
+	
+	private ExCfgDatafilterRiskDao exCfgDatafilterRiskDao;
+	private Cache<String, List<Long>> exCfgDatafilterRiskListCache = new NullCache<String, List<Long>>();
+	private Cache<Long, ExCfgDatafilterRisk> exCfgDatafilterRiskCache = new NullCache<Long, ExCfgDatafilterRisk>();
+	
+	/**
+	 * @param exCfgDatafilterRiskDao the exCfgDatafilterRiskDao to set
+	 */
+	public void setExCfgDatafilterRiskDao(
+			ExCfgDatafilterRiskDao exCfgDatafilterRiskDao) {
+		this.exCfgDatafilterRiskDao = exCfgDatafilterRiskDao;
+	}
+
+	/**
+	 * @param exCfgDatafilterRiskListCache the exCfgDatafilterRiskListCache to set
+	 */
+	public void setExCfgDatafilterRiskListCache(
+			Cache<String, List<Long>> exCfgDatafilterRiskListCache) {
+		this.exCfgDatafilterRiskListCache = exCfgDatafilterRiskListCache;
+	}
+
+	/**
+	 * @param exCfgDatafilterRiskCache the exCfgDatafilterRiskCache to set
+	 */
+	public void setExCfgDatafilterRiskCache(
+			Cache<Long, ExCfgDatafilterRisk> exCfgDatafilterRiskCache) {
+		this.exCfgDatafilterRiskCache = exCfgDatafilterRiskCache;
+	}
+
+
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.service.ExCfgDatafilterRiskService#findExCfgDatafilterRiskByRuleIDAndEvent(java.lang.Long, java.lang.String)
+	 */
+	public List<ExCfgDatafilterRisk> findExCfgDatafilterRiskByRuleIDAndEvent(
+			Long riskRuleID, String event) {
+		String key = buildCacheKey(riskRuleID, event);
+		List<ExCfgDatafilterRisk> list = getExCfgDatafilterRiskListFromCache(key);
+		if(list == null){
+			list = exCfgDatafilterRiskDao.findExCfgDatafilterRiskByRuleIDAndEvent(riskRuleID, event);
+			if(list != null){
+				putExCfgDatafilterRiskListIntoCache(key, list);
+			}
+		}else{
+			log.debug("Load ExCfgDatafilterRisks from cache: " + key);
+		}
+
+		return list;
+	}
+	
+	private String buildCacheKey(Long riskRuleID, String event){
+		return String.format("i%s_e%s", riskRuleID, event);
+	}
+
+	private List<ExCfgDatafilterRisk> getExCfgDatafilterRiskListFromCache(String key){
+		List<Long> ids = exCfgDatafilterRiskListCache.get(key);
+		if(ids == null){
+			return null;
+		}
+		List<ExCfgDatafilterRisk> list = Lists.newArrayList();
+		for(Long id: ids){
+			list.add(getExCfgDatafilterRisk(id));
+		}
+		return list;
+	}
+	
+	private void putExCfgDatafilterRiskListIntoCache(String key, List<ExCfgDatafilterRisk> list){
+		if(list != null){
+			List<Long> ids = Lists.newArrayList();
+			for(ExCfgDatafilterRisk risk: list){
+				ids.add(risk.getId());
+				exCfgDatafilterRiskCache.put(risk.getId(), risk);
+			}
+			exCfgDatafilterRiskListCache.put(key, ids);
+		}
+	}
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	public ExCfgDatafilterRisk getExCfgDatafilterRisk(Long id) {
+		if(id == null){
+			return null;
+		}
+		ExCfgDatafilterRisk risk = exCfgDatafilterRiskCache.get(id);
+		if(risk == null){
+			risk = exCfgDatafilterRiskDao.get(id);
+			if(risk != null){
+				exCfgDatafilterRiskCache.put(id, risk);
+			}
+		}
+		return risk;
+	}
+}

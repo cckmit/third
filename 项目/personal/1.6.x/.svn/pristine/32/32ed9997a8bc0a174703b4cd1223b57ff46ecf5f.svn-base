@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping>
+<!--
+    Created by the Middlegen Hibernate plugin 2.1, by Alex Lin(alex@opoo.org, http://www.lcql.com, http://www.opoo.org)
+    Copyright(c) 2008
+-->
+
+<class
+    name="org.opoo.apps.bean.core.SysId"
+    table="T_SYS_ID"
+>
+
+    <id
+        name="id"
+        type="java.lang.String"
+        column="ID"
+		length="32"
+    >
+        <generator class="assigned" />
+    </id>
+
+	<property
+        name="current"
+        type="long"
+        column="CURR"
+		not-null="true"
+    />    
+	<property
+        name="step"
+        type="int"
+        column="STEP"
+		not-null="true"
+    /> 
+	<property
+        name="description"
+        type="java.lang.String"
+        column="DESCRIPTION"
+        length="50"
+    />
+	
+</class>
+</hibernate-mapping>

@@ -1,0 +1,119 @@
+/*
+ * $Id: ObjectEntityServiceImpl.java 4615 2011-08-21 07:10:37Z lcj $
+ * 
+ * Copyright 2007-2010 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.service.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.opoo.ndao.criterion.Restrictions;
+import org.opoo.ndao.support.CriterionBuffer;
+import org.opoo.ndao.support.ResultFilter;
+import org.springframework.beans.factory.annotation.Required;
+
+import cn.redflagsoft.base.bean.Clerk;
+import cn.redflagsoft.base.bean.ObjectEntity;
+import cn.redflagsoft.base.dao.ObjectEntityDao;
+import cn.redflagsoft.base.security.UserClerkHolder;
+import cn.redflagsoft.base.service.ObjectEntityService;
+import cn.redflagsoft.base.vo.BatchUpdateResult;
+
+/**
+ * @author Alex Lin(alex@opoo.org)
+ *
+ */
+public class ObjectEntityServiceImpl implements ObjectEntityService {
+	private static final Log log = LogFactory.getLog(ObjectEntityServiceImpl.class);
+	
+	private ObjectEntityDao objectEntityDao;
+	
+
+	public ObjectEntityDao getObjectEntityDao() {
+		return objectEntityDao;
+	}
+
+	@Required
+	public void setObjectEntityDao(ObjectEntityDao objectEntityDao) {
+		this.objectEntityDao = objectEntityDao;
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.service.ObjectEntityService#setObjectsToEntity(java.lang.Long, java.util.List, short, short)
+	 */
+	public BatchUpdateResult setObjectsToEntity(Long entityId, List<Long> objectIds, int type, int objectType) {
+		if(entityId == null){
+			//当前人员的部门
+			Clerk uc = UserClerkHolder.getClerk();
+			entityId = uc.getEntityID();
+		}
+		
+		//List<Long> findObjectIdsByEntityId(Long entityId, int type, int objectType);
+		CriterionBuffer buffer = new CriterionBuffer();
+		buffer.and(Restrictions.eq("type", type));
+		buffer.and(Restrictions.eq("entityID", entityId));
+		buffer.and(Restrictions.eq("objectType", objectType));
+		
+		//如果本次提交为空，清空原有数据
+		if(objectIds == null || objectIds.isEmpty()){
+			int rows = objectEntityDao.remove(buffer.toCriterion());
+			return new BatchUpdateResult(0, rows, 0);
+		}
+		
+		//要删除的ObjectEntity的ID集合
+		List<Long> deletingObjectEntityIds = new ArrayList<Long>();
+		//已有的对象ID集合
+		List<Long> oldObjectIds = new ArrayList<Long>();
+		
+		ResultFilter filter = new ResultFilter(buffer.toCriterion(), null);
+		List<ObjectEntity> list = objectEntityDao.find(filter);
+		
+		for(ObjectEntity oe:list){
+			if(objectIds.contains(oe.getObjectID())){
+				oldObjectIds.add(oe.getObjectID());
+				//log.debug("该项目已经设置：" + oe.getObjectID());
+			}else{
+				deletingObjectEntityIds.add(oe.getId());
+			}
+		}
+		
+		int deletedRows = 0;
+		int createdRows = 0;
+		
+		//删除以前有但前台提交没有的
+		if(!deletingObjectEntityIds.isEmpty()){
+			deletedRows = objectEntityDao.remove(Restrictions.in("id", deletingObjectEntityIds));
+		}
+		
+		//重新保存现在有以前没有的
+		for(Long id: objectIds){
+			if(!oldObjectIds.contains(id)){
+				ObjectEntity oe = new ObjectEntity();
+				oe.setEntityID(entityId);
+				oe.setObjectType(objectType);
+				oe.setObjectID(id);
+				oe.setType(type);
+				oe.setStatus((byte) 1);
+				objectEntityDao.save(oe);
+				createdRows++;
+			}else{
+				log.debug("该项目已经设置：" + id);
+			}
+		}
+		return new BatchUpdateResult(createdRows, deletedRows, 0);
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.service.ObjectEntityService#findObjectIdsByEntityId(java.lang.Long, short, short)
+	 */
+	public List<Long> findObjectIdsByEntityId(Long entityId, int type, int objectType) {
+		return objectEntityDao.findObjectIdsByEntityId(entityId, type, objectType);
+	}
+}

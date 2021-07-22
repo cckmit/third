@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping>
+<class name="cn.redflagsoft.base.bean.ButtonConfig" table="BUTTON_CONFIG">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		
+		<property name="buttonId" column="BUTTON_ID" type="java.lang.String"/>
+		<property name="buttonName" column="BUTTON_NAME" type="java.lang.String"/>
+		<property name="category1" column="CATEGORY1" type="java.lang.String"/>
+		<property name="category2" column="CATEGORY2" type="java.lang.String"/>
+		<property name="description" column="DESCRIPTION" type="java.lang.String"/>
+		<property name="maintain" column="MAINTAIN" type="java.lang.String"/>
+		<property name="repeat" column="REPEAT" type="java.lang.String"/>
+		<property name="situation" column="SITUATION" type="java.lang.String"/>
+		<property name="objectUserRef" column="OBJ_USER_REF" type="java.lang.String"/>
+		<property name="objectStatuses" column="OBJ_STATUSES" type="java.lang.String"/>			
+		<property name="objectMinTag" column="OBJ_MINTAG" type="java.lang.Short"/>
+		<property name="objectMaxTag" column="OBJ_MAXTAG" type="java.lang.Short"/>
+		<property name="taskStatuses" column="TASK_STATUSES" type="java.lang.String"/>	
+		<property name="taskMinTag" column="TASK_MINTAG" type="java.lang.Short"/>
+		<property name="taskMaxTag" column="TASK_MAXTAG" type="java.lang.Short"/>
+		<property name="taskUserRef" column="TASK_USER_REF" type="java.lang.String"/>	
+		
+		<property name="objectRef" column="OBJ_REF" type="java.lang.String"/>	
+		<property name="taskRef" column="TASK_REF" type="java.lang.String"/>	
+		
+		<property name="type" column="TP" type="int"/>
+		<property name="status" column="STATUS" type="byte"/>
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+</class>
+</hibernate-mapping>

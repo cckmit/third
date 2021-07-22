@@ -1,0 +1,189 @@
+/*
+ * $Id$
+ * 
+ * Copyright 2007-2008 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.vo.statistics;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.opoo.apps.Model;
+import org.opoo.apps.util.SerializableUtils;
+
+/**
+ * @author Alex Lin
+ * @param <Map>
+ *
+ */
+public class PlanMonitorResult implements java.io.Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5019964058427158653L;
+
+	private static final Log log = LogFactory.getLog(PlanMonitorResult.class);
+	
+	private List<PlanMonitor> planMonitors;
+	private List<LifeStage> lifeStages;
+	public PlanMonitorResult(List<PlanMonitor> monitors, List<LifeStage> stages){
+		this.planMonitors = monitors;
+		this.lifeStages = stages;
+	}
+	public PlanMonitorResult(){
+		
+	}
+
+	/**
+	 * @return the planMonitors
+	 */
+	public List<PlanMonitor> getPlanMonitors() {
+		return planMonitors;
+	}
+
+	/**
+	 * @param planMonitors the planMonitors to set
+	 */
+	public void setPlanMonitors(List<PlanMonitor> planMonitors) {
+		this.planMonitors = planMonitors;
+	}
+
+
+	/**
+	 * @return the lifeStages
+	 */
+	public List<LifeStage> getLifeStages() {
+		return lifeStages;
+	}
+
+
+	/**
+	 * @param lifeStages the lifeStages to set
+	 */
+	public void setLifeStages(List<LifeStage> lifeStages) {
+		this.lifeStages = lifeStages;
+	}
+	
+	public void calculatePlanMonitors(){
+		GradeGroup sgg = null;
+		GradeGroup lsgg = null;
+		GradeGroup tmp = null;
+		PlanMonitor pm = null;
+		int flag = 0;
+		if(lifeStages != null && !lifeStages.isEmpty() && planMonitors != null) {
+			pm = new PlanMonitor();
+			
+			for(PlanMonitor p: planMonitors){
+				for(LifeStage ls: lifeStages){
+					GradeGroup pmgg = pm.getGradeGroup(ls.getStage());
+					GradeGroup pgg = p.getGradeGroup(ls.getStage());
+					if(pmgg == null){
+						pmgg = new GradeGroup();
+						pm.addGradeGroup(ls.getStage(), pmgg);
+					}
+					if(pgg != null){
+						pmgg.getNormal().setCount(pmgg.getNormal().getCount() + pgg.getNormal().getCount());
+						pmgg.getBlue().setCount(pmgg.getBlue().getCount() + pgg.getBlue().getCount());
+						pmgg.getYellow().setCount(pmgg.getYellow().getCount() + pgg.getYellow().getCount());
+						pmgg.getRed().setCount(pmgg.getRed().getCount() + pgg.getRed().getCount());
+						pmgg.getOrange().setCount(pmgg.getOrange().getCount() + pgg.getOrange().getCount());
+						pmgg.getBlack().setCount(pmgg.getBlack().getCount() + pgg.getBlack().getCount());
+						pmgg.getWhite().setCount(pmgg.getWhite().getCount() + pgg.getWhite().getCount());						
+					}else{
+						log.warn("记录中找不到对应的GradeGroup， lifeStage=" + ls.getStage() + " ： " + p);
+					}
+					
+				}
+			}
+			pm.calculateStatistic();
+			
+			pm.setManager("总计");
+			
+			
+			planMonitors.add(0, pm);
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+//			
+//			sgg = new GradeGroup();
+//			for(LifeStage lifeStage : lifeStages) {
+//				lsgg = new GradeGroup();
+//				if(planMonitors != null && !planMonitors.isEmpty()) {
+//					for(PlanMonitor node : planMonitors) {
+//						if(flag == 0) {
+//							tmp = node.getStatistic();
+//							sgg.getNormal().setCount(sgg.getNormal().getCount() + tmp.getNormal().getCount());
+//							sgg.getWarning().setCount(sgg.getWarning().getCount() + tmp.getWarning().getCount());
+//							sgg.getYellow().setCount(sgg.getYellow().getCount() + tmp.getYellow().getCount());
+//							sgg.getRed().setCount(sgg.getRed().getCount() + tmp.getRed().getCount());
+//						}
+//						tmp = node.getGradeGroup(lifeStage.getStage());
+//						lsgg.getNormal().setCount(lsgg.getNormal().getCount() + tmp.getNormal().getCount());
+//						lsgg.getWarning().setCount(lsgg.getWarning().getCount() + tmp.getWarning().getCount());
+//						lsgg.getYellow().setCount(lsgg.getYellow().getCount() + tmp.getYellow().getCount());
+//						lsgg.getRed().setCount(lsgg.getRed().getCount() + tmp.getRed().getCount());
+//					}
+//					if(flag == 0) {
+//						pm.put(PlanMonitor.STATISTIC_GRADE_GROUP_KEY, sgg);
+//						flag = 1;
+//					}
+//					pm.put(lifeStage.getStage(), lsgg);
+//				}
+//			}
+//			planMonitors.add(pm);
+		}
+	}
+
+	public static void main(String[] args){
+		PlanMonitorResult pmr = new PlanMonitorResult();
+		List<LifeStage> stages = new ArrayList<LifeStage>();
+		stages.add(new LifeStage((short) 100, "第一阶段"));
+		stages.add(new LifeStage((short) 200, "第二阶段"));
+		stages.add(new LifeStage((short) 300, "第三阶段"));
+		
+		List<PlanMonitor> ms = new ArrayList<PlanMonitor>();
+		
+		PlanMonitor pm = new PlanMonitor();
+		pm.setManager("manager...");
+		pm.addGradeGroup((short) 100, new GradeGroup());
+		pm.addGradeGroup((short) 200, new GradeGroup());
+		pm.addGradeGroup((short) 300, new GradeGroup());
+		
+		pm.getGradeGroup((short) 100).getNormal().plusCount();
+		pm.getGradeGroup((short) 200).getNormal().plusCount();
+		pm.getGradeGroup((short) 300).getRed().plusCount();
+		
+		pm.calculateStatistic();
+		
+		ms.add(pm);
+		
+		pmr.setLifeStages(stages);
+		pmr.setPlanMonitors(ms);
+		pmr.calculatePlanMonitors();
+		
+		
+		System.out.println(pm.getStatistic());
+		String str = SerializableUtils.toJSON(pmr);
+		System.out.println(str);
+		
+		Model model = new Model();
+		model.setData(pmr);
+		str = SerializableUtils.toJSON(model);
+		System.out.println(str);
+	}
+}

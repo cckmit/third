@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.opoo:opoo-apps:1.6.8-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.m2/repository/org/opoo/opoo-apps/1.6.8-SNAPSHOT/opoo-apps-1.6.8-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.m2/repository/org/opoo/opoo-apps/1.6.8-SNAPSHOT/opoo-apps-1.6.8-SNAPSHOT-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.m2/repository/org/opoo/opoo-apps/1.6.8-SNAPSHOT/opoo-apps-1.6.8-SNAPSHOT-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,66 @@
+/*
+ * $Id: AmountsHibernateDao.java 4342 2011-04-22 02:17:01Z lcj $
+ * 
+ * Copyright 2007-2010 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.dao.hibernate3;
+
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+
+import org.opoo.apps.id.IdGeneratorProvider;
+import org.opoo.ndao.DataAccessException;
+
+import cn.redflagsoft.base.bean.Amounts;
+
+public class AmountsHibernateDao<K extends Amounts> extends AbstractBaseHibernateDao<K, Long>{
+	private Class<K> entityClass;
+	
+	
+	public AmountsHibernateDao(){
+		//自动发现实体类类型，只执行一次
+		entityClass = determineEntityClass();
+	}
+	
+	@SuppressWarnings("unchecked")
+	protected Class<K> determineEntityClass(){
+		Type genType = getClass().getGenericSuperclass();
+	    if(genType != null && genType instanceof ParameterizedType){
+	    	Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
+	    	if(params.length >= 1){
+		        Class<?> cls = params[0] instanceof Class ? (Class<K>) params[0] : null;
+		        if(Amounts.class.isAssignableFrom(cls)){
+        			return (Class<K>) cls;
+        		}
+	    	}
+	    }
+	    return null;
+	}
+	
+	@Override
+	protected Class<K> getEntityClass() {
+		if(entityClass == null){
+			throw new DataAccessException("entityClass must be determined.");
+		}
+		return entityClass;
+	}
+	
+	@Override
+	public Class<Long> getIdClass() {
+		return Long.class;
+	}
+	
+	
+	   /* (non-Javadoc)
+	 * @see org.opoo.apps.dao.hibernate3.AbstractHibernateDao#setIdGeneratorProvider(org.opoo.apps.id.IdGeneratorProvider)
+	 */
+	@Override
+	public void setIdGeneratorProvider(IdGeneratorProvider<Long> idGeneratorProvider) {
+		//super.setIdGeneratorProvider(idGeneratorProvider);
+		setIdGenerator(idGeneratorProvider.getIdGenerator("amounts"));
+	}
+}

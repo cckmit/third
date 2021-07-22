@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.Address" table="ADDR">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		<property name="objectID" column="OBJECTID" type="java.lang.Long"/>
+		<property name="type" column="TP" type="int"/>
+		<property name="code" column="CODE" type="java.lang.String"/>
+		<property name="name" column="NAME" type="java.lang.String"/>
+		<property name="abbr" column="ABBR" type="java.lang.String"/>
+		<property name="postCode" column="POST_CODE" type="java.lang.String"/>
+		<property name="nation" column="NATION" type="byte"/>
+		<property name="nationName" column="NATION_NAME" type="java.lang.String"/>
+		<property name="proVince" column="PROVINCE" type="byte"/>
+		<property name="proVinceName" column="PROVINCE_NAME" type="java.lang.String"/>
+		<property name="city" column="CITY" type="short"/>
+		<property name="cityName" column="CITY_NAME" type="java.lang.String"/>
+		<property name="county" column="COUNTY" type="short"/>
+		<property name="countyName" column="COUNTY_NAME" type="java.lang.String"/>
+		<property name="town" column="TOWN" type="short"/>
+		<property name="townName" column="TOWN_NAME" type="java.lang.String"/>
+		<property name="village" column="VILLAGE" type="short"/>
+		<property name="villageName" column="VILLAGE_NAME" type="java.lang.String"/>
+		<property name="manor" column="MANOR" type="short"/>
+		<property name="manorName" column="MANOR_NAME" type="java.lang.String"/>
+		<property name="rode" column="RODE" type="short"/>
+		<property name="rodeName" column="RODE_NAME" type="java.lang.String"/>
+		<property name="note" column="NOTE" type="java.lang.String"/>
+		<property name="status" column="STATUS" type="byte"/>
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+	</class>
+</hibernate-mapping>

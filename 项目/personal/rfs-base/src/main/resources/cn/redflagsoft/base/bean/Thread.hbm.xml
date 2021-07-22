@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.Thread" table="Thread">
+		<id name="sn" column="SN" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		
+		<property name="type" column="TP" type="int"/>
+		
+		<property name="code" column="CODE" type="java.lang.String"/>
+		
+		<property name="affairID" column="AFFAIRID" type="java.lang.Long"/>
+		
+		<property name="objectID" column="OBJECTID" type="java.lang.Long"/>
+		
+		<property name="taskSN" column="TASKSN" type="java.lang.Long"/>
+		
+		<property name="workSN" column="WORKSN" type="java.lang.Long"/>
+		
+		<property name="jobSN" column="JOBSN" type="java.lang.Long"/>
+		
+		<property name="bizRoute" column="BIZ_ROUTE" type="java.lang.Long"/>
+		
+		<property name="bizTrack" column="BIZ_TRACK" type="java.lang.Long"/>
+		
+		<property name="note" column="NOTE" type="java.lang.String"/>
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+		
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+		
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+	</class>
+</hibernate-mapping>

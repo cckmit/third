@@ -1,0 +1,169 @@
+/*
+ * $Id$
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.scheme;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+/**
+ * @author Alex Lin(alex@opoo.org)
+ *
+ */
+public class SchemeTaskManagerImpl implements SchemeTaskManager {
+	private static final Log log = LogFactory.getLog(SchemeTaskManagerImpl.class);
+	private static final boolean IS_DEBUG_ENABLED = log.isDebugEnabled();
+	
+	private List<SchemeTask> tasks = new ArrayList<SchemeTask>();
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.scheme.SchemeTaskManager#addSchemeTask(int, java.lang.Runnable)
+	 */
+	public void addSchemeTask(int type, Runnable schemeTask) {
+		SchemeTaskWrapper wrapper = new SchemeTaskWrapper(schemeTask, type);
+		if(IS_DEBUG_ENABLED){
+			log.debug("Add scheme task: " + wrapper);
+		}
+		tasks.add(wrapper);
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.scheme.SchemeTaskManager#addSchemeTask(java.lang.Runnable)
+	 */
+	public void addSchemeTask(Runnable schemeTask) {
+		addSchemeTask(SchemeTask.DEFAULT, schemeTask);
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.scheme.SchemeTaskManager#getSchemeTasks(int)
+	 */
+	public Collection<SchemeTask> getSchemeTasks(int type) {
+		Collection<SchemeTask> result = new ArrayList<SchemeTask>();
+		for(SchemeTask task: tasks){
+			if(task.getType() == type){
+				result.add(task);
+			}
+		}
+		return Collections.unmodifiableCollection(result);
+	}
+	
+	public int getNumberOfSchemeTasks(int type){
+		int n = 0;
+		for(SchemeTask task: tasks){
+			if(task.getType() == type){
+				n++;
+			}
+		}
+		return n;
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.scheme.SchemeTaskManager#getAllSchemeTasks()
+	 */
+	public Collection<SchemeTask> getAllSchemeTasks() {
+		return Collections.unmodifiableCollection(tasks);
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.scheme.SchemeTaskManager#executeSchemeTasks(int)
+	 */
+	public synchronized int executeSchemeTasks(int type) {
+		Collection<SchemeTask> c = getSchemeTasks(type);
+		return executeSchemeTasks(c);
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.scheme.SchemeTaskManager#executeAllSchemeTasks()
+	 */
+	public synchronized int executeAllSchemeTasks() {
+		return executeSchemeTasks(tasks);
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public synchronized int executeAllUnexecutedSchemeTasks(){
+		Collection<SchemeTask> result = new ArrayList<SchemeTask>();
+		for(SchemeTask task: tasks){
+			if(!task.hasRun()){
+				result.add(task);
+			}
+		}
+		return executeSchemeTasks(result);
+	}
+	
+	static int executeSchemeTasks(Collection<SchemeTask> tasks){
+		int n = 0;
+		for(SchemeTask task: tasks){
+			if(!task.hasRun()){
+				if(IS_DEBUG_ENABLED){
+					log.debug(String.format("Executing task '%s'.", task));
+				}
+				task.run();
+				n++;
+			}else{
+				if(IS_DEBUG_ENABLED){
+					Date t = task instanceof SchemeTaskWrapper ? new Date(((SchemeTaskWrapper)task).getTimestamp()) : new Date();
+					log.debug(String.format("Task '%s' has run at '%s', skipping.", task, t));
+				}
+			}
+		}
+		if(IS_DEBUG_ENABLED && n < tasks.size()){
+			log.debug("部分任务已经执行，本次打算执行任务数 " + tasks.size() + "，实际执行任务数 " + n + "。");
+		}
+		return n;
+	}
+
+	/**
+	 * 
+	 *
+	 */
+	public static class SchemeTaskWrapper implements SchemeTask, Runnable{
+		private final Runnable task;
+		private boolean run = false;
+		private final int type;
+		private long timestamp = 0;
+		
+		public SchemeTaskWrapper(Runnable task, int type){
+			this.task = task;
+			this.type = type;
+		}
+		/* (non-Javadoc)
+		 * @see java.lang.Runnable#run()
+		 */
+		public void run() {
+			run = true;
+			task.run();
+			timestamp = System.currentTimeMillis();
+		}
+		
+		public boolean hasRun(){
+			return run;
+		}
+		
+		public int getType(){
+			return type;
+		}
+		
+		public long getTimestamp(){
+			return timestamp;
+		}
+		
+		public String toString(){
+			return String.format("{SchemeTask(type=%s, run=%s, task=%s)}", type, run, task);
+		}
+	}
+}

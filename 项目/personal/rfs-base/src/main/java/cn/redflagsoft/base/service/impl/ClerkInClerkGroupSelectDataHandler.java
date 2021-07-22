@@ -1,0 +1,84 @@
+/*
+ * $Id: ClerkInClerkGroupSelectDataHandler.java 4342 2011-04-22 02:17:01Z lcj $
+ * 
+ * Copyright 2007-2010 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.service.impl;
+
+import java.util.Collections;
+import java.util.List;
+
+import org.opoo.ndao.criterion.Restrictions;
+import org.opoo.ndao.support.ResultFilter;
+import org.opoo.ndao.support.ResultFilterUtils;
+
+import cn.redflagsoft.base.bean.Clerk;
+import cn.redflagsoft.base.bean.SelectDataSource;
+import cn.redflagsoft.base.dao.ClerkDao;
+import cn.redflagsoft.base.service.ClerkService;
+
+
+/**
+ * 查询指定人员分组中的人员列表。
+ * <p>SelectDataSource的source表示人员分组的ID。
+ * 
+ * <p>如果没有明确指定排序顺序，则以人员分组中的顺序为准。
+ * <p>查询条件是完全针对Clerk对象的。
+ * 
+ * @author Alex Lin(alex@opoo.org)
+ *
+ */
+public class ClerkInClerkGroupSelectDataHandler extends AbstractClerkSelectDataHandler implements SelectDataHandler<Clerk>{
+
+	private ClerkService clerkService;
+	private ClerkDao clerkDao;
+	
+
+	public ClerkService getClerkService() {
+		return clerkService;
+	}
+
+	public void setClerkService(ClerkService clerkService) {
+		this.clerkService = clerkService;
+	}
+
+	public ClerkDao getClerkDao() {
+		return clerkDao;
+	}
+
+	public void setClerkDao(ClerkDao clerkDao) {
+		this.clerkDao = clerkDao;
+	}
+
+	public boolean supports(SelectDataSource dataSource) {
+		return dataSource.getCat() == SelectDataSource.CAT_人员分组;
+	}
+
+	protected List<Clerk> findClerks(SelectDataSource dataSource, ResultFilter filter) {
+		//String hql = "select a from Clerk a, ClerkGroup grp where a.id=grp.clerkID and grp.groupID = ?";
+		//return clerkGroupService.findClerksInGroup(Long.parseLong(dataSource.getSource()));
+		
+		List<Long> idsInGroup = getClerkGroupDao().findClerkIdsInGroup(Long.parseLong(dataSource.getSource()));
+		if(idsInGroup.isEmpty()){
+			return Collections.emptyList();
+		}
+		//不带查询条件的
+		if(filter == null || (filter.getCriterion() == null && filter.getOrder() == null)){
+			return clerkService.buildClerkList(idsInGroup, null, false);
+		}
+		
+		ResultFilter filter2 = ResultFilterUtils.append(filter, Restrictions.in("id", idsInGroup));
+		boolean isOrder = filter.getOrder() != null;
+		//如果查询条件中带排序，则以这个排序为准
+		if(isOrder){
+			return clerkService.findClerks(filter2);
+		}
+		//否则以组中的顺序为准
+		List<Long> idsInClerk = clerkDao.findClerkIds(filter2);
+		return clerkService.buildClerkList(idsInClerk, idsInGroup, false);
+	}
+}

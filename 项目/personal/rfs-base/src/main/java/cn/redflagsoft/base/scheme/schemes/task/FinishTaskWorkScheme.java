@@ -1,0 +1,46 @@
+/*
+ * $Id: FinishTaskWorkScheme.java 5971 2012-08-03 05:57:13Z lcj $
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.scheme.schemes.task;
+
+import cn.redflagsoft.base.bean.Task;
+import cn.redflagsoft.base.bean.Work;
+
+/**
+ * 业务结束。
+ * 
+ * <pre>
+ * json/s/finishTask.jspa?taskSN={param.taskSN}
+ * reasonCategory 原因类别
+ * reason 原因
+ * note 备注
+ * 
+ * </pre>
+ * @author Alex Lin(alex@opoo.org)
+ *
+ */
+public class FinishTaskWorkScheme extends AbstractTaskWorkScheme {
+
+
+	public Object doScheme(){
+		Task task2 = getTask();
+		Work work2 = getWork();
+
+		work2.setString0(getS0());
+		work2.setString1(getS1());
+		work2.setString3(task2.getStatus() + "");
+		Work updateWork = getWorkService().updateWork(work2);
+		getWorkService().terminateWork(updateWork.getSn(),null);
+		
+		task2.setNote(getNote());
+		getTaskService().terminateTask(task2);
+		
+		return "业务结束成功";
+	}
+}

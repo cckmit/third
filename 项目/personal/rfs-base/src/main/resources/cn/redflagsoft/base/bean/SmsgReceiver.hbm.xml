@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class  name="cn.redflagsoft.base.bean.SmsgReceiver" table="SMSG_RECEIVERS">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>	
+	<property name="smsgId" column="SMSGID" type="java.lang.Long"/>
+	
+	<property name="smsgCode" column="SMSGCODE" type="java.lang.String"/>
+	
+	<property name="toId" column="TOID" type="java.lang.Long"/>
+	
+	<property name="toName" column="TONAME" type="java.lang.String"/>
+	
+	<property name="toAddr" column="TOADDR" type="java.lang.String"/>
+	
+	<property name="sendStatus" column="SEND_STATUS" type="byte"/>
+	
+	<property name="sendTime" column="SEND_TIME" type="java.sql.Timestamp"/>
+	
+	<property name="trySendCount" column="TRY_SEND_COUNT" type="int"/>
+	
+	<property name="readStatus" column="READ_STATUS" type="byte"/>
+	
+	<property name="readTime" column="READ_TIME" type="java.sql.Timestamp"/>
+	
+	<property name="expirationTime" column="EXPIRATION_TIME" type="java.sql.Timestamp"/>
+	
+	<property name="status" column="STATUS" type="byte"/>
+	
+	<property name="systemId" column="SYSTEMID" type="java.lang.Long"/>
+	
+	<property name="type" column="TP" type="int"/>
+	
+	<property name="remark" column="REMARK" type="java.lang.String"/>
+		
+	<property name="creator" column="CREATOR" type="java.lang.Long"/>
+		
+	<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+	<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+		
+	<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+	
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,116 @@
+/*
+ * $Id: MockShortMessageSender.java 6199 2013-04-03 08:57:19Z lcj $
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.service.impl;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.opoo.apps.AppsGlobals;
+
+import cn.redflagsoft.base.service.ShortMessageSender;
+import cn.redflagsoft.base.services.api.Service;
+import cn.redflagsoft.base.services.api.ServiceException;
+import cn.redflagsoft.base.services.api.ServiceInfo;
+import cn.redflagsoft.base.services.api.ServiceState;
+import cn.redflagsoft.base.services.api.support.ServiceInfoImpl;
+
+/**
+ * 短信模拟发送器。
+ * 
+ * @author Alex Lin(lcql@msn.com)
+ *
+ */
+public class MockShortMessageSender implements ShortMessageSender, Service {
+	private static final Log log = LogFactory.getLog(MockShortMessageSender.class);
+
+	private ServiceInfoImpl serviceInfo;
+	/**
+	 * 
+	 */
+	public MockShortMessageSender() {
+		super();
+		serviceInfo = new ServiceInfoImpl();
+		serviceInfo.setCanPause(true);
+		serviceInfo.setCanStop(true);
+		serviceInfo.setDescription("模拟短信发送器，在控制台输出短信内容。");
+		serviceInfo.setDisplayName("模拟短信发送器");
+		serviceInfo.setName("mock-smsender");
+		serviceInfo.setServiceType("debug");
+		
+		if(isRunning()){
+			serviceInfo.setState(ServiceState.Running);
+			serviceInfo.setStatus("已启动");
+		}else{
+			serviceInfo.setState(ServiceState.Stopped);
+			serviceInfo.setStatus("已禁用");
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see org.springframework.core.Ordered#getOrder()
+	 */
+	public int getOrder() {
+		return Integer.MAX_VALUE;
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.service.ShortMessageSender#isRunning()
+	 */
+	public boolean isRunning() {
+		return AppsGlobals.getProperty("MockShortMessageSender.enabled", false);
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.service.ShortMessageSender#send(java.lang.String, java.lang.String)
+	 */
+	public int send(String receiverNumber, String message) throws Exception {
+		String msg = String.format("->[%s]: %s", receiverNumber, message);
+		System.out.println("[MockShortMessageSender模拟发送短信] -" + msg);
+		if(log.isInfoEnabled()){
+			log.info("【模拟发送短信】" + msg);
+		}
+		serviceInfo.setStatus("最近一条短信：" + msg);
+		return 1;
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.services.api.Service#getInfo()
+	 */
+	public ServiceInfo getInfo() {
+		return serviceInfo;
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.services.api.Service#start()
+	 */
+	public void start() throws ServiceException {
+		if(serviceInfo.getState() != ServiceState.Stopped){
+			throw new ServiceException("服务正在启动或者正在运行。");
+		}
+		
+		AppsGlobals.setProperty("MockShortMessageSender.enabled", "true");
+		serviceInfo.setState(ServiceState.Running);
+		serviceInfo.setStatus("已启动");
+		log.debug("服务已经启动");
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.services.api.Service#stop()
+	 */
+	public void stop() throws ServiceException {
+		if(serviceInfo.getState() != ServiceState.Running){
+			throw new ServiceException("服务正在停止或者已经停止。");
+		}
+		
+		AppsGlobals.setProperty("MockShortMessageSender.enabled", "false");
+		serviceInfo.setState(ServiceState.Stopped);
+		serviceInfo.setStatus("已禁用");
+		log.debug("服务已经停止");
+	}
+}

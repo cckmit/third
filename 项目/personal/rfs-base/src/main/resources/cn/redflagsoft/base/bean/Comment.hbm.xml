@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<subclass name="cn.redflagsoft.base.bean.Comment" 
+		extends="cn.redflagsoft.base.bean.ContentHolder" 
+		discriminator-value="10">
+		<property name="objectType" column="OBJ_TYPE" type="string" length="200"/>
+		<property name="objectId" column="OBJ_ID" type="string" length="32"/>
+	</subclass>
+</hibernate-mapping>

@@ -1,0 +1,90 @@
+/*
+ * $Id: FileNoScheme.java 5574 2012-04-27 04:08:55Z lcj $
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.scheme.schemes.fileno;
+
+import org.opoo.apps.Model;
+import org.springframework.beans.factory.annotation.Required;
+import org.springframework.util.Assert;
+
+import cn.redflagsoft.base.bean.FileNo;
+import cn.redflagsoft.base.scheme.AbstractScheme;
+import cn.redflagsoft.base.service.FileNoManager;
+
+/**
+ * @author Alex Lin(lcql@msn.com)
+ *
+ */
+public class FileNoScheme extends AbstractScheme {
+	private FileNoManager fileNoManager;
+	
+	private String uid;
+	private Integer newValue;
+	
+	/**
+	 * @return the fileNoManager
+	 */
+	public FileNoManager getFileNoManager() {
+		return fileNoManager;
+	}
+
+	/**
+	 * @param fileNoManager the fileNoManager to set
+	 */
+	@Required
+	public void setFileNoManager(FileNoManager fileNoManager) {
+		this.fileNoManager = fileNoManager;
+	}
+
+	/**
+	 * @return the uid
+	 */
+	public String getUid() {
+		return uid;
+	}
+
+	/**
+	 * @param uid the uid to set
+	 */
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
+	
+	
+	/**
+	 * @return the newValue
+	 */
+	public Integer getNewValue() {
+		return newValue;
+	}
+
+	/**
+	 * @param newValue the newValue to set
+	 */
+	public void setNewValue(Integer newValue) {
+		this.newValue = newValue;
+	}
+
+	public Model viewGetFileNo(){
+		Assert.notNull(uid, "必须指定UID");
+		String fileNo = fileNoManager.generateFileNo(uid);
+		return new Model(true, fileNo, null);
+	}
+	
+	public Model doResetFileNo(){
+		Assert.notNull(uid, "必须指定UID");
+		Assert.notNull(newValue, "必须指定要设置的起始值");
+		FileNo fileNo = fileNoManager.resetFileNoAutoIncrementValue(uid, newValue.intValue());
+		if(fileNo != null){
+			return new Model(true, "设置成功", null);
+		}else{
+			return new Model(false, "设置失败", null);
+		}
+	}
+}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.Process" table="PROCESS">
+		<id name="sn" column="SN" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		
+		<property name="type" column="TP" type="int"/>
+		
+		<property name="code" column="CODE" type="java.lang.String"/>
+		
+		<property name="taskSN" column="TASKSN" type="java.lang.Long"/>
+		
+		<property name="workSN" column="WORKSN" type="java.lang.Long"/>
+		
+		<property name="processTime" column="PROCESS_TIME" type="java.sql.Timestamp"/>
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="result" column="RESULT" type="byte"/>
+		
+		<property name="rollBack" column="ROLL_BACK" type="byte"/>
+		
+		<property name="rollClerkID" column="ROLL_CLERKID" type="java.lang.Long"/>
+		
+		<property name="rollTime" column="ROLL_TIME" type="java.sql.Timestamp"/>
+		
+		<property name="note" column="NOTE" type="java.lang.String"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+	</class>
+</hibernate-mapping>

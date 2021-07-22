@@ -1,0 +1,3 @@
+com\beitie\test\aop\sevice\UserAOPService.class
+com\beitie\test\aop\sevice\impl\UserAOPServiceImpl.class
+com\beitie\test\aop\aspect\CustomAspectOne.class

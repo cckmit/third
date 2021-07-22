@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.SignCardAccept" table="SIGN_CARD_ACCEPT">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>	
+		<property name="signCardId" column="SIGNCARD_ID" type="java.lang.Long"/>
+		
+		<property name="acceptDutyerId" column="ACCEPT_DUTYERID" type="java.lang.Long"/>
+		
+		<property name="acceptDutyerName" column="ACCEPT_DUTYERNAME" type="java.lang.String"/>
+		
+		<property name="acceptType" column="ACCEPT_TYPE" type="byte"/>
+		
+		<property name="acceptFileNo" column="ACCEPT_FILENO" type="java.lang.String"/>
+		
+		<property name="acceptCreator" column="ACCEPT_CREATOR" type="java.lang.Long"/>
+		
+		<property name="acceptActualTime" column="ACCEPT_ACTUALTIME" type="java.sql.Timestamp"/>
+		
+		<property name="acceptTime" column="ACCEPT_TIME" type="java.sql.Timestamp"/>
+		
+		<property name="acceptRemark" column="ACCEPT_REMARK" type="java.lang.String"/>
+		
+		<property name="type" column="TP" type="int"/>
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+			
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+			
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+			
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+			
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+	</class>
+</hibernate-mapping>

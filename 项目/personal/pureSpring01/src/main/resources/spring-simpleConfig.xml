@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+    <context:component-scan base-package="com.beitie"></context:component-scan>
+    <bean id="videoPlayerDaoNormal" class="com.beitie.dao.impl.VideoPlayerDaoNormal"></bean>
+    <bean id="videoPlayerDaoLight" class="com.beitie.dao.impl.VideoPlayerDaoLight"></bean>
+    <bean id="videoPlayerServiceNormal" class="com.beitie.service.impl.VideoPlayerServiceNormal" c:videoPlayerDao-ref="videoPlayerDaoNormal"></bean>
+    <bean id="videoPlayerServiceLight" class="com.beitie.service.impl.VideoPlayerServiceNormal" c:videoPlayerDao-ref="videoPlayerDaoLight"></bean>
+    <bean id="music1" class="com.beitie.bean.Music" p:author="周杰伦" p:name="东风破" p:time="270"></bean>
+    <bean name="music2" class="com.beitie.bean.Music" p:author="周杰伦" p:name="稻香" p:time="300"></bean>
+    <bean name="music4,music5,music3" class="com.beitie.bean.Music" p:author="周杰伦" p:name="千里之外" p:time="240"></bean>
+
+    <bean id="videoPlayer" class="com.beitie.bean.VideoPlayer" p:musics-ref="musicList"/>
+    <util:list id = "musicList">
+        <ref bean="music1"></ref>
+        <ref bean="music2"></ref>
+        <ref bean="music3"></ref>
+    </util:list>
+    <bean id="staticMusic" class="com.beitie.factory.BeanFactoryLocal" factory-method="createStaticMusic"></bean>
+    <bean id="normalMusic" factory-bean="beanFactoryLocal" factory-method="createNormalMusic"></bean>
+    <bean id="beanFactoryLocal" class="com.beitie.factory.BeanFactoryLocal" ></bean>
+</beans>

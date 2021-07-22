@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="cn.redflagsoft.base.security.MenuGroup" table="SEC_MENU_GROUP">
+        <id name="id" column="ID" type="java.lang.Long">
+            <generator class="assigned" />
+        </id>
+        
+        <property name="groupName" column="GROUP_NAME" type="java.lang.String"/>
+        
+        <property name="displayOrder" column="DISPLAY_ORDER" type="int"/>
+        
+        <property name="icon" column="ICON" type="java.lang.String"/>
+        <property name="image" column="IMAGE" type="java.lang.String"/>
+        <property name="logo" column="LOGO" type="java.lang.String"/>
+	</class>
+</hibernate-mapping>

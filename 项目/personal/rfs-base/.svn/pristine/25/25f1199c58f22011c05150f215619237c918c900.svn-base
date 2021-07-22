@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="GBK"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+   	   xmlns:tx="http://www.springframework.org/schema/tx"
+   	   xmlns:rfsp="http://www.redflagsoft.com/schema/rfsp"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       			http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+       			http://www.springframework.org/schema/tx
+                http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+                http://www.springframework.org/schema/aop
+                http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+                
+   	<bean id="statistics" class="cn.redflagsoft.base.stat.StatisticsImpl"></bean>
+   	<bean id="statisticsMBean" class="cn.redflagsoft.base.stat.StatisticsService">
+   		<property name="statistics" ref="statistics"></property>
+   	</bean>
+   	
+   	<bean id="hibernateStatMBean" class="org.hibernate.jmx.StatisticsService"/>
+	
+	<bean id="mbeanServer" class="java.lang.management.ManagementFactory" 
+	 	factory-method="getPlatformMBeanServer"/>
+	 	
+	<!-- 
+	<bean id="mbeanServer2" class="org.springframework.jmx.support.MBeanServerFactoryBean"/>
+	-->
+	
+    <bean id="jmxExporter" class="org.springframework.jmx.export.MBeanExporter">
+        <!-- 
+        <property name="assembler" ref="jmxAssembler"/>
+        <property name="namingStrategy" ref="jmxNamingStrategy"/>
+        -->
+        <property name="server" ref="mbeanServer"/>
+    	<property name="beans">
+    		<map>
+    			<entry key="Base:name=statistics" value-ref="statisticsMBean"></entry>
+    			<entry key="Base:name=hibernateStat" value-ref="hibernateStatMBean"></entry>
+    		</map>
+    	</property>
+    </bean>
+	
+</beans>
+

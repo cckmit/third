@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<subclass name="cn.redflagsoft.base.bean.Caution"
+		extends="cn.redflagsoft.base.bean.RFSObject" discriminator-value="122">
+	
+	<join table="CAUTION" fetch="select">	
+	<key column="ID" />
+	
+	<property name="code" column="CODE" type="java.lang.String"/>
+	
+	<property name="name" column="NAME" type="java.lang.String"/>
+	
+	<property name="grade" column="GRADE" type="byte"/>
+	
+	<property name="happenTime" column="HAPPENTIME" type="java.sql.Timestamp"/>
+	
+	<property name="riskId" column="RISKID" type="java.lang.Long"/>
+	
+	<property name="riskCode" column="RISKCODE" type="java.lang.String"/>
+	
+	<property name="riskName" column="RISKNAME" type="java.lang.String"/>
+	
+	<property name="riskType" column="RISKTP" type="int"/>
+	
+	<property name="ruleId" column="RULEID" type="java.lang.Long"/>
+	
+	<property name="ruleCode" column="RULECODE" type="java.lang.String"/>
+	
+	<property name="superviseOrgId" column="SUPERVISE_ORGID" type="java.lang.Long"/>
+	
+	<property name="superviseOrgAbbr" column="SUPERVISE_ORGABBR" type="java.lang.String"/>
+	
+	<property name="superviseClerkId" column="SUPERVISE_CLERKID" type="java.lang.Long"/>
+	
+	<property name="superviseClerkName" column="SUPERVISE_CLERKNAME" type="java.lang.String"/>
+	
+	<property name="objType" column="OBJECT_TYPE" type="int"/>
+	
+	<property name="objId" column="OBJECTID" type="java.lang.Long"/> 
+	
+	<property name="objCode" column="OBJECTCODE" type="java.lang.String"/>
+	
+	<property name="objName" column="OBJECTNAME" type="java.lang.String"/>	 
+	
+	<property name="objAttr" column="OBJECT_ATTR" type="java.lang.String"/>
+	
+	<property name="objAttrName" column="OBJECT_ATTR_NAME" type="java.lang.String"/>
+	
+	<property name="objAttrValue" column="OBJECT_ATTR_VALUE" type="java.math.BigDecimal"/>
+	
+	<property name="objAttrUnit" column="OBJECT_ATTR_UNIT" type="byte"/>
+	
+	<property name="scaleValue" column="SCAL_VALUE" type="java.math.BigDecimal"/>
+	
+	<property name="dutyerOrgId" column="DUTYER_ORGID" type="java.lang.Long"/>
+	
+	<property name="dutyerOrgName" column="DUTYER_ORGNAME" type="java.lang.String"/>
+	
+	<property name="dutyerLeaderId" column="DUTYER_LEADERID" type="java.lang.Long"/>
+	
+	<property name="dutyerLeaderName" column="DUTYER_LEADERNAME" type="java.lang.String"/>
+	
+	<property name="dutyerLeaderMobNo" column="DUTYER_LEADERMOBNO" type="java.lang.String"/>
+	
+	<property name="dutyerDeptId" column="DUTYER_DEPTID" type="java.lang.Long"/>
+	
+	<property name="dutyerDeptName" column="DUTYER_DEPTNAME" type="java.lang.String"/>
+	
+	<property name="dutyerManagerId" column="DUTYER_MANAGERID" type="java.lang.Long"/>
+	
+	<property name="dutyerManagerName" column="DUTYER_MANAGERNAME" type="java.lang.String"/>
+	
+	<property name="dutyerManagerMobNo" column="DUTYER_MANAGERMOBNO" type="java.lang.String"/>
+	
+	<property name="dutyerId" column="DUTYERID" type="java.lang.Long"/>
+	
+	<property name="dutyerName" column="DUTYERNAME" type="java.lang.String"/>
+	
+	<property name="dutyerMobNo" column="DUTYERMOBNO" type="java.lang.String"/>
+	
+	<property name="conclusion" column="CONCLUSION" type="java.lang.String"/>
+	
+	<property name="juralLimit" column="JURAL_LIMIT" type="java.lang.String"/>
+	
+	<property name="messageConfig" column="MSGCFG" type="int"/>
+	
+	<property name="messageTemplate" column="MSGTPL" type="java.lang.String"/>
+	
+	<property name="pause" column="PAUSE" type="byte"/>
+	
+	<property name="refObjectType" column="REF_OBJECT_TYPE" type="int"/>
+	
+	<property name="refObjectId" column="REF_OBJECTID" type="java.lang.Long"/>
+
+	<property name="refObjectName" column="REF_OBJECT_NAME" type="java.lang.String"/>
+	
+	<property name="systemId" column="SYSTEMID" type="java.lang.Long"/>
+	
+	
+	<property name="ruleSummary" column="RULE_SUMMARY" type="java.lang.String"/>
+	<property name="bizSummary" column="BIZ_SUMMARY" type="java.lang.String"/>
+	
+	
+	<property name="cautionSummary" column="CAUTION_SUMMARY" type="java.lang.String"/>
+	<property name="regClerkId" column="REG_CLERKID" type="java.lang.Long"/>
+	<property name="regClerkName" column="REG_CLERKNAME" type="java.lang.String"/>
+	
+	
+	<!-- 当前表的status为业务状态，rfs_object表的status为归档状态  -->
+	<property name="bizStatus" column="STATUS" type="byte"/>
+	
+	<property name="type" column="TP" type="int"/>
+		
+	<property name="remark" column="REMARK" type="java.lang.String"/>
+		
+	<property name="creator" column="CREATOR" type="java.lang.Long"/>
+		
+	<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+	<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+		
+	<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+	
+	<property name="rectificationType" column="RECTIFICATION_TYPE" type="byte"/>
+	
+	<property name="rectificationDesc" column="RECTIFICATION_DESC" type="java.lang.String"/>
+		
+	<property name="rectificationActualTime" column="RECTIFICATION_ACTUALTIME" type="java.sql.Timestamp"/>
+	
+	<property name="rectificationClerkId" column="RECTIFICATION_CLERKID" type="java.lang.Long"/>
+	
+	<property name="rectificationClerkName" column="RECTIFICATION_CLERKNAME" type="java.lang.String"/>
+	
+	<property name="rectificationOrgId" column="RECTIFICATION_ORGID" type="java.lang.Long"/>
+	
+	<property name="rectificationOrgName" column="RECTIFICATION_ORGNAME" type="java.lang.String"/>
+	
+	<property name="rectificationTime" column="RECTIFICATION_TIME" type="java.sql.Timestamp"/>
+	
+	<property name="rectificationRemark" column="RECTIFICATION_REMARK" type="java.lang.String"/>
+
+	</join>
+	</subclass>
+</hibernate-mapping>

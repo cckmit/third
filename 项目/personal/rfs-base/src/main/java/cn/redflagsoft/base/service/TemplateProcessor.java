@@ -1,0 +1,27 @@
+/*
+ * $Id: TemplateProcessor.java 5825 2012-06-01 07:58:04Z lcj $
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.service;
+
+/**
+ * 模板处理器。
+ * 
+ * @author Alex Lin(lcql@msn.com)
+ *
+ */
+public interface TemplateProcessor {
+
+	/**
+	 * 处理模板，解析模板。
+	 * @param template
+	 * @param context
+	 * @return
+	 */
+	String process(String template, Object context);
+}

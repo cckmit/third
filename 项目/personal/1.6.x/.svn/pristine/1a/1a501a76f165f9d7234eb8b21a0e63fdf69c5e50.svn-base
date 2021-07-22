@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="GBK"?>
+<!--
+  ~ $Revision: 13 $
+  ~ $Date: 2010-11-26 13:04:02 +0800 (鏄熸湡浜�, 26 鍗佷竴鏈� 2010) $
+  ~
+  ~ Copyright (C) 2009 Alex Lin. All rights reserved.
+  ~
+  ~
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xsd:element name="module">
+        
+        <xsd:annotation>
+            <xsd:documentation><![CDATA[模块根节点。]]></xsd:documentation>
+        </xsd:annotation>
+        
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:choice maxOccurs="unbounded">
+                    
+                    <xsd:element name="class" type="xsd:string" minOccurs="0" maxOccurs="1">
+                        <xsd:annotation>
+                            <xsd:documentation><![CDATA[模块类名，需要实现Module接口。 ]]></xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    
+                    <xsd:element name="name" type="xsd:string" minOccurs="0" maxOccurs="1">
+                        <xsd:annotation>
+                            <xsd:documentation><![CDATA[模块名，将显示在管理工具中。]]></xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    
+                    <xsd:element name="description" type="xsd:string" minOccurs="1" maxOccurs="1">
+                        <xsd:annotation>
+                            <xsd:documentation><![CDATA[模块的简短描述。]]></xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    
+                    <xsd:element name="author" type="xsd:string" minOccurs="1" maxOccurs="1">
+                        <xsd:annotation>
+                            <xsd:documentation><![CDATA[模块的作者。]]> </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    
+                    <xsd:element name="version" type="xsd:string" minOccurs="1" maxOccurs="1">
+                        
+                        <xsd:annotation>
+                            <xsd:documentation><![CDATA[模块的版本。]]></xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    
+                    <xsd:element name="minServerVersion" type="xsd:string" minOccurs="1" maxOccurs="1">
+                        <xsd:annotation>
+                            <xsd:documentation><![CDATA[模块所需的引擎的最小版本。]]></xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    
+                    <xsd:element name="maxServerVersion" type="xsd:string" minOccurs="1" maxOccurs="1">
+                        <xsd:annotation>
+                            <xsd:documentation><![CDATA[模块所需的引擎的最大版本，如果引擎大于这个版本，模块将不能运行。 ]]></xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    
+                    <!-- 
+                    <xsd:element name="databaseKey" type="xsd:string" minOccurs="0" maxOccurs="1">
+                        <xsd:annotation>
+                            <xsd:documentation><![CDATA[数据库主键。用于标识数据库的schema。]]></xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="databaseVersion" type="xsd:integer" minOccurs="0" maxOccurs="1">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                The version of the database schema of this current
+                                module version. Only required if the module has a db scema.
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    -->
+                    
+                    <xsd:element name="scope" maxOccurs="1" default="cluster">
+                    	<xsd:annotation>
+                    		<xsd:documentation><![CDATA[模块的有效范围，通常是cluster的，如果定义为local，则模块只运行在安装该模块的节点上。]]></xsd:documentation>
+                    	</xsd:annotation>
+                    	<xsd:simpleType>
+                    		<xsd:restriction base="xsd:NMTOKEN">
+                    			<xsd:enumeration value="cluster"></xsd:enumeration>
+                    			<xsd:enumeration value="local"></xsd:enumeration>
+                    		</xsd:restriction>
+                    	</xsd:simpleType>
+                    </xsd:element>
+                    
+                    <xsd:element ref="urlmapping" minOccurs="0" maxOccurs="unbounded" />
+                    
+                    <xsd:element ref="sitemesh" minOccurs="0" maxOccurs="unbounded" />
+                </xsd:choice>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+   
+    <xsd:element name="sitemesh">
+        
+        <xsd:complexType>
+            
+            <xsd:sequence>
+                
+                <xsd:choice maxOccurs="unbounded">
+                    
+                    <xsd:element ref="decorator" minOccurs="0" maxOccurs="unbounded" />
+                    
+                    <xsd:element ref="excludes" minOccurs="0" maxOccurs="1" />
+                </xsd:choice>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:element name="decorator">
+        
+        <xsd:annotation>
+            <xsd:documentation>
+                Specify a custom SiteMesh decorator for the module.
+            </xsd:documentation>
+        </xsd:annotation>
+        
+        <xsd:complexType>
+            
+            <xsd:sequence>
+                
+                <xsd:element ref="pattern" minOccurs="1" maxOccurs="unbounded" />
+            </xsd:sequence>
+            
+            <xsd:attribute name="name" type="xsd:string" use="required">
+                
+                <xsd:annotation>
+                    <xsd:documentation>
+                        The name of the custom decorator; this must be unique.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+            
+            <xsd:attribute name="page" type="xsd:string" use="required">
+                
+                <xsd:annotation>
+                    <xsd:documentation>
+                        The name of the custom decorator page; this must live under the module.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:element name="excludes">
+        
+        <xsd:annotation>
+            <xsd:documentation>
+                Used to add URL patterns that SiteMesh should not decorate.
+            </xsd:documentation>
+        </xsd:annotation>
+        
+        <xsd:complexType>
+            
+            <xsd:sequence>
+                
+                <xsd:element ref="pattern" minOccurs="1" maxOccurs="unbounded" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="pattern">
+        
+        <xsd:annotation>
+            <xsd:documentation>
+                A URL pattern used by either of the SiteMesh tag children: decorator or excludes.
+                Examples of a pattern would be:
+                - /foo*
+                - *.bar
+            </xsd:documentation>
+        </xsd:annotation>
+        
+        <xsd:simpleType>
+            <xsd:restriction base="xsd:string" />            
+        </xsd:simpleType>
+    </xsd:element>
+    
+    <xsd:element name="urlmapping">
+        
+        <xsd:complexType>
+            
+            <xsd:attribute name="prefix" use="required" type="xsd:string">
+                
+                <xsd:annotation>
+                    <xsd:documentation>
+                        The URL prefix to map actions to. An example would be /foo.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+            
+            <xsd:attribute name="class" use="required" type="xsd:string">
+                
+                <xsd:annotation>
+                    <xsd:documentation>
+                        The class of the URL mapper. 
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

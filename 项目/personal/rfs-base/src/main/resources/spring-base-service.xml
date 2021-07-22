@@ -1,0 +1,1562 @@
+<?xml version="1.0" encoding="GBK"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       						http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       						http://www.springframework.org/schema/util
+  							http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+	
+	<!-- 注册 SchemeManagerAware-->
+	<!-- 
+	<bean id="schemeBeanPostProcessor" class="cn.redflagsoft.base.scheme.SchemeBeanPostProcessor">
+		<property name="schemeManager" ref="schemeManager"></property>
+	</bean>
+	-->
+
+	<bean id="actionManager" class="cn.redflagsoft.base.menu.impl.ActionManagerImpl">
+		<property name="actionDao" ref="actionDao"></property>
+		<property name="actionCache" ref="actionCache"></property>
+		<property name="menuCache" ref="menuCache"></property>
+	</bean>
+  	<bean id="actionScheme" class="cn.redflagsoft.base.scheme.schemes.action.ActionScheme" scope="prototype">
+    	<property name="actionManager" ref="actionManager"></property>
+    </bean>
+     
+	<bean id="menuService" class="cn.redflagsoft.base.menu.impl.MenuServiceImpl">
+		<property name="actionManager" ref="actionManager"></property>
+		<property name="menuItemDao" ref="menuItemDao"></property>
+		<property name="menuItemRelationDao" ref="menuItemRelationDao"></property>
+		<property name="roleMenuItemDao" ref="roleMenuItemDao"></property>
+		<property name="roleMenuRemarkDao" ref="roleMenuRemarkDao"></property>
+		<property name="menuCache" ref="menuCache"></property>
+	</bean>
+	
+	<bean id="menuManagerV2" class="cn.redflagsoft.base.menu.impl.MenuManagerImpl" parent="menuService"/>
+
+
+
+	<bean id="menuSchemeV2" class="cn.redflagsoft.base.scheme.schemes.menu.v2.MenuScheme" scope="prototype">
+    	<property name="menuManager" ref="menuManagerV2"></property>
+     </bean>
+     
+     <bean id="roleMenuScheme" class="cn.redflagsoft.base.scheme.schemes.menu.v2.RoleMenuScheme" scope="prototype">
+    	<property name="menuManager" ref="menuManagerV2"></property>
+     </bean>
+     
+
+     
+     <!-- ................................................................................ -->
+     
+     
+     
+    <bean id="addressService" class="cn.redflagsoft.base.service.impl.AddressServiceImpl">
+        <property name="addressDao" ref="addressDao"/>
+    </bean>
+	
+    <bean id="taskService" class="cn.redflagsoft.base.service.impl.TaskServiceImpl">
+        <property name="taskDao" ref="taskDao"/>
+        <property name="timeLimitDao" ref="timeLimitDao"/>
+        <property name="objectTaskDao" ref="objectTaskDao"/>
+        <property name="matterAffairDao" ref="matterAffairDao"/>
+        <property name="bizRouteService" ref="bizRouteService"/>
+        <property name="bizTrackService" ref="bizTrackService"/>
+        <property name="threadService" ref="threadService"/>
+        <property name="bizTrackNodeInstanceService" ref="bizTrackNodeInstanceService"/>
+        <property name="codeGeneratorProvider" ref="codeGeneratorProvider"/>
+        <property name="riskService" ref="riskService"/>
+        <property name="riskMonitorableService" ref="objectService"/>
+        <property name="clueService" ref="clueService"/>
+        <property name="glossaryService" ref="glossaryService"/>
+        <property name="objectService" ref="objectService"/>
+        <property name="workService" ref="workService"/>
+        <property name="taskMatterDao" ref="taskMatterDao"/>
+        <property name="matterDao" ref="matterDao"/>
+        <property name="clerkService" ref="clerkService"/>
+        <property name="orgDao" ref="orgDao"/> 
+        <property name="objectsDao" ref="objectsDao"/>
+        <property name="taskDefProvider" ref="taskDefProvider"></property>
+        <property name="workDefProvider" ref="workDefProvider"></property>
+        <property name="entityObjectToWorkDao" ref="entityObjectToWorkDao"></property>
+        <property name="entityObjectToTaskDao" ref="entityObjectToTaskDao"></property>
+        
+        <property name="lifeStageDao" ref="lifeStageDao" />
+        <property name="entityObjectLoader" ref="entityObjectLoader" />
+        <property name="templateProcessorManager" ref="templateProcessorManager"></property>
+        
+        <property name="dutyersInfoManager" ref="dutyersInfoManager"></property>
+        <property name="riskRuleService" ref="riskRuleService"></property>
+    </bean>
+    
+    
+    <bean id="taskScheme" class="cn.redflagsoft.base.scheme.schemes.task.TaskScheme" scope="prototype">
+    	<property name="taskService" ref="taskService"></property>
+    </bean>
+    
+    <bean id="workService" class="cn.redflagsoft.base.service.impl.WorkServiceImpl">
+        <property name="workDao" ref="workDao"/>
+        <property name="timeLimitDao" ref="timeLimitDao"/>
+        <property name="taskDao" ref="taskDao"/>
+        <property name="bizRouteService" ref="bizRouteService"/>
+        <property name="bizTrackService" ref="bizTrackService"/>
+        <property name="codeGeneratorProvider" ref="codeGeneratorProvider"/>
+        <property name="riskService" ref="riskService"/>
+        <property name="riskMonitorableService" ref="objectService"/>
+        <property name="clueService" ref="clueService"/>
+        <!-- <property name="objectService" ref="objectService"/> -->
+        <property name="bizTrackNodeInstanceService" ref="bizTrackNodeInstanceService"/>
+    	<property name="objectsDao" ref="objectsDao"/>
+    	<property name="clerkService" ref="clerkService"/>
+    	<property name="glossaryService" ref="glossaryService"/>
+    	<property name="workDefProvider" ref="workDefProvider"></property>
+    	<property name="taskDefProvider" ref="taskDefProvider"></property>
+    	<property name="entityObjectToWorkDao" ref="entityObjectToWorkDao"></property>
+    	<property name="dutyersInfoManager" ref="dutyersInfoManager"></property>
+    </bean>
+    
+    <bean id="processService" class="cn.redflagsoft.base.service.impl.ProcessServiceImpl">
+        <property name="processDao" ref="processDao"/>
+        <property name="codeGeneratorProvider" ref="codeGeneratorProvider"/>
+    </bean>
+    
+    <bean id="jobService" class="cn.redflagsoft.base.service.impl.JobServiceImpl">
+        <property name="jobDao" ref="jobDao"/>
+        <property name="codeGeneratorProvider" ref="codeGeneratorProvider"/>
+        <property name="bizTrackNodeInstanceService" ref="bizTrackNodeInstanceService"/>
+        <property name="bizTrackService" ref="bizTrackService"/>
+        <property name="riskService" ref="riskService"/>
+        <property name="riskMonitorableService" ref="objectService"/>
+        <property name="clueService" ref="clueService"/>
+        <property name="bizRouteService" ref="bizRouteService"/>
+        <property name="objectService" ref="objectService"/>
+    </bean>
+    
+    
+    <bean id="bizRouteService" class="cn.redflagsoft.base.service.impl.BizRouteServiceImpl">
+    	<property name="bizRouteDao" ref="bizRouteDao"/>
+    	<property name="bizRouteMapDao" ref="bizRouteMapDao"/>
+    </bean>
+    
+    <bean id="bizRouteNodeService" class="cn.redflagsoft.base.service.impl.BizRouteNodeServiceImpl">
+    	<property name="bizRouteNodeDao" ref="bizRouteNodeDao"/>
+    </bean>
+    
+    <bean id="bizRouteSectService" class="cn.redflagsoft.base.service.impl.BizRouteSectServiceImpl">
+    	<property name="bizRouteSectDao" ref="bizRouteSectDao"/>
+    </bean>
+    
+    <bean id="bizTrackNodeInstanceService" class="cn.redflagsoft.base.service.impl.BizTrackNodeInstanceServiceImpl">
+    	<property name="bizTrackNodeDao" ref="bizTrackNodeDao"/>
+    	<property name="bizTrackNodeInstanceDao" ref="bizTrackNodeInstanceDao"/>
+    </bean>
+    
+    <bean id="bizTrackNodeService" class="cn.redflagsoft.base.service.impl.BizTrackNodeServiceImpl">
+    	<property name="bizRouteNodeDao" ref="bizRouteNodeDao"/>
+    	<property name="bizTrackNodeDao" ref="bizTrackNodeDao"/>
+    	<property name="bizTrackNodeInstanceDao" ref="bizTrackNodeInstanceDao"/>
+    	<property name="bizTrackNodeInstanceService" ref="bizTrackNodeInstanceService"/>
+    </bean>
+    
+    <bean id="bizTrackSectService" class="cn.redflagsoft.base.service.impl.BizTrackSectServiceImpl">
+    	<property name="bizRouteSectDao" ref="bizRouteSectDao"/>
+    	<property name="bizTrackSectDao" ref="bizTrackSectDao"/>
+    </bean>
+    
+    <bean id="bizTrackService" class="cn.redflagsoft.base.service.impl.BizTrackServiceImpl">
+    	<property name="bizRouteDao" ref="bizRouteDao"/>
+    	<property name="bizTrackNodeDao" ref="bizTrackNodeDao"/>
+    	<property name="bizTrackNodeService" ref="bizTrackNodeService"/>
+    	<property name="bizTrackSectDao" ref="bizTrackSectDao"/>
+    	<property name="bizTrackSectService" ref="bizTrackSectService"/>
+    	<property name="bizTrackDao" ref="bizTrackDao"/>
+    	<property name="threadDao" ref="threadDao"/>
+    	<property name="bizTrackNodeInstanceDao" ref="bizTrackNodeInstanceDao"/>
+        <property name="jobDao" ref="jobDao"/>
+        <property name="workDao" ref="workDao"/>
+        <property name="taskDao" ref="taskDao"/>
+        <property name="clueService" ref="clueService"/>
+        <property name="glossaryService" ref="glossaryService"/>
+    </bean>
+    
+    <bean id="datumService" class="cn.redflagsoft.base.service.impl.DatumServiceImplV2">
+    	<property name="datumDao" ref="datumDao"/>
+    	<property name="datumCategoryDao" ref="datumCategoryDao"/>
+    	<property name="taskDataDao" ref="taskDataDao"/>
+    	<property name="objectDataDao" ref="objectDataDao"/>
+    	<property name="codeGeneratorProvider" ref="codeGeneratorProvider"/>
+    	<property name="matterDatumDao" ref="matterDatumDao"/>
+    	<property name="datumOriginDao" ref="datumOriginDao"></property>
+    </bean>
+    
+    <bean id="threadService" class="cn.redflagsoft.base.service.impl.ThreadServiceImpl">
+        <property name="bizRouteService" ref="bizRouteService"/>
+        <property name="jobService" ref="jobService"/>
+        <property name="threadDao" ref="threadDao"/>
+        <property name="matterAffairDao" ref="matterAffairDao"/>
+        <property name="bizTrackNodeService" ref="bizTrackNodeService"/>
+        <property name="objectsDao" ref="objectsDao"/>
+    </bean>
+    
+    
+    <bean id="objectsService" class="cn.redflagsoft.base.service.impl.ObjectsServiceImpl">
+        <property name="objectsDao" ref="objectsDao"/>
+    </bean>
+    
+    <bean id="datumAttachmentService" class="cn.redflagsoft.base.service.impl.DatumAttachmentServiceImpl">
+    	<property name="datumDao" ref="datumDao"/>
+    </bean>
+    
+    <bean id="matterDatumService" class="cn.redflagsoft.base.service.impl.MatterDatumServiceImpl">
+    	<property name="matterDatumDao" ref="matterDatumDao"/>
+    </bean>
+    
+    <bean id="datumCategoryService" class="cn.redflagsoft.base.service.impl.DatumCategoryServiceImpl">
+    	<property name="datumCategoryDao" ref="datumCategoryDao"/>
+    	<property name="matterDatumDao" ref="matterDatumDao"/>
+    	<property name="datumService" ref="datumService"/>
+    	<property name="attachmentManager" ref="attachmentManager" />
+    </bean>
+    
+    <bean id="orgService" class="cn.redflagsoft.base.service.impl.OrgServiceImpl">
+    	<property name="orgDao" ref="orgDao"/>
+    	<property name="orgRoleDao" ref="orgRoleDao"/>
+    	<property name="entityGroupDao" ref="entityGroupDao"/>
+    </bean>
+    
+    <bean id="datumCategoryWithDataService" class="cn.redflagsoft.base.service.impl.DatumCategoryWithDataServiceImpl">
+    	<property name="datumAttachmentService" ref="datumAttachmentService"/>
+    	<property name="matterDatumDao" ref="matterDatumDao"/>
+    </bean>
+    
+    <bean id="phraseService" class="cn.redflagsoft.base.service.impl.PhraseServiceImpl">
+    	<property name="phraseDao" ref="phraseDao"/>
+    </bean>
+    
+    <bean id="receiverService" class="cn.redflagsoft.base.service.impl.ReceiverServiceImpl">
+    	<property name="receiverDao" ref="receiverDao"/>
+    </bean>
+    
+    <bean id="glossaryService" class="cn.redflagsoft.base.service.impl.GlossaryServiceImpl">
+    	<property name="glossaryDao" ref="glossaryDao"/>
+    </bean>
+    
+    <bean id="riskCalculator" class="cn.redflagsoft.base.service.impl.RiskCalculatorImpl">
+    	<property name="entityObjectLoader" ref="entityObjectLoader"></property>
+    </bean>
+
+    <bean id="riskService" class="cn.redflagsoft.base.service.impl.RiskServiceImpl">
+    	<property name="riskDao" ref="riskDao"/>
+    	<property name="riskRuleDao" ref="riskRuleDao"/>
+        <property name="entityObjectLoader" ref="entityObjectLoader"/>
+        <property name="glossaryDao" ref="glossaryDao"/>
+        <property name="entityGroupDao" ref="entityGroupDao"/>
+        <property name="matterDao" ref="matterDao"/>
+        <property name="riskLogService" ref="riskLogService"/>
+        <property name="exDataRiskDao" ref="exDataRiskDao"/>
+        <property name="eventMsgService" ref="eventMsgService"/>
+        <!--property name="signCardDao" ref="signCardDao"/-->
+		<!-- <property name="riskGradeChangeHandler" ref="riskGradeChangeHandler"/> -->
+		<property name="taskDao" ref="taskDao"/>
+		<property name="codeGeneratorProvider" ref="codeGeneratorProvider"/>
+		<property name="riskCalculator" ref="riskCalculator"></property>
+		<property name="clerkService" ref="clerkService"></property>
+		<property name="objectOrgClerkService" ref="objectOrgClerkService"></property>
+    </bean>
+    
+    <bean id="riskRuleService" class="cn.redflagsoft.base.service.impl.RiskRuleServiceImpl">
+    	<property name="riskRuleDao" ref="riskRuleDao"/>
+    </bean>
+    
+    <bean id="holidayService" class="cn.redflagsoft.base.service.impl.HolidayServiceImpl">
+    	<property name="holidayDao" ref="holidayDao"/>
+    	<property name="holidaysCache" ref="holidaysCache"/>
+    </bean>
+    
+    <bean id="cautionService" class="cn.redflagsoft.base.service.impl.CautionServiceImpl" parent="rfsObjectService">
+		<property name="objectDao" ref="cautionDao"></property>
+    	<property name="riskRuleDao" ref="riskRuleDao"></property>
+    	<property name="clerkService" ref="clerkService"></property>
+    	<property name="entityObjectLoader" ref="entityObjectLoader"></property>
+    	<property name="codeGeneratorProvider" ref="codeGeneratorProvider"></property>
+    	<property name="lifeStageUpdater">
+			<bean parent="abstractLifeStageUpdater" 
+				class="cn.redflagsoft.base.service.impl.CautionLifeStageUpdater">
+			</bean>	   
+		</property>
+	</bean>
+    
+    <bean id="clueService" class="cn.redflagsoft.base.service.impl.ClueServiceImpl">
+    	<property name="clueDao" ref="clueDao"/>
+    </bean>
+    
+    <bean id="menuManager" class="cn.redflagsoft.base.security.MenuManagerImpl">
+    	<property name="menuDao" ref="menuDao"/>
+    	<property name="menuGroupDao" ref="menuGroupDao"/>
+    	<property name="userDetailsService" ref="userManager"/>
+    </bean>
+    
+    <bean id="clerkService" class="cn.redflagsoft.base.service.impl.ClerkServiceImpl">
+    	<property name="clerkCache" ref="clerkCache"/>
+    	<property name="clerkDao" ref="clerkDao"/>
+    	<property name="userManager" ref="userManager"></property>
+    	<property name="clerkGroupDao" ref="clerkGroupDao"></property>
+    	<property name="orgService" ref="orgService"></property>
+    </bean>
+    
+    <bean id="entityGroupService" class="cn.redflagsoft.base.service.impl.EntityGroupServiceImpl">
+    	<property name="entityGroupDao" ref="entityGroupDao"/>
+    </bean>
+    
+    
+    <bean id="planMonitorService" class="cn.redflagsoft.base.service.impl.PlanMonitorServiceImpl">
+    	<property name="departmentDao" ref="departmentDao"/>
+    	<property name="glossaryDao" ref="glossaryDao"/>
+    	<property name="objectDao" ref="objectDao"/>
+    	<property name="orgDao" ref="orgDao"/>
+    	<property name="peopleDao" ref="peopleDao"/>
+<!--    	<property name="riskDao" ref="riskDao"/>-->
+    </bean>
+
+    <bean id="planMonitorDetailService" class="cn.redflagsoft.base.service.impl.PlanMonitorDetailServiceImpl">
+		<property name="objectDao" ref="objectDao"/>
+	</bean>    
+	
+	
+	<bean id="matterAffairService" class="cn.redflagsoft.base.service.impl.MatterAffairServiceImpl">
+		<property name="matterAffairDao" ref="matterAffairDao"/>
+		<property name="matterAffairCache" ref="matterAffairCache"/>
+		<property name="matterAffairListCache" ref="matterAffairListCache"/>
+	</bean>
+	
+	
+	<bean id="objectService" class="cn.redflagsoft.base.service.impl.ObjectServiceImpl">
+        <property name="objectDao" ref="objectDao"/>
+        <property name="riskService" ref="riskService"/>
+        <property name="planMonitorService" ref="planMonitorService"/>
+    </bean>
+    
+    <bean id="codeService" class="cn.redflagsoft.base.service.impl.CodeServiceImpl">
+        <property name="codeDao" ref="codeDao"/>
+    </bean>
+	
+	<!-- 
+	<bean id="msgService" class="cn.redflagsoft.base.service.impl.MsgServiceImpl">
+        <property name="sendingMsgDao" ref="sendingMsgDao"/>
+        <property name="msgDao" ref="msgDao"/>
+        <property name="clerkDao" ref="clerkDao"/>
+        <property name="orgDao" ref="orgDao"/>
+        <property name="senders">
+        	<list>
+        		<ref local="noticeMessageSender"/>
+        	</list>
+        </property>
+    </bean>
+    -->
+    
+    <!--  
+	<bean id="sendingMsgService" class="cn.redflagsoft.base.service.impl.SendingMsgServiceImpl">
+        <property name="sendingMsgDao" ref="sendingMsgDao"/>
+    </bean>
+    -->
+    
+	<bean id="noticeMessageSender" class="cn.redflagsoft.base.service.impl.NoticeMessageSenderImpl">
+        <property name="msgDao" ref="msgDao"/>
+    </bean>
+    
+	<bean id="historyRiskService" class="cn.redflagsoft.base.service.impl.HistoryRiskServiceImpl">
+        <property name="historyRiskDao" ref="historyRiskDao"/>
+    </bean>
+    
+    <bean id="messageService" class="cn.redflagsoft.base.service.impl.MessageServiceImpl">
+        <property name="sendingMsgDao" ref="sendingMsgDao"/>
+        <property name="msgDao" ref="msgDao"/>
+        <property name="clerkService" ref="clerkService"/>
+        <property name="orgDao" ref="orgDao"/>
+        <property name="msgAttachmentsDao" ref="msgAttachmentsDao"/>
+        <property name="eventMsgService" ref="eventMsgService"/>
+        <!-- 
+        <property name="senders">
+        	<list>
+        	</list>
+        </property>
+        -->
+    </bean>
+    <bean id="objectPeopleService" class="cn.redflagsoft.base.service.impl.ObjectPeopleServiceImpl">
+        <property name="objectPeopleDao" ref="objectPeopleDao"/>
+    </bean> 
+    
+    <bean id="objectEntityService" class="cn.redflagsoft.base.service.impl.ObjectEntityServiceImpl">
+        <property name="objectEntityDao" ref="objectEntityDao"/>
+    </bean> 
+    
+    <bean id="riskGradeChangeHandler" class="cn.redflagsoft.base.service.impl.RiskGradeChangeHandlerImpl">
+        <property name="clerkDao" ref="clerkDao"/>
+        <property name="taskMatterDao" ref="taskMatterDao"/>
+        <property name="orgDao" ref="orgDao"/>
+        <property name="historyRiskDao" ref="historyRiskDao"/>
+        <property name="taskDao" ref="taskDao"/>
+        <property name="riskMessageService" ref="riskMessageService"/>
+        <property name="riskRuleService" ref="riskRuleService"/>
+    </bean>
+    
+     <bean id="riskGradeChangeHandler4Caution" class="cn.redflagsoft.base.service.impl.RiskGradeChangeHandler4Caution">
+     	<property name="schemeManager" ref="schemeManager"></property>
+    </bean>
+    
+    <bean id="riskGradeChangeHandler4Task" class="cn.redflagsoft.base.service.impl.RiskGradeChangeHandler4Task">
+     	<property name="riskRuleService" ref="riskRuleService"/>
+     	<property name="taskService" ref="taskService"/>
+    </bean>
+    
+    <bean id="logService" class="cn.redflagsoft.base.service.impl.LogServiceImpl">
+        <property name="logDao" ref="logDao"/>
+    </bean>
+    
+    <bean id="riskMessageService" class="cn.redflagsoft.base.service.impl.RiskMessageServiceImpl">
+        <property name="riskMessageDao" ref="riskMessageDao"/>
+    </bean>
+    
+    <bean id="taskMatterService" class="cn.redflagsoft.base.service.impl.TaskMatterServiceImpl">
+    	<property name="taskMatterDao" ref="taskMatterDao"/>
+    </bean>
+    
+     <bean id="eventMsgService" class="cn.redflagsoft.base.service.impl.EventMsgServiceImpl">
+    	<property name="eventMsgDao" ref="eventMsgDao"/>
+    	<property name="msgTemplateService" ref="smsgTemplateService"/>
+    	<property name="holidayService" ref="holidayService"/>
+    	<property name="objectService" ref="objectService"/>
+    	<property name="taskService" ref="taskService"/>
+    	<property name="schemeManager" ref="schemeManager"/>
+    	<property name="eventMsgCache" ref="eventMsgCache"/>
+    	<property name="eventMsgListCache" ref="eventMsgListCache"/>
+    	<property name="peoplesDao" ref="peoplesDao"></property>
+    </bean>
+    
+    <bean id="smsgTemplateService" class="cn.redflagsoft.base.service.impl.SmsgTemplateServiceImpl">
+    	<property name="taskService" ref="taskService"/>
+    	<property name="riskService" ref="riskService"/>
+    	<property name="entityObjectLoader" ref="entityObjectLoader" />
+    </bean>
+    
+    <bean id="orgGroupService" class="cn.redflagsoft.base.service.impl.OrgGroupServiceImpl">
+    	<property name="orgGroupDao" ref="orgGroupDao"></property>
+    	<property name="entityGroupDao" ref="entityGroupDao"></property>
+    </bean>
+    
+    <bean id="clerkGroupService" class="cn.redflagsoft.base.service.impl.ClerkGroupServiceImpl">
+    	<property name="groupDao" ref="groupDao"></property>
+    	<property name="clerkGroupDao" ref="clerkGroupDao"></property>
+    	<property name="clerkService" ref="clerkService"></property>
+    </bean>
+    
+    
+    <!-- 打印处理器，被拦截器调用 -->
+   	<bean id="printHandler" class="cn.redflagsoft.base.service.impl.PrintHandlerImpl">
+    	<property name="attachmentManager" ref="attachmentManager"/>
+    </bean>
+        
+	<!-- QueryService -->
+	<!-- 
+	<bean id="queryService" class="cn.redflagsoft.base.service.impl.QueryServiceImpl2">
+    	<property name="hibernateDao" ref="attachmentDao"/>
+    	<property name="queries">
+    		<map>
+    			<entry key="addressTest" value="select new map(id as id, name as name) from Address a; select count(*) from Address a"/>
+    			<entry key="id" value="select a from SysId a; select count(*) from SysId a"/>
+    		</map>
+    	</property>	
+    	<property name="selectDataSourceService" ref="selectDataSourceService"></property>
+    </bean>
+    -->
+    
+    
+    <!-- 实际应用中，定义这个map即可 -->
+    <!-- 
+    <util:map id="queries">
+    	<entry key="addressTest" value="select a from Address a; select count(*) from Address a"/>   
+	</util:map>  
+	-->
+	
+	<util:properties id="queryProps" location="classpath:queries.properties"/>
+	
+	<!-- 
+	<bean id="queryManager" class="org.opoo.apps.query.impl.QueryManagerImpl">
+		<property name="parametersBuilder" ref="parametersBuilder"></property>
+		<property name="hibernateQuerySupport" ref="hibernateQuerySupport"></property>
+		<property name="statistics" ref="queryStatistics"></property>
+		<property name="statisticsImplementor" ref="queryStatistics"></property>
+	</bean>
+	-->
+	
+	<bean id="queryManager" class="cn.redflagsoft.base.service.impl.BaseQueryManagerImpl">
+		<property name="parametersBuilder" ref="parametersBuilder"></property>
+		<property name="hibernateQuerySupport" ref="hibernateQuerySupport"></property>
+		<property name="statistics" ref="queryStatistics"></property>
+		<property name="statisticsImplementor" ref="queryStatistics"></property>
+	</bean>
+	
+	<bean id="queryStatistics" class="org.opoo.apps.query.stat.StatisticsImpl"/>
+	
+	
+	<!-- 参数组装器，结构过滤器组装器 -->
+	<bean id="parametersBuilder" class="cn.redflagsoft.base.support.RFSParametersBuilder">
+	</bean>
+	
+	
+	
+	<!-- codeGeneratorProvider -->
+    <bean id="codeGeneratorProvider" class="cn.redflagsoft.base.codegenerator.DefaultCodeGeneratorProvider">
+    	<property name="defaultCodeGenerator" ref="dateBasedCodeGenerator"/>
+        <property name="codeGenerators">
+        	<map>
+        		<entry key="Task" value-ref="taskCodeGenerator"/>
+        	</map>
+        </property>
+    </bean>
+    
+    <bean id="taskCodeGenerator" class="cn.redflagsoft.base.codegenerator.TaskCodeGenerator">
+    	<property name="codeService" ref="codeService"/>
+    </bean>
+    
+	<!-- 
+	<bean id="taskTypeCodeGenerator" class="cn.redflagsoft.base.codegenerator.TaskTypeCodeGenerator">
+		<property name="codeService" ref="codeService"/>
+	</bean>
+	-->
+    
+    <bean id="dateBasedCodeGenerator" class="cn.redflagsoft.base.codegenerator.DateBasedCodeGenerator">
+    	<property name="codeService" ref="codeService"/>
+    </bean>
+    
+    <bean id="objectDataService" class="cn.redflagsoft.base.service.impl.ObjectDataServiceImpl">
+    	<property name="objectDataDao" ref="objectDataDao"></property>
+    </bean>
+    
+    
+    
+    
+    
+    <!-- scheme -->
+    
+    <bean id="mattersHandler.old" class="cn.redflagsoft.base.scheme.MattersHandlerImpl">
+    	<property name="bizTrackNodeInstanceService" ref="bizTrackNodeInstanceService"/>
+    	<property name="matterAffairService" ref="matterAffairService"/>
+    	<property name="taskService" ref="taskService"/>
+    	<property name="threadService" ref="threadService"/>
+    	<property name="workService" ref="workService"/>
+    	<property name="clueService" ref="clueService"/>
+    	<property name="jobService" ref="jobService"/>
+    	<property name="objectsService" ref="objectsService"/>
+    	<property name="objectService" ref="objectService"/>
+    	<property name="eventMsgService" ref="eventMsgService"/>
+    </bean>
+    
+
+	<bean id="menuGroupScheme" class="cn.redflagsoft.base.scheme.schemes.menu.MenuGroupScheme" scope="prototype">
+		<property name="menuManager" ref="menuManager"/>
+	</bean>
+
+	<bean id="menuScheme" class="cn.redflagsoft.base.scheme.schemes.menu.MenuScheme" scope="prototype">
+		<property name="menuManager" ref="menuManager"/>
+	</bean>
+
+	<bean id="orgScheme" class="cn.redflagsoft.base.scheme.schemes.entity.OrgScheme" scope="prototype">
+		<property name="orgService" ref="orgService"/>
+		<property name="orgGroupService" ref="orgGroupService"/>
+		<property name="orgCategoryToRoleDao" ref="orgCategoryToRoleDao"/>
+		<property name="orgCategoryToOrgGroupDao" ref="orgCategoryToOrgGroupDao"/>
+		<property name="orgCategoryDao" ref="orgCategoryDao"/>
+	</bean>
+	
+	<bean id="orgGroupScheme" class="cn.redflagsoft.base.scheme.schemes.entity.OrgGroupScheme" scope="prototype">
+		<property name="orgGroupService" ref="orgGroupService"/>
+	</bean>
+
+	<bean id="entityGroupScheme" class="cn.redflagsoft.base.scheme.schemes.entity.EntityGroupScheme" scope="prototype">
+		<property name="entityGroupService" ref="entityGroupService"/>
+	</bean>
+	
+	<bean id="clerkScheme" class="cn.redflagsoft.base.scheme.schemes.user.ClerkScheme" scope="prototype">
+		<property name="clerkService" ref="clerkService"/>
+		<property name="clerkGroupService" ref="clerkGroupService"/>
+	</bean>	
+	
+	
+     <bean id="clerkGroupScheme" class="cn.redflagsoft.base.scheme.schemes.user.ClerkGroupScheme" scope="prototype">
+    	<property name="clerkGroupService" ref="clerkGroupService"></property>
+    </bean>	
+    
+    <bean id="cautionScheme" class="cn.redflagsoft.base.scheme.schemes.caution.CautionScheme" scope="prototype">
+    	<property name="cautionService" ref="cautionService"></property>
+    	<property name="riskService" ref="riskService"></property>
+    	<property name="clerkService" ref="clerkService"></property>
+    	<property name="cautionNotifyService" ref="cautionNotifyService"></property>
+    	<property name="orgService" ref="orgService"></property>
+    </bean>
+    
+    
+    <bean id="riskScheme" class="cn.redflagsoft.base.scheme.schemes.risk.RiskScheme" scope="prototype">
+    	<property name="taskService" ref="taskService"></property>
+    	<property name="riskService" ref="riskService"></property>
+    	<property name="riskRuleService" ref="riskRuleService"></property>
+    	<property name="entityObjectLoader" ref="entityObjectLoader"></property>
+    </bean>
+	
+
+	<!-- WorkProcess   -->
+    
+    <bean id="emptyWorkProcess" class="cn.redflagsoft.base.process.EmptyWorkProcess" scope="prototype"/>
+    
+    <bean id="phraseWorkProcess" class="cn.redflagsoft.base.process.impl.PhraseWorkProcess" scope="prototype">
+    	<property name="phraseService" ref="phraseService"/>
+    </bean>
+    
+    <bean id="receiverWorkProcess" class="cn.redflagsoft.base.process.impl.ReceiverWorkProcess" scope="prototype">
+    	<property name="receiverService" ref="receiverService"/>
+    </bean>
+    
+    <bean id="receiverWorkProcess2" class="cn.redflagsoft.base.process.impl.ReceiverWorkProcess2" scope="prototype">
+    	<property name="receiverService" ref="receiverService"/>
+    	<property name="clerkService" ref="clerkService"/>
+    </bean>
+    
+      <bean id="transmitWorkProcess" class="cn.redflagsoft.base.process.impl.TransmitWorkProcess" scope="prototype">
+    	<property name="taskService" ref="taskService"/>
+    </bean>
+    
+    <bean id="datumWorkProcess" class="cn.redflagsoft.base.process.impl.DatumWorkProcess" scope="prototype">
+    	<property name="datumService" ref="datumService"/>
+    </bean>
+    
+    <bean id="datumCategoryWorkProcess" class="cn.redflagsoft.base.process.impl.DatumCategoryWorkProcess" scope="prototype">
+    	<property name="datumCategoryService" ref="datumCategoryService"/>
+    </bean>
+    
+    <bean id="datumCategoryWithDataWorkProcess" class="cn.redflagsoft.base.process.impl.DatumCategoryWithDataWorkProcess" scope="prototype">
+    	<property name="datumCategoryWithDataService" ref="datumCategoryWithDataService"/>
+    </bean>
+    
+    <bean id="matterDatumWorkProcess" class="cn.redflagsoft.base.process.impl.MatterDatumWorkProcess" scope="prototype">
+    	<property name="matterDatumService" ref="matterDatumService"/>
+    </bean>
+    
+	<bean id="planMonitorQueryProcess" class="cn.redflagsoft.base.process.impl.PlanMonitorQueryProcess" scope="prototype">
+		<property name="planMonitorService" ref="planMonitorService"/> 
+	</bean>    
+    
+    <bean id="planMonitorDetailWorkProcess" class="cn.redflagsoft.base.process.impl.PlanMonitorDetailWorkProcess" scope="prototype">
+    	<property name="planMonitorDetailService" ref="planMonitorDetailService"/>
+    </bean>    
+    
+    <!--  由于个别方法需要具体项目的方法来支持，不能直接使用objectService，所以将这个配置移
+    		到具体项目的配置中。-->
+    <bean id="objectRiskSummaryProcess" class="cn.redflagsoft.base.process.impl.ObjectRiskSummaryProcess" scope="prototype">
+    	<property name="objectService" ref="objectService"/>
+    </bean>
+    
+    
+    
+    <bean id="todayWorkHintWorkProcess" class="cn.redflagsoft.base.process.impl.TodayWorkHintWorkProcess" scope="prototype">
+    	<property name="taskService" ref="taskService"/>
+    </bean>
+
+    <bean id="riskTreeProcess" class="cn.redflagsoft.base.process.impl.RiskTreeProcess" scope="prototype">
+    	<property name="riskService" ref="riskService"/>
+    </bean>
+    
+    <bean id="taskBusinessSurveyProcess" class="cn.redflagsoft.base.process.impl.TaskBusinessSurveyProcess" scope="prototype">
+    	<property name="taskService" ref="taskService"/>
+    </bean>
+    
+    <bean id="taskBusinessLogProcess" class="cn.redflagsoft.base.process.impl.TaskBusinessLogProcess" scope="prototype">
+    	<property name="taskService" ref="taskService"/>
+    </bean>
+    
+    <bean id="objectDatumProcess" class="cn.redflagsoft.base.process.impl.ObjectDatumProcess" scope="prototype">
+    	<property name="datumAttachmentService" ref="datumAttachmentService"/>
+    </bean>
+    
+    <bean id="objectTaskRiskSummaryProcess" class="cn.redflagsoft.base.process.impl.ObjectTaskRiskSummaryProcess" scope="prototype">
+    	<property name="riskService" ref="riskService"/>
+    </bean>
+    
+    <bean id="acceptMessageProcess" class="cn.redflagsoft.base.process.impl.AcceptMessageProcess" scope="prototype">
+    	<property name="messageService" ref="messageService"/>
+    </bean>
+    
+    <bean id="sendingMessageProcess" class="cn.redflagsoft.base.process.impl.SendingMessageWorkProcess" scope="prototype">
+    	<property name="messageService" ref="messageService"/>
+    	<property name="clerkService" ref="clerkService"/>
+    </bean>
+ 
+    
+    <bean id="publicMessageWorkProcess" class="cn.redflagsoft.base.process.impl.PublicMessageWorkProcess" scope="prototype">
+    	<property name="messageService" ref="messageService"/>
+    </bean>    
+	
+	<bean id="addOrUpdateMsgWorkProcess" class="cn.redflagsoft.base.process.impl.AddOrUpdateMsgWorkProcess" scope="prototype">
+    	<property name="msgDao" ref="msgDao"/>
+    </bean>   
+	
+	<!-- 发消息、保存草稿 -->
+    <bean id="postSendingMsgWorkProcess" class="cn.redflagsoft.base.process.impl.PostSendingMsgWorkProcess" scope="prototype">
+    	<property name="messageService" ref="messageService"/>
+    </bean> 
+    
+    <bean id="monitorProcess" class="cn.redflagsoft.base.process.impl.MonitorProcess" scope="prototype">
+    	<property name="taskService" ref="taskService"/>
+    </bean>
+    
+    <bean id="historyMonitorProcess" class="cn.redflagsoft.base.process.impl.HistoryMonitorProcess" scope="prototype">
+    	<property name="historyRiskService" ref="historyRiskService"/>
+    </bean>
+    
+    <bean id="checkNewMessageWorkProcess" class="cn.redflagsoft.base.process.impl.CheckNewMessageWorkProcess" scope="prototype">
+    	<property name="smsgService" ref="smsgService"/>
+    </bean>
+    
+    
+    <bean id="addObjectDatumWorkProcess" class="cn.redflagsoft.base.process.impl.AddObjectDatumWorkProcess" scope="prototype">
+    	<property name="datumService" ref="datumService"/>
+    </bean>
+    
+    <bean id="emptyImportCompleteWorkProcess" class="cn.redflagsoft.base.process.impl.EmptyImportCompleteWorkProcess" scope="prototype">
+    </bean>
+
+	<bean id="dutyChangeWorkProcess" class="cn.redflagsoft.base.process.impl.DutyChangeWorkProcess" scope="prototype">
+    	<property name="objectService" ref="objectService"/>
+    	<property name="taskService" ref="taskService"/>
+    	<property name="riskService" ref="riskService"/>
+    </bean>
+	
+	<bean id="finishConfirmSendingMsgWorkProcess" class="cn.redflagsoft.base.process.impl.FinishConfirmSendingMsgWorkProcess" scope="prototype">
+    	<property name="messageService" ref="messageService"/>
+    </bean>
+    
+    <bean id="cancelMsgWorkProcess" class="cn.redflagsoft.base.process.impl.CancelMsgWorkProcess" scope="prototype">
+    	<property name="messageService" ref="messageService"/>
+    </bean>
+	
+	<bean id="deleteMsgWorkProcess" class="cn.redflagsoft.base.process.impl.DeleteMsgWorkProcess" scope="prototype">
+    	<property name="messageService" ref="messageService"/>
+    </bean>
+    
+    <bean id="cancelSendIngMsgWorkProcess" class="cn.redflagsoft.base.process.impl.CancelSendingMsgWorkProcess" scope="prototype">
+    	<property name="messageService" ref="messageService"/>
+    </bean>
+    <!-- 
+    	不使用拦截器时使用以下四种任意一种即可，推荐使用annotationAwareWorkProcessManager，
+    	使用拦截器时应该使用SpringContextWorkProcessManager或者ReflectionWorkProcessManager，
+    	并且是使用参数拦截器时，必须将各个WorkProcess的scope定义为prototype。
+     -->
+    <!-- 
+    <bean id="annotationAwareWorkProcessManager" class="cn.redflagsoft.base.process.AnnotationAwareWorkProcessManager"/>
+    <bean id="beanTypeAwareWorkProcessManager" class="cn.redflagsoft.base.process.BeanTypeAwareWorkProcessManager"/>
+    <bean id="simpleWorkProcessManager" class="cn.redflagsoft.base.process.SimpleWorkProcessManager">
+    	<property name="workProcesses">
+	    	<map>
+	        	<entry key="-1001" value-ref="emptyWorkProcess"></entry>
+	        </map>
+        </property>
+    </bean>
+    <bean id="listWorkProcessManager" class="cn.redflagsoft.base.process.ListWorkProcessManager">
+    	<property name="listWorkProcesses">
+	    	<list>
+	        	<ref bean="emptyWorkProcess"/>
+	        </list>
+        </property>
+    </bean>
+    -->
+    <bean id="workProcessManager" class="cn.redflagsoft.base.process.SpringContextWorkProcessManager">
+    	<property name="optimize" value="true"></property>
+    	<property name="autowire" value="true"></property>
+    	<property name="proxied" value="true"></property>
+    	<property name="workProcessAdvices">
+    		<list>
+    			<bean class="cn.redflagsoft.base.aop.interceptor.ParametersInterceptor"/>
+    			<bean class="cn.redflagsoft.base.process.interceptor.TestBeforeAdvice"/>
+    		</list>
+    	</property>
+    </bean>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <!-- WorkScheme -->
+    <bean id="workSchemeManager" class="cn.redflagsoft.base.scheme.SpringContextWorkSchemeManager"></bean>
+    
+    <bean id="schemeManager" class="cn.redflagsoft.base.scheme.SpringContextSchemeManager"></bean>
+    
+    <!-- 
+	<bean id="workScheme" abstract="true" class="cn.redflagsoft.base.workscheme.AbstractWorkScheme">
+     	<property name="workProcesssManager" ref="workProcessManager"/>
+     	<property name="taskService" ref="taskService"/>
+     	<property name="workService" ref="workService"/>
+     	<property name="datumService" ref="datumService"/>
+    </bean>
+    -->
+    
+    
+    <bean id="abstractWorkScheme" abstract="true" class="cn.redflagsoft.base.scheme.AbstractWorkScheme">
+     	<property name="workProcessManager" ref="workProcessManager"/>
+     	<property name="taskService" ref="taskService"/>
+     	<property name="workService" ref="workService"/>
+     	<property name="phraseService" ref="phraseService"/>
+     	<property name="mattersHandler" ref="mattersHandler"></property> 
+     	<property name="clerkService" ref="clerkService"></property>
+     	<property name="workDefProvider" ref="workDefProvider"></property>
+     	<property name="printHandler" ref="printHandler"></property>
+    </bean>
+    
+    <!-- 示例WorkScheme -->
+    <!-- 
+    <bean id="sampleWorkScheme" parent="abstractWorkScheme" class="cn.redflagsoft.base.scheme.SampleWorkScheme" scope="prototype">
+    	<property name="taskType" value="-1001"/>
+     	<property name="workType" value="-1001"/>
+    </bean>
+    -->
+    
+    
+    <bean id="userScheme" class="cn.redflagsoft.base.scheme.schemes.user.UserScheme" scope="prototype">
+    	<property name="userManager" ref="userManager"></property>
+    	<property name="clerkService" ref="clerkService"></property>
+    	<property name="orgService" ref="orgService"></property>
+<!--    	<property name="menuDao" ref="menuDao"></property>-->
+    </bean>
+    
+    <bean id="groupScheme" class="cn.redflagsoft.base.scheme.schemes.user.GroupScheme" scope="prototype">
+    	<property name="userManager" ref="userManager"></property>
+    	<property name="clerkService" ref="clerkService"></property>
+    	<property name="menuManager" ref="menuManager"></property>
+    </bean>
+    
+    <bean id="importCompleteScheme" class="cn.redflagsoft.base.scheme.schemes.ImportCompleteScheme" scope="prototype">
+    	<property name="workProcessManager" ref="workProcessManager"/>
+    	<property name="schemeManager" ref="schemeManager"></property>
+    	<property name="cache" ref="importDataCache"></property>
+    </bean>
+    
+    <bean id="datumScheme" class="cn.redflagsoft.base.scheme.schemes.datum.DatumScheme" scope="prototype">
+    	<property name="datumService" ref="datumService"></property>
+    	<property name="objectDataService" ref="objectDataService"></property>
+    	<property name="objectsService" ref="objectsService"></property>
+    </bean>
+    
+    <bean id="fileOperationScheme" class="cn.redflagsoft.base.scheme.schemes.datum.FileOperationScheme" scope="prototype">
+    	<property name="auditManager" ref="auditManager"></property>
+    </bean>
+     
+    <!-- 选择性打印 -->
+	<bean id="checkedItemsPrintScheme" class="cn.redflagsoft.base.scheme.schemes.CheckedItemsPrintScheme" scope="prototype">
+		<property name="schemeManager" ref="schemeManager"></property>
+		<property name="workProcessManager" ref="workProcessManager"></property>
+		<property name="queryService" ref="queryService"></property>
+	</bean> 
+     
+     
+	<!-- 文件导入处理器    -->
+    <bean id="importFileHandler" abstract="true" class="cn.redflagsoft.base.io.ImportFileHandler">
+   		<property name="cache" ref="importDataCache"></property>
+    </bean>
+    
+    
+    
+    <bean id="riskLogService" class="cn.redflagsoft.base.service.impl.RiskLogServiceImpl">
+    	<property name="riskLogDao" ref="riskLogDao"></property>
+    	<property name="taskDao" ref="taskDao"/>
+		<property name="taskMatterDao" ref="taskMatterDao"/>
+		<property name="entityObjectLoader" ref="entityObjectLoader"/>
+		<property name="objectInfoService" ref="objectInfoService"/>
+		<property name="peoplesDao" ref="peoplesDao"/>
+		<property name="eventMsgService" ref="eventMsgService"/>
+		<property name="riskService" ref="riskService"/>
+		<property name="orgDao" ref="orgDao"/>
+		<property name="glossaryService" ref="glossaryService"/>
+		<property name="clerkService" ref="clerkService"/>
+     </bean>	
+     
+
+    
+	<bean id="objectInfoService" class="cn.redflagsoft.base.service.impl.ObjectInfoServiceImpl"/>
+			
+	<bean id="userLoginListener" class="cn.redflagsoft.base.security.UserLoginApplicationListener">
+		<property name="auditManager" ref="auditManager"></property>
+	</bean>
+	
+	<bean id="msgTemplateService" class="cn.redflagsoft.base.service.impl.MsgTemplateServiceImpl">
+		<property name="taskService" ref="taskService"></property>
+		<property name="riskService" ref="riskService"></property>
+		<property name="clerkService" ref="clerkService"></property>
+		<property name="orgService" ref="orgService"></property>
+		<property name="objectInfoService" ref="objectInfoService"></property>
+		<property name="objectTaskDao" ref="objectTaskDao"></property>
+	</bean>
+	
+	<bean id="taskDefProvider" class="cn.redflagsoft.base.service.impl.MultiProviderTaskDefProvider">
+		<property name="taskDefCache" ref="taskDefCache"></property>
+	</bean>
+	
+	<bean id="workDefProvider" class="cn.redflagsoft.base.service.impl.MultiProviderWorkDefProvider">
+		<property name="workDefCache" ref="workDefCache"></property>
+	</bean>
+	
+	<bean id="auditManager" class="cn.redflagsoft.base.audit.proxy.AuditManagerProxy"/>
+	
+	
+	
+	<bean id="aceManager" class="cn.redflagsoft.base.security.impl.AceManagerImpl">
+		<property name="resource" value="classpath:acl.xml"></property>
+	</bean>
+	
+	<bean id="permissionsManager1" class="cn.redflagsoft.base.security.impl.PermissionsManagerImpl1">
+		<property name="permsDao" ref="permsDao"></property>
+		<property name="userManager" ref="userManager"></property>
+		<property name="groupManager" ref="userManager"></property>
+		<property name="userPermsCache" ref="userPermsCache"></property>
+		<property name="groupPermsCache" ref="groupPermsCache"></property>
+	</bean>
+	
+	<bean id="permissionsManager2" class="cn.redflagsoft.base.security.impl.PermissionsManagerImpl2">
+		<property name="permsDao" ref="permsDao"></property>
+		<property name="permsCache" ref="permsCache"></property>
+		<property name="userManager" ref="userManager"></property>
+		<property name="groupManager" ref="userManager"></property>
+	</bean>
+
+	<bean id="permissionsManager" class="cn.redflagsoft.base.security.proxy.PermissionsManagerProxy">
+		<property name="permissionsManagerBasedOnSidCache" ref="permissionsManager1"></property>
+		<property name="permissionsManagerBasedOnAceCache" ref="permissionsManager2"></property>
+	</bean>
+	
+	<bean id="aclManager" class="cn.redflagsoft.base.security.impl.AclManagerImpl">
+		<property name="aceManager" ref="aceManager"></property>
+		<property name="permissionsManager" ref="permissionsManager"></property>
+	</bean>
+	
+	<bean id="groupAclScheme" class="cn.redflagsoft.base.scheme.schemes.acl.GroupAclScheme" scope="prototype">
+		<property name="aclManager" ref="aclManager"></property>
+		<property name="permissionsManager" ref="permissionsManager"></property>
+		<property name="groupManager" ref="userManager"></property>
+	</bean>
+	
+	<bean id="userAclScheme" class="cn.redflagsoft.base.scheme.schemes.acl.UserAclScheme" scope="prototype">
+		<property name="aclManager" ref="aclManager"></property>
+		<property name="permissionsManager" ref="permissionsManager"></property>
+		<property name="userManager" ref="userManager"></property>
+	</bean>
+	
+	
+	<bean id="selectDataSourceService" class="cn.redflagsoft.base.service.impl.SelectDataSourceServiceImpl" >
+		<property name="selectDataSourceDao" ref="selectDataSourceDao" />
+	</bean>
+	
+	<!-- 人员选择器抽象类 -->
+	<bean id="abstractClerkSelectDataHandler" class="cn.redflagsoft.base.service.impl.AbstractClerkSelectDataHandler" abstract="true">
+		<property name="clerkGroupDao" ref="clerkGroupDao" />
+		<property name="userManager" ref="userManager" />
+	</bean>
+	<!-- 单位选择器抽象类 -->
+	<bean id="abstractOrgSelectDataHandler" class="cn.redflagsoft.base.service.impl.AbstractOrgSelectDataHandler" abstract="true">
+		<property name="orgGroupService" ref="orgGroupService" />
+	</bean>
+	
+	
+	<!-- 单位分组中的单位 -->
+	<bean id="orgInOrgGroupSelectDataHandler" class="cn.redflagsoft.base.service.impl.OrgInOrgGroupSelectDataHandler" parent="abstractOrgSelectDataHandler">
+		<property name="orgDao" ref="orgDao" />
+	</bean>
+	
+	<!-- 指定人员分组指定单位的人员 -->
+	<bean id="clerkInClerkGroupAndOrgSelectDataHandler" 
+		class="cn.redflagsoft.base.service.impl.ClerkInClerkGroupAndOrgSelectDataHandler" parent="abstractClerkSelectDataHandler">
+		<property name="clerkService" ref="clerkService" />
+	</bean>
+	
+	<!-- 人员分组中的人员 -->
+	<bean id="clerkInClerkGroupSelectDataHandler" class="cn.redflagsoft.base.service.impl.ClerkInClerkGroupSelectDataHandler" parent="abstractClerkSelectDataHandler">
+		<property name="clerkService" ref="clerkService" />
+		<property name="clerkDao" ref="clerkDao" />
+	</bean>
+	<!-- 单位分组中的人员 -->
+	<bean id="clerkInOrgGroupSelectDataHandler" class="cn.redflagsoft.base.service.impl.ClerkInOrgGroupSelectDataHandler" parent="abstractClerkSelectDataHandler">
+		<property name="orgGroupService" ref="orgGroupService" />
+		<property name="clerkService" ref="clerkService" />
+	</bean>
+	<!-- 单位中的人员 -->
+	<bean id="clerkInOrgSelectDataHandler" class="cn.redflagsoft.base.service.impl.ClerkInOrgSelectDataHandler" parent="abstractClerkSelectDataHandler">
+		<property name="clerkService" ref="clerkService" />
+	</bean>
+	
+	<bean id="enumSelectDataHandler" class="cn.redflagsoft.base.service.impl.EnumSelectDataHandler" >
+	</bean>
+	
+	<bean id="objectEntityScheme" class="cn.redflagsoft.base.scheme.schemes.objects.ObjectEntityScheme" abstract="true">
+		<property name="objectEntityService" ref="objectEntityService"></property>
+	</bean>
+	
+	<bean id="objectPeopleScheme" class="cn.redflagsoft.base.scheme.schemes.objects.ObjectPeopleScheme" abstract="true">
+		<property name="objectPeopleService" ref="objectPeopleService"></property>
+	</bean>
+	
+	<!-- 结果过滤器组装器 -->
+	<!-- 
+	<bean id="resultFilterBuilder" class="cn.redflagsoft.base.service.impl.ResultFilterBuilderImpl" depends-on="queryService">
+		<property name="parametersSetter" ref="parametersSetter"></property>
+		<property name="parametersBuilder">
+			<util:property-path path="queryService.parametersBuilder"/>
+		</property>
+	</bean>
+	-->
+	<bean id="resultFilterBuilder" class="cn.redflagsoft.base.service.impl.ResultFilterBuilderImpl">
+		<property name="parametersSetter" ref="parametersSetter"/>
+		<property name="parametersBuilder" ref="parametersBuilder"/>
+	</bean>
+	
+	
+	
+	<!-- 系统消息管理器 -->
+	<bean id="systemMessageManager" class="cn.redflagsoft.base.service.impl.SystemMessageManagerImpl">
+		<property name="autoPublish" value="true"></property>
+	</bean>
+	
+	<bean id="systemMessageScheme" class="cn.redflagsoft.base.scheme.schemes.sysmsg.SystemMessageScheme"  scope="prototype">
+		<property name="systemMessageManager" ref="systemMessageManager"></property>
+	</bean>
+	
+	<!-- 
+		20110512
+		新版的业务驱动类，需要在WorkScheme注入这个新类，为了避免已经依赖该包的其他项目产生误差，
+		所以默认的abstractWorkScheme配置不变，保持向前兼容。
+		需要用到这个新特性的项目自行处理注入配置。
+	 -->
+	<bean id="mattersHandlerV2" class="cn.redflagsoft.base.scheme.MattersHandlerImplV2">
+    	<property name="bizTrackNodeInstanceService" ref="bizTrackNodeInstanceService"/>
+    	<property name="matterAffairService" ref="matterAffairService"/>
+    	<property name="taskService" ref="taskService"/>
+    	<property name="threadService" ref="threadService"/>
+    	<property name="workService" ref="workService"/>
+    	<property name="clueService" ref="clueService"/>
+    	<property name="jobService" ref="jobService"/>
+    	<property name="objectsService" ref="objectsService"/>
+    	<property name="objectService" ref="objectService"/>
+    	<property name="eventMsgService" ref="eventMsgService"/>
+    	<property name="objectOrgClerkService" ref="objectOrgClerkService"></property>
+    	<property name="businessExceptionManager" ref="businessExceptionManager"></property>
+    </bean>
+    
+    <alias name="mattersHandlerV2" alias="mattersHandler"/>
+    
+    <bean id="bizStatisticsService" class="cn.redflagsoft.base.service.impl.BizStatisticsServiceImpl" >
+		<property name="bizStatisticsDao" ref="bizStatisticsDao" />
+		<property name="bizStatisticsDefinitionDao" ref="bizStatisticsDefinitionDao" />
+		<property name="bizStatisticsDefinitionCache" ref="bizStatisticsDefinitionCache"></property>
+	</bean>
+	
+	<bean id="entityObjectLoader" class="cn.redflagsoft.base.service.impl.EntityObjectLoaderImpl"/>
+	
+	<bean id="loadObject" class="cn.redflagsoft.base.scheme.schemes.EntityObjectLoaderScheme" scope="prototype">
+		<property name="entityObjectLoader" ref="entityObjectLoader"></property>
+		<property name="method" value="load"></property>
+	</bean>
+	
+	<bean id="transmitTask" parent="abstractWorkScheme"
+		class="cn.redflagsoft.base.scheme.schemes.task.TransmitOrDistributeTaskWorkScheme" scope="prototype">
+		<property name="displayName" value="业务转发"></property>
+		<property name="workType" value="21"></property>
+		<property name="method" value="scheme"></property>
+	</bean>
+
+	
+	<bean id="distributeTask" parent="abstractWorkScheme"
+		class="cn.redflagsoft.base.scheme.schemes.task.TransmitOrDistributeTaskWorkScheme" scope="prototype">
+		<property name="displayName" value="业务分发"></property>
+		<property name="workType" value="22"></property>
+		<property name="method" value="scheme"></property>
+	</bean>
+	
+	<bean id="finishTask" parent="abstractWorkScheme"
+		class="cn.redflagsoft.base.scheme.schemes.task.FinishTaskWorkScheme" scope="prototype">
+		<property name="displayName" value="业务结束"></property>
+		<property name="workType" value="30"></property>
+		<property name="method" value="scheme"></property>
+	</bean>
+	
+	<bean id="delayTask" parent="abstractWorkScheme"
+		class="cn.redflagsoft.base.scheme.schemes.task.DelayTaskWorkScheme" scope="prototype">
+		<property name="displayName" value="业务延期"></property>
+		<property name="workType" value="23"></property>
+		<property name="method" value="scheme"></property>
+	</bean>
+	
+	<bean id="deleteTask" parent="abstractWorkScheme"
+		class="cn.redflagsoft.base.scheme.schemes.task.DeleteOrRestoreTaskWorkScheme" scope="prototype">
+		<property name="displayName" value="业务删除"></property>
+		<property name="workType" value="24"></property>
+		<property name="method" value="delete"></property>
+	</bean>
+	
+	<bean id="hangTask" parent="abstractWorkScheme"
+		class="cn.redflagsoft.base.scheme.schemes.task.HangTaskWorkScheme" scope="prototype">
+		<property name="displayName" value="业务暂停"></property>
+		<property name="workType" value="31"></property>
+		<property name="method" value="scheme"></property>
+	</bean>
+	
+	<bean id="restoreTask" parent="abstractWorkScheme"
+		class="cn.redflagsoft.base.scheme.schemes.task.DeleteOrRestoreTaskWorkScheme" scope="prototype">
+		<property name="displayName" value="业务还原"></property>
+		<property name="workType" value="25"></property>
+		<property name="method" value="restore"></property>
+	</bean>
+	
+	<!-- 2011-12-27新增 （业务取消），（业务中止）,(业务转出) ,(业务撤销)-->
+	<bean id="cancelTask" parent="abstractWorkScheme"
+		class="cn.redflagsoft.base.scheme.schemes.task.CancelOrStopTaskWorkScheme" scope="prototype">
+		<property name="displayName" value="业务取消"></property>
+		<property name="workType" value="29"></property>
+		<property name="method" value="cancel"></property>
+	</bean>
+	
+	
+	<bean id="stopTask" parent="abstractWorkScheme"
+		class="cn.redflagsoft.base.scheme.schemes.task.CancelOrStopTaskWorkScheme" scope="prototype">
+		<property name="displayName" value="业务中止"></property>
+		<property name="workType" value="28"></property>
+		<property name="method" value="stop"></property>
+	</bean>
+	
+	<bean id="transferTask" parent="abstractWorkScheme"
+		class="cn.redflagsoft.base.scheme.schemes.task.TransferOrUndoTaskWorkScheme" scope="prototype">
+		<property name="displayName" value="业务转出"></property>
+		<property name="workType" value="27"></property>
+		<property name="method" value="transfer"></property>
+	</bean>
+	
+	<bean id="undoTask" parent="abstractWorkScheme"
+		class="cn.redflagsoft.base.scheme.schemes.task.TransferOrUndoTaskWorkScheme" scope="prototype">
+		<property name="displayName" value="业务撤销"></property>
+		<property name="workType" value="26"></property>
+		<property name="method" value="undo"></property>
+	</bean>
+	
+	<bean id="dutySetDistribute" parent="abstractWorkScheme"
+		class="cn.redflagsoft.base.scheme.schemes.task.DutySetDistributeTaskWorkScheme" scope="prototype">
+		<property name="displayName" value="业务责任分发"></property>
+		<property name="workType" value="32"></property>
+		<property name="method" value="scheme"></property>
+	</bean>
+	
+	<bean id="invalidObjectService" class="cn.redflagsoft.base.service.ObjectService$InvalidObjectService"/>
+	
+	<!-- 消息管理 -->
+	<bean id="smsgService" class="cn.redflagsoft.base.service.impl.SmsgServiceImpl" parent="rfsObjectService">
+		<property name="objectsDao" ref="objectsDao"></property>
+		<property name="objectDao" ref="smsgDao"></property>
+		<property name="taskService" ref="taskService"></property>
+		<property name="smsgReceiverDao" ref="smsgReceiverDao"></property>
+		<property name="clerkService" ref="clerkService"></property>
+		<property name="smsgAttachmentDao" ref="smsgAttachmentDao"></property>
+		<property name="codeGeneratorProvider" ref="codeGeneratorProvider"></property>
+	</bean>
+	
+	<!--  -->
+	<bean id="smsgForCautionService" class="cn.redflagsoft.base.service.impl.SmsgForCautionServiceImpl">
+		<property name="riskService" ref="riskService"></property>
+		<property name="riskRuleService" ref="riskRuleService"></property>
+		<property name="smsgService" ref="smsgService"></property>
+		<property name="entityObjectLoader" ref="entityObjectLoader"></property>
+		<property name="schemeManager" ref="schemeManager" />
+	</bean>
+	
+	<bean id="internalSmsgSender" class="cn.redflagsoft.base.service.impl.SmsgServiceImpl$IntenalSmsgSender">
+		<constructor-arg ref="smsgService"></constructor-arg>
+	</bean>
+	
+	<bean id="smsgSendEventListener" class="cn.redflagsoft.base.service.impl.SmsgServiceImpl$SmsgSendEventListener">
+		<constructor-arg ref="smsgService"></constructor-arg>
+	</bean>
+	
+
+	<!-- 消息 -->
+	<bean id="smsgWorkScheme" class="cn.redflagsoft.base.scheme.schemes.smsg.SmsgWorkScheme"
+		parent="abstractWorkScheme" scope="prototype">
+		<property name="objectService" ref="smsgService" />
+		<!-- 
+		<property name="workType" value="10910111" />
+		<property name="taskType" value="109101" />
+		 -->
+		<property name="matterIds">
+			<list>
+				<value>109</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="createSmsg" parent="smsgWorkScheme" scope="prototype"> 
+		<property name="workType" value="10910111" />
+		<property name="taskType" value="109101" />
+		<property name="method" value="create" />
+		<property name="displayName" value="拟写消息"></property>
+	</bean>
+	<bean id="updateSmsg" parent="smsgWorkScheme" scope="prototype"> 
+		<property name="taskType" value="109109" />
+		<property name="workType" value="10910911" />
+		<property name="method" value="update" />
+		<property name="displayName" value="更新消息"/>
+	</bean>
+	<bean id="checkSmsg" parent="smsgWorkScheme" scope="prototype"> 
+		<property name="taskType" value="109111" />
+		<property name="workType" value="10911111" />
+		<property name="method" value="check" />
+		<property name="displayName" value="审核消息"/>
+	</bean>
+	<bean id="approveSmsg" parent="smsgWorkScheme" scope="prototype"> 
+		<property name="taskType" value="109112" />
+		<property name="workType" value="10911211" />
+		<property name="displayName" value="批准消息"/>
+	</bean>
+	<bean id="publishSmsg" parent="smsgWorkScheme" scope="prototype"> 
+		<property name="taskType" value="109113" />
+		<property name="workType" value="10911311" />
+		<property name="method" value="publish" />
+		<property name="displayName" value="发布消息"/>
+	</bean>
+	<bean id="cancelSmsg" parent="smsgWorkScheme" scope="prototype"> 
+		<property name="taskType" value="109114" />
+		<property name="workType" value="10911411" />
+		<property name="method" value="cancel" />
+		<property name="displayName" value="撤销消息"/>
+	</bean>
+	<bean id="deleteSmsg" parent="smsgWorkScheme" scope="prototype"> 
+		<property name="taskType" value="109115" />
+		<property name="workType" value="10911511" />
+		<property name="method" value="delete" />
+		<property name="displayName" value="删除消息"/>
+	</bean>
+	<bean id="sendSmsg" parent="smsgWorkScheme" scope="prototype"> 
+		<property name="taskType" value="109116" />
+		<property name="workType" value="10911611" />
+		<property name="method" value="send" />
+		<property name="displayName" value="发送消息"/>
+	</bean>
+	<bean id="readSmsg" parent="smsgWorkScheme" scope="prototype"> 
+		<property name="taskType" value="109117" />
+		<property name="workType" value="10911711" />
+		<property name="method" value="read" />
+		<property name="displayName" value="阅读消息"/>
+	</bean>
+	
+	<!-- 警示 
+	<bean id="cautionWorkScheme" class="cn.redflagsoft.base.scheme.schemes.caution.CautionWorkScheme" 
+		parent="abstractWorkScheme" abstract="true">
+    	<property name="riskService" ref="riskService"></property>
+    	<property name="objectService" ref="cautionService" />
+		<property name="workType" value="11110111" />
+		<property name="taskType" value="111101" />
+		<property name="matterIds">
+			<list>
+				<value>111</value>
+			</list>
+		</property>
+    </bean>
+    
+    <bean id="createCaution" parent="cautionWorkScheme" scope="prototype"> 
+    	<property name="workType" value="11110111" />
+		<property name="method" value="scheme" />
+		<property name="displayName" value="警示登记"/>
+    </bean>
+    -->
+    <bean id="abstractObjectAdminWorkScheme" class="cn.redflagsoft.base.scheme.schemes.commons.AbstractObjectAdminWorkScheme" 
+    	parent="abstractWorkScheme" abstract="true">
+    	<property name="objectAdminService" ref="objectAdminService"></property>
+    	<property name="riskService" ref="riskService"></property>
+    </bean>
+	
+	
+	
+	<!--  	
+	private TaskService taskService;
+	private TaskDao taskDao;
+	private EventMsgService eventMsgService;
+	
+	private int taskType = 0;
+	private int workType = 0;//可以不设置
+	private List<Long> matterIds;
+	
+	//是否在创建task之前再做一次检查，如果查询对象时已经检查过，一般也可能不需要再次检查
+	private boolean requireCheck = true;
+	
+	//Now,StartOfToday,EndOfToday,StartOfMonth,EndOfMonth,StartOfYear,EndOfYear,StartOfWeek,EndOfWeek
+	private TimeDescriptor beginTimeDescriptor = TimeDescriptor.StartOfMonth;
+
+	//None,Daily,Weekly,Monthly,Yearly
+	private TimeFrequency frequency = TimeFrequency.Monthly;
+	-->
+	<bean id="createObjectTaskHandler" class="cn.redflagsoft.base.service.impl.CreateObjectTaskHandler" abstract="true">
+		<property name="taskService" ref="taskService"></property>
+		<property name="taskDao" ref="taskDao"></property>
+		<property name="eventMsgService" ref="eventMsgService"></property>
+		<property name="requireCheck" value="true"></property>
+		<property name="beginTimeDescriptor" value="StartOfMonth"></property>
+		<property name="frequency" value="Monthly"></property>
+		<!-- 
+		<property name="taskType" value="0"></property>
+		<property name="workType" value="0"></property>
+		<property name="matterIds">
+			<list>
+				<value>0</value>
+			</list>
+		</property>
+		-->
+	</bean>
+	
+	
+	
+	<bean id="statistics" class="cn.redflagsoft.base.stat.StatisticsImpl"></bean>
+	
+	<bean id="statisticsLifecycle" class="cn.redflagsoft.base.stat.StatisticsLifecycle">
+		<property name="statistics" ref="statistics"></property>
+	</bean>
+	
+	<!-- 
+	<bean id="mbeanServer" class="java.lang.management.ManagementFactory" 
+	 	factory-method="getPlatformMBeanServer"/>
+
+    <bean id="jmxExporter" class="org.springframework.jmx.export.MBeanExporter">
+        <property name="assembler" ref="jmxAssembler"/>
+        <property name="namingStrategy" ref="jmxNamingStrategy"/>
+        <property name="server" ref="mbeanServer"/>
+    	<property name="beans">
+    		<map>
+    			<entry key="rfs:name=statistics" value-ref="statisticsMBean"></entry>
+    		</map>
+    	</property>
+    </bean>
+
+   	<bean id="statisticsMBean" class="cn.redflagsoft.base.stat.StatisticsService">
+   		<property name="statistics" ref="statistics"></property>
+   	</bean>
+    -->
+    
+    
+   	<bean id="objectOrgClerkService" class="cn.redflagsoft.base.service.impl.ObjectOrgClerkServiceImpl">
+		<property name="objectOrgClerkDao" ref="objectOrgClerkDao"></property>
+	</bean>
+	
+	<bean id="datumAccessLogService" class="cn.redflagsoft.base.service.impl.DatumAccessLogServiceImpl">
+		<property name="datumAccessLogDao" ref="datumAccessLogDao"></property>
+	</bean>
+	
+	 <bean id="objectAdminService" class="cn.redflagsoft.base.service.impl.ObjectAdminServiceImpl">
+    	<property name="objectAdminDao" ref="objectAdminDao"></property>
+    	<property name="clerkService" ref="clerkService"></property>
+     </bean>
+     
+   	<bean id="bizLogService" class="cn.redflagsoft.base.bizlog.impl.BizLogServiceImpl">
+    	<property name="taskService" ref="taskService"></property>
+    	<property name="workService" ref="workService"></property>
+    	<property name="clerkService" ref="clerkService"></property>
+    </bean>
+
+    <bean id="cautionDecideService" class="cn.redflagsoft.base.service.impl.CautionDecideServiceImpl">
+    	<property name="cautionDecideDao" ref="cautionDecideDao"></property>
+    </bean>
+    
+    <bean id="cautionSurveyService" class="cn.redflagsoft.base.service.impl.CautionSurveyServiceImpl">
+    	<property name="cautionSurveyDao" ref="cautionSurveyDao"></property>
+    </bean>
+
+    <bean id="cautionCheckService" class="cn.redflagsoft.base.service.impl.CautionCheckServiceImpl">
+    	<property name="cautionCheckDao" ref="cautionCheckDao"></property>
+    </bean>
+    
+    <bean id="cautionNotifyService" class="cn.redflagsoft.base.service.impl.CautionNotifyServiceImpl">
+    	<property name="cautionNotifyDao" ref="cautionNotifyDao"></property>
+    </bean>
+    
+    <bean id="base_formDataLoader" class="cn.redflagsoft.base.service.impl.FormDataLoaderImpl">
+		<property name="taskService" ref="taskService"></property>
+		<property name="workService" ref="workService"></property>
+		<property name="clerkService" ref="clerkService"></property>
+		<property name="objectsService" ref="objectsService"></property>
+		<property name="riskService" ref="riskService"></property>
+		<property name="workDefProvider" ref="workDefProvider"></property>
+		<property name="taskDefProvider" ref="taskDefProvider"></property>
+	</bean>
+	<bean id="callSmsgOrCallCautionNotifyService" class="cn.redflagsoft.base.service.impl.CallSmsgOrCallCautionNotifyServiceImpl">
+    	<property name="smsgService" ref="smsgService"></property>
+    	<property name="schemeManager" ref="schemeManager"></property>
+    </bean>
+    
+    <bean id="templateProcessorManager" class="cn.redflagsoft.base.service.impl.TemplateProcessorManagerImpl"></bean>
+    
+    <bean id="helpService" class="cn.redflagsoft.base.service.impl.HelpServiceImpl">
+    	<property name="helpDao" ref="helpDao"></property>
+    </bean>
+
+    <bean id="abstractObjectBatchAdminScheme" 
+    	class="cn.redflagsoft.base.scheme.schemes.commons.ObjectBatchAdminScheme"  abstract="true">
+    	<property name="schemeManager" ref="schemeManager"></property>
+    </bean>
+    
+    <!-- 信息项统计服务 -->
+    <bean id="infoStatService" class="cn.redflagsoft.base.service.impl.InfoStatServiceImpl">
+    	<property name="taskService" ref="taskService"></property>
+    	<property name="infoStatDao" ref="infoStatDao"></property>
+    	<property name="infoConfigDao" ref="infoConfigDao"></property>
+    	<property name="infoDetailDao" ref="infoDetailDao"></property>
+    	<property name="entityObjectLoader" ref="entityObjectLoader"></property>
+    	<property name="handlers">
+    		<list>
+    			<ref bean="taskInfoStatHandler"/>
+    			<ref bean="datumInfoStatHandler"/>
+    			<ref bean="objectPropertyInfoStatHandler"/>
+    			<ref bean="itemPropertyInfoStatHandler"/>
+    		</list>
+    	</property>
+    </bean>
+    
+    <!-- task信息统计 -->
+    <bean id="taskInfoStatHandler" class="cn.redflagsoft.base.service.impl.TaskInfoStatHandler">
+    	<property name="taskService" ref="taskService"></property>
+    </bean>
+    
+    <!-- 资料信息统计 -->
+    <bean id="datumInfoStatHandler" class="cn.redflagsoft.base.service.impl.DatumInfoStatHandler">
+        <property name="objectDataDao" ref="objectDataDao"></property>
+    </bean>
+  
+    <!-- 对象的属性统计 -->
+    <bean id="objectPropertyInfoStatHandler" class="cn.redflagsoft.base.service.impl.ObjectPropertyInfoStatHandler">
+    </bean>
+     
+    <!-- 相关对象相关属性的统计 -->
+    <bean id="itemPropertyInfoStatHandler" class="cn.redflagsoft.base.service.impl.ItemPropertyInfoStatHandler">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="infoStatQuery" class="cn.redflagsoft.base.query.InfoStatQuery">
+        <property name="entityObjectLoader" ref="entityObjectLoader"></property>
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="infoDetailDao" ref="infoDetailDao"></property>
+    </bean>
+    
+    <bean id="exCfgDatafilterRiskService" class="cn.redflagsoft.base.service.impl.ExCfgDatafilterRiskServiceImpl">
+        <property name="exCfgDatafilterRiskDao" ref="exCfgDatafilterRiskDao"></property>
+        <property name="exCfgDatafilterRiskListCache" ref="exCfgDatafilterRiskListCache"></property>
+        <property name="exCfgDatafilterRiskCache" ref="exCfgDatafilterRiskCache"></property>
+    </bean>
+    
+    <bean id="datumAttachmentQuery" class="cn.redflagsoft.base.query.DatumAttachmentQuery">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="datumCategoryDao" ref="datumCategoryDao"/>
+    </bean>
+    
+    <bean id="servicesManager" class="cn.redflagsoft.base.services.ServicesManagerImpl" />
+    
+    <bean id="servicesScheme" class="cn.redflagsoft.base.scheme.schemes.services.ServicesScheme" scope="prototype">
+    	<property name="servicesManager" ref="servicesManager"></property>
+    </bean>
+    
+    <bean id="logoutService" class="cn.redflagsoft.base.security.impl.LogoutServiceImpl">
+    	<property name="auditManager" ref="auditManager" />
+    </bean>
+    
+    <bean id="bizDutyersConfigService" class="cn.redflagsoft.base.service.impl.BizDutyersConfigServiceImpl">
+        <property name="bizDutyersConfigDao" ref="bizDutyersConfigDao"></property>
+        <property name="bizDutyersConfigCache" ref="bizDutyersConfigCache"></property>
+        <property name="bizDutyersConfigIDCache" ref="bizDutyersConfigIDCache"></property>
+    </bean>
+    
+    <bean id="dutyersInfoManager" class="cn.redflagsoft.base.service.impl.DutyersInfoManagerImpl">
+        <property name="bizDutyersConfigService" ref="bizDutyersConfigService"></property>
+    </bean>
+    
+    <bean id="bizDutyersConfigScheme" class="cn.redflagsoft.base.scheme.schemes.bizdef.BizDutyersConfigScheme" scope="prototype">
+    	<property name="bizDutyersConfigService" ref="bizDutyersConfigService"></property>
+    	<property name="taskDefinitionService" ref="taskDefinitionService"></property>
+    </bean>
+    
+    <bean id="objectProgressManager" class="cn.redflagsoft.base.service.impl.ObjectProgressManagerImpl">
+		<property name="schemeManager" ref="schemeManager"></property>
+    </bean>
+    
+    <!--  -->
+    <bean id="shortMessageSenderFactory" class="cn.redflagsoft.base.service.impl.ShortMessageSenderFactoryImpl"/>
+    
+    <bean id="monitorStatisticsQuery" class="cn.redflagsoft.base.query.MonitorStatisticsQuery">
+    	<property name="sessionFactory" ref="sessionFactory" />
+		<property name="taskDao" ref="taskDao" />
+		<property name="riskDao" ref="riskDao" />
+		<property name="riskRuleDao" ref="riskRuleDao" />
+		<property name="taskDefProvider" ref="taskDefProvider"></property>
+    </bean>
+    
+    
+    <bean id="timeUsedCalculateScheme" class="cn.redflagsoft.base.scheme.schemes.TimeUsedCalculateScheme" scope="prototype"/>
+    
+    <bean id="holidayScheme" class="cn.redflagsoft.base.scheme.schemes.holiday.HolidayScheme" scope="prototype">
+	    <property name="holidayService" ref="holidayService"></property>
+	</bean>
+	
+	<bean id="addHolidays" parent="holidayScheme" scope="prototype">
+	    <property name="method" value="addHolidays"></property>
+	</bean>
+	
+	<bean id="deleteHolidays" parent="holidayScheme" scope="prototype">
+	    <property name="method" value="deleteHolidays"></property>
+	</bean>
+	
+	<bean id="updateHoliday" parent="holidayScheme" scope="prototype">
+	    <property name="method" value="updateHoliday"></property>
+	</bean>
+	
+	<bean id="orgCategoryService" class="cn.redflagsoft.base.service.impl.OrgCategoryServiceImpl">
+    	<property name="orgCategoryDao" ref="orgCategoryDao" />
+    	<property name="orgCategoryToRoleService" ref="orgCategoryToRoleService" />
+    	<property name="orgCategoryToOrgGroupService" ref="orgCategoryToOrgGroupService" />
+    </bean>
+    
+    <bean id="orgCategoryToRoleService" class="cn.redflagsoft.base.service.impl.OrgCategoryToRoleServiceImpl">
+    	<property name="orgCategoryToRoleDao" ref="orgCategoryToRoleDao" />
+    </bean>
+    
+    <bean id="orgCategoryToOrgGroupService" class="cn.redflagsoft.base.service.impl.OrgCategoryToOrgGroupServiceImpl">
+    	<property name="orgCategoryToOrgGroupDao" ref="orgCategoryToOrgGroupDao" />
+    </bean>
+	
+	<bean id="orgCategoryScheme" class="cn.redflagsoft.base.scheme.schemes.entity.OrgCategoryScheme" scope="prototype">
+		<property name="orgService" ref="orgService"/>
+		<property name="orgCategoryService" ref="orgCategoryService"/>
+		<property name="orgCategoryToRoleService" ref="orgCategoryToRoleService"/>
+		<property name="orgCategoryToOrgGroupService" ref="orgCategoryToOrgGroupService"/>
+		<property name="orgGroupService" ref="orgGroupService"/>
+	</bean>
+	
+	<bean id="businessExceptionManager" class="cn.redflagsoft.base.service.impl.BusinessExceptionManagerImpl">
+		<property name="eventMsgService" ref="eventMsgService"></property>
+		<property name="msgTemplateService" ref="smsgTemplateService"></property>
+	</bean>
+	
+	<!--
+	<bean id="userManager" class="cn.redflagsoft.base.security.MultiUserDetailsService">
+		<property name="userDetailsService" ref="daoUserManager"></property>
+	</bean>
+	-->
+	
+	<bean id="baseTaskManager" class="cn.redflagsoft.base.task.impl.BaseTaskManagerImpl">
+		<property name="baseTaskBeanDao" ref="baseTaskBeanDao"></property>
+		<property name="executorService" ref="scheduledExecutor"></property>
+	</bean>
+</beans>
+

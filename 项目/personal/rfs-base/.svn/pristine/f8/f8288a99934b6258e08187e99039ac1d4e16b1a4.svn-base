@@ -1,0 +1,257 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.LifeStage" table="LIFE_STAGE">
+	
+		<id name="id" type="java.lang.Long" column="ID">
+			<generator class="assigned" />
+		</id>
+		<property name="objectType" type="int" column="OBJ_TYPE" not-null="true" />
+		
+		<property name="sn" column="SN" type="java.lang.String" />
+		  
+		<property name="code" column="CODE" type="java.lang.String"/>
+		
+	    <property name="name" column="NAME" type="java.lang.String"/>
+	    
+	    <property name="type" column="TP" type="int"/>
+	    
+	    <property name="typeName" column="TP_NAME" type="java.lang.String"/>
+	    
+	    <property name="managerId" column="MANAGER_ID" type="java.lang.Long"/>
+	    
+	    <property name="managerName" column="MANAGER_NAME" type="java.lang.String"/>
+	    
+	    <property name="status0" column="STATUS0" type="byte" not-null="false"/>
+		
+		<property name="status1" column="STATUS1" type="byte" not-null="false"/>
+		
+		<property name="status2" column="STATUS2" type="byte" not-null="false"/>
+		
+		<property name="status3" column="STATUS3" type="byte" not-null="false"/>
+		
+		<property name="status4" column="STATUS4" type="byte" not-null="false"/>
+		
+		<property name="status5" column="STATUS5" type="byte" not-null="false"/>
+		
+		<property name="status6" column="STATUS6" type="byte" not-null="false"/>
+		
+		<property name="status7" column="STATUS7" type="byte" not-null="false"/>
+		
+		<property name="status8" column="STATUS8" type="byte" not-null="false"/>
+		
+		<property name="status9" column="STATUS9" type="byte" not-null="false"/>
+		
+		<property name="status10" column="STATUS10" type="byte" not-null="false"/>
+		
+		<property name="status11" column="STATUS11" type="byte" not-null="false"/>
+		
+		<property name="status12" column="STATUS12" type="byte" not-null="false"/>
+		
+		<property name="status13" column="STATUS13" type="byte" not-null="false"/>
+		
+		<property name="status14" column="STATUS14" type="byte" not-null="false"/>
+		
+		<property name="status15" column="STATUS15" type="byte" not-null="false"/>
+		
+		<property name="status16" column="STATUS16" type="byte" not-null="false"/>
+		
+		<property name="status17" column="STATUS17" type="byte" not-null="false"/>
+		
+		<property name="status18" column="STATUS18" type="byte" not-null="false"/>
+		
+		<property name="status19" column="STATUS19" type="byte" not-null="false"/>
+		
+		<property name="status20" column="STATUS20" type="byte" not-null="false"/>
+		
+		<property name="status21" column="STATUS21" type="byte" not-null="false"/>
+		
+		<property name="status22" column="STATUS22" type="byte" not-null="false"/>
+		
+		<property name="status23" column="STATUS23" type="byte" not-null="false"/>
+		
+		<property name="status24" column="STATUS24" type="byte" not-null="false"/>
+		
+		<property name="status25" column="STATUS25" type="byte" not-null="false"/>
+		
+		<property name="status26" column="STATUS26" type="byte" not-null="false"/>
+		
+		<property name="status27" column="STATUS27" type="byte" not-null="false"/>
+		
+		<property name="status28" column="STATUS28" type="byte" not-null="false"/>
+		
+		<property name="status29" column="STATUS29" type="byte" not-null="false"/>
+		
+		<property name="status30" column="STATUS30" type="byte" not-null="false"/>
+		
+		<property name="status31" column="STATUS31" type="byte" not-null="false"/>
+		
+		<property name="status32" column="STATUS32" type="byte" not-null="false"/>
+		
+		<property name="status33" column="STATUS33" type="byte" not-null="false"/>
+		
+		<property name="status34" column="STATUS34" type="byte" not-null="false"/>
+		
+		<property name="status35" column="STATUS35" type="byte" not-null="false"/>
+		
+		<property name="status36" column="STATUS36" type="byte" not-null="false"/>
+		
+		<property name="status37" column="STATUS37" type="byte" not-null="false"/>
+		
+		<property name="status38" column="STATUS38" type="byte" not-null="false"/>
+		
+		<property name="status39" column="STATUS39" type="byte" not-null="false"/>
+		
+		<property name="status40" column="STATUS40" type="byte" not-null="false"/>
+		
+		<property name="status41" column="STATUS41" type="byte" not-null="false"/>
+		
+		<property name="status42" column="STATUS42" type="byte" not-null="false"/>
+		
+		<property name="status43" column="STATUS43" type="byte" not-null="false"/>
+		
+		<property name="status44" column="STATUS44" type="byte" not-null="false"/>
+		
+		<property name="status45" column="STATUS45" type="byte" not-null="false"/>
+		
+		<property name="status46" column="STATUS46" type="byte" not-null="false"/>
+		
+		<property name="status47" column="STATUS47" type="byte" not-null="false"/>
+		
+		<property name="status48" column="STATUS48" type="byte" not-null="false"/>
+		
+		<property name="status49" column="STATUS49" type="byte" not-null="false"/>
+		
+		<property name="status50" column="STATUS50" type="byte" not-null="false"/>
+		
+		<property name="status51" column="STATUS51" type="byte" not-null="false"/>
+		
+		<property name="status52" column="STATUS52" type="byte" not-null="false"/>
+		
+		<property name="status53" column="STATUS53" type="byte" not-null="false"/>
+		
+		<property name="status54" column="STATUS54" type="byte" not-null="false"/>
+		
+		<property name="status55" column="STATUS55" type="byte" not-null="false"/>
+		
+		<property name="status56" column="STATUS56" type="byte" not-null="false"/>
+		
+		<property name="status57" column="STATUS57" type="byte" not-null="false"/>
+		
+		<property name="status58" column="STATUS58" type="byte" not-null="false"/>
+		
+		<property name="status59" column="STATUS59" type="byte" not-null="false"/>
+		
+		<property name="status60" column="STATUS60" type="byte" not-null="false"/>
+		
+		<property name="status61" column="STATUS61" type="byte" not-null="false"/>
+		
+		<property name="status62" column="STATUS62" type="byte" not-null="false"/>
+		
+		<property name="status63" column="STATUS63" type="byte" not-null="false"/>
+		
+		<property name="status64" column="STATUS64" type="byte" not-null="false"/>
+		
+		<property name="status65" column="STATUS65" type="byte" not-null="false"/>
+		
+		<property name="status66" column="STATUS66" type="byte" not-null="false"/>
+		
+		<property name="status67" column="STATUS67" type="byte" not-null="false"/>
+		
+		<property name="status68" column="STATUS68" type="byte" not-null="false"/>
+		
+		<property name="status69" column="STATUS69" type="byte" not-null="false"/>
+		
+		<property name="status70" column="STATUS70" type="byte" not-null="false"/>
+		
+		<property name="status71" column="STATUS71" type="byte" not-null="false"/>
+		
+		<property name="status72" column="STATUS72" type="byte" not-null="false"/>
+		
+		<property name="status73" column="STATUS73" type="byte" not-null="false"/>
+		
+		<property name="status74" column="STATUS74" type="byte" not-null="false"/>
+		
+		<property name="status75" column="STATUS75" type="byte" not-null="false"/>
+		
+		<property name="status76" column="STATUS76" type="byte" not-null="false"/>
+		
+		<property name="status77" column="STATUS77" type="byte" not-null="false"/>
+		
+		<property name="status78" column="STATUS78" type="byte" not-null="false"/>
+		
+		<property name="status79" column="STATUS79" type="byte" not-null="false"/>
+		
+		<property name="status80" column="STATUS80" type="byte" not-null="false"/>
+		
+		<property name="status81" column="STATUS81" type="byte" not-null="false"/>
+		
+		<property name="status82" column="STATUS82" type="byte" not-null="false"/>
+		
+		<property name="status83" column="STATUS83" type="byte" not-null="false"/>
+		
+		<property name="status84" column="STATUS84" type="byte" not-null="false"/>
+		
+		<property name="status85" column="STATUS85" type="byte" not-null="false"/>
+		
+		<property name="status86" column="STATUS86" type="byte" not-null="false"/>
+		
+		<property name="status87" column="STATUS87" type="byte" not-null="false"/>
+		
+		<property name="status88" column="STATUS88" type="byte" not-null="false"/>
+		
+		<property name="status89" column="STATUS89" type="byte" not-null="false"/>
+		
+		<property name="status90" column="STATUS90" type="byte" not-null="false"/>
+		
+		<property name="status91" column="STATUS91" type="byte" not-null="false"/>
+		
+		<property name="status92" column="STATUS92" type="byte" not-null="false"/>
+		
+		<property name="status93" column="STATUS93" type="byte" not-null="false"/>
+		
+		<property name="status94" column="STATUS94" type="byte" not-null="false"/>
+		
+		<property name="status95" column="STATUS95" type="byte" not-null="false"/>
+		
+		<property name="status96" column="STATUS96" type="byte" not-null="false"/>
+		
+		<property name="status97" column="STATUS97" type="byte" not-null="false"/>
+		
+		<property name="status98" column="STATUS98" type="byte" not-null="false"/>
+		
+		<property name="status99" column="STATUS99" type="byte" not-null="false"/>
+		
+		<property name="refObjectId" column="REF_OBJ_ID" type="java.lang.Long" />
+	    
+	    <property name="refObjectName" column="REF_OBJ_NAME" type="java.lang.String"/>
+	    
+	    <property name="refObjectType" column="REF_OBJ_TYPE" type="java.lang.Integer"/>
+	    
+	    <property name="string0" column="STR0" type="java.lang.String"/>
+	    <property name="string1" column="STR1" type="java.lang.String"/>
+	    <property name="string2" column="STR2" type="java.lang.String"/>
+	    <property name="string3" column="STR3" type="java.lang.String"/>
+	    <property name="string4" column="STR4" type="java.lang.String"/>
+	    <property name="string5" column="STR5" type="java.lang.String"/>
+	    <property name="string6" column="STR6" type="java.lang.String"/>
+	    <property name="string7" column="STR7" type="java.lang.String"/>
+	    <property name="string8" column="STR8" type="java.lang.String"/>
+	    <property name="string9" column="STR9" type="java.lang.String"/>
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+			
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+			
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+			
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+			
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="GBK"?>
+	<!--
+		$Id$ 
+		
+		Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved. RedFlagSoft
+		PROPRIETARY/CONFIDENTIAL. 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+		以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+	-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       			http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+       			http://www.springframework.org/schema/tx
+                http://www.springframework.org/schema/tx/spring-tx.xsd
+                http://www.springframework.org/schema/aop
+                http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<bean id="bese2ConfigutationProvider" class="org.opoo.apps.orm.hibernate3.ConfigurationProviderImpl">
+		<property name="sessionFactoryBeanName" value="sessionFactory" />
+		<property name="mappingResources">
+			<list>
+				<!-- base -->
+				<value>cn/redflagsoft/base/bean/LifeStage.hbm.xml</value>
+				<value>cn/redflagsoft/base/bean/Issue.hbm.xml</value>
+				<value>cn/redflagsoft/base/bean/Progress.hbm.xml</value>
+				<value>cn/redflagsoft/base/bean/TaskDefinition.hbm.xml</value>
+				<value>cn/redflagsoft/base/bean/WorkDefinition.hbm.xml</value>
+				<value>cn/redflagsoft/base/bean/SignCard.hbm.xml</value>
+				<value>cn/redflagsoft/base/bean/SignCardAccept.hbm.xml</value>
+				<value>cn/redflagsoft/base/bean/SignCardSurvey.hbm.xml</value>
+				<value>cn/redflagsoft/base/bean/SignCardNotice.hbm.xml</value>
+				<value>cn/redflagsoft/base/bean/SignCardCheck.hbm.xml</value>
+				<value>cn/redflagsoft/base/bean/SignCardPenalty.hbm.xml</value>
+				<value>cn/redflagsoft/base/bean/TaskBizInfo.hbm.xml</value>
+				<value>cn/redflagsoft/base/bean/Picture.hbm.xml</value>
+				<value>cn/redflagsoft/base/bean/StageTaskDetails.hbm.xml</value>
+				<value>cn/redflagsoft/base/bean/District.hbm.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- base -->
+	<bean id="lifeStageDao" class="cn.redflagsoft.base.dao.hibernate3.LifeStageHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="idGeneratorProvider" ref="idGeneratorProvider" />
+	</bean>
+
+	<bean id="progressDao" class="cn.redflagsoft.base.dao.hibernate3.ProgressHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="idGeneratorProvider" ref="idGeneratorProvider" />
+	</bean>
+
+	<bean id="issueDao" parent="objectDao"
+		class="cn.redflagsoft.base.dao.hibernate3.IssueHibernateDao">
+	</bean>
+
+	<bean id="taskDefinitionDao" class="cn.redflagsoft.base.dao.hibernate3.TaskDefinitionHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="idGeneratorProvider" ref="idGeneratorProvider" />
+		<property name="enableCache" value="true"/>
+		<property name="cache">
+			<bean parent="cacheBean" depends-on="cacheManager">
+				<constructor-arg value="taskDefinitionCache"></constructor-arg>
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="workDefinitionDao" class="cn.redflagsoft.base.dao.hibernate3.WorkDefinitionHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="idGeneratorProvider" ref="idGeneratorProvider" />
+		<property name="enableCache" value="true"/>
+		<property name="cache">
+			<bean parent="cacheBean" depends-on="cacheManager">
+				<constructor-arg value="workDefinitionCache"></constructor-arg>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="signCardDao" parent="objectDao" 
+		class="cn.redflagsoft.base.dao.hibernate3.SignCardHibernateDao"/>
+	
+	<bean id="signCardAcceptDao" class="cn.redflagsoft.base.dao.hibernate3.SignCardAcceptHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+	
+	<bean id="signCardSurveyDao" class="cn.redflagsoft.base.dao.hibernate3.SignCardSurveyHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+	
+	<bean id="signCardNoticeDao" class="cn.redflagsoft.base.dao.hibernate3.SignCardNoticeHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+	
+	<bean id="signCardCheckDao" class="cn.redflagsoft.base.dao.hibernate3.SignCardCheckHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+	
+	<bean id="signCardPenaltyDao" class="cn.redflagsoft.base.dao.hibernate3.SignCardPenaltyHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+	
+	<bean id="taskBizInfoDao" class="cn.redflagsoft.base.dao.hibernate3.TaskBizInfoHibernateDao" parent="baseDao"/>
+
+	<bean id="pictureDao" class="cn.redflagsoft.base.dao.hibernate3.PictureHibernateDao" parent="baseDao"/>
+
+	<bean id="stageTaskDetailsDao" class="cn.redflagsoft.base.dao.hibernate3.StageTaskDetailsHibernateDao" >
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="idGeneratorProvider" ref="idGeneratorProvider" />
+	</bean>
+	
+	<bean id="adminUserDao" class="cn.redflagsoft.base.dao.hibernate3.AdminUserHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="districtDao" class="cn.redflagsoft.base.dao.hibernate3.DistrictHibernateDao" parent="baseDao"/>
+</beans>
+

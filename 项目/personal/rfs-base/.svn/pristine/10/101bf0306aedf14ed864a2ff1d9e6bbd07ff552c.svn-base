@@ -1,0 +1,402 @@
+/*
+ * $Id$
+ * JobServiceImpl.java
+ * 
+ * Copyright 2007-2008 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ */
+package cn.redflagsoft.base.service.impl;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.opoo.ndao.criterion.Criterion;
+import org.opoo.ndao.criterion.Order;
+import org.opoo.ndao.criterion.Restrictions;
+import org.opoo.ndao.support.ResultFilter;
+
+import cn.redflagsoft.base.bean.BizRoute;
+import cn.redflagsoft.base.bean.BizTrack;
+import cn.redflagsoft.base.bean.BizTrackNode;
+import cn.redflagsoft.base.bean.BizTrackNodeInstance;
+import cn.redflagsoft.base.bean.BizTrackSect;
+import cn.redflagsoft.base.bean.Clue;
+import cn.redflagsoft.base.bean.Job;
+import cn.redflagsoft.base.bean.MatterAffair;
+import cn.redflagsoft.base.bean.Task;
+import cn.redflagsoft.base.bean.Thread;
+import cn.redflagsoft.base.bean.Work;
+import cn.redflagsoft.base.dao.BizRouteDao;
+import cn.redflagsoft.base.dao.BizTrackDao;
+import cn.redflagsoft.base.dao.BizTrackNodeDao;
+import cn.redflagsoft.base.dao.BizTrackNodeInstanceDao;
+import cn.redflagsoft.base.dao.BizTrackSectDao;
+import cn.redflagsoft.base.dao.JobDao;
+import cn.redflagsoft.base.dao.TaskDao;
+import cn.redflagsoft.base.dao.ThreadDao;
+import cn.redflagsoft.base.dao.WorkDao;
+import cn.redflagsoft.base.service.BizTrackNodeService;
+import cn.redflagsoft.base.service.BizTrackSectService;
+import cn.redflagsoft.base.service.BizTrackService;
+import cn.redflagsoft.base.service.ClueService;
+import cn.redflagsoft.base.service.GlossaryService;
+import cn.redflagsoft.base.util.ConvertTimeUnit;
+import cn.redflagsoft.base.vo.BizTrackNodeVO;
+import cn.redflagsoft.base.vo.BizTrackVO;
+import cn.redflagsoft.base.vo.BizVO;
+
+/**
+ * 
+ * @author ymq
+ *
+ */
+public class BizTrackServiceImpl implements BizTrackService{
+	public static final Log log = LogFactory.getLog(BizTrackServiceImpl.class);
+	private BizRouteDao bizRouteDao;
+	private BizTrackDao bizTrackDao;
+	private ThreadDao threadDao;
+	private ClueService clueService;
+	private BizTrackNodeDao bizTrackNodeDao;
+	private BizTrackNodeService bizTrackNodeService;
+	private BizTrackSectDao bizTrackSectDao;
+	private BizTrackSectService bizTrackSectService;
+	private BizTrackNodeInstanceDao bizTrackNodeInstanceDao;
+	private JobDao jobDao;
+	private TaskDao taskDao;
+	private WorkDao workDao;
+	private GlossaryService glossaryService;
+	public void setGlossaryService(GlossaryService glossaryService) {
+		this.glossaryService = glossaryService;
+	}
+
+	public void setBizRouteDao(BizRouteDao bizRouteDao) {
+		this.bizRouteDao = bizRouteDao;
+	}
+
+	public void setBizTrackDao(BizTrackDao bizTrackDao) {
+		this.bizTrackDao = bizTrackDao;
+	}
+
+	public void setBizTrackNodeDao(BizTrackNodeDao bizTrackNodeDao) {
+		this.bizTrackNodeDao = bizTrackNodeDao;
+	}
+
+	public void setBizTrackNodeService(BizTrackNodeService bizTrackNodeService) {
+		this.bizTrackNodeService = bizTrackNodeService;
+	}
+
+	public void setBizTrackSectDao(BizTrackSectDao bizTrackSectDao) {
+		this.bizTrackSectDao = bizTrackSectDao;
+	}
+
+	public void setBizTrackSectService(BizTrackSectService bizTrackSectService) {
+		this.bizTrackSectService = bizTrackSectService;
+	}
+
+	public void setThreadDao(ThreadDao threadDao) {
+		this.threadDao = threadDao;
+	}
+
+	public void setBizTrackNodeInstanceDao(
+			BizTrackNodeInstanceDao bizTrackNodeInstanceDao) {
+		this.bizTrackNodeInstanceDao = bizTrackNodeInstanceDao;
+	}
+
+	public void setJobDao(JobDao jobDao) {
+		this.jobDao = jobDao;
+	}
+
+	public void setTaskDao(TaskDao taskDao) {
+		this.taskDao = taskDao;
+	}
+
+	public void setWorkDao(WorkDao workDao) {
+		this.workDao = workDao;
+	}
+
+	public void setClueService(ClueService clueService) {
+		this.clueService = clueService;
+	}
+
+	public Long createBizTrack(byte bizCategory, Long bizSN, Long routeId) {
+		Long bizTrackSN = null;
+		if(routeId != null){
+			//找到业务流程
+			BizRoute bizRoute = bizRouteDao.get(routeId);
+			if(bizRoute != null){
+				BizTrack bizTrack = new BizTrack();
+				bizTrack.setCategory(bizCategory);
+				bizTrack.setBizSN(bizSN);
+				bizTrack.setName(bizRoute.getName());
+				bizTrack.setAbbr(bizRoute.getAbbr());
+				bizTrack.setSectNum(bizRoute.getSectNum());
+				bizTrack.setStepNum(bizRoute.getStepNum());
+				bizTrack.setCreationTime(new Date());
+				bizTrackDao.save(bizTrack);
+				bizTrackSN = bizTrack.getSn();
+				bizTrackSectService.createBizTrackSect(bizTrackSN, routeId);
+				bizTrackNodeService.createBizTrackNode(bizTrackSN, routeId);
+			}			
+		}
+		return bizTrackSN;
+	}
+
+	public Long createBizTrack(byte bizCategory, Long bizSN, BizRoute bizRoute) {
+		if(bizRoute != null){
+			BizTrack bizTrack = new BizTrack();
+			bizTrack.setCategory(bizCategory);
+			bizTrack.setBizSN(bizSN);
+			bizTrack.setName(bizRoute.getName());
+			bizTrack.setAbbr(bizRoute.getAbbr());
+			bizTrack.setSectNum(bizRoute.getSectNum());
+			bizTrack.setStepNum(bizRoute.getStepNum());
+			bizTrack.setCreationTime(new Date());
+			bizTrackDao.save(bizTrack);
+			bizTrackSectService.createBizTrackSect(bizTrack.getSn(), bizRoute.getId());
+			bizTrackNodeService.createBizTrackNode(bizTrack.getSn(), bizRoute.getId());
+			return bizTrack.getSn();
+		}
+		return null;
+	}
+	
+	public List<BizTrackVO> getBizTrackVO(Long nodeSN){
+		List<BizTrackNode> nodeList = bizTrackNodeDao.getBizTrackNode(nodeSN, (byte)1);
+		List<BizTrackVO> list = new ArrayList<BizTrackVO>();
+		if(nodeList != null && !nodeList.isEmpty()){
+			List<BizTrackNodeInstance> nodeInstance = bizTrackNodeInstanceDao.getBizTrackNodeInstance(nodeSN);
+			BizTrackNodeInstance instance = null;
+			Long trackSN = null;
+			for(int i=0; i<nodeInstance.size(); i++) {
+				instance = nodeInstance.get(i);
+				//获取Track类型
+				if(instance.getCategory() == BizTrackNodeInstance.CATEGORY_JOB) {
+					Job job = jobDao.get(instance.getBizSN());
+					if(job != null) {
+						trackSN = job.getBizTrack();
+					}
+				} else if (instance.getCategory() == BizTrackNodeInstance.CATEGORY_TASK) {
+					Task task = taskDao.get(instance.getBizSN());
+					if(task != null) {
+						trackSN = task.getBizTrack();
+					}
+				} else if (instance.getCategory() == BizTrackNodeInstance.CATEGORY_WORK) {
+					Work work = workDao.get(instance.getBizSN());
+					if(work != null) {
+						trackSN = work.getBizTrack();
+					}
+				}
+				list.add(getBizTrackVOByTrackSn(trackSN));
+			}
+		}
+		return list;
+	}
+
+	public List<BizTrackVO> getBizTrackVOByObjectId(Long objectId) {
+		List<BizTrackVO> list = new ArrayList<BizTrackVO>();
+		//获取Thread
+		Thread thread = threadDao.get(Restrictions.eq("objectID", objectId));
+		if(thread != null){
+			list.add(getBizTrackVOByTrackSn(thread.getBizTrack()));
+		}else{
+			log.warn("ObjectId为："+objectId+"的Thread没有找到");
+		}
+		return list;
+	}
+	
+	/**
+	 * @deprecated
+	 */
+	public List<BizTrackVO> getBizTrackVOByClueField(Long objectId) {
+		List<BizTrackVO> list = new ArrayList<BizTrackVO>();
+		//获取Clue
+		Clue clue = clueService.getClue(objectId, (byte)1);
+		if(clue != null){
+			list.add(getBizTrackVOByTrackSn(clue.getBizTrack()));
+		}else{
+			log.warn("getBizTrackVOByClueField 时 ObjectId = "+objectId+" 的 Clue not found ... return List = empty");
+		}
+		return list;
+	}
+	
+	public List<BizTrackVO> getBizTrackVOByObjectId(Long objectId, Byte category, Integer bizType, Long bizId, Byte flag, Long managerId) {
+		List<BizTrackVO> list = new ArrayList<BizTrackVO>();
+		//获取Clue
+		if(category == null) {
+			category = 1;
+		}
+		Clue clue = clueService.getClue(objectId, category.byteValue(), bizType, bizId);
+		if(clue != null) {
+			BizTrackVO bizTrackVO = getBizTrackVOByTrackSn(clue.getBizTrack());
+			if(flag != null) {
+				calculateTrackCount(bizTrackVO, managerId);
+			}
+			list.add(bizTrackVO);
+		}else{
+			log.warn("getBizTrackVOByObjectId 时 ObjectId = "+objectId+" 的 Clue not found ... return List = empty");
+		}
+		return list;		
+	}
+	
+	private void calculateTrackCount(BizTrackVO bizTrackVO, Long managerId) {
+		Long trackSN = bizTrackVO.getBizTrack().getSn();
+		List<Map<String, Long>> listMap = bizTrackNodeInstanceDao.findBizTrackNodeCount(trackSN, MatterAffair.CATEGORY_OBJECT, managerId);
+		if(listMap == null || listMap.isEmpty()) {
+			log.warn("calculateTrackCount 时没有到 trackSN = " + trackSN + " 相应的 Count 信息,计算失败 ... ");
+			return;
+		}
+		Long nodeSN = null;
+		int objectCount = 0, tmp;
+		for(BizTrackNodeVO vo : bizTrackVO.getBizTrackNodeList()) {
+			nodeSN = vo.getSn();
+			for(Map<String, Long> map : listMap) {			
+				tmp = map.get(BizTrackNodeInstance.MAP_QUERY_FUNCATION_COUNT).intValue();
+				if(map.get(BizTrackNodeInstance.MAP_QUERY_COLUMN_NODESN).equals(nodeSN)) {
+					objectCount += tmp;
+					vo.setCount(tmp);
+					break;
+				}
+			}
+		}
+		bizTrackVO.setObjectCount(objectCount);
+	}
+
+	public BizTrackVO getBizTrackVOByTrackSn(Long trackSN) {
+		//获取BizTrack
+		BizTrack bizTrack = bizTrackDao.get(trackSN);
+		BizTrackVO bizTrackVO = new BizTrackVO();
+		if(bizTrack != null){
+			//获取BizTrackNode
+			ResultFilter resultFilter = ResultFilter.createEmptyResultFilter();
+			Criterion c = Restrictions.logic(Restrictions.eq("trackSN", bizTrack.getId())).and(Restrictions.ge("summary", (byte)0));
+			resultFilter.setCriterion(c);
+			resultFilter.setOrder(Order.asc("sectNo").add(Order.asc("stepNo")).add(Order.asc("seatNo")));		
+			List<BizTrackNode> bizTrackNodeList = bizTrackNodeDao.find(resultFilter);
+			bizTrack.setNodeNum((byte)bizTrackNodeList.size());
+			bizTrackVO.setBizTrack(bizTrack);
+			BizTrackNodeVO vo;
+			for(BizTrackNode node : bizTrackNodeList){
+				vo = new BizTrackNodeVO();
+				vo.setSn(node.getSn());
+				vo.setSeatNo(node.getSeatNo());
+				vo.setSectNo(node.getSectNo());
+				vo.setStepNo(node.getStepNo());
+				vo.setDutyer(node.getDutyer());
+				vo.setTimeLimit(node.getTimeLimit());
+				vo.setBizType(node.getBizType());
+				vo.setBizName(node.getBizName());
+				vo.setResult(node.getResult());
+				vo.setStatus(node.getStatus());
+				vo.setTimeUnit(node.getTimeUnit());
+				vo.setTimeUnitName(ConvertTimeUnit.toCharacter(node.getTimeUnit()));
+				vo.setTimeUsed((short)0);
+				vo.setSummary(node.getSummary());
+				bizTrackVO.getBizTrackNodeList().add(vo);
+			}
+			//获取BizTrackSect
+			resultFilter.setCriterion(Restrictions.eq("trackSN", bizTrack.getSn()));
+			resultFilter.setOrder(Order.asc("sectNo"));
+			List<BizTrackSect> bizTrackSectList = bizTrackSectDao.find(resultFilter);
+			bizTrackVO.setBizTrackSectList(bizTrackSectList);
+		}
+		return bizTrackVO;
+	}
+
+	public int deleteBizTrack(BizTrack bizTrack) {
+		return bizTrackDao.delete(bizTrack);
+	}
+
+	public BizTrack updateBizTrack(BizTrack bizTrack) {
+		return bizTrackDao.update(bizTrack);
+	}
+
+	public List<BizVO> findChildDetails(Long nodeSN) {
+		List<BizTrackNodeInstance> nodeInstance = bizTrackNodeInstanceDao.getBizTrackNodeInstance(nodeSN);
+		List<BizVO> list = new ArrayList<BizVO>();
+		BizTrackNodeInstance instance = null;
+		BizVO vo = null;
+		//int date;
+		short timeUsed;
+		for(int i=0; i<nodeInstance.size(); i++){
+			instance = nodeInstance.get(i);
+			switch (instance.getCategory()) {
+			case BizTrackNodeInstance.CATEGORY_JOB :
+				Job job = jobDao.get(instance.getBizSN());
+				if(job == null) {
+					log.warn("没有找到BizSN为: "+instance.getBizSN()+" Job");
+					return list;
+				}
+				vo = new BizVO();
+				vo.setOrder(Long.valueOf(i + 1));
+				vo.setCode(job.getCode());
+				vo.setType(job.getType());
+				vo.setStatus(job.getStatus());
+				vo.setBeginTime(job.getBeginTime());
+				vo.setEndTime(job.getEndTime());
+				vo.setTimeLimit(job.getTimeLimit());
+				String typeName=glossaryService.getByCategoryAndCode(BizVO.GLOSSARY_JOB_CODE,vo.getType());
+				if(typeName!=null){
+				  vo.setTypeName(typeName);
+				}
+//				date = DateUtil.getTimeUsed(job.getBeginTime(), job.getEndTime(), (byte)9);
+				timeUsed = (short) (job.getTimeUsed() - job.getTimeHang() - job.getTimeDelay());
+				vo.setTimeUsed(timeUsed);
+				vo.setSuperviseStatus(BizVO.SUPERVISESTATUS_DEFAULT);
+				list.add(vo);
+				break;
+			case BizTrackNodeInstance.CATEGORY_TASK :
+				Task task = taskDao.get(instance.getBizSN());
+				if(task == null) {
+					log.warn("没有找到BizSN为: "+instance.getBizSN()+" Task");
+					return list;
+				}
+				vo = new BizVO();
+				vo.setOrder(Long.valueOf(i + 1));
+				vo.setCode(task.getCode());
+				vo.setType(task.getType());
+				vo.setBeginTime(task.getBeginTime());
+				vo.setEndTime(task.getEndTime());
+				vo.setTimeLimit(task.getTimeLimit());
+				vo.setStatus(task.getStatus());
+				String typeName2=glossaryService.getByCategoryAndCode(BizVO.GLOSSARY_TASK_CODE,vo.getType());
+				if(typeName2!=null){
+				  vo.setTypeName(typeName2);
+				}
+//				date = DateUtil.getTimeUsed(task.getBeginTime(), task.getEndTime(), (byte)9);
+				timeUsed = (short) (task.getTimeUsed() - task.getTimeHang() - task.getTimeDelay());
+				vo.setTimeUsed(timeUsed);
+				vo.setSuperviseStatus(BizVO.SUPERVISESTATUS_DEFAULT);
+				list.add(vo);
+				break;
+			case BizTrackNodeInstance.CATEGORY_WORK :
+				Work work = workDao.get(instance.getBizSN());
+				if(work == null) {
+					log.warn("没有找到BizSN为："+instance.getBizSN()+" Work");
+					return list;
+				}
+				vo = new BizVO();
+				vo.setOrder(Long.valueOf(i + 1));
+				vo.setCode(work.getCode());
+				vo.setType(work.getType());
+				vo.setStatus(work.getStatus());
+				vo.setBeginTime(work.getBeginTime());
+				vo.setEndTime(work.getEndTime());
+				vo.setTimeLimit(work.getTimeLimit());
+				String typeName3=glossaryService.getByCategoryAndCode(BizVO.GLOSSARY_WORK_CODE,vo.getType());
+				if(typeName3!=null){
+				  vo.setTypeName(typeName3);
+				}
+//				date = DateUtil.getTimeUsed(work.getBeginTime(), work.getEndTime(), (byte)9);
+				timeUsed = (short) (work.getTimeUsed() - work.getTimeHang() - work.getTimeDelay());
+				vo.setTimeUsed(timeUsed);
+				vo.setSuperviseStatus(BizVO.SUPERVISESTATUS_DEFAULT);
+				list.add(vo);
+				break;
+			}
+		}
+		return list;
+	}
+}

@@ -1,0 +1,69 @@
+/*
+ * $Id$
+ * 
+ * Copyright 2007-2008 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ */
+package cn.redflagsoft.base.process.impl;
+
+import java.util.Map;
+
+import cn.redflagsoft.base.process.AbstractWorkProcess;
+import cn.redflagsoft.base.process.annotation.ProcessType;
+import cn.redflagsoft.base.service.ReceiverService;
+
+/**
+ * 查询接收者列表。
+ * 
+ * @author ymq
+ *
+ */
+@ProcessType(ReceiverWorkProcess.TYPE)
+public class ReceiverWorkProcess extends AbstractWorkProcess {
+	public static final int TYPE = 6002;
+	private ReceiverService receiverService;
+	private int taskType;
+	private int workType;
+	private int processType;
+	private Long clerkID;
+
+	public void setReceiverService(ReceiverService receiverService) {
+		this.receiverService = receiverService;
+	}
+
+	public int getTaskType() {
+		return taskType;
+	}
+
+	public void setTaskType(int taskType) {
+		this.taskType = taskType;
+	}
+
+	public int getWorkType() {
+		return workType;
+	}
+
+	public void setWorkType(int workType) {
+		this.workType = workType;
+	}
+
+	public int getProcessType() {
+		return processType;
+	}
+
+	public void setProcessType(int processType) {
+		this.processType = processType;
+	}
+
+	public Long getClerkID() {
+		return clerkID;
+	}
+
+	public void setClerkID(Long clerkID) {
+		this.clerkID = clerkID;
+	}
+
+	public Object execute(Map parameters, boolean needLog) {
+		return receiverService.findReceiverByTypes(taskType, workType, processType, clerkID);
+	}
+}

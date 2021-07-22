@@ -1,0 +1,27 @@
+<tr>
+    <td width="25%">${tagPhase}</td>
+    <c:set var="allEqual" value=
+        "${LV == GV and LV == BV and LV == NV and LV == EV}"/>
+    <c:if test="${allEqual}">
+        <td align="center" width="75%" colspan="5">
+            <i> ${LV != null ? LV : "null"} </i>
+        </td>
+    </c:if>
+    <c:if test="${!allEqual}">
+        <td align="center" width="15%">
+            ${GV != null ? GV : "null"}
+        </td>
+        <td align="center" width="15%">
+            ${LV != null ? LV : "null"}
+        </td>
+        <td align="center" width="15%">
+            ${BV != null ? BV : "null"}
+        </td>
+        <td align="center" width="15%">
+            ${NV != null ? NV : "null"}
+        </td>
+        <td align="center" width="15%">
+            ${EV != null ? EV : "null"}
+        </td>
+    </c:if>
+</tr>

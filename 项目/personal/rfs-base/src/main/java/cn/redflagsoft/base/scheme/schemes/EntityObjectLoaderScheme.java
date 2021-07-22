@@ -1,0 +1,328 @@
+/*
+ * $Id: EntityObjectLoaderScheme.java 5180 2011-12-06 08:31:12Z lcj $
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.scheme.schemes;
+
+import java.io.Serializable;
+
+import org.springframework.beans.factory.BeanNameAware;
+import org.springframework.util.Assert;
+
+import cn.redflagsoft.base.bean.RFSEntityObject;
+import cn.redflagsoft.base.bean.RFSObject;
+import cn.redflagsoft.base.scheme.AbstractScheme;
+import cn.redflagsoft.base.scheme.SchemeBeanInfo;
+import cn.redflagsoft.base.service.EntityObjectLoader;
+
+/**
+ * @author Alex Lin(alex@opoo.org)
+ *
+ */
+public class EntityObjectLoaderScheme extends AbstractScheme implements SchemeBeanInfo,BeanNameAware{
+//	private static final Log log = LogFactory.getLog(EntityObjectLoaderScheme.class);
+	//IOC
+	private EntityObjectLoader entityObjectLoader;
+//	private TaskService taskService;
+//	private WorkService workService;
+	
+	//params
+	private Integer objectType;
+	private Long objectId;
+	private boolean loadSimpleObject = false;
+//	private Long sn;
+	
+	
+	private String beanName;
+	private String method;
+
+	
+	/**
+	 * @return the entityObjectLoader
+	 */
+	public EntityObjectLoader getEntityObjectLoader() {
+		return entityObjectLoader;
+	}
+
+	/**
+	 * @param entityObjectLoader the entityObjectLoader to set
+	 */
+	public void setEntityObjectLoader(EntityObjectLoader entityObjectLoader) {
+		this.entityObjectLoader = entityObjectLoader;
+	}
+
+	/**
+	 * @return the objectType
+	 */
+	public Integer getObjectType() {
+		return objectType;
+	}
+
+	/**
+	 * @param objectType the objectType to set
+	 */
+	public void setObjectType(Integer objectType) {
+		this.objectType = objectType;
+	}
+
+
+	/**
+	 * @return the objectId
+	 */
+	public Long getObjectId() {
+		return objectId;
+	}
+
+
+	/**
+	 * @param objectId the objectId to set
+	 */
+	public void setObjectId(Long objectId) {
+		this.objectId = objectId;
+	}
+
+	/**
+	 * @return the loadSimpleObject
+	 */
+	public boolean isLoadSimpleObject() {
+		return loadSimpleObject;
+	}
+
+	/**
+	 * @param loadSimpleObject the loadSimpleObject to set
+	 */
+	public void setLoadSimpleObject(boolean loadSimpleObject) {
+		this.loadSimpleObject = loadSimpleObject;
+	}
+
+	public Object viewLoad(){
+		Assert.notNull(getObjectId(), "对象ID不能为空");
+		Assert.notNull(getObjectType(), "对象类型不能为空");
+		RFSEntityObject object = entityObjectLoader.getEntityObject(getObjectType(), getObjectId());
+		if(loadSimpleObject){
+			return convertToSimpleObject(object);
+		}
+		return object;
+	}
+
+	/**
+	 * @param object
+	 * @return
+	 */
+	private Object convertToSimpleObject(RFSEntityObject object) {
+		if(object instanceof RFSObject){
+			return new SimpleObject((RFSObject) object);
+		}
+		return object;
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.scheme.SchemeBeanInfo#getMethod()
+	 */
+	public String getMethod() {
+		return method;
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.scheme.SchemeBeanInfo#setMethod(java.lang.String)
+	 */
+	public void setMethod(String method) {
+		this.method = method;
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.scheme.SchemeBeanInfo#getBeanName()
+	 */
+	public String getBeanName() {
+		return beanName;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.springframework.beans.factory.BeanNameAware#setBeanName(java.lang.String)
+	 */
+	public void setBeanName(String name) {
+		this.beanName = name;
+	}
+	
+	
+	public static class SimpleObject implements Serializable{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -414494441667598463L;
+		private Long id;
+		private String name;
+		private int objectType;
+		private byte status;
+		private byte bizStatus;
+		private short tag;
+//		private Long managerId;
+//		private String managerName;
+		private Long dutyClerkID;
+		private String dutyClerkName;
+		private byte manageMode;
+		/**
+		 * @param object
+		 */
+		public SimpleObject(RFSObject object) {
+			this.id = object.getId();
+			this.name = object.getName();
+			this.objectType = object.getObjectType();
+			this.status = object.getStatus();
+			this.bizStatus = object.getBizStatus();
+			this.tag = object.getTag();
+			this.dutyClerkID = object.getDutyClerkID();
+			this.dutyClerkName = object.getDutyClerkName();
+			this.manageMode = object.getManageMode();
+//			try {
+//				this.managerId = (Long) PropertyUtils.getProperty(object, "managerId");
+//			} catch (Exception e) {
+//				log.debug(e.getMessage());
+//			} 
+//			try {
+//				this.managerName = (String) PropertyUtils.getProperty(object, "managerName");
+//			} catch (Exception e) {
+//				log.debug(e.getMessage());
+//			}
+		}
+		public SimpleObject(){
+		}
+		/**
+		 * @return the id
+		 */
+		public Long getId() {
+			return id;
+		}
+		/**
+		 * @param id the id to set
+		 */
+		public void setId(Long id) {
+			this.id = id;
+		}
+		/**
+		 * @return the name
+		 */
+		public String getName() {
+			return name;
+		}
+		/**
+		 * @param name the name to set
+		 */
+		public void setName(String name) {
+			this.name = name;
+		}
+		/**
+		 * @return the objectType
+		 */
+		public int getObjectType() {
+			return objectType;
+		}
+		/**
+		 * @param objectType the objectType to set
+		 */
+		public void setObjectType(int objectType) {
+			this.objectType = objectType;
+		}
+		/**
+		 * @return the status
+		 */
+		public byte getStatus() {
+			return status;
+		}
+		/**
+		 * @param status the status to set
+		 */
+		public void setStatus(byte status) {
+			this.status = status;
+		}
+		/**
+		 * @return the bizStatus
+		 */
+		public byte getBizStatus() {
+			return bizStatus;
+		}
+		/**
+		 * @param bizStatus the bizStatus to set
+		 */
+		public void setBizStatus(byte bizStatus) {
+			this.bizStatus = bizStatus;
+		}
+		/**
+		 * @return the tag
+		 */
+		public short getTag() {
+			return tag;
+		}
+		/**
+		 * @param tag the tag to set
+		 */
+		public void setTag(short tag) {
+			this.tag = tag;
+		}
+//		/**
+//		 * @return the managerId
+//		 */
+//		public Long getManagerId() {
+//			return managerId;
+//		}
+//		/**
+//		 * @param managerId the managerId to set
+//		 */
+//		public void setManagerId(Long managerId) {
+//			this.managerId = managerId;
+//		}
+//		/**
+//		 * @return the managerName
+//		 */
+//		public String getManagerName() {
+//			return managerName;
+//		}
+//		/**
+//		 * @param managerName the managerName to set
+//		 */
+//		public void setManagerName(String managerName) {
+//			this.managerName = managerName;
+//		}
+		/**
+		 * @return the dutyClerkID
+		 */
+		public Long getDutyClerkID() {
+			return dutyClerkID;
+		}
+		/**
+		 * @param dutyClerkID the dutyClerkID to set
+		 */
+		public void setDutyClerkID(Long dutyClerkID) {
+			this.dutyClerkID = dutyClerkID;
+		}
+		/**
+		 * @return the dutyClerkName
+		 */
+		public String getDutyClerkName() {
+			return dutyClerkName;
+		}
+		/**
+		 * @param dutyClerkName the dutyClerkName to set
+		 */
+		public void setDutyClerkName(String dutyClerkName) {
+			this.dutyClerkName = dutyClerkName;
+		}
+		/**
+		 * @return the manageMode
+		 */
+		public byte getManageMode() {
+			return manageMode;
+		}
+		/**
+		 * @param manageMode the manageMode to set
+		 */
+		public void setManageMode(byte manageMode) {
+			this.manageMode = manageMode;
+		}
+	}
+}

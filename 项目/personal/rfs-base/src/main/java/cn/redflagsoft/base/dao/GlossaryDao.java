@@ -1,0 +1,27 @@
+/*
+ * $Id: GlossaryDao.java 4615 2011-08-21 07:10:37Z lcj $
+ * GlossaryDao.java
+ * 
+ * Copyright 2007-2008 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ */
+package cn.redflagsoft.base.dao;
+
+import java.util.List;
+import java.util.Map;
+
+import org.opoo.ndao.Dao;
+
+import cn.redflagsoft.base.bean.Glossary;
+
+/**
+ * @author mwx
+ *
+ */
+public interface GlossaryDao extends Dao<Glossary, Long>, LabelDataBeanDao {
+	Map<Integer, String> findByCategory(short category);
+
+	String getByCategoryAndCode(short category, int code);
+
+	List<Glossary> findByCategory2(short category);
+}

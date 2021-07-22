@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.ContentHolder" table="CONTENT_HOLDER" 
+		abstract="true" discriminator-value="0">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		<discriminator column="D" type="int" not-null="true"></discriminator>
+		
+		<!-- 留给子类使用 -->
+		<!-- 
+		<property name="objectType" column="OBJ_TYPE" type="string" length="200"/>
+		<property name="objectId" column="OBJ_ID" type="string" length="32"/>
+		-->
+		
+		<property name="title" column="TITLE" type="string" length="600"/>
+		<property name="body" column="BODY" type="string" length="4000"/>
+		<property name="summary" column="SUMMARY" type="string" length="4000"/>
+		
+		<property name="publisherId" column="PUBLISHER_ID" type="java.lang.Long"/>
+		<property name="publisherName" column="PUBLISHER_NAME" type="string"/>
+		<property name="publishTime" column="PUBLISH_TIME" type="java.sql.Timestamp"/>
+		<property name="effectingTime" column="EFFECTING_TIME" type="java.sql.Timestamp"/>
+		<property name="expirationTime" column="EXPIRATION_TIME" type="java.sql.Timestamp"/>
+		
+		<property name="imageCount" column="IMAGE_COUNT" type="int"/>
+		<property name="images" column="IMAGES" type="string"/>
+		<property name="attachmentCount" column="ATTACHMENT_COUNT" type="int"/>
+		<property name="attachments" column="ATTACHMENTS" type="string"/>
+		
+		<property name="version" column="VERSION" type="int"/>
+		<property name="viewCount" column="VIEW_COUNT" type="int"/>
+		
+		<property name="reviewerId" column="REVIEWER_ID" type="java.lang.Long"/>
+		<property name="reviewerName" column="REVIEWER_NAME" type="string"/>
+		<property name="reviewStatus" column="REVIEW_STATUS" type="java.lang.Byte"/>
+		<property name="reviewTime" column="REVIEW_TIME" type="java.sql.Timestamp"/>
+		
+		<property name="approverId" column="APPROVER_ID" type="java.lang.Long"/>
+		<property name="approverName" column="APPROVER_NAME" type="string"/>
+		<property name="approvalStatus" column="APPROVAL_STATUS" type="java.lang.Byte"/>
+		<property name="approvalTime" column="APPROVAL_TIME" type="java.sql.Timestamp"/>
+		
+		<property name="type" column="TP" type="int"/>        
+        <property name="status" column="STATUS" type="byte"/>
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+		
+	</class>
+</hibernate-mapping>

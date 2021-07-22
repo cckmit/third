@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.TaskDefinition" table="TASK_DEF">
+	
+		<id name="id" type="java.lang.Integer" column="TASK_TYPE">
+			<generator class="assigned" />
+		</id>
+		
+		<property name="parentTaskType" column="PRT_TASK_TYPE" type="java.lang.Integer"/>
+		
+		<property name="name" column="NAME" type="java.lang.String"/>
+		
+		<property name="displayOrder" column="DISPLAY_ORDER" type="int"/>
+		
+		<property name="layer" column="LAYER" type="byte"/>
+		
+		<property name="type" column="TP" type="int"/>
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+		
+		<property name="lifeStageFieldName" column="LS_FLD_NAME" type="java.lang.String"/>
+			
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+			
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+			
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+			
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+		
+		<property name="summaryTemplate" column="SUMMARY_TPL" type="java.lang.String" />
+		
+		<property name="visibility" column="VISIBILITY" type="int"/>
+		
+		<property name="typeAlias" column="TYPE_ALIAS" type="java.lang.String"/>
+		
+		<property name="dutyer" column="DUTYER" type="java.lang.String"/>
+		
+		<property name="dutyRef" column="DUTY_REF" type="int"/>
+		
+		<property name="bizSummaryTemplate" column="BIZ_SUMMARY_TPL" type="java.lang.String"/>
+		
+		<property name="calculateFlag" column="CALCULATE_FLAG" type="int"></property>
+
+		<property name="dutyerType" column="DUTYER_TYPE" type="int"></property>
+		
+		<property name="hasGuide" column="HAS_GUIDE" type="int"></property>
+	</class>
+</hibernate-mapping>

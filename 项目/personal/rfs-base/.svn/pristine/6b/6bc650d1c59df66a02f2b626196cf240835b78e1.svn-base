@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="GBK"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	
+	<!-- 
+	<bean id="queryAction" class="cn.redflagsoft.base.web.struts2.QueryAction2" scope="prototype">
+		<property name="queryService" ref="queryService"/>
+	</bean>
+	-->
+	<bean id="queryAction" class="cn.redflagsoft.base.web.struts2.QueryActionV3" scope="prototype">
+		<property name="queryManager" ref="queryManager"/>
+		<property name="selectDataSourceService" ref="selectDataSourceService"></property>
+		<property name="resultFilterBuilder" ref="parametersBuilder"></property>
+	</bean>
+	
+	<bean id="processAction" class="cn.redflagsoft.base.web.struts2.ProcessAction" scope="prototype">
+		<property name="workProcessManager" ref="workProcessManager"/>
+	</bean>
+
+	<bean id="workSchemeAction" class="cn.redflagsoft.base.web.struts2.WorkSchemeAction" scope="prototype">
+		<property name="schemeManager" ref="schemeManager"></property>
+	</bean>
+	
+	<bean id="schemeAction" class="cn.redflagsoft.base.web.struts2.SchemeAction" scope="prototype">
+		<property name="schemeManager" ref="schemeManager"></property>
+	</bean>
+	
+</beans>
+
