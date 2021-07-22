@@ -1,0 +1,61 @@
+/*
+ * $Id: StatisticsLifecycle.java 6177 2013-01-23 04:21:43Z lcj $
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.stat;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.opoo.apps.AppsGlobals;
+import org.opoo.apps.event.v2.EventListener;
+import org.opoo.apps.event.v2.core.PropertyEvent;
+import org.springframework.beans.factory.InitializingBean;
+
+/**
+ * @author Alex Lin(lcql@msn.com)
+ *
+ */
+public class StatisticsLifecycle implements EventListener<PropertyEvent>, InitializingBean {
+	private static final Log log = LogFactory.getLog(StatisticsLifecycle.class);
+	public static final String SCHEME_STATISTICS_ENABLED_KEY = "scheme.statistics.enabled";
+	
+	private Statistics statistics;
+	/**
+	 * @return the statistics
+	 */
+	public Statistics getStatistics() {
+		return statistics;
+	}
+	/**
+	 * @param statistics the statistics to set
+	 */
+	public void setStatistics(Statistics statistics) {
+		this.statistics = statistics;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+	 */
+	public void afterPropertiesSet() throws Exception {
+		resetSchemeStatisticsEnabled();
+	}
+	
+	private void resetSchemeStatisticsEnabled(){
+		statistics.setStatisticsEnabled(AppsGlobals.getProperty(SCHEME_STATISTICS_ENABLED_KEY, false));
+		log.debug("Scheme是否启用统计：" + statistics.isStatisticsEnabled());
+	}
+
+	/* (non-Javadoc)
+	 * @see org.opoo.apps.event.v2.EventListener#handle(org.opoo.apps.event.v2.Event)
+	 */
+	public void handle(PropertyEvent event) {
+		if(SCHEME_STATISTICS_ENABLED_KEY.equals(event.getName())){
+			resetSchemeStatisticsEnabled();
+		}
+	}
+}

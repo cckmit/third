@@ -1,0 +1,70 @@
+/*
+ * $Id: Authority.java 3996 2010-10-18 06:56:46Z lcj $
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.security;
+
+import java.io.Serializable;
+
+/**
+ * 权限。
+ * 值对象。
+ * 
+ * @author Alex Lin
+ *
+ */
+public class Authority implements Serializable {
+	private static final long serialVersionUID = 5871310076901168147L;
+	private String label;
+	private String value;
+	public Authority(String label, String value) {
+		super();
+		this.label = label;
+		this.value = value;
+	}
+	public Authority(BaseAuthority ba){
+		super();
+		this.label = ba.getLabel();
+		this.value = ba.getValue();
+	}
+	public Authority() {
+		super();
+	}
+
+	/**
+	 * 标签。
+	 * @return the label
+	 */
+	public String getLabel() {
+		return label;
+	}
+	/**
+	 * @param label the label to set
+	 */
+	public void setLabel(String label) {
+		this.label = label;
+	}
+	/**
+	 * 权限值。
+	 * @return the value
+	 */
+	public String getValue() {
+		return value;
+	}
+	/**
+	 * @param value the value to set
+	 */
+	public void setValue(String value) {
+		this.value = value;
+	}
+	
+	
+	public String toString(){
+		return super.toString() + ":" + getValue();
+	}
+}

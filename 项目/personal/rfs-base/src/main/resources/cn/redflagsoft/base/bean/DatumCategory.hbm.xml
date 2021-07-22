@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.DatumCategory" table="DATUM_CATEGORY">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		<property name="type" column="TP" type="int"/>
+		
+		<property name="name" column="NAME" type="java.lang.String"/>
+		
+		<property name="abbr" column="ABBR" type="java.lang.String"/>
+		
+		<property name="form" column="FORM" type="java.lang.String"/>
+		
+		<property name="store" column="STORE" type="byte"/>
+		
+		<property name="origin" column="ORIGIN" type="byte"/>
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+		
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+		
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+		
+		<property name="to" column="TO_" type="java.lang.Integer"></property>
+		
+		<property name="szgc" column="SZGC" type="boolean" not-null="true"></property>
+		
+		<property name="jzgc" column="JZGC" type="boolean" not-null="true"></property>
+		
+		<property name="xxgc" column="XXGC" type="boolean" not-null="true"></property>
+		
+		<property name="accessory1" column="ACCESSORY1" type="boolean" not-null="true"></property>
+		
+		<property name="accessory2" column="ACCESSORY2" type="boolean" not-null="true"></property>
+		
+		<property name="accessory3" column="ACCESSORY3" type="boolean" not-null="true"></property>
+		
+		<property name="transferTo" column="TRANSFER_TO" type="java.lang.Integer"></property>
+		
+		<property name="datumRelativeOrg" column="DATUM_RELATIVE_ORG" type="java.lang.Integer"></property>
+		
+		<property name="folderId" column="FOLDER_ID" type="java.lang.Long"></property>
+		
+		<property name="documentNameTemplate" column="DOC_NAME_TEMPLATE" type="string"></property>
+	</class>
+</hibernate-mapping>

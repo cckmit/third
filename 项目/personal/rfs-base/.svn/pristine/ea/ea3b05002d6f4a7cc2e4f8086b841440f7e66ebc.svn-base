@@ -1,0 +1,262 @@
+/*
+ * $Id$
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.security.webapp;
+
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.security.ui.WebAuthenticationDetails;
+
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.octo.captcha.Captcha;
+
+/**
+ * 
+ * @author Alex Lin(alex@opoo.org)
+ *
+ */
+public class RFSWebAuthenticationDetails extends WebAuthenticationDetails {
+	public static final String LOGIN_FORM_RESOLUTION_KEY = ".clientResolution";
+	public static final String LOGIN_FORM_COLORDEPTH_KEY = ".clientColorDepth";
+	public static final String LOGIN_FORM_CAPTCHA_KEY = ".captcha";
+	
+	private static final long serialVersionUID = -1042220396109663427L;
+	private static final Log log = LogFactory.getLog(RFSWebAuthenticationDetails.class);
+	private final boolean passwordHashed;
+//	private final String token;
+	private String backendChallenge = null;
+//	private String backendToken = null;
+	private Captcha backendCaptcha = null;
+	private boolean requireCaptcha = false;
+	private boolean sessionLoginErrorCountExceed = false;
+	
+	private final Map<String,String> parameterMap = Maps.newHashMap();
+	private final Map<String,String> headerMap = Maps.newHashMap();
+	
+	private List<String> headerNames = Lists.newArrayList("User-Agent");
+	private List<String> parameterNames = Lists.newArrayList(
+			LOGIN_FORM_RESOLUTION_KEY, 
+			LOGIN_FORM_COLORDEPTH_KEY, 
+			LOGIN_FORM_CAPTCHA_KEY);
+	
+	
+	/**
+	 * @param request
+	 */
+	public RFSWebAuthenticationDetails(HttpServletRequest request) {
+		super(request);
+		passwordHashed = LoginUtils.isPasswordHashed(request);
+//		token = LoginUtils.getToken(request);
+		HttpSession session = request.getSession(false);
+		if(session != null){
+			backendChallenge = LoginUtils.getBackendChallenge(session);
+//			backendToken = LoginUtils.getBackendToken(session);
+			backendCaptcha = LoginUtils.getBackendCaptcha(session);
+		}
+		
+		sessionLoginErrorCountExceed = LoginUtils.isSessionLoginErrorCountExceed(request);
+		
+//		clientUserAgent = request.getHeader("User-Agent");
+//		clientResolution = request.getParameter(".clientResolution");
+//		clientColorDepth = request.getParameter(".clientColorDepth");
+		
+		for(String name: headerNames){
+			headerMap.put(name, request.getHeader(name));
+		}
+		for(String name: parameterNames){
+			parameterMap.put(name, request.getParameter(name));
+		}
+		
+		log.debug("Custruct WebAuthenticationDetails: hashed=" + passwordHashed + ", backendChallenge=" + backendChallenge
+				+ ", backendCaptcha=" + backendCaptcha);
+	}
+	
+	
+	/* (non-Javadoc)
+	 * @see org.springframework.security.ui.WebAuthenticationDetails#doPopulateAdditionalInformation(javax.servlet.http.HttpServletRequest)
+	 */
+	@Override
+	protected void doPopulateAdditionalInformation(HttpServletRequest request) {
+		super.doPopulateAdditionalInformation(request);
+	}
+
+
+	/**
+	 * @return the passwordHashed
+	 */
+	public boolean isPasswordHashed() {
+		return passwordHashed;
+	}
+
+//	/**
+//	 * @return the token
+//	 */
+//	public String getToken() {
+//		return token;
+//	}
+
+	/**
+	 * @return the backendChallenge
+	 */
+	public String getBackendChallenge() {
+		return backendChallenge;
+	}
+
+//	/**
+//	 * @return the backendToken
+//	 */
+//	public String getBackendToken() {
+//		return backendToken;
+//	}
+	
+	
+	
+//	/**
+//	 * @return the clientUserAgent
+//	 */
+//	public String getClientUserAgent() {
+//		return clientUserAgent;
+//	}
+//
+//
+//	/**
+//	 * @return the clientResolution
+//	 */
+//	public String getClientResolution() {
+//		return clientResolution;
+//	}
+//
+//
+//	/**
+//	 * @return the clientColorDepth
+//	 */
+//	public String getClientColorDepth() {
+//		return clientColorDepth;
+//	}
+
+
+	/**
+	 * @param backendChallenge the backendChallenge to set
+	 */
+	public void setBackendChallenge(String backendChallenge) {
+		this.backendChallenge = backendChallenge;
+	}
+
+
+//	/**
+//	 * @param backendToken the backendToken to set
+//	 */
+//	public void setBackendToken(String backendToken) {
+//		this.backendToken = backendToken;
+//	}
+
+
+	/**
+	 * @param backendCaptcha the backendCaptcha to set
+	 */
+	public void setBackendCaptcha(Captcha backendCaptcha) {
+		this.backendCaptcha = backendCaptcha;
+	}
+
+
+	/**
+	 * @return the backendCaptcha
+	 */
+	public Captcha getBackendCaptcha() {
+		return backendCaptcha;
+	}
+
+	/**
+	 * @return the requireCaptcha
+	 */
+	public boolean isRequireCaptcha() {
+		return requireCaptcha;
+	}
+
+
+	/**
+	 * @param requireCaptcha the requireCaptcha to set
+	 */
+	public void setRequireCaptcha(boolean requireCaptcha) {
+		this.requireCaptcha = requireCaptcha;
+	}
+
+
+	/**
+	 * @param headerNames the headerNames to set
+	 */
+	public void setHeaderNames(List<String> headerNames) {
+		this.headerNames = headerNames;
+	}
+
+
+	/**
+	 * @return the parameterMap
+	 */
+	public Map<String, String> getParameterMap() {
+		return parameterMap;
+	}
+
+
+	/**
+	 * @return the headerMap
+	 */
+	public Map<String, String> getHeaderMap() {
+		return headerMap;
+	}
+
+
+	/**
+	 * @param parameterNames the parameterNames to set
+	 */
+	public void setParameterNames(List<String> parameterNames) {
+		this.parameterNames = parameterNames;
+	}
+	
+	
+	/**
+	 * @return the sessionLoginErrorCountExceed
+	 */
+	public boolean isSessionLoginErrorCountExceed() {
+		return sessionLoginErrorCountExceed;
+	}
+
+
+	public String toString() {
+        StringBuffer sb = new StringBuffer();
+        sb.append(super.toString() + "; ");
+        sb.append("passwordHashed: " + passwordHashed + "; ");
+        sb.append("backendChallenge: " + backendChallenge + "; ");
+//        sb.append("token: " + token + "; ");
+//        sb.append("backendToken: " + backendToken);
+        sb.append("sessionLoginErrorCountExceed: " + sessionLoginErrorCountExceed);
+        return sb.toString();
+    }
+	
+	
+	public static void main(String[] args){
+		List<String> headerNames = Lists.newArrayList("User-Agent");
+		List<String> parameterNames = Lists.newArrayList(LOGIN_FORM_RESOLUTION_KEY, LOGIN_FORM_COLORDEPTH_KEY);
+		//System.out.println(headerNames);
+		for(String name: headerNames){
+			System.out.println(name);
+		}
+		for(String name: parameterNames){
+			System.out.println(name);
+		}
+	}
+
+}

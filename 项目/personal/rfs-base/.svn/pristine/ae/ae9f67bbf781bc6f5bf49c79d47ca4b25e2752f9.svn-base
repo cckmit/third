@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.BizRouteBranch" table="BIZ_ROUTE_BRANCH">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		
+		<property name="routeID" column="ROUTEID" type="java.lang.Long"/>
+		
+		<property name="nodeID" column="NODEID" type="java.lang.Long"/>
+		
+		<property name="category" column="CATEGORY" type="java.lang.Byte"/>
+		
+		<property name="nextNode" column="NEXT_NODE" type="int"/>
+		
+		<property name="defaultValue" column="DEFAULT_VALUE" type="java.lang.Byte"/>
+		
+		<property name="nextRole" column="NEXT_ROLE" type="byte"/>
+		
+		<property name="note" column="NOTE" type="java.lang.String"/> 
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+	</class>
+</hibernate-mapping>

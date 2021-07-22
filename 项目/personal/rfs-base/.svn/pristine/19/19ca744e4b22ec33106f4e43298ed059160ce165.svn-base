@@ -1,0 +1,95 @@
+/*
+ * $Id$
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.codegenerator;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import cn.redflagsoft.base.bean.RFSEntityObject;
+
+/**
+ * 基于时间的编号生成器。
+ * 
+ * @author Alex Lin(lcql@msn.com)
+ */
+public class DateBasedCodeGenerator extends AbstractCodeGenerator implements CodeGenerator {
+	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd");
+	private final Log log = LogFactory.getLog(getClass());
+	
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.codegenerator.AbstractCodeGenerator#getCodeId(cn.redflagsoft.base.bean.RFSEntityObject)
+	 */
+	@Override
+	protected String getCodeId(RFSEntityObject object) {
+		return "" + object.getObjectType();
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.codegenerator.AbstractCodeGenerator#getCodeBase(cn.redflagsoft.base.bean.RFSEntityObject)
+	 */
+	@Override
+	protected final long getCodeBase(RFSEntityObject object) {
+		Date date = getBasedDate(object);
+		if(date == null){
+			log.warn("没有取得该对象用于生成编号的日期型属性值，取当前日期：" + object);
+			date = new Date();
+		}
+		String dateString = dateFormat.format(date);
+		return Long.parseLong(dateString);
+	}
+
+	/**
+	 * 获取指定对象用于生成编码的日期属性值。
+	 * 子类可以覆盖这个方法以实现自定义的属性值。
+	 * 
+	 * @param object
+	 * @return
+	 */
+	protected Date getBasedDate(RFSEntityObject object){
+		return new Date();
+	}
+
+	
+//	public static void main(String[] args){
+//		Date date = new Date();
+//		long l = 0;
+//		
+//		long time = System.currentTimeMillis();
+//		for(int i = 0 ; i < 1000000; i++){
+//			l = f1(date);
+//		}
+//		System.out.println(System.currentTimeMillis() - time);
+//		System.out.println(l);
+//		
+//		
+//		
+//		time = System.currentTimeMillis();
+//		for(int i = 0 ; i < 1000000; i++){
+//			l = f2(date);
+//		}
+//		System.out.println(System.currentTimeMillis() - time);
+//		System.out.println(l);
+//	}
+//	private static long f1(Date date){
+//		String format = dateFormat.format(date);
+//		long l = Long.parseLong(format);
+//		return l;
+//	}
+//	private static long f2(Date date){
+//		Calendar instance = Calendar.getInstance();
+//		instance.setTime(date);
+//		return instance.get(Calendar.YEAR) * 10000L
+//				+ (instance.get(Calendar.MONTH) + 1) * 100L
+//				+ instance.get(Calendar.DAY_OF_MONTH);
+//	}
+}

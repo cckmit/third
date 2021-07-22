@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.PeopleGroup" table="PEOPLE_GROUP">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		
+		<property name="groupID" column="GROUPID" type="java.lang.Long"/>
+		
+		<property name="peopleID" column="PEOPLEID" type="java.lang.Long"/>
+		
+		<property name="displayOrder" column="DISPLAY_ORDER" type="java.lang.Short"/>
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="insertTime" column="INSERT_TIME" type="java.sql.Timestamp"/>
+		
+		<property name="deleteTime" column="DELETE_TIME" type="java.sql.Timestamp"/>
+		
+	</class>
+</hibernate-mapping>
+	

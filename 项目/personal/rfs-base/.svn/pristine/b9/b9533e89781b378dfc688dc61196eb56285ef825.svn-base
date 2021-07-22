@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.Picture" table="PICTURE">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="fileId" column="FILE_ID" type="java.lang.Long" not-null="true"/>
+		<property name="objectId" column="OBJ_ID" type="java.lang.Long"/>
+		<property name="objectName" column="OBJ_NAME" type="string"/>
+		<property name="title" column="TITLE" type="string"/>
+		<property name="category" column="CATEGORY" type="java.lang.Short"/>
+		<property name="categoryName" column="CATEGORY_NAME" type="string"/>
+		<property name="scene" column="SCENE" type="string"/>
+		<property name="keywords" column="KEYWORDS" type="string"/>
+		<property name="publisherId" column="PUBLISHER_ID" type="java.lang.Long"/>
+		<property name="publisherName" column="PUBLISHER_NAME" type="string"/>
+		<property name="publishTime" column="PUBLISH_TIME" type="java.util.Date"/>
+		<property name="fileFormat" column="FILE_FORMAT" type="string"/>
+		<property name="width" column="W" type="int"/>
+		<property name="height" column="H" type="int"/>
+		<property name="abbrWidth" column="AW" type="int"/>
+		<property name="abbrHeight" column="AH" type="int"/>
+		<property name="fileSize" column="FILE_SIZE" type="long"/>
+		<property name="string1" column="S1" type="string"/>
+		<property name="string2" column="S2" type="string"/>
+		<property name="string3" column="S3" type="string"/>
+		<property name="description" column="DESCRIPTION" type="string"/>
+		
+		<property name="type" column="TP" type="int"/>
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+			
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+			
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+			
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+			
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+	</class>
+</hibernate-mapping>

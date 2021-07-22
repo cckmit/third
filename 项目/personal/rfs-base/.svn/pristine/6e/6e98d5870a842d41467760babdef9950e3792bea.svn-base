@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.WorkDefinition" table="WORK_DEF">
+	
+		<id name="id" type="java.lang.Integer" column="WORK_TYPE">
+			<generator class="assigned" />
+		</id>
+		
+		<property name="name" column="NAME" type="java.lang.String"/>
+		
+		<property name="taskType" column="TASK_TYPE" type="int"/>
+		
+		<property name="displayOrder" column="DISPLAY_ORDER" type="int"/>
+		
+		<property name="type" column="TP" type="int"/>
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+			
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+			
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+			
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+			
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+		
+		<property name="summaryTemplate" column="SUMMARY_TPL" type="java.lang.String" />
+		
+		<property name="application" column="APP" type="java.lang.String" length="1000"/>
+		
+		<property name="typeAlias" column="TYPE_ALIAS" type="java.lang.String"/>
+		
+		<property name="dutyer" column="DUTYER" type="java.lang.String"/>
+
+		<property name="dutyerType" column="DUTYER_TYPE" type="int"></property>
+	</class>
+</hibernate-mapping>

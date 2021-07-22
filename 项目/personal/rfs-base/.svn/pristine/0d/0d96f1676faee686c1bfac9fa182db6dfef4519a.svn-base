@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       					http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<!-- <import resource="spring-boot.xml"/> -->
+	<import resource="spring-manager-override.xml"/>
+	<import resource="classpath:spring-cache.xml"/>
+	<import resource="classpath:spring-hibernate.xml"/>
+	<import resource="classpath:spring-dao.xml"/>
+	<import resource="classpath:spring-module.xml"/>
+	<import resource="classpath:spring-event.xml"/>
+	<import resource="classpath:spring-web.xml"/>
+	
+	<import resource="classpath:spring-task.xml"/>
+	<!-- <import resource="classpath:spring-ws2.xml"/> -->
+	
+	
+	<bean id="appsPropertyPlaceholderConfigurer" class="org.opoo.apps.lifecycle.spring.AppsPropertyPlaceholderConfigurer"/>
+</beans>

@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.SignCardCheck" table="SIGN_CARD_CHECK">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>	
+		<property name="signCardId" column="SIGNCARD_ID" type="java.lang.Long"/>
+		
+		<property name="checkDutyerId" column="CHECK_DUTYERID" type="java.lang.Long"/>
+		
+		<property name="checkDutyerName" column="CHECK_DUTYERNAME" type="java.lang.String"/>
+		
+		<property name="checkSummary" column="CHECK_SUMMARY" type="java.lang.String"/>
+		
+		<property name="checkFileNo" column="CHECK_FILENO" type="java.lang.String"/>
+		
+		<property name="checkCreator" column="CHECK_CREATOR" type="java.lang.Long"/>
+		
+		<property name="checkActualTime" column="CHECK_ACTUALTIME" type="java.sql.Timestamp"/>
+		
+		<property name="checkTime" column="CHECK_TIME" type="java.sql.Timestamp"/>
+	
+		<property name="checkRemark" column="CHECK_REMARK" type="java.lang.String"/>
+	
+		<property name="type" column="TP" type="int"/>
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+			
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+			
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+			
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+			
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+	</class>
+</hibernate-mapping>

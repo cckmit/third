@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="GBK"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       						http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       						http://www.springframework.org/schema/util
+  							http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+	<!--  -->
+	<bean id="mbeanServer" class="java.lang.management.ManagementFactory" 
+		factory-method="getPlatformMBeanServer"/>
+
+    <bean id="jmxExporter" class="org.springframework.jmx.export.MBeanExporter">
+        <!-- 
+        <property name="assembler" ref="jmxAssembler"/>
+        <property name="namingStrategy" ref="jmxNamingStrategy"/>
+        -->
+        <property name="server" ref="mbeanServer"/>
+    	<property name="beans">
+    		<map>
+    		    <entry key="rfs:name=queryStatistics" value-ref="queryStatisticsMBean"></entry>
+    			<entry key="rfs:name=schemeStatistics" value-ref="schemeStatisticsMBean"></entry>
+    			<entry key="rfs:name=hibernateStatistics" value-ref="hibernateStatisticsMBean"></entry>
+    		</map>
+    	</property>
+    </bean>
+
+   	<bean id="schemeStatisticsMBean" class="cn.redflagsoft.base.stat.StatisticsService">
+   		<property name="statistics" ref="statistics"></property>
+   	</bean>
+   	
+   	<bean id="queryStatisticsMBean" class="org.opoo.apps.query.stat.StatisticsService">
+   		<property name="statistics" ref="queryStatistics"></property>
+   	</bean>
+   	
+   	<bean id="hibernateStatisticsMBean" class="org.hibernate.jmx.StatisticsService">
+   		<property name="sessionFactory" ref="sessionFactory"></property>
+   	</bean>
+</beans>
+

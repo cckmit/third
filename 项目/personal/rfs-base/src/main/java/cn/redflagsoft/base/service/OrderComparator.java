@@ -1,0 +1,37 @@
+/*
+ * $Id: OrderComparator.java 4342 2011-04-22 02:17:01Z lcj $
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.service;
+
+import java.util.Comparator;
+
+/**
+ * 排序号比较器。
+ * @author Alex Lin(alex@opoo.org)
+ *
+ */
+public class OrderComparator<T,P> implements Comparator<T> {
+	private final PropertyExtractor<T,P> extractor;
+	private final OrderFinder<P> orderFinder;
+	public OrderComparator(PropertyExtractor<T,P> extractor, OrderFinder<P> orderFinder){
+		this.extractor = extractor;
+		this.orderFinder = orderFinder;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+	 */
+	public int compare(T o1, T o2) {
+		P p1 = extractor.extract(o1);
+		P p2 = extractor.extract(o2);
+		int order1 = orderFinder.getOrder(p1);
+		int order2 = orderFinder.getOrder(p2);
+		return order1 - order2;
+	}
+}

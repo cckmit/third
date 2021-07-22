@@ -1,0 +1,80 @@
+/*
+ * $Id: DeleteOrRestoreTaskWorkScheme.java 5290 2011-12-27 06:54:58Z lf $
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.scheme.schemes.task;
+
+import cn.redflagsoft.base.bean.Task;
+import cn.redflagsoft.base.bean.Work;
+
+/**
+ * 业务删除或者还原。
+ * 
+ * @author Alex Lin(alex@opoo.org)
+ *
+ */
+public class DeleteOrRestoreTaskWorkScheme extends AbstractTaskWorkScheme {
+	
+	/**
+	 * 业务删除。
+	 * 
+	 * <pre>
+	 * /s/deleteTask.jspa?objectServiceName=&taskType=&workType=&taskSN=&reasonCategory=&reason=&note&matterIds[0]
+	 * 
+	 * reasonCategory 原因类别
+	 * reason 原因
+	 * note 备注
+	 * </pre>
+	 * 
+	 * @return
+	 */
+	public Object doDelete(){
+		Task task2 = getTask();
+		Work work2 = getWork();
+
+		work2.setString0(getReasonCategory());
+		work2.setString1(getReason());
+		work2.setString3(task2.getStatus() + "");
+		getWorkService().updateWork(work2);
+		
+		task2.setVisibility(Task.VISIBILITY_OTHERS);
+		task2.setNote(getNote());
+		getTaskService().updateTask(task2);
+		
+		
+		return "业务删除成功";
+	}
+	
+	/**
+	 * 业务还原。
+	 * <pre>
+	 * /s/restoreTask.jspa?objectServiceName=&taskType=&workType=&taskSN=&reasonCategory=&reason=&note&matterIds[0]
+	 * 
+	 * reasonCategory 原因类别
+	 * reason 原因
+	 * note 备注
+	 * </pre>
+	 * 
+	 * @return
+	 */
+	public Object doRestore(){
+		Task task2 = getTask();
+		Work work2 = getWork();
+
+		work2.setString0(getReasonCategory());
+		work2.setString1(getReason());
+		work2.setString3(task2.getStatus() + "");
+		getWorkService().updateWork(work2);
+		
+		task2.setVisibility(Task.VISIBILITY_GENERAL);
+		task2.setNote(getNote());
+		getTaskService().updateTask(task2);
+		
+		return "业务已还原成功！";
+	}
+}

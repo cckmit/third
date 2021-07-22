@@ -1,0 +1,78 @@
+/*
+ * $Id$
+ * 
+ * Copyright 2007-2008 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ */
+package cn.redflagsoft.base.process;
+
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+
+/**
+ * Spring容器实现的事务管理器。
+ * 
+ * 如果在配置文件中，已经对process进行了代理，则设置参数proxied=true.
+ * 推荐使用。
+ * 
+ * @author Alex Lin
+ * 
+ */
+public class SpringContextWorkProcessManager extends AbstractWorkProcessManager	implements ApplicationContextAware {
+	private ApplicationContext context;
+	private boolean autowire = true;
+	
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.process.AbstractWorkProcessManager#findProcess(java.lang.String)
+	 */
+	@Override
+	protected WorkProcess buildWorkProcess(String name) {
+		return (WorkProcess) context.getBean(name);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.springframework.context.ApplicationContextAware#setApplicationContext(org.springframework.context.ApplicationContext)
+	 */
+	public void setApplicationContext(ApplicationContext context) 	throws BeansException {
+		this.context = context;
+		if(autowire){
+			autowire(context);
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	protected void autowire(ApplicationContext context){
+		String[] names = context.getBeanNamesForType(WorkProcess.class);
+		for(String name: names){
+			Class<WorkProcess> clazz = context.getType(name);
+			Integer processType = WorkProcessUtils.getProcessType(clazz);
+			if(processType != null){
+				String name0 = getNames().get(processType);
+				if(name0 != null){
+					throw new IllegalArgumentException("WorkProcess定义重复: processType is ["
+							+ processType + "], processes are [" + name0 + ", " + name + "]");
+				}
+				super.getNames().put(processType, name);
+				if(log.isInfoEnabled()){
+					log.info("autowire workprocess: " + processType + " [" + name + "] -> " + clazz.getName());
+				}
+			}
+		}
+	}
+	
+	/**
+	 * @return the autowire
+	 */
+	public boolean isAutowire() {
+		return autowire;
+	}
+
+	/**
+	 * @param autowire the autowire to set
+	 */
+	public void setAutowire(boolean autowire) {
+		this.autowire = autowire;
+	}   
+
+}

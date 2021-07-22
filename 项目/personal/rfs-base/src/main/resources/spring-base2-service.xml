@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<!--
+		$Id: spring-base2-service.xml 6306 2013-08-20 07:48:58Z lcj $
+
+		Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved. RedFlagSoft
+		PROPRIETARY/CONFIDENTIAL. 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+		以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+	-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       			http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+       			http://www.springframework.org/schema/tx
+                http://www.springframework.org/schema/tx/spring-tx.xsd
+                http://www.springframework.org/schema/aop
+                http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+
+
+	<bean id="rfsObjectService" parent="objectService" abstract="true"
+		class="cn.redflagsoft.base.service.impl.AbstractRFSObjectService">
+	</bean>
+	
+	<bean id="abstractLifeStageUpdater" abstract="true">
+		<property name="lifeStageDao" ref="lifeStageDao"></property>
+	</bean>
+
+	<bean id="progressService" class="cn.redflagsoft.base.service.impl.ProgressServiceImpl">
+		<property name="progressDao" ref="progressDao" />
+	</bean>
+
+	<bean id="issueService" class="cn.redflagsoft.base.service.impl.IssueServiceImpl"
+		parent="rfsObjectService">
+		<property name="objectsDao" ref="objectsDao"></property>
+		<property name="objectDao" ref="issueDao"></property>
+		<property name="taskService" ref="taskService"></property>
+		<property name="progressDao" ref="progressDao"></property>
+		<property name="lifeStageUpdater">
+			<bean parent="abstractLifeStageUpdater" 
+				class="cn.redflagsoft.base.service.impl.IssueLifeStageUpdater">
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 过错相关 -->
+	<bean id="signCardService" class="cn.redflagsoft.base.service.impl.SignCardServiceImpl"
+	    parent="rfsObjectService">
+	    <property name="objectsDao" ref="objectsDao"/>
+		<property name="objectDao" ref="signCardDao"/>
+		<property name="taskService" ref="taskService"/>	
+		<property name="riskLogDao" ref="riskLogDao" />
+		<property name="orgService" ref="orgService" />
+		<property name="clerkService" ref="clerkService" />
+		<property name="glossaryService" ref="glossaryService" />
+		<property name="signCardAcceptDao" ref="signCardAcceptDao" />
+		<property name="signCardSurveyDao" ref="signCardSurveyDao" />
+		<property name="signCardNoticeDao" ref="signCardNoticeDao" />
+		<property name="signCardCheckDao" ref="signCardCheckDao" />
+		<property name="signCardPenaltyDao" ref="signCardPenaltyDao" />
+		
+		<property name="lifeStageUpdater">
+			<bean parent="abstractLifeStageUpdater" 
+				class="cn.redflagsoft.base.service.impl.SignCardLifeStageUpdater">
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="signCardAcceptService" class="cn.redflagsoft.base.service.impl.SignCardAcceptServiceImpl">
+		<property name="signCardAcceptDao" ref="signCardAcceptDao" />
+	</bean>
+	
+	<bean id="signCardSurveyService" class="cn.redflagsoft.base.service.impl.SignCardSurveyServiceImpl">
+		<property name="signCardSurveyDao" ref="signCardSurveyDao" />
+	</bean>
+	
+	<bean id="signCardNoticeService" class="cn.redflagsoft.base.service.impl.SignCardNoticeServiceImpl">
+		<property name="signCardNoticeDao" ref="signCardNoticeDao" />
+	</bean>
+	
+	<bean id="signCardCheckService" class="cn.redflagsoft.base.service.impl.SignCardCheckServiceImpl">
+		<property name="signCardCheckDao" ref="signCardCheckDao" />
+	</bean>
+	
+	<bean id="signCardPenaltyService" class="cn.redflagsoft.base.service.impl.SignCardPenaltyServiceImpl">
+		<property name="signCardPenaltyDao" ref="signCardPenaltyDao" />
+	</bean>
+	
+	<!--
+	<bean id="glossaryServiceWrapper_BAK" class="cn.redflagsoft.base.service.impl.GlossaryServiceWrapper_BAK">
+		<constructor-arg ref="glossaryService"></constructor-arg>
+		<constructor-arg>
+			<bean parent="cacheBean" depends-on="cacheManager">
+				<constructor-arg value="glossaryCache"></constructor-arg>
+			</bean>
+		</constructor-arg>
+	</bean>
+	-->
+	
+	<bean id="glossaryServiceWrapper" class="cn.redflagsoft.base.service.impl.GlossaryServiceWrapper">
+		<constructor-arg ref="glossaryService"></constructor-arg>
+		<constructor-arg ref="glossaryCache"></constructor-arg>
+	</bean>
+	
+
+	<!-- 业务对象形象进度上报基类，可通过配置进行扩展 -->
+	<bean id="objectProgressReportWorkScheme"
+		class="cn.redflagsoft.base.scheme.schemes.ObjectProgressReportWorkScheme"
+		parent="abstractWorkScheme" abstract="true">
+		<property name="progressService" ref="progressService" />
+	</bean>
+
+
+
+	<!-- 问题上报，问题管理流程的第一步 -->
+	<bean id="issueWorkScheme" class="cn.redflagsoft.base.scheme.schemes.IssueWorkScheme"
+		parent="abstractWorkScheme" scope="prototype">
+		<property name="objectService" ref="issueService" />
+		<property name="workType" value="8010" />
+		<property name="taskType" value="8010" />
+		<property name="matterIds">
+			<list>
+				<value>8010</value>
+			</list>
+		</property>
+	</bean>
+
+
+	<!-- 业务对象问题上报基类，可通过配置进行扩展 -->
+	<bean id="objectIssueReportWorkScheme" class="cn.redflagsoft.base.scheme.schemes.ObjectIssueReportWorkScheme"
+		parent="abstractWorkScheme" abstract="true">
+		<property name="schemeManager" ref="schemeManager" />
+	</bean>
+
+
+	<!-- 过错管理基类 -->
+	<bean id="abstractSignCardWorkScheme" class="cn.redflagsoft.base.scheme.schemes.signcard.AbstractSignCardWorkScheme"
+		parent="abstractWorkScheme" abstract="true">
+		<property name="objectService" ref="signCardService" />
+	</bean>
+	
+	<!-- 过错登记 -->
+	<bean id="signCardBookInWorkScheme" class="cn.redflagsoft.base.scheme.schemes.signcard.SignCardBookInWorkScheme"
+		parent="abstractSignCardWorkScheme" scope="prototype">
+		<property name="displayName" value="过错登记" />
+		<property name="workType" value="7010" />
+		<property name="taskType" value="7010" />
+		<property name="matterIds">
+			<list>
+				<value>7010</value>
+			</list>
+		</property>
+	</bean>
+	
+
+	
+	<!-- 过错受理 -->
+	<bean id="signCardAcceptWorkScheme" class="cn.redflagsoft.base.scheme.schemes.signcard.SignCardAcceptWorkScheme"
+		parent="abstractSignCardWorkScheme" scope="prototype">
+		<property name="displayName" value="过错受理" />
+		<property name="signCardAcceptService" ref="signCardAcceptService"/>
+		<property name="workType" value="7020" />
+		<property name="taskType" value="7020" />
+		<property name="matterIds">
+			<list>
+				<value>7020</value>
+			</list>
+		</property>
+	</bean>
+	
+	
+	<!-- 事实认定 -->
+	<bean id="signCardSurveyWorkScheme" class="cn.redflagsoft.base.scheme.schemes.signcard.SignCardSurveyWorkScheme"
+		parent="abstractSignCardWorkScheme" scope="prototype">
+		<property name="displayName" value="事实认定" />
+		<property name="signCardSurveyService" ref="signCardSurveyService"/>
+		<property name="workType" value="7030" />
+		<property name="taskType" value="7030" />
+		<property name="matterIds">
+			<list>
+				<value>7030</value>
+			</list>
+		</property>
+	</bean>
+	
+	
+	<!-- 纠错告知 -->
+	<bean id="signCardNoticeWorkScheme" class="cn.redflagsoft.base.scheme.schemes.signcard.SignCardNoticeWorkScheme"
+		parent="abstractSignCardWorkScheme" scope="prototype">
+		<property name="displayName" value="纠错告知" />
+		<property name="signCardNoticeService" ref="signCardNoticeService"/>
+		<property name="workType" value="7040" />
+		<property name="taskType" value="7040" />
+		<property name="matterIds">
+			<list>
+				<value>7040</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 整改核查 -->
+	<bean id="signCardCheckWorkScheme" class="cn.redflagsoft.base.scheme.schemes.signcard.SignCardCheckWorkScheme"
+		parent="abstractSignCardWorkScheme" scope="prototype">
+		<property name="displayName" value="整改核查" />
+		<property name="signCardCheckService" ref="signCardCheckService"/>
+		<property name="workType" value="7050" />
+		<property name="taskType" value="7050" />
+		<property name="matterIds">
+			<list>
+				<value>7050</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 责任追究 -->
+	<bean id="signCardPenaltyWorkScheme" class="cn.redflagsoft.base.scheme.schemes.signcard.SignCardPenaltyWorkScheme"
+		parent="abstractSignCardWorkScheme" scope="prototype">
+		<property name="displayName" value="责任追究" />
+		<property name="signCardPenaltyService" ref="signCardPenaltyService"/>
+		<property name="workType" value="7060" />
+		<property name="taskType" value="7060" />
+		<property name="matterIds">
+			<list>
+				<value>7060</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 阶段详情 -->
+	<bean id="stageTaskDetailsWorkScheme" class="cn.redflagsoft.base.scheme.schemes.StageTaskDetailsWorkScheme"
+		parent="abstractWorkScheme" scope="prototype" abstract="true">
+		<property name="displayName" value="阶段详情" />
+		<property name="stageTaskDetailsService" ref="stageTaskDetailsService"/>
+		<property name="lifeStageDao" ref="lifeStageDao"></property>
+		<property name="taskDefinitionService" ref="taskDefinitionService"></property>
+<!--		<property name="objectService" ref="projectService"></property>-->
+		<!-- 
+		<property name="workType" value="7060" />
+		<property name="taskType" value="7060" />
+		<property name="matterIds">
+			<list>
+				<value>7060</value>
+			</list>
+		</property>
+		 -->
+	</bean>
+	
+	<!-- 行政区划 -->
+	<bean id="districtScheme" class="cn.redflagsoft.base.scheme.schemes.DistrictScheme" scope="prototype">
+		<property name="districtService" ref="districtService"/>
+	</bean>
+	
+	
+	
+	
+	<bean id="taskBizInfoService" class="cn.redflagsoft.base.service.impl.TaskBizInfoServiceImpl">
+		<property name="taskBizInfoDao" ref="taskBizInfoDao"></property>
+	</bean>
+	
+	<bean id="baseWorkScheme" class="cn.redflagsoft.base.scheme.schemes.BaseWorkScheme" parent="abstractWorkScheme" scope="prototype">
+		<property name="objectService" ref="objectService"></property>
+		<property name="taskBizInfoService" ref="taskBizInfoService"></property>
+		<property name="schemeManager" ref="schemeManager"></property>
+	</bean>
+	
+	<bean id="workDefinitionService" class="cn.redflagsoft.base.service.impl.WorkDefinitionServiceImpl">
+		<property name="workDefinitionDao" ref="workDefinitionDao"></property>
+	</bean>
+	
+	<bean id="taskDefinitionService" class="cn.redflagsoft.base.service.impl.TaskDefinitionServiceImpl">
+		<property name="taskDefinitionDao" ref="taskDefinitionDao"></property>
+		<property name="workDefinitionDao" ref="workDefinitionDao"></property>
+	</bean>
+	
+	<!-- 阶段详情 -->
+	<bean id="stageTaskDetailsService" class="cn.redflagsoft.base.service.impl.StageTaskDetailsServiceImpl">
+		<property name="stageTaskDetailsDao" ref="stageTaskDetailsDao"></property>
+		<property name="taskDefinitionService" ref="taskDefinitionService"></property>
+	</bean>
+	
+	<bean id="adminUserService" class="cn.redflagsoft.base.service.impl.UserServiceImpl">
+		<property name="clerkService" ref="clerkService"/>
+		<property name="userManager" ref="userManager"/>
+		<property name="adminUserDao" ref="adminUserDao" />
+		<property name="groupManager" ref="userManager"/>
+	</bean>
+	
+	<!-- 行政区划管理 第一个版本，查询单个对象时效率高-->
+	<bean id="districtService" class="cn.redflagsoft.base.service.impl.DistrictServiceImpl">
+		<property name="districtDao" ref="districtDao"></property>
+		<property name="cache">
+			<bean parent="cacheBean" depends-on="cacheManager">
+				<constructor-arg value="districtCache"></constructor-arg>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 行政区划管理 第二个版本，查询整个对象树时效率高-->
+	<bean id="districtService2" class="cn.redflagsoft.base.service.impl.DistrictServiceImpl2">
+		<property name="districtDao" ref="districtDao"></property>
+	</bean>
+	
+	<!-- 组织机构管理 -->
+	<bean id="organizationService" class="cn.redflagsoft.base.service.impl.OrganizationServiceImpl">
+		<property name="orgDao" ref="orgDao"></property>
+	</bean>
+	
+	<bean id="lifeStageService" class="cn.redflagsoft.base.service.impl.LifeStageServiceImpl">
+		<property name="lifeStageDao" ref="lifeStageDao"></property>
+	</bean>
+	
+	<bean id="codeMapSelectDataHandler" class="cn.redflagsoft.base.service.impl.CodeMapSelectDataHandler">
+	</bean>
+	
+	
+	<bean id="defScheme" class="cn.redflagsoft.base.scheme.schemes.DefScheme" scope="prototype">
+		<property name="taskDefProvider" ref="taskDefProvider"></property>
+		<property name="workDefProvider" ref="workDefProvider"></property>
+	</bean>
+	
+	<bean id="managerQuery" class="cn.redflagsoft.base.query.ManagerQuery">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="clerkService" ref="clerkService"></property>
+		<property name="userManager" ref="userManager"></property>
+	</bean>
+	
+	<bean id="orgQuery" class="cn.redflagsoft.base.query.OrgQuery">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="orgService" ref="orgService"></property>
+	</bean>
+	
+	<!-- 文号定义管理器 -->
+	<bean id="fileNoManager" class="cn.redflagsoft.base.service.impl.FileNoManagerImpl">
+		<property name="fileNoDao" ref="fileNoDao"></property>
+		<property name="fileNoCache" ref="fileNoCache"></property>
+	</bean>
+	
+	<bean id="fileNoScheme" class="cn.redflagsoft.base.scheme.schemes.fileno.FileNoScheme" scope="prototype">
+		<property name="fileNoManager" ref="fileNoManager"></property>
+	</bean>
+	
+	<bean id="smsgScheme" class="cn.redflagsoft.base.scheme.schemes.smsg.SmsgScheme" scope="prototype">
+		<property name="smsgService" ref="smsgService"></property>
+	</bean>
+	
+	<bean id="clerkInRoleQuery" class="cn.redflagsoft.base.query.ClerkInRoleQuery"  >
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="progressBelongTimesQuery" class="cn.redflagsoft.base.query.ProgressBelongTimesQuery">
+	</bean>
+</beans>

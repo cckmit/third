@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.SignCardPenalty" table="SIGN_CARD_PENALTY">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>	
+		<property name="signCardId" column="SIGNCARD_ID" type="java.lang.Long"/>
+		
+		<property name="penaltyDutyerId" column="PENALTY_DUTYERID" type="java.lang.Long"/>
+		
+		<property name="penaltyDutyerName" column="PENALTY_DUTYERNAME" type="java.lang.String"/>
+		
+		<property name="penaltySummary" column="PENALTY_SUMMARY" type="java.lang.String"/>
+		
+		<property name="penaltyFileNo" column="PENALTY_FILENO" type="java.lang.String"/>
+		
+		<property name="penaltyCreator" column="PENALTY_CREATOR" type="java.lang.Long"/>
+		
+		<property name="penaltyActualTime" column="PENALTY_ACTUALTIME" type="java.sql.Timestamp"/>
+		
+		<property name="penaltyTime" column="PENALTY_TIME" type="java.sql.Timestamp"/>
+	
+		<property name="penaltyRemark" column="PENALTY_REMARK" type="java.lang.String"/>
+	
+		<property name="type" column="TP" type="int"/>
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+			
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+			
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+			
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+			
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+	</class>
+</hibernate-mapping>

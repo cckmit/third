@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="bb79773b-f29e-4040-8a01-6199fbbe9e65" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="package-info" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="D:/worksoft/apache-maven-3.2.5" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="MavenRunner">
+    <option name="skipTests" value="true" />
+  </component>
+  <component name="ProjectId" id="1t7lUO6U211F4vFmDkSjwjJk1vf" />
+  <component name="ProjectViewState">
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/springcloud2_payModule8001/src/main/resources" />
+    <property name="project.structure.last.edited" value="Facets" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.fileTypes" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\work\idea_java\springcloud2\springcloud2_payModule8001\src\main\resources" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\work\idea_java\springcloud2\springcloud2_payModule8002\src\main\resources" />
+      <recent name="D:\work\idea_java\springcloud2\springcloud2_api\src\main\resources" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="AppStart8002" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="springcloud2_payModule8002" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.beitie.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.beitie.AppStart8002" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.AppStart8002" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bb79773b-f29e-4040-8a01-6199fbbe9e65" name="Default Changelist" comment="" />
+      <created>1622128023212</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1622128023212</updated>
+      <workItem from="1622128026137" duration="871000" />
+      <workItem from="1622208544434" duration="5565000" />
+      <workItem from="1623765916788" duration="503000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="275" y="21" key="#Project_Structure" timestamp="1622212630832">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="275" y="21" key="#Project_Structure/0.0.1366.728@0.0.1366.728" timestamp="1622212630832" />
+    <state width="1306" height="445" key="GridCell.Tab.0.bottom" timestamp="1622214119004">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1306" height="445" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1622214119004" />
+    <state width="1306" height="445" key="GridCell.Tab.0.center" timestamp="1622214119004">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1306" height="445" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1622214119004" />
+    <state width="1306" height="445" key="GridCell.Tab.0.left" timestamp="1622214119004">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1306" height="445" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1622214119004" />
+    <state width="1306" height="445" key="GridCell.Tab.0.right" timestamp="1622214119004">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1306" height="445" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1622214119004" />
+    <state width="1306" height="445" key="GridCell.Tab.1.bottom" timestamp="1622214119004">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1306" height="445" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1622214119004" />
+    <state width="1306" height="445" key="GridCell.Tab.1.center" timestamp="1622214119004">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1306" height="445" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1622214119004" />
+    <state width="1306" height="445" key="GridCell.Tab.1.left" timestamp="1622214119004">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1306" height="445" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1622214119004" />
+    <state width="1306" height="445" key="GridCell.Tab.1.right" timestamp="1622214119004">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1306" height="445" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1622214119004" />
+    <state x="184" y="0" key="SettingsEditor" timestamp="1622213142561">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="184" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1622213142561" />
+    <state x="53" y="57" key="new project wizard" timestamp="1622213330734">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="53" y="57" key="new project wizard/0.0.1366.728@0.0.1366.728" timestamp="1622213330734" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1622213425208">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1622213425208" />
+    <state x="384" y="46" key="spring file set editor" timestamp="1622213056587">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="384" y="46" key="spring file set editor/0.0.1366.728@0.0.1366.728" timestamp="1622213056587" />
+  </component>
+  <component name="se.expertsystem.intellij.aop.aspectj.AspectJProjectComponent">
+    <setting name="isActivated" value="false" />
+  </component>
+</project>

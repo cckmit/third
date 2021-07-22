@@ -1,0 +1,152 @@
+/*
+ * $Id: SmsgTemplateServiceImpl.java 5817 2012-05-30 08:59:35Z thh $
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.service.impl;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang.StringUtils;
+import org.opoo.apps.AppsGlobals;
+import org.opoo.apps.el.ExpressionFactory;
+import org.opoo.apps.lifecycle.Application;
+
+import cn.redflagsoft.base.bean.RFSEntityObject;
+import cn.redflagsoft.base.bean.Risk;
+import cn.redflagsoft.base.bean.RiskEntry;
+import cn.redflagsoft.base.bean.Task;
+import cn.redflagsoft.base.el.velocity.ExpressionFactoryImpl;
+import cn.redflagsoft.base.service.EntityObjectLoader;
+import cn.redflagsoft.base.service.RiskService;
+import cn.redflagsoft.base.service.SmsgTemplateService;
+import cn.redflagsoft.base.service.TaskService;
+
+import com.google.common.collect.Maps;
+
+/**
+ * @author Alex Lin(lcql@msn.com)
+ *
+ */
+public class SmsgTemplateServiceImpl implements SmsgTemplateService {
+	private static SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+	private static SimpleDateFormat sdf2=new SimpleDateFormat("MM月dd号HH点mm分");
+	   
+	private ExpressionFactory expressionFactory;
+	private TaskService taskService;
+	private EntityObjectLoader entityObjectLoader;
+	private RiskService riskService;
+
+	/**
+	 * @return the taskService
+	 */
+	public TaskService getTaskService() {
+		return taskService;
+	}
+
+	/**
+	 * @param taskService the taskService to set
+	 */
+	public void setTaskService(TaskService taskService) {
+		this.taskService = taskService;
+	}
+
+	/**
+	 * @return the entityObjectLoader
+	 */
+	public EntityObjectLoader getEntityObjectLoader() {
+		return entityObjectLoader;
+	}
+
+	/**
+	 * @param entityObjectLoader the entityObjectLoader to set
+	 */
+	public void setEntityObjectLoader(EntityObjectLoader entityObjectLoader) {
+		this.entityObjectLoader = entityObjectLoader;
+	}
+
+	/**
+	 * @return the riskService
+	 */
+	public RiskService getRiskService() {
+		return riskService;
+	}
+
+	/**
+	 * @param riskService the riskService to set
+	 */
+	public void setRiskService(RiskService riskService) {
+		this.riskService = riskService;
+	}
+
+	public String processTemplate(String template, Map<String, Object> params) {
+		if(params == null){
+			params = Maps.newHashMap();
+		}
+		addGlobalsParams(params);
+		return getExpressionFactory().getExpression(template).getValue(params);
+	}
+
+	public Map<String, Object> getTaskContext(Long taskSN) {
+		Map<String, Object> context = Maps.newHashMap();
+		Task t = getTaskService().getTask(taskSN);
+		
+		if(t != null){
+			context.put("task", t);
+			
+			RFSEntityObject object = entityObjectLoader.getEntityObject(t.getRefObjectType(), t.getRefObjectId());
+			if(object != null){
+				context.put("object", object);
+			}
+			List<RiskEntry> riskEntries = t.getRiskEntries();
+			if(riskEntries != null && !riskEntries.isEmpty()){
+				for(RiskEntry re: riskEntries){
+					if("timeUsed".equalsIgnoreCase(re.getObjectAttr())){
+						Risk risk = riskService.getRiskById(re.getRiskID());
+						if(risk != null){
+							context.put("risk", risk);
+							break;
+						}
+					}
+				}
+			}
+		}
+		return context;
+	}
+	
+	public ExpressionFactory getExpressionFactory(){
+		if(expressionFactory == null){
+			expressionFactory = new ExpressionFactoryImpl();
+		}
+		return expressionFactory;
+	}
+
+	/**
+	 * 静态参数。
+	 * @param params
+	 */
+	private static void addGlobalsParams(Map<String,Object> params){
+		if(params == null){
+			return;
+		}
+		params.put("Now", sdf.format(new Date()));
+		params.put("Now_Format1", sdf2.format(new Date()));
+		if(Application.isInitialized() && Application.isContextInitialized()){
+			String systemAbbr = AppsGlobals.getProperty("system.abbr");
+			String systemName = AppsGlobals.getProperty("system.name");
+			if(StringUtils.isNotBlank(systemName)){
+				params.put("System_Name", systemName);
+			}
+			if(StringUtils.isNotBlank(systemAbbr)){
+				params.put("System_Abbr", systemAbbr);
+			}
+		}
+	}
+}

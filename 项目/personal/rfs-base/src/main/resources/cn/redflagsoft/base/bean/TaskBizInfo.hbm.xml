@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.TaskBizInfo" table="TASK_BIZ_INFO">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="taskSN" column="TASK_SN" type="java.lang.Long"/>
+		
+		<property name="taskName" column="TASK_NAME" type="java.lang.String"/>
+		
+		<property name="acptWorkItemName" column="ACPT_WORK_ITEM_NAME" type="java.lang.String"/>
+		
+		<property name="acptSN" column="ACPT_SN" type="java.lang.String"/>
+		
+		<property name="acptApplyOrgId" column="ACPT_APPLY_ORG_ID" type="java.lang.Long"/>
+
+		<property name="acptApplyOrgName" column="ACPT_APPLY_ORG_NAME" type="java.lang.String"/>
+
+		<property name="acptApplyClerkId" column="ACPT_APPLY_CLERK_ID" type="java.lang.Long"/>
+
+		<property name="acptApplyClerkName" column="ACPT_APPLY_CLERK_NAME" type="java.lang.String"/>
+
+		<property name="acptRemark" column="ACPT_REMARK" type="java.lang.String"/>
+
+		<property name="acptTime" column="ACPT_TIME"  type="java.sql.Timestamp"/>
+
+		<property name="acptOperateTime" column="ACPT_OPERATE_TIME"  type="java.sql.Timestamp"/>
+
+		<property name="acptOperateClerkId" column="ACPT_OPERATE_CLERK_ID" type="java.lang.Long"/>
+
+		<property name="acptOperateClerkName" column="ACPT_OPERATE_CLERK_NAME" type="java.lang.String"/>
+
+		<property name="acptDocCount" column="ACPT_DOC_COUNT" type="int"/>
+		
+		<property name="acptAttacchmentCount" column="ACPT_ATTACHMENT_COUNT" type="int"/>
+		
+		<property name="acptClerkId" column="ACPT_CLERK_ID" type="java.lang.Long"/>
+		
+		<property name="acptClerkName" column="ACPT_CLERK_NAME" type="java.lang.String"/>
+
+		<property name="daWorkItemName" column="DA_WORK_ITEM_NAME" type="java.lang.String"/>
+
+		<property name="daFileNo" column="DA_FILE_NO" type="java.lang.String"/>
+
+		<property name="daAuditTime" column="DA_AUDIT_TIME"  type="java.sql.Timestamp"/>
+
+		<property name="daRemark" column="DA_REMARK" type="java.lang.String"/>
+
+		<property name="daOperateTime" column="DA_OPERATE_TIME"  type="java.sql.Timestamp"/>
+
+		<property name="daOperateClerkId" column="DA_OPERATE_CLERK_ID" type="java.lang.Long"/>
+
+		<property name="daOperateClerkName" column="DA_OPERATE_CLERK_NAME" type="java.lang.String"/>
+
+		<property name="daDocCount" column="DA_DOC_COUNT" type="int"/>
+		
+		<property name="daAttacchmentCount" column="DA_ATTACHMENT_COUNT" type="int"/>
+		
+		<property name="daClerkId" column="DA_CLERK_ID" type="java.lang.Long"/>
+		
+		<property name="daClerkName" column="DA_CLERK_NAME" type="java.lang.String"/>
+		
+		<property name="daTime" column="DA_TIME" type="java.sql.Timestamp"/>
+
+		<property name="drWorkItemName" column="DR_WORK_ITEM_NAME" type="java.lang.String"/>
+		
+		<property name="drTime" column="DR_TIME"  type="java.sql.Timestamp"/>
+		
+		<property name="drDocReceiveOrgId" column="DR_DOC_RECEIVE_ORG_ID" type="java.lang.Long"/>
+
+		<property name="drDocReceiveOrgName" column="DR_DOC_RECEIVE_ORG_NAME" type="java.lang.String"/>
+
+		<property name="drClerkId" column="DR_CLERK_ID" type="java.lang.Long"/>
+
+		<property name="drClerkName" column="DR_CLERK_NAME" type="java.lang.String"/>
+		
+		<property name="drRemark" column="DR_REMARK" type="java.lang.String"/>
+		
+		<property name="drOperateTime" column="DR_OPERATE_TIME"  type="java.sql.Timestamp"/>
+		
+		<property name="drOperateClerkId" column="DR_OPERATE_CLERK_ID" type="java.lang.Long"/>
+
+		<property name="drOperateClerkName" column="DR_OPERATE_CLERK_NAME" type="java.lang.String"/>
+		
+		<property name="drDocCount" column="DR_DOC_COUNT" type="int"/>
+		
+		<property name="drAttacchmentCount" column="DR_ATTACHMENT_COUNT" type="int"/>
+		
+		<property name="rcdWorkItemName" column="RCD_WORK_ITEM_NAME" type="java.lang.String"/>
+		
+		<property name="rcdApplyClerkId" column="RCD_APPLY_CLERK_ID" type="java.lang.Long"/>
+
+		<property name="rcdApplyClerkName" column="RCD_APPLY_CLERK_NAME" type="java.lang.String"/>
+
+		<property name="rcdAcceptOrgId" column="RCD_ACCEPT_ORG_ID" type="java.lang.Long"/>
+
+		<property name="rcdAcceptOrgName" column="RCD_ACCEPT_ORG_NAME" type="java.lang.String"/>
+		
+		<property name="rcdReceiptFileNo" column="RCD_RECEIPT_FILE_NO" type="java.lang.String"/>
+
+		<property name="rcdAcceptClerkId" column="RCD_ACCEPT_CLERK_ID" type="java.lang.Long"/>
+
+		<property name="rcdAcceptClerkName" column="RCD_ACCEPT_CLERK_NAME" type="string"/>
+		
+		<property name="rcdAcceptTime" column="RCD_ACCEPT_TIME"  type="java.sql.Timestamp"/>
+		
+		<property name="rcdRemark" column="RCD_REMARK" type="java.lang.String"/>
+		
+		<property name="rcdOperateTime" column="RCD_OPERATE_TIME"  type="java.sql.Timestamp"/>
+		
+		<property name="rcdOperateClerkId" column="RCD_OPERATE_CLERK_ID" type="java.lang.Long"/>
+
+		<property name="rcdOperateClerkName" column="RCD_OPERATE_CLERK_NAME" type="java.lang.String"/>
+		
+		<property name="rcdDocCount" column="RCD_DOC_COUNT" type="int"/>
+		
+		<property name="rcdAttacchmentCount" column="RCD_ATTACHMENT_COUNT" type="int"/>
+		
+		<property name="rcdClerkId" column="RCD_CLERK_ID" type="java.lang.Long"/>
+		
+		<property name="rcdClerkName" column="RCD_CLERK_NAME" type="java.lang.String"/>
+		
+		<property name="rcdTime" column="RCD_TIME" type="java.sql.Timestamp"/>
+		
+		
+		
+		<property name="acvWorkItemName" column="ACV_WORK_ITEM_NAME" type="java.lang.String"/>
+		
+		<property name="acvDocFileNo" column="ACV_DOC_FILE_NO" type="java.lang.String"/>
+
+		<property name="acvDocPublishOrgId" column="ACV_DOC_PUBLISH_ORG_ID" type="java.lang.Long"/>
+
+		<property name="acvDocPublishOrgName" column="ACV_DOC_PUBLISH_ORG_NAME" type="java.lang.String"/>
+		
+		<property name="acvDocPublishTime" column="ACV_DOC_PUBLISH_TIME"  type="java.sql.Timestamp"/>
+		
+		<property name="acvClerkId" column="ACV_CLERK_ID" type="java.lang.Long"/>
+		
+		<property name="acvClerkName" column="ACV_CLERK_NAME" type="java.lang.String"/>
+		
+		<property name="acvRemark" column="ACV_REMARK" type="java.lang.String"/>
+		
+		<property name="acvOperateTime" column="ACV_OPERATE_TIME"  type="java.sql.Timestamp"/>
+		
+		<property name="acvOperateClerkId" column="ACV_OPERATE_CLERK_ID" type="java.lang.Long"/>
+
+		<property name="acvOperateClerkName" column="ACV_OPERATE_CLERK_NAME" type="java.lang.String"/>
+		
+		<property name="acvDocCount" column="ACV_DOC_COUNT" type="int"/>
+		
+		<property name="acvAttacchmentCount" column="ACV_ATTACHMENT_COUNT" type="int"/>
+		
+		<property name="acvTime" column="ACV_TIME"  type="java.sql.Timestamp"/>
+		
+		
+		<!-- <property name="type" column="TP" type="int"/> -->
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+			
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+			
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+			
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+			
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+	</class>
+</hibernate-mapping>

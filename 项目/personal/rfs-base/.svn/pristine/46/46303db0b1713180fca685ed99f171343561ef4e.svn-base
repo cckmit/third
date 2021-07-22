@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="GBK"?>
+<acl>
+	<defaultAce id="default" name="DefaultAce">
+		<entry index="1" name="查询" mask="R" perms="1"/>
+		<entry index="2" name="创建" mask="C" perms="2"/>
+		<entry index="3" name="更新" mask="U" perms="4"/>
+		<entry index="4" name="删除" mask="D" perms="8"/>
+	</defaultAce>
+</acl>

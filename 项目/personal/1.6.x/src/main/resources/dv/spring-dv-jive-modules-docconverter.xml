@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:util="http://www.springframework.org/schema/util"
+        xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
+http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd"
+       >
+     
+    <!-- configuration manager -->
+    <bean id="conversionConfigManager" class="org.opoo.apps.dv.office.conversion.jive.modules.docconverter.JiveConfigManagerImpl">
+        <!--- names ofJava system proeprties that have teh default and override configs(for different environments) -->
+        <constructor-arg value="config.xml"/>
+        <constructor-arg value="overrideConfig.xml"/>
+    </bean>  
+    
+    <bean id="fileManager" class="com.jivesoftware.office.manager.impl.FileManagerImpl" destroy-method="destroy">
+        <constructor-arg>
+        	<util:property-path path="conversionConfigManager.fileCacheConfig"/>
+        </constructor-arg>
+    </bean>
+    
+     <bean id="unoProvider" class="com.jivesoftware.office.command.openoffice.UnoRuntimeProvider">
+         <constructor-arg>
+        	<util:property-path path="conversionConfigManager.OFFICETOPDFConfig"/>
+        </constructor-arg>
+    </bean>
+
+    <bean id="openOfficeManager" class="com.jivesoftware.office.command.openoffice.impl.OpenOfficeManagerImpl"
+          init-method="init" destroy-method="destroy">
+        <property name="unoRuntimeProvider" ref="unoProvider"/>
+        <property name="ooKillExecutor" ref="ooKillExecutor"/>
+        <property name="ports">
+       		<util:property-path path="conversionConfigManager.OFFICETOPDFConfig.ports"/>
+       	</property>
+        <property name="openOfficeConfig">
+        	<util:property-path path="conversionConfigManager.OFFICETOPDFConfig"/>
+        </property>
+    </bean>
+
+    <bean id="ooKillExecutor" class="com.jivesoftware.office.command.openoffice.impl.OOKillExecutorImpl">
+        <constructor-arg>
+        	<util:property-path path="conversionConfigManager.OFFICETOPDFConfig.killConfig"/>
+        </constructor-arg>
+    </bean>
+     
+    <!-- command executors -->
+   	<bean id="openOfficeCommandExecutor"
+          class="com.jivesoftware.office.command.openoffice.impl.OpenOfficeConversionExecutorImpl"
+          destroy-method="destroy">
+
+        <constructor-arg value="OFFICETOPDF"/>
+        <constructor-arg>
+        	<util:property-path path="conversionConfigManager.OFFICETOPDFConfig"/>
+        </constructor-arg>
+        <constructor-arg ref="fileManager"/>
+
+        <property name="unoProvider" ref="unoProvider"/>
+        <property name="connectionManager" ref="openOfficeManager"/>
+
+    </bean>
+     
+     
+	<bean id="pdf2swfOfficeCommandExecutor"
+          class="com.jivesoftware.office.command.commandline.GenericBashExecutionCommand" destroy-method="destroy">
+        <constructor-arg value="PDF2SWF"/>
+        <constructor-arg>
+        	<util:property-path path="conversionConfigManager.PDF2SWFConfig"/>
+        </constructor-arg>
+        <constructor-arg ref="fileManager"/>
+    </bean>
+
+    <bean id="pdf2swfpbmOfficeCommandExecutor"
+          class="com.jivesoftware.office.command.commandline.GenericBashExecutionCommand" destroy-method="destroy">
+        <constructor-arg value="PDF2SWFPBM"/>
+        <constructor-arg>
+        	<util:property-path path="conversionConfigManager.PDF2SWFPBMConfig"/>
+        </constructor-arg>
+        <constructor-arg ref="fileManager"/>
+    </bean>
+    
+  	<bean id="imagerCommandExecutor" class="com.jivesoftware.office.command.commandline.GenericBashExecutionCommand"
+          destroy-method="destroy">
+        <constructor-arg value="IMAGER"/>
+        <constructor-arg>
+        	<util:property-path path="conversionConfigManager.IMAGERConfig"/>
+        </constructor-arg>
+        <constructor-arg ref="fileManager"/>
+    </bean>
+
+    <bean id="textextractCommandExecutor"
+          class="com.jivesoftware.office.command.commandline.GenericBashExecutionCommand" destroy-method="destroy">
+        <constructor-arg value="TEXTEXTRACT"/>
+        <constructor-arg>
+        	<util:property-path path="conversionConfigManager.TEXTEXTRACTConfig"/>
+        </constructor-arg>
+        <constructor-arg ref="fileManager"/>
+    </bean>
+    
+	<util:map id="executorsMap" map-class="java.util.concurrent.ConcurrentHashMap">
+		<entry key="Pdf" value-ref="openOfficeCommandExecutor"></entry>
+		<entry key="Preview" value-ref="pdf2swfOfficeCommandExecutor"></entry>
+		<entry key="Thumbnail" value-ref="imagerCommandExecutor"></entry>
+	</util:map>
+    
+        <!-- command factory -->
+
+    <bean id="conversionCommandFactory" class="com.jivesoftware.office.manager.ConversionCommandFactory">
+        <property name="executorMap">
+            <util:map map-class="java.util.concurrent.ConcurrentHashMap">
+            	<entry value-ref="openOfficeCommandExecutor">
+            		<key><util:constant static-field="com.jivesoftware.office.manager.ConversionCommandType.OFFICETOPDF"/></key>
+            	</entry>
+             
+                <entry value-ref="pdf2swfOfficeCommandExecutor">
+            		<key><util:constant static-field="com.jivesoftware.office.manager.ConversionCommandType.PDF2SWF"/></key>
+            	</entry>
+            	
+                <entry value-ref="pdf2swfpbmOfficeCommandExecutor">
+            		<key><util:constant static-field="com.jivesoftware.office.manager.ConversionCommandType.PDF2SWFPBM"/></key>
+            	</entry>
+                
+                <entry value-ref="imagerCommandExecutor">
+            		<key><util:constant static-field="com.jivesoftware.office.manager.ConversionCommandType.IMAGER"/></key>
+            	</entry>
+                
+                <entry value-ref="textextractCommandExecutor">
+            		<key><util:constant static-field="com.jivesoftware.office.manager.ConversionCommandType.TEXTEXTRACT"/></key>
+            	</entry>
+            </util:map>
+        </property>
+
+    </bean>
+
+    <bean id="conversionManagerImpl" class="com.jivesoftware.office.manager.impl.ConversionManagerImpl">
+        <property name="conversionCommandFactory" ref="conversionCommandFactory"/>
+    </bean>
+</beans>

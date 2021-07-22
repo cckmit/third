@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.BizRouteSect" table="BIZ_ROUTE_SECT">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		
+		<property name="routeID" column="ROUTEID" type="java.lang.Long"/>
+		
+		<property name="sectNo" column="SECTNO" type="byte"/>
+		
+		<property name="sectName" column="SECT_NAME" type="java.lang.String"/>
+		
+		<property name="status" column="STATUS" type="byte"/>
+  	</class>
+</hibernate-mapping>

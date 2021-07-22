@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+<!-- 
+	<class table="SEC_USER_PERMS" name="cn.redflagsoft.base.security.acl.dao.PermsBean">
+	
+	
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		<discriminator column="TP" type="string" length="10"></discriminator>
+		<property name="aceId" column="ACE_ID" type="string" not-null="true" length="200"/>
+		<property name="aceName" column="ACE_NAME" type="string" not-null="true" length="200"/>
+		<property name="perms" column="PERMS" type="long" not-null="true"/>
+		<property name="permType" column="PERM_TYPE" type="int" not-null="true"/>
+		<subclass name="cn.redflagsoft.base.security.acl.dao.UserPermsBean" discriminator-value="U">
+			<property name="userId" column="SID" type="long" not-null="true"></property>
+		</subclass>
+		<subclass name="cn.redflagsoft.base.security.acl.dao.GroupPermsBean" discriminator-value="G">
+			<property name="groupId" column="SID" type="long" not-null="true"></property>
+		</subclass>
+	</class>
+	
+	-->
+	<class name="cn.redflagsoft.base.security.impl.dao.hibernate3.PermsBean" table="SEC_PERMS" discriminator-value="0">
+		<composite-id name="id" class="cn.redflagsoft.base.security.impl.dao.hibernate3.PermsKey">
+			<key-property name="aceId" column="ACE_ID" type="string" length="200"></key-property>
+			<key-property name="sid" column="SID" type="long"></key-property>
+			<key-property name="type" column="PERM_TYPE" type="int"></key-property>
+		</composite-id>
+		<discriminator column="D" type="int"></discriminator>
+
+		<property name="permissions" column="PERMS" type="long" not-null="true"/>
+
+		<subclass name="cn.redflagsoft.base.security.impl.dao.hibernate3.UserPerms" discriminator-value="1">
+		</subclass>
+		<subclass name="cn.redflagsoft.base.security.impl.dao.hibernate3.GroupPerms" discriminator-value="2">
+		</subclass>
+	</class>
+	
+</hibernate-mapping>

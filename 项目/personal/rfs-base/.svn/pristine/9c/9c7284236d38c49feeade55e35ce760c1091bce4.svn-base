@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.Department" table="DEPT">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		<property name="objectID" column="OBJECTID" type="java.lang.Long"/>
+		
+		<property name="type" column="TP" type="int"/>
+		
+		<property name="code" column="CODE" type="java.lang.String"/>
+		
+		<property name="name" column="NAME" type="java.lang.String"/>
+		
+		<property name="abbr" column="ABBR" type="java.lang.String"/>
+		
+		<property name="departmentSN" column="DEPTSN" type="java.lang.String"/>
+		
+		<property name="managerID" column="MANAGERID" type="java.lang.Long"/>
+		
+		<property name="rank" column="RANK" type="byte"/>
+		
+		<property name="parents" column="PARENTS" type="short"/>
+		
+		<property name="children" column="CHILDREN" type="short"/>
+		
+		<property name="telNo" column="TELNO" type="java.lang.String"/>
+		
+		<property name="faxNo" column="FAXNO" type="java.lang.String"/>
+		
+		<property name="workAddr" column="WORK_ADDR" type="java.lang.String"/>
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+		
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+		
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+	</class>
+</hibernate-mapping>

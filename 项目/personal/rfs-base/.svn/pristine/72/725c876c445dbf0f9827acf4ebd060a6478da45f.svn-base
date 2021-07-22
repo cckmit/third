@@ -1,0 +1,45 @@
+/*
+ * $Id$
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.dao.hibernate3;
+
+import java.util.List;
+
+import org.opoo.ndao.support.ResultFilter;
+
+import cn.redflagsoft.base.bean.EntityObjectToTask;
+import cn.redflagsoft.base.bean.Task;
+import cn.redflagsoft.base.dao.EntityObjectToTaskDao;
+
+/**
+ * @author Alex Lin(alex@opoo.org)
+ *
+ */
+public class EntityObjectToTaskHibernateDao extends
+	AbstractBaseHibernateDao<EntityObjectToTask,Long> implements EntityObjectToTaskDao {
+
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.dao.EntityObjectToTaskDao#findTaskSNs(long, short)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Long> findTaskSNs(long objectId, int objectType) {
+		String qs = "select taskSN from EntityObjectToTask where objectId=? and objectType=?";
+		return getQuerySupport().find(qs, new Object[]{objectId, objectType});
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.dao.EntityObjectToTaskDao#findTasks(org.opoo.ndao.support.ResultFilter)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Task> findTasks(ResultFilter filter) {
+		String qs = "select t from Task t, EntityObjectToTask e where t.sn=e.taskSN";
+		return getQuerySupport().find(qs, filter);
+	}
+}

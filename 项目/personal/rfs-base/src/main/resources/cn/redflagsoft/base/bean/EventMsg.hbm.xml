@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.EventMsg" table="Event_Msg_Cfg">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		<property name="objectType" column="OBJ_TYPE" type="int"/>
+		
+		<property name="objectID" column="OBJECTID" type="java.lang.Long"/>
+		
+		<property name="jobType" column="JOB_TYPE" type="int"/>
+		
+		<property name="taskType" column="TASK_TYPE" type="int"/>
+		
+		<property name="workType" column="WORK_TYPE" type="int"/>
+		
+		<property name="processType" column="PROCESS_TYPE" type="int"/>
+		
+		<property name="eventType" column="EVENT_TYPE" type="java.lang.Long"/>
+		
+		<property name="dutyerType" column="DUTYER_TYPE" type="short"/>
+		
+		<property name="dutyerID" column="DUTYERID" type="java.lang.Long"/>
+		
+		<property name="titleType" column="TITLE_TYPE" type="short"/>
+		
+		<property name="title" column="TITLE" type="java.lang.String"/>
+		
+		<property name="templetType" column="TEMPLET_TYPE" type="short"/>
+		
+		<property name="templet" column="TEMPLET" type="java.lang.String"/>
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="isCreateMsg" column="IS_CREATE_MSG" type="byte"/>
+		
+		<property name="isCreateSms" column="IS_CREATE_SMS" type="byte"/>
+		
+		<property name="isCreateEmail" column="IS_CREATE_EMAIL" type="byte"/>
+		
+		<property name="isSendInternal" column="IS_SEND_INTERNAL" type="byte"/>
+		
+		<property name="needConfirm" column="NEED_CONFIRM" type="byte"/>
+		
+		<property name="publishType" column="PUBLISH_TYPE" type="short"/>
+		
+		<property name="publishTime" column="PUBLISH_TIME" type="java.sql.Timestamp"/>
+		
+		<property name="expiresType" column="EXPIRES_TYPE" type="short"/>
+		
+		<property name="expirationTime" column="EXPIRATION_TIME" type="java.sql.Timestamp"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+	</class>
+</hibernate-mapping>

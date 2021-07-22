@@ -1,0 +1,88 @@
+package cn.redflagsoft.base.aop.aspect;
+
+
+import java.lang.reflect.Method;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.aspectj.lang.annotation.SuppressAjWarnings;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.security.annotation.Secured;
+import org.springframework.security.intercept.method.aspectj.AspectJCallback;
+import org.springframework.security.intercept.method.aspectj.AspectJSecurityInterceptor;
+
+/**
+ * Concrete AspectJ transaction aspect using Spring Security @Secured annotation
+ * for JDK 1.5+.
+ * 
+ * 该类直接使用 Spring Security 3.0 中同名类源代码。在 Spring Security 2.x 中不包含这个类。
+ *
+ * <p>
+ * When using this aspect, you <i>must</i> annotate the implementation class
+ * (and/or methods within that class), <i>not</i> the interface (if any) that
+ * the class implements. AspectJ follows Java's rule that annotations on
+ * interfaces are <i>not</i> inherited. This will vary from Spring AOP.
+ *
+ * @author Mike Wiesner
+ * @since Spring Security 3.0, rfs-base 1.5
+ * @version $Id$
+ */
+public aspect AnnotationSecurityAspect implements InitializingBean {
+	
+	private static final Log log = LogFactory.getLog(AnnotationSecurityAspect.class);
+	private static final boolean IS_DEBUG_ENABLED = log.isDebugEnabled();
+
+	 /**
+     * Matches the execution of any public method in a type with the Secured
+     * annotation, or any subtype of a type with the Secured annotation.
+     */
+    private pointcut executionOfAnyPublicMethodInAtSecuredType() :
+        execution(public * ((@Secured *)+).*(..)) && @this(Secured);
+
+    /**
+     * Matches the execution of any method with the Secured annotation.
+     */
+    private pointcut executionOfSecuredMethod() :
+        execution(* *(..)) && @annotation(Secured);
+
+    private pointcut securedMethodExecution() :
+        executionOfAnyPublicMethodInAtSecuredType() ||
+        executionOfSecuredMethod();
+
+    private AspectJSecurityInterceptor securityInterceptor;
+
+	 @SuppressAjWarnings("adviceDidNotMatch")
+    Object around(): securedMethodExecution() {
+        if (securityInterceptor == null) {
+        	log.debug("方法级安全拦截器未初始化完成，跳过方法权限检查。");
+            return proceed();
+        }
+        
+        if(IS_DEBUG_ENABLED){
+        	MethodSignature methodSignature = (MethodSignature) thisJoinPoint.getSignature();
+    		Method method = methodSignature.getMethod();
+        	log.debug("验证方法 '" + method.toString() + "'");
+        }
+
+        AspectJCallback callback = new AspectJCallback() {
+            public Object proceedWithObject() {
+                return proceed();
+            }
+        };
+
+        return securityInterceptor.invoke(thisJoinPoint, callback);
+    }
+
+    public void setSecurityInterceptor(AspectJSecurityInterceptor securityInterceptor) {
+        this.securityInterceptor = securityInterceptor;
+    }
+
+    public void afterPropertiesSet() throws Exception {
+        if (securityInterceptor == null)
+            throw new IllegalArgumentException("securityInterceptor required");
+        //System.out.println(this + " ---- afterPropertiesSet: " + securityInterceptor);
+        log.info("方法级安全切面初始化完成：" + securityInterceptor);
+    }
+
+}

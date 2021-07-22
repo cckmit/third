@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.googlecode:jsonplugin:0.31">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.m2/repository/com/googlecode/jsonplugin/0.31/jsonplugin-0.31.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.m2/repository/com/googlecode/jsonplugin/0.31/jsonplugin-0.31-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.m2/repository/com/googlecode/jsonplugin/0.31/jsonplugin-0.31-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,116 @@
+/*
+ * $Id: Logic.java 13 2010-11-26 05:04:02Z alex $
+ *
+ * Copyright 2006-2008 Alex Lin. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.opoo.ndao.criterion;
+
+import java.io.Serializable;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.opoo.util.ArrayUtils;
+import org.opoo.util.Assert;
+
+/**
+ * Âß¼­±í´ïÊ½
+ *
+ * @author Alex Lin(alex@opoo.org)
+ * @version 1.0
+ */
+public class Logic implements Criterion, Serializable {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2442448745777718883L;
+	private static final Log log = LogFactory.getLog(Logic.class);
+    private int criterionCount = 0;
+    private StringBuffer qs = null;
+    private Object[] values = null;
+    private Logic() {
+        qs = new StringBuffer();
+    }
+
+
+    Logic(Criterion criterion) {
+        this();
+        addCriterion(criterion, "");
+    }
+
+    private void addCriterion(Criterion criterion, String op) {
+        Assert.notNull(criterion, "criterion cannot be null");
+	String nqs = criterion.toString();
+	if(StringUtils.isBlank(nqs)){
+	    log.debug("ignore empty criterion: " + criterion);
+	    return;
+	}
+
+        Object[] vals = criterion.getValues();
+
+        if (vals != null && vals.length != 0) {
+            if (values == null) {
+                values = vals;
+            } else {
+                values = ArrayUtils.concat(values, vals);
+            }
+        }
+
+        boolean moreThanOne = false;
+
+        if (criterion instanceof Logic) {
+            Logic res = (Logic) criterion;
+            if (res.criterionCount > 1) {
+                moreThanOne = true;
+            }
+            criterionCount += res.criterionCount;
+        } else {
+            criterionCount++;
+        }
+        if (moreThanOne) {
+            qs.append(op + "(" + nqs + ")");
+        } else {
+            qs.append(op + nqs);
+        }
+    }
+
+    public int getCriterionCount() {
+        return criterionCount;
+    }
+
+    public Logic and(Criterion criterion) {
+        addCriterion(criterion, " AND ");
+        return this;
+    }
+
+    public Logic or(Criterion criterion) {
+        addCriterion(criterion, " OR ");
+        return this;
+    }
+
+    public Object[] getValues() {
+        if (ArrayUtils.isEmpty(values)) {
+            return null;
+        }
+        return values;
+    }
+
+    public String toString() {
+        if (qs.length() == 0) {
+            return null;
+        }
+        return qs.toString();
+    }
+}

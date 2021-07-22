@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:cxf="http://cxf.apache.org/core"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-2.5.xsd
+	http://cxf.apache.org/core
+	http://cxf.apache.org/schemas/core.xsd
+	http://cxf.apache.org/jaxws
+	http://cxf.apache.org/schemas/jaxws.xsd">   
+
+ 
+
+<import resource="classpath:META-INF/cxf/cxf.xml" />
+<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
+<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+
+ 
+
+ <bean id="aegisBean" class="org.apache.cxf.aegis.databinding.AegisDatabinding" />
+ <bean id="jaxWsServiceFactoryBean"   class="org.apache.cxf.jaxws.support.JaxWsServiceFactoryBean">
+   <property name="wrapped" value="true" />   
+   <property name="dataBinding" ref="aegisBean" />
+ </bean>
+
+
+ <jaxws:endpoint id="uws" implementor="#userInfoService" address="/uws" ><!-- implementorClass=""-->
+	<jaxws:serviceFactory><ref bean="jaxWsServiceFactoryBean"/></jaxws:serviceFactory>
+ </jaxws:endpoint>
+
+</beans>

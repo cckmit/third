@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="GBK"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       						http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       						http://www.springframework.org/schema/util
+  							http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+  							
+	<bean id="clerkNameChangeEventListener" class="cn.redflagsoft.base.event2.ClerkNameChangeEventListener"></bean>
+	
+	<bean id="orgNameChangeEventListener" class="cn.redflagsoft.base.event2.OrgNameChangeEventListener"></bean>
+	
+	<bean id="orgAbbrChangeEventListener" class="cn.redflagsoft.base.event2.OrgAbbrChangeEventListener"></bean>
+	
+	<bean id="objectCodeChangeEventListener" class="cn.redflagsoft.base.event2.ObjectCodeChangeEventListener"></bean>
+	
+	<bean id="objectNameChangeEventListener" class="cn.redflagsoft.base.event2.ObjectNameChangeEventListener"></bean>
+	
+	<bean id="objectSnChangeEventListener" class="cn.redflagsoft.base.event2.ObjectSnChangeEventListener"></bean>
+	
+	<bean id="objectInvalidForBizStatisticsEventListener" class="cn.redflagsoft.base.listener.ObjectInvalidForBizStatisticsEventListener">
+		<property name="bizStatisticsService" ref="bizStatisticsService"></property>
+		<property name="bizStatisticsDao" ref="bizStatisticsDao"></property>
+	</bean>
+	
+	<bean id="orgEventListener" class="cn.redflagsoft.base.event2.OrgEventListener"></bean>
+</beans>
+

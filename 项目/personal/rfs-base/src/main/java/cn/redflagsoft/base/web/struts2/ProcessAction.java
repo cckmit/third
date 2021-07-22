@@ -1,0 +1,146 @@
+/*
+ * $Id: ProcessAction.java 5837 2012-06-05 07:32:52Z lf $
+ * 
+ * Copyright 2007-2008 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.web.struts2;
+
+import java.util.Map;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import cn.redflagsoft.base.aop.ParametersSetter;
+import cn.redflagsoft.base.aop.annotation.PrintAfter;
+import cn.redflagsoft.base.process.WorkProcess;
+import cn.redflagsoft.base.process.WorkProcessManager;
+
+import com.opensymphony.xwork2.ActionContext;
+
+/**
+ * 通过此Action，前台可以直接调用后台的WorkProcess来处理所需的数据。
+ * 必须指定type或者name之一。
+ * 可以使用GET和POST提交数据、查询数据等。
+ * 
+ * http://host/path-to-processaction.jspa?processType=1000&params=...
+ * http://host/path-to-processaction.jspa?processName=useradd&params=...
+ * 
+ * @author Alex Lin
+ *
+ */
+public class ProcessAction extends AbstractModelAction {
+	private static final long serialVersionUID = 1L;
+	private static final Log log = LogFactory.getLog(ProcessAction.class);
+	private WorkProcessManager workProcessManager;
+	private Integer processType;
+	private String processName;
+	
+	
+	
+	
+
+	/* (non-Javadoc)
+	 * 去掉了异常处理，将异常交给系统处理。
+	 * 
+	 * @see com.opensymphony.xwork2.ActionSupport#execute()
+	 */
+	@Override
+	@PrintAfter
+	public String execute() throws Exception {
+		//super.execute();
+		Map<?, ?> parameters = ActionContext.getContext().getParameters();
+		
+		if(log.isDebugEnabled()){
+			log.debug("参数在Action中：" + ParametersSetter.getParameterLogMap(parameters));
+		}
+		
+		//Object result = null;
+		//try {
+			WorkProcess wp = null;
+			if(processType != null){
+				wp = workProcessManager.getProcess(processType);
+				//result = workProcessManager.execute(processType, parameters, true);
+			}else if(processName != null){
+				wp = workProcessManager.getProcess(processName);
+				//result = workProcessManager.getProcess(processName).execute(parameters);
+			}else{
+				throw new IllegalArgumentException("必须指定事务的类型或者名称。");
+			}
+			
+			if(log.isDebugEnabled()){
+				log.debug("发现WorkProcess: " + wp);
+			}
+			
+			Object result = wp.execute(parameters, true);
+			
+			//executeResultToModel(result);
+			setModelResult(result);
+			
+		//} catch (Exception e) {
+		//	log.error(e);
+		//	model.setException(e);
+		//	return SUCCESS;
+		//}
+		
+		return SUCCESS;
+	}
+
+
+
+
+
+	/**
+	 * @return the workProcessManager
+	 */
+	public WorkProcessManager getWorkProcessManager() {
+		return workProcessManager;
+	}
+
+
+
+
+
+	/**
+	 * @param workProcessManager the workProcessManager to set
+	 */
+	public void setWorkProcessManager(WorkProcessManager workProcessManager) {
+		this.workProcessManager = workProcessManager;
+	}
+
+	/**
+	 * @return the processType
+	 */
+	public Integer getProcessType() {
+		return processType;
+	}
+
+
+
+
+
+	/**
+	 * @param processType the processType to set
+	 */
+	public void setProcessType(Integer processType) {
+		this.processType = processType;
+	}
+
+	/**
+	 * @return the processName
+	 */
+	public String getProcessName() {
+		return processName;
+	}
+
+
+	/**
+	 * @param processName the processName to set
+	 */
+	public void setProcessName(String processName) {
+		this.processName = processName;
+	}
+}

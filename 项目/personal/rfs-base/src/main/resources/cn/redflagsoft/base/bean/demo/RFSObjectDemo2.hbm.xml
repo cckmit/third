@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="cn.redflagsoft.base.bean.demo">
+
+	<class name="RFSObjectDemo" table="RFS_OBJECT_DEMO">
+	    <id name="id" type="long" column="ID">
+	        <generator class="assigned"/>
+	    </id>
+	    <property name="name" column="NAME" type="string"/>
+		<property name="code" column="CODE" type="string"/>
+
+		
+	    <joined-subclass name="Pro" table="RFS_PRO">
+	        <key column="OBJID"/>
+	        <property name="pname" column="PNAME" type="string"/>
+	    	<property name="cname" column="CNAME" type="string"/>
+	    </joined-subclass>
+	    <joined-subclass name="Sp" table="RFS_SP">
+	        <key column="OBJID"/>
+	        <property name="bname" column="BNAME" type="string"/>
+	        <property name="dname" column="DNAME" type="string"/>
+	    </joined-subclass>
+	</class>
+
+	
+	<!--
+	<joined-subclass name="Sp" table="RFS_SP" extends="RFSObject">
+        <key column="OBJID"/>
+        <property name="bname" column="BNAME" type="string"/>
+        <property name="dname" column="DNAME" type="string"/>
+    </joined-subclass>  -->
+	
+</hibernate-mapping>

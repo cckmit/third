@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+	<subclass name="cn.redflagsoft.base.bean.Smsg"
+		extends="cn.redflagsoft.base.bean.RFSObject" discriminator-value="212">
+	
+	<join table="SMSG" fetch="select">	
+	<key column="ID" />
+	<property name="code" column="CODE" type="java.lang.String"/>
+	
+	<property name="refObjectType" column="OBJECT_TYPE" type="int"/>
+	
+	<property name="refObjectId" column="OBJECTID" type="java.lang.Long"/>
+	
+	<property name="refObjectCode" column="OBJECTCODE" type="java.lang.String"/>
+	
+	<property name="refObjectName" column="OBJECTNAME" type="java.lang.String"/>
+	
+	<property name="kind" column="KIND" type="byte"/>
+	
+	<property name="title" column="TITLE" type="java.lang.String"/>
+	
+	<property name="content" column="CONTENT" type="java.lang.String"/>
+	
+	<property name="keyword" column="KEYWORD" type="java.lang.String"/>
+	
+	<property name="attached" column="ATTACHED" type="int"/>
+	
+	<property name="sendNum" column="SEND_NUM" type="int"/>
+	
+	<property name="sentNum" column="SENT_NUM" type="int"/>
+	
+	<property name="readNum" column="READ_NUM" type="int"/>
+	
+	<property name="frOrgId" column="FR_ORGID" type="java.lang.Long"/>
+	
+	<property name="frOrgName" column="FR_ORGNAME" type="java.lang.String"/>
+	
+	<property name="frId" column="FR_ID" type="java.lang.Long"/>
+	
+	<property name="frName" column="FR_NAME" type="java.lang.String"/>
+	
+	<property name="frAddr" column="FR_ADDR" type="java.lang.String"/>
+	
+	<property name="sendStatus" column="SEND_STATUS" type="byte"/>
+	
+	<property name="sendTime" column="SEND_TIME" type="java.sql.Timestamp"/>
+	
+	<property name="writeTime" column="WRITE_TIME" type="java.sql.Timestamp"/>
+	
+	<property name="checkTime" column="CHECK_TIME" type="java.sql.Timestamp"/>
+	
+	<property name="approveTime" column="APPROVE_TIME" type="java.sql.Timestamp"/>
+	
+	<property name="publishTime" column="PUBLISH_TIME" type="java.sql.Timestamp"/>
+	
+	<property name="cancelTime" column="CANCEL_TIME" type="java.sql.Timestamp"/>
+	
+	<property name="expirationTime" column="EXPIRATION_TIME" type="java.sql.Timestamp"/>
+	
+	<property name="deleteTime" column="DELETE_TIME" type="java.sql.Timestamp"/>
+	
+	<property name="systemId" column="SYSTEMID" type="java.lang.Long"/>
+	
+	<property name="type" column="TP" type="int"/>
+	
+	<!-- 当前表的status为业务状态，rfs_object表的status为归档状态  -->
+	<property name="bizStatus" column="STATUS" type="byte"/>
+	
+	<property name="remark" column="REMARK" type="java.lang.String"/>
+		
+	<property name="creator" column="CREATOR" type="java.lang.Long"/>
+		
+	<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+	<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+		
+	<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+	
+	</join>
+	</subclass>
+</hibernate-mapping>

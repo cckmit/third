@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  - Sample namespace-based configuration
+  -
+  - $Id: applicationContext-security.xml 5487 2012-04-09 04:05:21Z lcj $
+  -->
+
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+    xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    					http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+                        http://www.springframework.org/schema/security 
+                        http://www.springframework.org/schema/security/spring-security-2.0.1.xsd">
+
+	<!-- <global-method-security secured-annotations="enabled"> -->
+		<!-- AspectJ pointcut expression that locates our "post" method and applies security that way
+		<protect-pointcut expression="execution(* bigbank.*Service.post*(..))" access="ROLE_TELLER"/>
+		-->
+	<!-- </global-method-security> -->
+
+    <http entry-point-ref="authenticationProcessingFilterEntryPoint" auto-config="false">
+    	<!--  access-denied-page="/WEB-INF/jsp/access-denied.jsp" -->
+    	<intercept-url pattern="/logout.jsp"    access="IS_AUTHENTICATED_ANONYMOUSLY" />
+    	<intercept-url pattern="/login.jsp"    access="IS_AUTHENTICATED_ANONYMOUSLY" />
+    	<intercept-url pattern="/YTYu38*.jsp"  access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<intercept-url pattern="/state-*.jspa"  access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<intercept-url pattern="/test/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<intercept-url pattern="/admin/images/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+		<intercept-url pattern="/admin/login.jsp" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+		
+    	<intercept-url pattern="/admin/**" access="ROLE_ADMIN"/>
+    	<intercept-url pattern="/switchuser.jsp" access="ROLE_ADMIN"/>
+    	
+    	
+    	<intercept-url pattern="/**/*.jspa" access="ROLE_USER" />
+    	<intercept-url pattern="/**/*.jsp" access="ROLE_USER"/>
+    	<intercept-url pattern="/comp/**" access="ROLE_USER" />
+    	<intercept-url pattern="/" access="ROLE_USER" />
+    	
+    	<!-- 
+		<intercept-url pattern="/index.jsp*" access="ROLE_USER"/>
+		-->
+        <!-- <intercept-url pattern="/AC_OETags.js" access="ROLE_USER" />
+		<intercept-url pattern="/assets/**" access="ROLE_USER" /> -->
+		
+		<!-- <intercept-url pattern="/history/**" access="ROLE_USER" /> -->
+		<!--
+		<intercept-url pattern="/menu**" access="ROLE_USER" />
+		<intercept-url pattern="/main**" access="ROLE_USER" />
+		<intercept-url pattern="/*track*.jsp" access="ROLE_USER" />
+		-->
+		<!--
+		<intercept-url pattern="/xml/**" access="ROLE_USER" />
+		<intercept-url pattern="/json/**" access="ROLE_USER" />
+		-->
+		
+		<!-- Disable web URI authorization, as we're using <global-method-security> and have @Secured the services layer instead
+        <intercept-url pattern="/listAccounts.html" access="IS_AUTHENTICATED_REMEMBERED" />
+        <intercept-url pattern="/post.html" access="ROLE_TELLER" />
+		<intercept-url pattern="/secure/**" access="ROLE_SUPERVISOR"/>
+		-->
+		
+        <intercept-url pattern="/j_spring_security_switch_user" access="ROLE_ADMIN"/>
+        <!-- <intercept-url pattern="/services/**" access="ROLE_USER"/> -->
+        <intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+<!--
+    Uncomment to enable X509 client authentication support
+        <x509 /> 
+-->
+
+        <!-- All of this is unnecessary if auto-config="true"
+        <form-login />
+        <anonymous />
+        <http-basic />
+        <logout />
+        <remember-me /> -->
+
+        <!-- Uncomment to limit the number of sessions a user can have
+        <concurrent-session-control max-sessions="1" exception-if-maximum-exceeded="true"/>
+		-->		
+
+		<!-- 
+		<form-login login-page="/login.jsp" authentication-failure-url="/login.jsp?login_error=1" default-target-url="/go.jsp"	always-use-default-target="true"/>
+		-->
+		<anonymous/>
+		<http-basic/>
+		<!-- <logout logout-success-url="/login.jsp"/> -->
+		<!-- <logout logout-success-url="/close.jsp"/> -->
+		<logout logout-success-url="/go.jsp"/>
+		<remember-me/>
+    </http>
+
+    <!--
+    Usernames/Passwords are
+        rod/koala
+        dianne/emu
+        scott/wombat
+        peter/opal
+    -->
+    
+    <!--
+    <authentication-provider>
+        <password-encoder hash="md5"/>
+        <user-service>
+            <user name="fgj_user1" password="202cb962ac59075b964b07152d234b70" authorities="ROLE_SUPERVISOR, ROLE_USER, ROLE_TELLER" />
+	        <user name="fgj_user2" password="202cb962ac59075b964b07152d234b70" authorities="ROLE_USER,ROLE_TELLER" />
+            <user name="fgj_user3" password="202cb962ac59075b964b07152d234b70" authorities="ROLE_USER" />
+            <user name="fgj_user4" password="202cb962ac59075b964b07152d234b70" authorities="ROLE_USER" />
+	    </user-service>
+	</authentication-provider>
+	-->
+	<authentication-provider user-service-ref='userManager'>
+		<password-encoder hash="md5"/>
+	</authentication-provider>
+
+	<beans:bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"> 
+	  <beans:property name="basename" value="org.springframework.security.messages"/> 
+	</beans:bean>
+	
+	<beans:bean id="nullPrincipalFilter" class="org.opoo.apps.security.context.NullPrincipalFilter"> 
+		<custom-filter before="LAST"/> 
+	</beans:bean> 
+	
+	<beans:bean id="switchUserProcessingFilter" class="org.springframework.security.ui.switchuser.SwitchUserProcessingFilter" autowire="byType">
+       <custom-filter position="SWITCH_USER_FILTER"/>       
+       <beans:property name="targetUrl" value="/go.jsp"/>
+    </beans:bean>
+    
+    
+    <beans:bean id="rfsDaoAuthenticationProvider" class="cn.redflagsoft.base.security.webapp.RFSDaoAuthenticationProvider">
+		<custom-authentication-provider/>
+		<beans:property name="hideUserNotFoundExceptions" value="false"></beans:property>
+		<beans:property name="userDetailsService" ref="userManager" />
+        <beans:property name="passwordEncoder">
+			<beans:bean id="md5p" class="org.springframework.security.providers.encoding.Md5PasswordEncoder"/>
+		</beans:property>
+	</beans:bean>
+
+	<beans:bean id="authenticationProcessingFilterEntryPoint"
+		class="org.springframework.security.ui.webapp.AuthenticationProcessingFilterEntryPoint">
+		<beans:property name="loginFormUrl" value="/spring_security_login" />
+        <beans:property name="forceHttps" value="false" />
+	</beans:bean>
+
+	<beans:bean id="authenticationProcessingFilter" class="cn.redflagsoft.base.security.webapp.RFSAuthenticationProcessingFilter">
+		 <custom-filter position="AUTHENTICATION_PROCESSING_FILTER"/>
+		 <beans:property name="authenticationManager" ref="authenticationManager"/>
+		 <beans:property name="authenticationFailureUrl" value="/spring_security_login?login_error=1"/>
+		 <beans:property name="defaultTargetUrl" value="/go.jsp"/>
+		 <beans:property name="alwaysUseDefaultTargetUrl" value="false"/>
+	</beans:bean>
+
+	<!-- 
+	<beans:bean id="ll1" class="org.springframework.security.event.authentication.LoggerListener"/>
+	<beans:bean id="ll2" class="org.springframework.security.event.authorization.LoggerListener"/>
+	-->
+	
+	<authentication-manager alias="authenticationManager"/>
+	
+	
+	
+	
+	<!-- 方法的访问控制 -->
+	<beans:bean id="aspectJSecurityInterceptor" class="org.springframework.security.intercept.method.aspectj.AspectJSecurityInterceptor">
+		<beans:property name="authenticationManager" ref="authenticationManager"/>
+  		<beans:property name="accessDecisionManager" ref="_accessManager"/>
+  		<!-- <beans:property name="afterInvocationManager" ref="afterInvocationManager"/> -->
+  		<beans:property name="objectDefinitionSource">
+  			<beans:bean class="org.springframework.security.annotation.SecuredMethodDefinitionSource"></beans:bean>
+  		</beans:property>
+	</beans:bean>
+	
+	<beans:bean id="aspectJSecurityAspect" factory-method="aspectOf"  
+		class="cn.redflagsoft.base.aop.aspect.AnnotationSecurityAspect">
+		<beans:property name="securityInterceptor" ref="aspectJSecurityInterceptor"></beans:property>
+	</beans:bean>
+	
+</beans:beans>

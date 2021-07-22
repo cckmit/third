@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       					http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       					http://www.springframework.org/schema/context 
+       					http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+
+	<!-- Global apps home reference for wiring into beans. -->
+	<!-- 
+	<bean id="appsHome" class="org.opoo.apps.AppsHome" factory-method="getAppsHomePath" />
+	-->
+
+	<!--
+		A java.util.Map wrapper around org.opoo.apps.AppsGlobals
+	-->
+	<bean id="appsGlobals" class="org.opoo.apps.AppsGlobals" />
+	
+	<!-- 
+	<bean id="placeholderConfig" class="org.opoo.apps.AppsPropertyPlaceholderConfigurer" depends-on="appsGlobals"/>
+	 -->
+	 
+	
+	<bean id="resourceManager" class="org.opoo.apps.web.resource.ResourceManagerImpl">
+		<property name="moduleManager" ref="moduleManager"></property>
+	</bean>
+	
+	<bean id="presenceManager" class="org.opoo.apps.security.impl.PresenceManagerImpl">
+        <property name="presenceCache" ref="onlineUserCache"/>
+        <property name="scheduledExecutorService" ref="scheduledExecutor"></property>
+    </bean>
+
+
+
+    <!-- 另一个属性访问类 -->
+    <!-- 
+    <bean id="appsProperties" class="org.opoo.apps.service.impl.PropertiesImpl">
+    	<constructor-arg ref="propertyDao"></constructor-arg>
+    </bean>
+    -->
+
+	<!-- open office -->    
+    <bean id="connectionProvider" class="org.opoo.apps.file.openoffice.LifecycleSocketXConnectionProvider"/>
+
+    <bean id="openOfficeFileTypeConverter" class="org.opoo.apps.file.converter.openoffice.OpenOfficeFileTypeConverter">
+		<property name="connectionProvider" ref="connectionProvider"></property>
+    </bean>
+    
+    <bean id="openOfficeCommandLineFileTypeConverter" class="org.opoo.apps.file.converter.openoffice.OpenOfficeCommandLineFileTypeConverter">
+    	<!--<property name="enabled" value="${attachments.fileTypeConverters.jodCLI.enabled}"></property>
+		<property name="workDir" value="${attachments.fileTypeConverters.jodCLI.workDir}"></property>
+		<property name="command" value="${attachments.fileTypeConverters.jodCLI.command}"></property>
+    --></bean>
+    
+    
+    <bean id="psdf2swfCommandLineFileTypeConverter" class="org.opoo.apps.file.converter.PDF2SWFCommandLineFileTypeConverter">
+   		<!-- 
+   		<property name="command" value="${attachments.fileTypeConverters.pdf2swfCLI.command}"></property>
+		<property name="workDir" value="${attachments.fileTypeConverters.pdf2swfCLI.workDir}"></property>
+		-->
+    </bean>
+    			
+    <bean id="fileTypeConverterManager" class="org.opoo.apps.file.converter.DefaultFileTypeConverterManager">
+    	<property name="converters">
+    		<list>
+    			<ref bean="openOfficeCommandLineFileTypeConverter"/>
+    			<ref bean="openOfficeFileTypeConverter"/>
+    			<ref bean="psdf2swfCommandLineFileTypeConverter"/>
+    		</list>
+    	</property>
+    </bean>
+    
+    
+    <bean id="xlsRowOptimalHeightRefreshUpdater" class="org.opoo.apps.file.openoffice.sheet.XLSRowOptimalHeightRefreshUpdater">
+    	<property name="connectionProvider" ref="connectionProvider"></property>
+    </bean>
+    
+    <bean id="commandLineXLSRowOptimalHeightRefreshUpdater" class="org.opoo.apps.file.openoffice.sheet.CommandLineXLSRowOptimalHeightRefreshUpdater">
+    	<!-- 
+    	<property name="command" value="${attachments.refreshService.excelRowHeightRefreshCLI.command}"></property>
+    	<property name="workDir" value="${attachments.refreshService.excelRowHeightRefreshCLI.workDir}"></property>
+    	-->
+    </bean>
+	
+	
+	 
+    <bean id="fileSystemFileStorageFactory" class="org.opoo.apps.file.FileSystemFileStorageFactory"></bean>
+    
+   
+    <bean id="fileStorageManager" class="org.opoo.apps.file.FileStorageManagerImpl">
+        <property name="fileStorageFactories">
+        	<list>
+        		<ref bean="fileSystemFileStorageFactory"/>
+        	</list>
+        </property>
+        <property name="fileTypeConverterManager" ref="fileTypeConverterManager"></property>
+        <property name="protectedFormat" value="pdf"></property>
+        <property name="readableFormat" value="swf"></property>
+    </bean>
+    
+
+	
+	
+	
+	<!-- service -->
+	<bean id="attachmentManager" class="org.opoo.apps.service.impl.AttachmentManagerImpl">
+		<property name="attachmentDao" ref="attachmentDao"></property>
+		<property name="fileStorageManager" ref="fileStorageManager"></property>
+	</bean>
+	
+	<bean id="attachmentFileHandler" class="org.opoo.apps.service.impl.AttachmentFileHandler">
+		<property name="attachmentManager" ref="attachmentManager"></property>
+	</bean>
+	
+	<bean id="simpleFileHandlerChainManager" class="org.opoo.apps.file.handler.SimpleFileHandlerChainManager">
+		<property name="defaultFileHandler" ref="attachmentFileHandler"></property>
+		<property name="includeDefaultFileHandler" value="true"/>
+	</bean>
+	
+	
+	<!-- security/auth -->
+	<!--
+	<bean id="daoUserManager" class="org.opoo.apps.security.DaoUserManager">
+		<property name="userCache" ref="userCache"></property>
+		<property name="groupCache" ref="groupCache"></property>
+		<property name="userDao" ref="userDao"></property>
+		<property name="groupDao" ref="authGroupDao"></property>
+		<property name="enableGroups" value="true"></property>
+		<property name="rolePrefix" value="ROLE_"></property>
+		<property name="passwordEncoder">
+			<bean class="org.springframework.security.providers.encoding.Md5PasswordEncoder"></bean>
+		</property>
+	</bean>
+	-->
+	<bean id="userManager" class="cn.redflagsoft.base.security.BaseUserManager">
+		<property name="userCache" ref="userCache"></property>
+		<property name="groupCache" ref="groupCache"></property>
+		<property name="userDao" ref="userDao"></property>
+		<property name="groupDao" ref="authGroupDao"></property>
+		<property name="enableGroups" value="true"></property>
+		<property name="rolePrefix" value="ROLE_"></property>
+		<property name="passwordEncoder">
+			<bean class="org.springframework.security.providers.encoding.Md5PasswordEncoder"></bean>
+		</property>
+	</bean>
+	<!-- 
+	<context:spring-configured></context:spring-configured>
+
+    <bean id="sampleObject" class="org.opoo.apps.license.DomainAopSampleObject" abstract="true" scope="prototype">
+        <property name="userManager" ref="userManager"/>
+    </bean>
+	-->
+	
+	
+	<!-- 在容器启动前已经可用了 -->
+	<bean id="systemProperties" class="org.opoo.apps.database.spring.DatabaseProperties" factory-method="getInstance" 
+		init-method="init" destroy-method="destroy"/>
+	
+	
+	
+</beans>
+

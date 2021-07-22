@@ -1,0 +1,414 @@
+/*
+ * $Id$
+ * 
+ * Copyright 2007-2008 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ */
+package cn.redflagsoft.base.bean;
+
+import java.util.Date;
+
+import org.apache.commons.lang.StringUtils;
+//import org.apache.commons.logging.Log;
+//import org.apache.commons.logging.LogFactory;
+
+import cn.redflagsoft.base.ObjectTypes;
+import cn.redflagsoft.base.annotation.ObjectType;
+import cn.redflagsoft.base.util.CodeMapUtils;
+
+import com.googlecode.jsonplugin.annotations.JSON;
+
+/**
+ * 消息。
+ * 
+ * @author py
+ * @author lf
+ * @author lcj
+ * @since 2.1.0
+ */
+@ObjectType(ObjectTypes.SMSG)
+public class Smsg extends RFSObject {
+//	private static final Log log = LogFactory.getLog(Smsg.class);
+	
+	public static final int OBJECT_TYPE = ObjectTypes.SMSG;
+	
+	//0已删除，1拟写中，2已拟定，3已审核，4已批准，8已撤销，9已发布。
+	public static final byte BIZ_STATUS_已删除 = 0;
+	public static final byte BIZ_STATUS_拟写中 = 1;
+	public static final byte BIZ_STATUS_已拟定 = 2;
+	public static final byte BIZ_STATUS_已审核 = 3;
+	public static final byte BIZ_STATUS_已批准 = 4;
+	public static final byte BIZ_STATUS_已撤销 = 8;
+	public static final byte BIZ_STATUS_已发布 = 9;
+	
+	public static final byte SEND_STATUS_尚未发送 = 0;
+	public static final byte SEND_STATUS_部分发送 = 1;
+	public static final byte SEND_STATUS_全部发送 = 2;
+	
+	public static final byte KIND_内部消息 = 0;
+	public static final byte KIND_手机短信 = 1;
+	public static final byte KIND_电子邮件 = 2;
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 696085813344937433L;
+	private String code;			//    编号	
+	private int refObjectType;			//	相关对象类型 OBJECT_TYPE NUMBER(10) 
+	private Long refObjectId;			//	相关对象ID OBJECTID	NUMBER(19) 
+	private String refObjectCode;		//相关对象编码
+	private String refObjectName;		//相关对象名称
+	private byte kind = KIND_内部消息;				//种类  0内部消息，1短消息；2电邮。
+	private String title;			//主题
+	private String content;			//正文
+	private String keyword;			//关键字
+	private int attached=0;			//附件数量
+	private int sendNum=0;			//应发人数
+	private int sentNum=0;			//已发人数
+	private int readNum=0;			//阅读人数
+	private Long frOrgId;			//发送单位ID
+	private String frOrgName;		//发送单位名称
+	private Long frId;				//发送人ID 
+	private String frName;			//发送人姓名
+	private String frAddr;			//发送地址  电子邮件或手机号码或地址
+	private byte sendStatus = SEND_STATUS_尚未发送;		//发送状态  0尚未发送，1部分发送，2全部发送。
+	private Date sendTime;			//发送时间 发送完成时间，发布后才可发送。
+	private Date writeTime;			//拟定时间
+	private Date checkTime;			//审核时间 审核时间，拟制后再审核；
+	private Date approveTime;		//批准时间  批准时间，审核后再审批；
+	private Date publishTime;		//发布时间 发布时间，批准后在发布。
+	private Date cancelTime;		//撤销时间 撤销时间，撤销后不再发送。
+	private Date expirationTime;	//失效时间 
+	private Date deleteTime;		//删除时间
+	private Long systemId;			//系统编号
+	private byte bizStatus = BIZ_STATUS_拟写中;			//状态 0已删除，1拟写中，2已拟定，3已审核，4已批准，8已撤销，9已发布。
+	@SuppressWarnings("unused")
+	private String kindName;
+	
+	
+	//查询待发送（即有效）的消息
+	//from Smsg s where s.sendStatus=0 and s.bizStatus=9
+	//and s.publishTime>=:now and (s.expirationTime is null or <= :now)
+	
+	public void setKindName(String kindName) {
+		this.kindName = kindName;
+	}
+
+	//查询指定用户收到的消息
+	//select distinct s from Smsg s, SmsgReceiver r
+	//where s.id=r.smsdId
+	//and r.toId=:userId and r.status=:valid and r.sendStatus=:sent
+	//and s.bizStatus=9 and s.publishTime>=:now and (s.expirationTime is null or <= :now) 
+	/**
+	 * 
+	 */
+	public Smsg() {
+		super();
+	}
+	
+	public String getFrAddrName(){
+		return "( "+getFrAddr()+" )";
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public int getObjectType() {
+		return OBJECT_TYPE;
+	}
+
+
+	/**
+	 * @return the refObjectType
+	 */
+	public int getRefObjectType() {
+		return refObjectType;
+	}
+
+	/**
+	 * @param refObjectType the refObjectType to set
+	 */
+	public void setRefObjectType(int refObjectType) {
+		this.refObjectType = refObjectType;
+	}
+
+	/**
+	 * @return the refObjectId
+	 */
+	public Long getRefObjectId() {
+		return refObjectId;
+	}
+
+	/**
+	 * @param refObjectId the refObjectId to set
+	 */
+	public void setRefObjectId(Long refObjectId) {
+		this.refObjectId = refObjectId;
+	}
+
+	/**
+	 * @return the refObjectCode
+	 */
+	public String getRefObjectCode() {
+		return refObjectCode;
+	}
+
+	/**
+	 * @param refObjectCode the refObjectCode to set
+	 */
+	public void setRefObjectCode(String refObjectCode) {
+		this.refObjectCode = refObjectCode;
+	}
+
+	/**
+	 * @return the refObjectName
+	 */
+	public String getRefObjectName() {
+		return refObjectName;
+	}
+
+	/**
+	 * @param refObjectName the refObjectName to set
+	 */
+	public void setRefObjectName(String refObjectName) {
+		this.refObjectName = refObjectName;
+	}
+
+	public byte getKind() {
+		return kind;
+	}
+
+	public void setKind(byte kind) {
+		this.kind = kind;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+
+	/**
+	 * @return the keyword
+	 */
+	public String getKeyword() {
+		return keyword;
+	}
+
+	/**
+	 * @param keyword the keyword to set
+	 */
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
+	public int getAttached() {
+		return attached;
+	}
+
+	public void setAttached(int attached) {
+		this.attached = attached;
+	}
+
+	public int getSendNum() {
+		return sendNum;
+	}
+
+	public void setSendNum(int sendNum) {
+		this.sendNum = sendNum;
+	}
+
+	public int getSentNum() {
+		return sentNum;
+	}
+
+	public void setSentNum(int sentNum) {
+		this.sentNum = sentNum;
+	}
+
+	public int getReadNum() {
+		return readNum;
+	}
+
+	public void setReadNum(int readNum) {
+		this.readNum = readNum;
+	}
+
+	public Long getFrOrgId() {
+		return frOrgId;
+	}
+
+	public void setFrOrgId(Long frOrgId) {
+		this.frOrgId = frOrgId;
+	}
+
+	public String getFrOrgName() {
+		return frOrgName;
+	}
+
+	public void setFrOrgName(String frOrgName) {
+		this.frOrgName = frOrgName;
+	}
+
+	public Long getFrId() {
+		return frId;
+	}
+
+	public void setFrId(Long frId) {
+		this.frId = frId;
+	}
+
+	public String getFrName() {
+		return frName;
+	}
+
+	public void setFrName(String frName) {
+		this.frName = frName;
+	}
+
+	public String getFrAddr() {
+		return frAddr;
+	}
+
+	public void setFrAddr(String frAddr) {
+		this.frAddr = frAddr;
+	}
+
+	public byte getSendStatus() {
+		return sendStatus;
+	}
+
+	public void setSendStatus(byte sendStatus) {
+		this.sendStatus = sendStatus;
+	}
+	@JSON(format="yyyy-MM-dd HH:mm")
+	public Date getSendTime() {
+		return sendTime;
+	}
+
+	public void setSendTime(Date sendTime) {
+		this.sendTime = sendTime;
+	}
+	@JSON(format="yyyy-MM-dd HH:mm")
+	public Date getWriteTime() {
+		return writeTime;
+	}
+
+	public void setWriteTime(Date writeTime) {
+		this.writeTime = writeTime;
+	}
+	@JSON(format="yyyy-MM-dd HH:mm")
+	public Date getCheckTime() {
+		return checkTime;
+	}
+
+	public void setCheckTime(Date checkTime) {
+		this.checkTime = checkTime;
+	}
+	@JSON(format="yyyy-MM-dd HH:mm")
+	public Date getApproveTime() {
+		return approveTime;
+	}
+
+	public void setApproveTime(Date approveTime) {
+		this.approveTime = approveTime;
+	}
+	@JSON(format="yyyy-MM-dd HH:mm")
+	public Date getPublishTime() {
+		return publishTime;
+	}
+
+	public void setPublishTime(Date publishTime) {
+		this.publishTime = publishTime;
+	}
+	@JSON(format="yyyy-MM-dd HH:mm")
+	public Date getCancelTime() {
+		return cancelTime;
+	}
+
+	public void setCancelTime(Date cancelTime) {
+		this.cancelTime = cancelTime;
+	}
+	@JSON(format="yyyy-MM-dd HH:mm")
+	public Date getExpirationTime() {
+		return expirationTime;
+	}
+
+	public void setExpirationTime(Date expirationTime) {
+//		if(expirationTime != null){
+//			expirationTime = DateUtils.toEndOfDay(expirationTime);
+//		}
+		//log.debug("设置过期时间：" + expirationTime);
+		this.expirationTime = expirationTime;
+	}
+	@JSON(format="yyyy-MM-dd HH:mm")
+	public Date getDeleteTime() {
+		return deleteTime;
+	}
+
+	public void setDeleteTime(Date deleteTime) {
+		this.deleteTime = deleteTime;
+	}
+
+	public Long getSystemId() {
+		return systemId;
+	}
+
+	public void setSystemId(Long systemId) {
+		this.systemId = systemId;
+	}
+
+	/**
+	 * @return the bizStatus
+	 */
+	public byte getBizStatus() {
+		return bizStatus;
+	}
+
+	/**
+	 * @param bizStatus the bizStatus to set
+	 */
+	public void setBizStatus(byte bizStatus) {
+		this.bizStatus = bizStatus;
+	}
+	
+	public String getSendStatusName(){
+		return CodeMapUtils.getCodeName(Smsg.class,"SEND_STATUS", getSendStatus());
+	}
+	
+	public String getKindName(){
+		return CodeMapUtils.getCodeName(Smsg.class, "KIND", getKind());
+	}
+	
+	public String getBizStatusName(){
+		return CodeMapUtils.getCodeName(Smsg.class, "BIZ_STATUS", getBizStatus());
+	}
+	
+	public String getFrNameLabel(){
+		String addr = getFrAddr();
+		String name = getFrName();
+		if(StringUtils.isNotBlank(name) && StringUtils.isNotBlank(addr)){
+			return getFrName() + "(" + getFrAddr()+")";
+		}
+		if(StringUtils.isBlank(name) && StringUtils.isNotBlank(addr)){
+			return addr;
+		}
+		return name;
+	}
+}

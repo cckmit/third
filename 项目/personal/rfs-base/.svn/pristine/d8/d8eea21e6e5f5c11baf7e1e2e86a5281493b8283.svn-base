@@ -1,0 +1,736 @@
+<?xml version="1.0" encoding="GBK"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	
+	<bean id="baseConfigutationProvider" class="org.opoo.apps.orm.hibernate3.ConfigurationProviderImpl">
+        <property name="sessionFactoryBeanName" value="sessionFactory"/>
+        <property name="mappingResources">
+            <list> 
+	            <value>cn/redflagsoft/base/bean/Action.hbm.xml</value>
+	            <value>cn/redflagsoft/base/bean/MenuItem.hbm.xml</value>
+	            <value>cn/redflagsoft/base/bean/MenuItemRelation.hbm.xml</value>
+	            <value>cn/redflagsoft/base/bean/RoleMenuItem.hbm.xml</value>
+	            <value>cn/redflagsoft/base/bean/RoleMenuRemark.hbm.xml</value>
+	            
+                <value>cn/redflagsoft/base/bean/Affair.hbm.xml</value>
+                <value>cn/redflagsoft/base/bean/Matter.hbm.xml</value>
+                <value>cn/redflagsoft/base/bean/People.hbm.xml</value>
+                <value>cn/redflagsoft/base/bean/Org.hbm.xml</value>
+                <value>cn/redflagsoft/base/bean/Service.hbm.xml</value>
+                <value>cn/redflagsoft/base/bean/Report.hbm.xml</value>
+                <value>cn/redflagsoft/base/bean/RFSSystem.hbm.xml</value>
+                <value>cn/redflagsoft/base/bean/Thread.hbm.xml</value>
+                <value>cn/redflagsoft/base/bean/Threads.hbm.xml</value>
+                <value>cn/redflagsoft/base/bean/Event.hbm.xml</value>
+                <value>cn/redflagsoft/base/bean/Task.hbm.xml</value>
+                <value>cn/redflagsoft/base/bean/Work.hbm.xml</value>
+                <value>cn/redflagsoft/base/bean/Process.hbm.xml</value>
+                <value>cn/redflagsoft/base/bean/BizDatum.hbm.xml</value>
+                <value>cn/redflagsoft/base/bean/BizAffair.hbm.xml</value>                
+                <value>cn/redflagsoft/base/bean/BizMatter.hbm.xml</value>
+                <value>cn/redflagsoft/base/bean/BizTrack.hbm.xml</value>
+                <value>cn/redflagsoft/base/bean/BizTrackSect.hbm.xml</value>
+                <value>cn/redflagsoft/base/bean/BizTrackNode.hbm.xml</value>
+                <value>cn/redflagsoft/base/bean/BizRule.hbm.xml</value>
+                <value>cn/redflagsoft/base/bean/TimeLimit.hbm.xml</value>
+                <value>cn/redflagsoft/base/bean/Phrase.hbm.xml</value>
+                <value>cn/redflagsoft/base/bean/Receiver.hbm.xml</value>                
+                <value>cn/redflagsoft/base/bean/Objects.hbm.xml</value>
+                <value>cn/redflagsoft/base/bean/Peoples.hbm.xml</value>
+                <value>cn/redflagsoft/base/bean/Entities.hbm.xml</value>
+                <value>cn/redflagsoft/base/bean/Tasks.hbm.xml</value>
+                <value>cn/redflagsoft/base/bean/BizRouteSect.hbm.xml</value>
+                <value>cn/redflagsoft/base/bean/BizRouteMap.hbm.xml</value>
+                <value>cn/redflagsoft/base/bean/BizTrackNodeInstance.hbm.xml</value>
+                <value>cn/redflagsoft/base/bean/Holiday.hbm.xml</value>
+                <value>cn/redflagsoft/base/bean/Menu.hbm.xml</value>
+                <value>cn/redflagsoft/base/bean/MenuGroup.hbm.xml</value>
+                <value>cn/redflagsoft/base/bean/Clue.hbm.xml</value>
+
+                 <value>cn/redflagsoft/base/bean/Address.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/Datum.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/DatumCategory.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/Risk.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/RiskLog.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/RiskRule.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/RiskCategory.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/Department.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/Clerk.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/MatterDatum.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/BizRoute.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/BizRouteNode.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/BizRouteBranch.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/Job.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/ObjectData.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/ObjectTask.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/TaskData.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/TaskMatter.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/PeopleEntity.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/ObjectEntity.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/ObjectPeople.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/ObjectRule.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/PostWork.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/RolePost.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/ObjectPeopleEntity.hbm.xml</value>
+                 
+                 <value>cn/redflagsoft/base/bean/RFSGroup.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/ClerkGroup.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/UserGroup.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/PeopleGroup.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/EntityGroup.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/ObjectGroup.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/Glossary.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/MatterAffair.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/RFSObject.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/Code.hbm.xml</value>
+                 
+                 <value>cn/redflagsoft/base/bean/SendingMsg.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/Msg.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/MsgAttachments.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/HistoryRisk.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/Log.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/RiskMessage.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/ManagementAccount.hbm.xml</value>
+                 <value>cn/redflagsoft/base/bean/ExCfgDatafilterRisk.hbm.xml</value>
+         		 <value>cn/redflagsoft/base/bean/ExDataRisk.hbm.xml</value>
+         		 <value>cn/redflagsoft/base/bean/EventMsg.hbm.xml</value>
+         		 <value>cn/redflagsoft/base/bean/OrgRole.hbm.xml</value>
+         		 <value>cn/redflagsoft/base/bean/OrgGroup.hbm.xml</value>
+         		 
+         		 <value>cn/redflagsoft/base/security/impl/dao/hibernate3/Perms.hbm.xml</value>
+         		 
+         		<value>cn/redflagsoft/base/bean/ContentHolder.hbm.xml</value>
+         		<value>cn/redflagsoft/base/bean/Comment.hbm.xml</value>
+         		<value>cn/redflagsoft/base/bean/Amounts.hbm.xml</value>
+         		
+         		<value>cn/redflagsoft/base/bean/SelectDataSource.hbm.xml</value>
+         		
+         		<value>cn/redflagsoft/base/bean/ButtonConfig.hbm.xml</value>
+
+         		<value>cn/redflagsoft/base/bean/BizStatistics.hbm.xml</value>
+         		<value>cn/redflagsoft/base/bean/BizStatisticsDefinition.hbm.xml</value>
+         		
+         		<value>cn/redflagsoft/base/bean/EntityObjectToBizLog.hbm.xml</value>
+				<value>cn/redflagsoft/base/bean/Caution.hbm.xml</value>
+				<value>cn/redflagsoft/base/bean/Smsg.hbm.xml</value>
+				<value>cn/redflagsoft/base/bean/SmsgReceiver.hbm.xml</value>
+				<value>cn/redflagsoft/base/bean/SmsgAttachment.hbm.xml</value>
+				
+				<value>cn/redflagsoft/base/bean/ObjectOrgClerk.hbm.xml</value>
+				
+				<value>cn/redflagsoft/base/bean/DatumOrigin.hbm.xml</value>
+				<value>cn/redflagsoft/base/bean/DatumAccessLog.hbm.xml</value>
+				<value>cn/redflagsoft/base/bean/FileNo.hbm.xml</value>
+				<value>cn/redflagsoft/base/bean/ObjectAdmin.hbm.xml</value>
+				
+				
+				<value>cn/redflagsoft/base/bean/CautionCheck.hbm.xml</value>
+				<value>cn/redflagsoft/base/bean/CautionDecide.hbm.xml</value>
+				<value>cn/redflagsoft/base/bean/CautionNotify.hbm.xml</value>
+				<value>cn/redflagsoft/base/bean/CautionSurvey.hbm.xml</value>
+				<value>cn/redflagsoft/base/bean/Help.hbm.xml</value>
+				
+				
+				<value>cn/redflagsoft/base/bean/InfoDetail.hbm.xml</value>
+				<value>cn/redflagsoft/base/bean/InfoStat.hbm.xml</value>
+				<value>cn/redflagsoft/base/bean/InfoConfig.hbm.xml</value>
+				
+				<value>cn/redflagsoft/base/bean/BizDutyersConfig.hbm.xml</value>
+				
+				<value>cn/redflagsoft/base/bean/Orgcategory.hbm.xml</value>
+				<value>cn/redflagsoft/base/bean/OrgcategoryToRole.hbm.xml</value>
+				<value>cn/redflagsoft/base/bean/OrgcategoryToOrgGroup.hbm.xml</value>
+				
+				<!-- since 2.1.16 -->
+				<value>cn/redflagsoft/base/bean/BaseTaskBean.hbm.xml</value>
+	       	</list>
+	    </property>
+	</bean>
+
+	<bean id="baseDao" abstract="true">
+		<property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+
+	<bean id="actionDao" class="cn.redflagsoft.base.dao.hibernate3.ActionHibernateDao" parent="baseDao"/>
+	
+	<bean id="menuItemDao" class="cn.redflagsoft.base.dao.hibernate3.MenuItemHibernateDao" parent="baseDao"/>
+	
+	<bean id="menuItemRelationDao" class="cn.redflagsoft.base.dao.hibernate3.MenuItemRelationHibernateDao" parent="baseDao"/>
+
+	<bean id="roleMenuItemDao" class="cn.redflagsoft.base.dao.hibernate3.RoleMenuItemHibernateDao" parent="baseDao"></bean>
+	
+	<bean id="roleMenuRemarkDao" class="cn.redflagsoft.base.dao.hibernate3.RoleMenuRemarkHibernateDao" parent="baseDao"></bean>
+
+
+    <bean id="entityClassDiscover" class="cn.redflagsoft.base.support.hibernate3.EntityClassDiscover">
+    	<property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="addressDao" class="cn.redflagsoft.base.dao.hibernate3.AddressHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+	<bean id="datumDao" class="cn.redflagsoft.base.dao.hibernate3.DatumHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <bean id="datumCategoryDao" class="cn.redflagsoft.base.dao.hibernate3.DatumCategoryHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+        <property name="cache" ref="datumCategoryCache"></property>
+        <property name="enableCache" value="true"/>
+    </bean>
+    
+    <bean id="datumAccessLogDao" class="cn.redflagsoft.base.dao.hibernate3.DatumAccessLogHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <bean id="datumOriginDao" class="cn.redflagsoft.base.dao.hibernate3.DatumOriginHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <bean id="riskDao" class="cn.redflagsoft.base.dao.hibernate3.RiskHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+        <property name="cache" ref="riskCache"></property>
+        <property name="enableCache" value="true"/>
+    </bean>
+    
+    <bean id="riskCategoryDao" class="cn.redflagsoft.base.dao.hibernate3.RiskCategoryHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="departmentDao" class="cn.redflagsoft.base.dao.hibernate3.DepartmentHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <bean id="clerkDao" class="cn.redflagsoft.base.dao.hibernate3.ClerkHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <bean id="matterDatumDao" class="cn.redflagsoft.base.dao.hibernate3.MatterDatumHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <bean id="bizRouteDao" class="cn.redflagsoft.base.dao.hibernate3.BizRouteHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <bean id="bizRouteNodeDao" class="cn.redflagsoft.base.dao.hibernate3.BizRouteNodeHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <bean id="bizRouteBranchDao" class="cn.redflagsoft.base.dao.hibernate3.BizRouteBranchHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <bean id="jobDao" class="cn.redflagsoft.base.dao.hibernate3.JobHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <bean id="objectDataDao" class="cn.redflagsoft.base.dao.hibernate3.ObjectDataHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <bean id="objectTaskDao" class="cn.redflagsoft.base.dao.hibernate3.ObjectTaskHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <bean id="taskDataDao" class="cn.redflagsoft.base.dao.hibernate3.TaskDataHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <bean id="taskMatterDao" class="cn.redflagsoft.base.dao.hibernate3.TaskMatterHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <bean id="peopleEntityDao" class="cn.redflagsoft.base.dao.hibernate3.PeopleEntityHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <bean id="objectEntityDao" class="cn.redflagsoft.base.dao.hibernate3.ObjectEntityHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <bean id="objectPeopleDao" class="cn.redflagsoft.base.dao.hibernate3.ObjectPeopleHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <bean id="objectRuleDao" class="cn.redflagsoft.base.dao.hibernate3.ObjectRuleHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <bean id="postWorkDao" class="cn.redflagsoft.base.dao.hibernate3.PostWorkHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <bean id="rolePostDao" class="cn.redflagsoft.base.dao.hibernate3.RolePostHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <bean id="objectPeopleEntityDao" class="cn.redflagsoft.base.dao.hibernate3.ObjectPeopleEntityHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <bean id="groupDao" class="cn.redflagsoft.base.dao.hibernate3.GroupHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <bean id="clerkGroupDao" class="cn.redflagsoft.base.dao.hibernate3.ClerkGroupHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <bean id="userGroupDao" class="cn.redflagsoft.base.dao.hibernate3.UserGroupHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <bean id="peopleGroupDao" class="cn.redflagsoft.base.dao.hibernate3.PeopleGroupHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <bean id="entityGroupDao" class="cn.redflagsoft.base.dao.hibernate3.EntityGroupHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <bean id="objectGroupDao" class="cn.redflagsoft.base.dao.hibernate3.ObjectGroupHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <bean id="glossaryDao" class="cn.redflagsoft.base.dao.hibernate3.GlossaryHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <bean id="bizTrackSectDao" class="cn.redflagsoft.base.dao.hibernate3.BizTrackSectHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+
+	<bean id="affairDao" class="cn.redflagsoft.base.dao.hibernate3.AffairHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+
+	<bean id="matterDao" class="cn.redflagsoft.base.dao.hibernate3.MatterHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+	
+	<bean id="serviceDao" class="cn.redflagsoft.base.dao.hibernate3.ServiceHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+	
+	<bean id="reportDao" class="cn.redflagsoft.base.dao.hibernate3.ReportHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+	
+	<bean id="rfsSystemDao" class="cn.redflagsoft.base.dao.hibernate3.RFSSystemHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+	
+	<bean id="peopleDao" class="cn.redflagsoft.base.dao.hibernate3.PeopleHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+	
+	<bean id="orgDao" class="cn.redflagsoft.base.dao.hibernate3.OrgHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+	
+	<bean id="eventDao" class="cn.redflagsoft.base.dao.hibernate3.EventHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+
+	<bean id="threadDao" class="cn.redflagsoft.base.dao.hibernate3.ThreadHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+	
+	<bean id="threadsDao" class="cn.redflagsoft.base.dao.hibernate3.ThreadsHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+
+	<bean id="taskDao" class="cn.redflagsoft.base.dao.hibernate3.TaskHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>	
+	
+	<bean id="workDao" class="cn.redflagsoft.base.dao.hibernate3.WorkHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+	
+	<bean id="processDao" class="cn.redflagsoft.base.dao.hibernate3.ProcessHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+	
+	<bean id="bizDatumDao" class="cn.redflagsoft.base.dao.hibernate3.BizDatumHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+	
+	<bean id="bizAffairDao" class="cn.redflagsoft.base.dao.hibernate3.BizAffairHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+	
+	<bean id="bizMatterDao" class="cn.redflagsoft.base.dao.hibernate3.BizMatterHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+	
+	<bean id="bizTrackDao" class="cn.redflagsoft.base.dao.hibernate3.BizTrackHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+	
+	<bean id="bizTrackNodeDao" class="cn.redflagsoft.base.dao.hibernate3.BizTrackNodeHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+	
+	<bean id="bizRuleDao" class="cn.redflagsoft.base.dao.hibernate3.BizRuleHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>		
+	
+	<bean id="objectsDao" class="cn.redflagsoft.base.dao.hibernate3.ObjectsHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>	
+	
+	<bean id="peoplesDao" class="cn.redflagsoft.base.dao.hibernate3.PeoplesHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+	
+	<bean id="entitiesDao" class="cn.redflagsoft.base.dao.hibernate3.EntitiesHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+	
+	<bean id="tasksDao" class="cn.redflagsoft.base.dao.hibernate3.TasksHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+	
+	<bean id="timeLimitDao" class="cn.redflagsoft.base.dao.hibernate3.TimeLimitHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+	
+	<bean id="phraseDao" class="cn.redflagsoft.base.dao.hibernate3.PhraseHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>	
+	
+	<bean id="receiverDao" class="cn.redflagsoft.base.dao.hibernate3.ReceiverHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+	
+	<bean id="bizRouteSectDao" class="cn.redflagsoft.base.dao.hibernate3.BizRouteSectHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+
+	<bean id="bizRouteMapDao" class="cn.redflagsoft.base.dao.hibernate3.BizRouteMapHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>	
+	
+	<bean id="bizTrackNodeInstanceDao" class="cn.redflagsoft.base.dao.hibernate3.BizTrackNodeInstanceHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+	
+	<bean id="riskRuleDao" class="cn.redflagsoft.base.dao.hibernate3.RiskRuleHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+		<property name="cache" ref="riskRuleCache"/>
+		<property name="enableCache" value="true"/>
+	</bean>
+	
+	<bean id="holidayDao" class="cn.redflagsoft.base.dao.hibernate3.HolidayHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+	
+	<bean id="clueDao" class="cn.redflagsoft.base.dao.hibernate3.ClueHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+	
+	<bean id="menuDao" class="cn.redflagsoft.base.security.dao.hibernate3.MenuHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+<!--		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>-->
+	</bean>
+	
+	<bean id="menuGroupDao" class="cn.redflagsoft.base.security.dao.hibernate3.MemuGroupHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>	
+	</bean>
+	
+	<bean id="msgDao" class="cn.redflagsoft.base.dao.hibernate3.MsgHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>	
+	</bean>
+	
+	<bean id="sendingMsgDao" class="cn.redflagsoft.base.dao.hibernate3.SendingMsgHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>	
+	</bean>
+	
+	<bean id="msgAttachmentsDao" class="cn.redflagsoft.base.dao.hibernate3.MsgAttachmentsHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>	
+	</bean>
+	
+	<bean id="historyRiskDao" class="cn.redflagsoft.base.dao.hibernate3.HistoryRiskHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>	
+	</bean>
+	
+	<bean id="logDao" class="cn.redflagsoft.base.dao.hibernate3.LogHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>	
+	</bean>
+	
+	<bean id="riskMessageDao" class="cn.redflagsoft.base.dao.hibernate3.RiskMessageHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>	
+	</bean>
+	
+	<bean id="managementAccountDao" class="cn.redflagsoft.base.dao.hibernate3.ManagementAccountHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>	
+	</bean>
+	
+	
+	<bean id="matterAffairDao" class="cn.redflagsoft.base.dao.hibernate3.MatterAffairHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+	
+	
+	<bean id="objectDao" class="cn.redflagsoft.base.dao.hibernate3.ObjectHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+		<property name="typedObjectClassDiscover" ref="entityClassDiscover"/>
+	</bean>
+	
+	
+	<bean id="codeDao" class="cn.redflagsoft.base.dao.hibernate3.CodeHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="riskLogDao" class="cn.redflagsoft.base.dao.hibernate3.RiskLogHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+	
+	 <bean id="exCfgDatafilterRiskDao" class="cn.redflagsoft.base.dao.hibernate3.ExCfgDatafilterRiskHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+		
+	<bean id="exDataRiskDao" class="cn.redflagsoft.base.dao.hibernate3.ExDataRiskHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>	
+	
+	<bean id="eventMsgDao" class="cn.redflagsoft.base.dao.hibernate3.EventMsgHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>	
+	</bean>
+	
+	<bean id="orgRoleDao" class="cn.redflagsoft.base.dao.hibernate3.OrgRoleHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>	
+	</bean>
+	
+	<bean id="orgGroupDao" class="cn.redflagsoft.base.dao.hibernate3.OrgGroupHibernateDao" 
+		parent="baseDao"/>
+		
+	
+	<!-- 权限管理 -->
+	<bean id="permsDao" class="cn.redflagsoft.base.security.impl.dao.hibernate3.PermsHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<!-- 评论，点评，注释 -->
+	<bean id="commentDao" class="cn.redflagsoft.base.dao.hibernate3.CommentHibernateDao" 
+		parent="baseDao"/>
+		
+	<bean id="selectDataSourceDao" class="cn.redflagsoft.base.dao.hibernate3.SelectDataSourceHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+	
+	<bean id="buttonConfigDao" class="cn.redflagsoft.base.dao.hibernate3.ButtonConfigHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+
+	<bean id="bizStatisticsDao" class="cn.redflagsoft.base.dao.hibernate3.BizStatisticsHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+	
+	<bean id="bizStatisticsDefinitionDao" class="cn.redflagsoft.base.dao.hibernate3.BizStatisticsDefinitionHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+	</bean>
+	
+	<bean id="entityObjectToWorkDao" class="cn.redflagsoft.base.dao.hibernate3.EntityObjectToWorkHibernateDao"
+		parent="baseDao">
+	</bean>
+	
+	<bean id="entityObjectToTaskDao" class="cn.redflagsoft.base.dao.hibernate3.EntityObjectToTaskHibernateDao"
+		parent="baseDao">
+	</bean>
+	
+	<bean id="cautionDao" class="cn.redflagsoft.base.dao.hibernate3.CautionHibernateDao" parent="objectDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    <bean id="smsgDao" class="cn.redflagsoft.base.dao.hibernate3.SmsgHibernateDao" parent="objectDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    <bean id="smsgReceiverDao" class="cn.redflagsoft.base.dao.hibernate3.SmsgReceiverHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    <bean id="smsgAttachmentDao" class="cn.redflagsoft.base.dao.hibernate3.SmsgAttachmentHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <bean id="objectOrgClerkDao" class="cn.redflagsoft.base.dao.hibernate3.ObjectOrgClerkHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+
+    <bean id="fileNoDao" class="cn.redflagsoft.base.dao.hibernate3.FileNoHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <bean id="objectAdminDao" class="cn.redflagsoft.base.dao.hibernate3.ObjectAdminHibernateDao" parent="baseDao"/>
+    
+    
+    <!-- 警示复核 -->
+    <bean id="cautionCheckDao" class="cn.redflagsoft.base.dao.hibernate3.CautionCheckHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <!-- 警示告知 -->
+    <bean id="cautionNotifyDao" class="cn.redflagsoft.base.dao.hibernate3.CautionNotifyHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <!-- 警示调查约谈 -->
+    <bean id="cautionSurveyDao" class="cn.redflagsoft.base.dao.hibernate3.CautionSurveyHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <!-- 警示处理决定 -->
+    <bean id="cautionDecideDao" class="cn.redflagsoft.base.dao.hibernate3.CautionDecideHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <!-- 帮助 -->
+    <bean id="helpDao" class="cn.redflagsoft.base.dao.hibernate3.HelpHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    
+    <!-- 信息项详情 -->
+    <bean id="infoDetailDao" class="cn.redflagsoft.base.dao.hibernate3.InfoDetailHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    
+        <!-- 信息项统计 -->
+    <bean id="infoStatDao" class="cn.redflagsoft.base.dao.hibernate3.InfoStatHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+        <!-- 信息项配置-->
+    <bean id="infoConfigDao" class="cn.redflagsoft.base.dao.hibernate3.InfoConfigHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+       	<property name="cache" ref="infoConfigCache"></property>
+        <property name="enableCache" value="true"/>
+    </bean>
+    
+    <!-- 三级责任人配置 -->
+    <bean id="bizDutyersConfigDao" class="cn.redflagsoft.base.dao.hibernate3.BizDutyersConfigHibernateDao" parent="baseDao"/>
+    
+    <bean id="orgCategoryDao" class="cn.redflagsoft.base.dao.hibernate3.OrgCategoryHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <bean id="orgCategoryToRoleDao" class="cn.redflagsoft.base.dao.hibernate3.OrgCategoryToRoleHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <bean id="orgCategoryToOrgGroupDao" class="cn.redflagsoft.base.dao.hibernate3.OrgCategoryToOrgGroupHibernateDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="idGeneratorProvider" ref="idGeneratorProvider"/>
+    </bean>
+    
+    <!-- since 2.1.16 -->
+    <bean id="baseTaskBeanDao" class="cn.redflagsoft.base.dao.hibernate3.BaseTaskBeanHibernateDao" parent="baseDao">
+    	<property name="dataSource" ref="dataSource"></property>
+    </bean>
+</beans>
+

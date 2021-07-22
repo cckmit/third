@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.BizTrackNodeInstance" table="BIZ_TRACK_NODE_INSTANCE">
+		<id name="sn" column="SN" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		
+		<property name="trackSN" column="TRACKSN" type="java.lang.Long"/>
+		
+		<property name="nodeSN" column="NODESN" type="java.lang.Long"/>
+		
+		<property name="category" column="CATEGORY" type="byte"/>
+		
+		<property name="bizSN" column="BIZSN" type="java.lang.Long"></property>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,284 @@
+/*
+ * $Id: RiskMonitorableUtils.java 5201 2011-12-12 10:03:33Z lcj $
+ * 
+ * Copyright 2007-2008 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.util;
+
+import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+
+import org.apache.commons.beanutils.PropertyUtils;
+import org.springframework.util.Assert;
+
+import com.opensymphony.xwork2.util.XWorkConverter;
+
+import cn.redflagsoft.base.bean.Address;
+import cn.redflagsoft.base.bean.RFSObject;
+import cn.redflagsoft.base.bean.Risk;
+import cn.redflagsoft.base.bean.RiskEntry;
+import cn.redflagsoft.base.bean.RiskMonitorable;
+import cn.redflagsoft.base.bean.RiskRule;
+import cn.redflagsoft.base.service.RiskService;
+
+/**
+ * 
+ * 风险可监控对象的工具类。
+ * 
+ * @author Alex Lin
+ *
+ */
+public class RiskMonitorableUtils {
+	/**
+	 * 
+	 * @param riskEntries
+	 * @return
+	 */
+	public static String riskEntriesToString(List<RiskEntry> riskEntries){
+		if(riskEntries != null && riskEntries.size() > 0){
+			StringBuffer sb = new StringBuffer();
+			for(int i = 0 ; i < riskEntries.size(); i++){
+				RiskEntry e = riskEntries.get(i);
+				if(i > 0){
+					sb.append(";");
+				}
+				sb.append(e.toString());
+			}
+			return sb.toString();
+		}else{
+			return null;
+		}
+	}
+	
+	/**
+	 * 将字符串转成RiskEntry的list
+	 * @param string
+	 * @return
+	 */
+	public static List<RiskEntry> stringToRiskEntries(String string){
+		if(string == null || string.trim().equals("")){
+			return null;
+		}
+		List<RiskEntry> list = new ArrayList<RiskEntry>();
+		String[] array = string.split(";");
+		for(String ens: array){
+			RiskEntry re = RiskEntry.valueOf(ens);
+			if(re != null){
+				list.add(re);
+			}
+		}
+		return list;
+	}
+	
+	
+	public static RiskMonitorable createRisksForRiskMonitorable(RiskService riskService, RiskMonitorable riskMonitorable, Long dutyerId){
+		List<RiskEntry> list = riskService.createRisksForRiskMonitorable(riskMonitorable, dutyerId);
+		if(list.size() > 0){
+			riskMonitorable.setRiskEntries(list);
+		}
+		return riskMonitorable;
+	}
+	
+	
+	public static void updateRiskValueIfNeeded(RiskService riskService, RiskMonitorable old, RiskMonitorable newObj){
+		List<RiskEntry> list = newObj.getRiskEntries();
+		if(list != null && !list.isEmpty()){
+			for(RiskEntry re: list){
+				if(re.getValueSource() != RiskRule.VALUE_SOURCE_EXTERIOR/*0*/) continue;
+				
+				BigDecimal oldValue = getRiskValue(old, re.getObjectAttr());
+				BigDecimal newValue = getRiskValue(newObj, re.getObjectAttr());
+				if((oldValue != null && !oldValue.equals(newValue)) || (newValue != null && !newValue.equals(oldValue))){
+					//值有变化
+					
+					riskService.updateRiskValue(re.getRiskID(), newValue);
+				}
+				//boolean isChanged = isPropertyValueChanged(re.getObjectAttr());
+				
+				//if(isChanged){
+				//	dispatchEvent(new RiskEntryEvent(RiskEntryEvent.VALUE_CHANGE, re, null));
+				//}
+			}
+		}
+	}
+	
+	private static Object getProperty(Object o, String objectAttr){
+		try {
+			return PropertyUtils.getProperty(o, objectAttr);
+		} catch (IllegalAccessException e) {
+			throw new RuntimeException("从对象中获取属性错误，可能是因为RiskRule配置不正确，被监控对象为：" + o + ", 属性: " + objectAttr, e);
+		} catch (InvocationTargetException e) {
+			//e = e.getTargetException();
+			throw new RuntimeException("从对象中获取属性错误，可能是因为RiskRule配置不正确，被监控对象为：" + o + ", 属性: " + objectAttr, e.getTargetException());
+		} catch (NoSuchMethodException e) {
+			throw new RuntimeException("从对象中获取属性错误，可能是因为RiskRule配置不正确，被监控对象为：" + o + ", 属性: " + objectAttr, e);
+		}
+	}
+	
+	/**
+	 * 使用反射机制获取指定被监控对象指定属性的值。
+	 * 
+	 * @param o 被监控对象
+	 * @param objectAttr 被监控属性
+	 * @return risk的value值
+	 */
+	public static BigDecimal getRiskValue(Object o, String objectAttr){
+		Object result = getProperty(o, objectAttr);
+		return convertToRiskValue(result);
+	}
+	
+	/**
+	 * 将特定数值转化成Risk的value值，即类型转换为BigDecimal。
+	 * 
+	 * @param o
+	 * @return
+	 */
+	public static BigDecimal convertToRiskValue(Object o){
+		if(o == null){
+			return null;
+		}
+		if(o instanceof BigDecimal){
+			return (BigDecimal) o;
+		}
+		if(o instanceof String){
+			return new BigDecimal((String) o);
+		}
+		if(o instanceof Number){
+			return new BigDecimal(((Number) o).toString());
+		}
+		if(o instanceof Date){
+			return new BigDecimal(((Date) o).getTime());
+		}
+		//throw new RuntimeException("配置错误，配置的属性值无法转化成BigDecimal类型，被监控对象为：" + o + ", 属性: " + objectAttr);
+		//return (BigDecimal) XWorkConverter.getInstance().convertValue(new HashMap<Object,Object>(), o, BigDecimal.class);
+		return (BigDecimal) convertToValue(o, BigDecimal.class);
+	}
+	
+	public static Object convertToValue(Object o, Class<?> targetClass){
+		return XWorkConverter.getInstance().convertValue(new HashMap<Object,Object>(), o, targetClass);
+	}
+	
+	/**
+	 * 计算指定risk的grade值。
+	 * 
+	 * @param risk
+	 * @return
+	 */
+	public static byte calculateGrade(Risk risk){
+		//百分比
+		boolean isRate = ((risk.getScaleMark() & 64) != 0);
+		if(isRate && risk.getScaleValue() == null){
+			return 0;
+		}
+		
+		BigDecimal[] scaleValues = { BigDecimal.ZERO,
+				risk.getScaleValue1(), risk.getScaleValue2(),
+				risk.getScaleValue3(), risk.getScaleValue4(),
+				risk.getScaleValue5(), risk.getScaleValue6() };
+		int[] valueMarks = {1, 1, 2, 4, 8, 16, 32};
+		
+		for(int i = 6 ; i > 0 ; i--){
+			//System.out.println("开始比较：" + i);
+			if(isRiskValueInThisGrade(risk, isRate, scaleValues[i], valueMarks[i])){
+				return (byte)i;
+			}
+		}
+		return 0;
+	}
+	
+	/**
+	 * 判断risk的值是否符合指定的级别。
+	 * 
+	 * @param risk risk对象
+	 * @param gradeScaleValue 该级别的scaleValue
+	 * @param gradeValueMark 该级别的有效的mark值
+	 * @return
+	 */
+	private static boolean isRiskValueInThisGrade(Risk risk, boolean isRate, BigDecimal gradeScaleValue, int gradeValueMark){
+		if((risk.getScaleMark() & gradeValueMark) == 0){
+			//System.out.println("本级无效：" + gradeValueMark);
+			return false;
+		}
+		
+		//百分比
+		if(isRate/*(risk.getScaleMark() & 64) != 0*/){
+			//if(risk.getScaleValue() == null){
+			//	return false;
+			//}else{
+			gradeScaleValue = gradeScaleValue.multiply(risk.getScaleValue()).divide(new BigDecimal(100));
+			//}
+		}
+		
+		if(risk.getValueSign() > 0){
+			//System.out.println("正向 " + risk.getValue() + " : " + gradeScaleValue);
+			return risk.getValue().compareTo(gradeScaleValue) >= 0;
+		}else{
+			//System.out.println("反向 " + risk.getValue() + " : " + gradeScaleValue);
+			return risk.getValue().compareTo(gradeScaleValue) <= 0;
+		}
+	}
+	
+	
+	
+
+	private static void testProperty() {
+		Address addr = new Address();
+		addr.setAbbr("黑不龙东");
+		Object field = getProperty(addr, "abbr");
+		Assert.isTrue(field.getClass().equals(String.class));
+		//Assert.assertEquals(field, addr.getAbbr());
+		System.out.println("Address get " + addr.getAbbr());
+		System.out.println("Property get " + field);
+	}
+	
+	private static void testGetValue() {
+		RFSObject rfs = new RFSObject();
+		rfs.setManager(666666L);
+		rfs.setCreationTime(new Date());
+		rfs.setRemark("23232.32323");
+		BigDecimal value = getRiskValue(rfs, "manager");
+		//Assert.assertNotNull(value);
+		System.out.println("RFSObject get " + rfs.getManager());
+		System.out.println("Property get " + value);
+		System.out.println("Property get " + getRiskValue(rfs, "creationTime"));
+		System.out.println("Property get " + getRiskValue(rfs, "remark"));
+		//System.out.println("Property get " + value);
+	}
+	
+	public static void main(String[] args){
+		testProperty();
+		testGetValue();
+		
+		Risk risk = new Risk();
+		risk.setScaleMark((byte) 22);
+		risk.setValueSign((byte) 1);
+		risk.setValue(new BigDecimal(14));
+		risk.setScaleValue1(new BigDecimal(8));
+		risk.setScaleValue2(new BigDecimal(10));
+		risk.setScaleValue3(new BigDecimal(12));
+		risk.setScaleValue4(new BigDecimal(15));
+		risk.setScaleValue5(new BigDecimal(20));
+		risk.setScaleValue6(new BigDecimal(25));
+		
+		byte grade = RiskMonitorableUtils.calculateGrade(risk);
+		System.out.println(grade);
+		
+		risk.setValueSign((byte) -1);
+		risk.setScaleValue1(new BigDecimal(30));
+		risk.setScaleValue2(new BigDecimal(25));
+		risk.setScaleValue3(new BigDecimal(20));
+		risk.setScaleValue4(new BigDecimal(15));
+		risk.setScaleValue5(new BigDecimal(12));
+		risk.setScaleValue6(new BigDecimal(10));
+		grade = RiskMonitorableUtils.calculateGrade(risk);
+		System.out.println(grade);
+	}
+}

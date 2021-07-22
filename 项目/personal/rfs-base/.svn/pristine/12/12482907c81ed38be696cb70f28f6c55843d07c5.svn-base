@@ -1,0 +1,87 @@
+/*
+ * $Id$
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.bean;
+
+import java.util.Date;
+
+/**
+ * 资料原文信息。
+ * 
+ * @author Alex Lin(lcql@msn.com)
+ *
+ */
+public class DatumOrigin extends VersionableBean {
+	private static final long serialVersionUID = -3267329399632284615L;
+	private Long datumId; 
+	private String fileName; //文件名称
+	private String fileType; //文件类别
+	private Date publishTime; //发布时间
+	private Date operateTime; //操作事件
+	/**
+	 * @return the datumId
+	 */
+	public Long getDatumId() {
+		return datumId;
+	}
+	/**
+	 * @param datumId the datumId to set
+	 */
+	public void setDatumId(Long datumId) {
+		this.datumId = datumId;
+	}
+	/**
+	 * @return the fileName
+	 */
+	public String getFileName() {
+		return fileName;
+	}
+	/**
+	 * @param fileName the fileName to set
+	 */
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	/**
+	 * @return the fileType
+	 */
+	public String getFileType() {
+		return fileType;
+	}
+	/**
+	 * @param fileType the fileType to set
+	 */
+	public void setFileType(String fileType) {
+		this.fileType = fileType;
+	}
+	/**
+	 * @return the publishTime
+	 */
+	public Date getPublishTime() {
+		return publishTime;
+	}
+	/**
+	 * @param publishTime the publishTime to set
+	 */
+	public void setPublishTime(Date publishTime) {
+		this.publishTime = publishTime;
+	}
+	/**
+	 * @return the operateTime
+	 */
+	public Date getOperateTime() {
+		return operateTime;
+	}
+	/**
+	 * @param operateTime the operateTime to set
+	 */
+	public void setOperateTime(Date operateTime) {
+		this.operateTime = operateTime;
+	}
+}

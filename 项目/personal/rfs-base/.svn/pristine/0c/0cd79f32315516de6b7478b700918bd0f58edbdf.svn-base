@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.StageTaskDetails" table="STAGE_DETAILS">
+		<id name="id" type="java.lang.Long" column="ID">
+			<generator class="assigned" />
+		</id>
+		<property name="objectId" column="OBJ_ID" type="long" />
+		<property name="objectName" column="OBJ_NAME" type="java.lang.String" />
+		<property name="objectType" column="OBJ_TYPE" type="int" />
+		<property name="taskType" column="TASK_TYPE" type="int" />
+		<property name="taskSNs" column="TASK_SNS" type="java.lang.String" />
+		<property name="workSNs" column="WORK_SNS" type="java.lang.String" />
+		<property name="workItemName" column="WORK_ITEM_NAME" type="java.lang.String"/>
+		<property name="spbmId" column="SPBM_ID" type="java.lang.Long"/>
+		<property name="spbmName" column="SPBM_NAME" type="java.lang.String"/>
+		<property name="bzdwId" column="BZDW_ID" type="java.lang.Long"/>
+		<property name="bzdwName" column="BZDW_NAME" type="java.lang.String" />
+		<property name="sbTime" column="SBSJ" type="java.sql.Timestamp"/>
+		<property name="sbFileNo" column="SBWH" type="java.lang.String"/>
+		<property name="sbFileId" column="SBWH_FILE_ID" type="java.lang.Long"/>
+		<property name="pfTime" column="PFSJ" type="java.sql.Timestamp"/>
+		<property name="pfFileNo" column="PFWH" type="java.lang.String"/>
+		<property name="pfFileId" column="PFWH_FILE_ID" type="java.lang.Long"/>
+		<property name="pfdwId" column="PFDW_ID" type="java.lang.Long"/>
+		<property name="pfdwName" column="PFDW_NAME" type="java.lang.String"/>
+		<property name="expectedFinishTime" column="EXPECTED_FINISH_TIME" type="java.sql.Timestamp"/>
+		<property name="actualFinishTime" column="ACTUAL_FINISH_TIME" type="java.sql.Timestamp"/>
+		<property name="expectedStartTime" column="EXPECTED_START_TIME" type="java.sql.Timestamp"/>
+		<property name="actualStartTime" column="ACTUAL_START_TIME" type="java.sql.Timestamp"/>
+		<property name="bzStartTime" column="BZKSSJ" type="java.sql.Timestamp"/>
+		<property name="bzFinishTime" column="BZJSSJ" type="java.sql.Timestamp"/>
+		
+		<property name="expectedBzStartTime" column="EXPECTED_BZ_START_TIME" type="java.sql.Timestamp"/>
+		<property name="expectedBzFinishTime" column="EXPECTED_BZ_FINISH_TIME" type="java.sql.Timestamp"/>
+		<property name="expectedSbTime" column="EXPECTED_SB_TIME" type="java.sql.Timestamp"/>
+		<property name="expectedPfTime" column="EXPECTED_PF_TIME" type="java.sql.Timestamp"/>
+		
+		<property name="type" column="TP" type="int"/>		
+		<property name="status" column="STATUS" type="byte"/>		
+		<property name="remark" column="REMARK" type="java.lang.String"/>		
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>		
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>		
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>	
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.BizRouteMap" table="BIZ_ROUTE_MAP">
+		<id name="sn" column="SN" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		
+		<property name="category" column="CATEGORY" type="byte"/>
+		
+		<property name="bizType" column="BIZ_TYPE" type="int"/>
+		
+		<property name="bizId" column="BIZID" type="java.lang.Long"/>
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="routeId" column="ROUTEID" type="java.lang.Long"/>
+	</class>
+</hibernate-mapping>

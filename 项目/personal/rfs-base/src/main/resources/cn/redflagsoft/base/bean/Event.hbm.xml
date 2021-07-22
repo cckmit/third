@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.Event" table="EVENT">
+		<id name="sn" column="SN" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		
+		<property name="type" column="TP" type="int"/>
+		
+		<property name="code" column="CODE" type="java.lang.String"/>
+		
+		<property name="affair" column="AFFAIR" type="int"/>
+		
+		<property name="name" column="NAME" type="java.lang.String"/>
+		
+		<property name="abbr" column="ABBR" type="java.lang.String"/>
+		
+		<property name="eventTime" column="EVENT_TIME" type="java.sql.Timestamp"/>
+		
+		<property name="addr" column="ADDR" type="int"/>
+		
+		<property name="object" column="OBJECT" type="int"/>
+		
+		<property name="people" column="PEOPLE" type="int"/>
+		
+		<property name="taskSN" column="TASKSN" type="java.lang.Long"/>
+		
+		<property name="workSN" column="WORKSN" type="java.lang.Long"/>
+		
+		<property name="objectNum" column="OBJECT_NUM" type="byte"/>
+		
+		<property name="peopleNum" column="PEOPLE_NUM" type="byte"/>
+		
+		<property name="taskNum" column="TASK_NUM" type="byte"/>
+		
+		<property name="bizRoute" column="BIZ_ROUTE" type="java.lang.Long"/>
+		
+		<property name="note" column="NOTE" type="java.lang.String"/>
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+		
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+		
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+	</class>
+</hibernate-mapping>

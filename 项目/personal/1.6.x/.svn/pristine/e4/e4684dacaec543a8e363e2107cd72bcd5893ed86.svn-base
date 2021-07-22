@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conversionConfig>
+
+    <fileCacheConfig>
+        <path>D:/temp/filecache</path>
+        <ttl>30000</ttl>
+        <frequency>600000</frequency>
+    </fileCacheConfig>
+
+    <securityManagerConfig>
+        <allowedClients>
+            <string>0.0.0.0</string>
+        </allowedClients>
+    </securityManagerConfig>
+
+    <commandConfigurationMap>
+        <entry>
+            <string>OFFICETOPDF</string>
+
+            <openOfficeConfig>
+                <command>cmd /C 'D:/Program Files/OpenOffice.org 3/program/soffice' -nologo -nodefault -norestore -nocrashreport -nolockcheck 
+                    -nofirststartwizard -headless -splash-pipe=5 '-accept=socket,host=127.0.0.1,port=${port};urp;' 
+					-env:UserInstallation=file:///D:/temp/ooHome-${port}
+                    <!-- -env:UserInstallation=file:///${userDir} -->
+                </command>
+                <restartFrequency>50</restartFrequency>
+                <ports><!-- 
+                    <int>8820</int>
+                    <int>8821</int>
+                    <int>8822</int>
+                    <int>8823</int>-->
+                    <int>2222</int>
+                </ports>
+                <sandBoxSize>2</sandBoxSize>
+                <unoTimeout>3000</unoTimeout>
+                <retryConfig>
+                    <times>2</times>
+                    <timeout>3000</timeout>
+                </retryConfig>
+                <maxSpreadsheetDimensionSize>200</maxSpreadsheetDimensionSize>
+                <timelimit>6000000</timelimit>
+                <executionTimeLimit>900000</executionTimeLimit>
+                <callbackWaitTimeLimit>15000</callbackWaitTimeLimit>
+                <callBackWaitPerMG>30000</callBackWaitPerMG>
+                <killConfig>
+                	<command>cmd /C F:/Downloads/Jive/docconverter/kill_one_oo.cmd ${port}</command>
+					<!-- <command>cmd /C taskkill /F /FI "imagename eq soffice.exe"</command> -->
+                   <!--  <command>/usr/local/jive/services/docconverter/bin/kill_one_oo.sh ${port}</command> -->
+                    <timelimit>1000</timelimit>
+                </killConfig>
+            </openOfficeConfig>
+        </entry>
+
+        <entry>
+            <string>PDF2SWF</string>
+            <commandConfig>
+            <!--<command>nice -10 /usr/local/jive/bin/pdf2swf - -flashversion=9 -f -G -p ${page} ${inputfile} -o ${outputfile} -s multiple=3
+                </command>
+                -->
+              <!-- 
+              <command>cmd /C E:/work.home/tools/swftools-2009-03-15-1014/pdf2swf -p ${page} -o ${outputfile} -s multiple=3  -T 9 ${inputfile}
+                </command>
+             -->
+             	<!-- 
+               	<command>cmd /C E:/work.home/tools/swftools-2009-03-15-1014/pdf2swf - -flashversion=9 -f -G -p ${page} ${inputfile} -o ${outputfile} -s multiple=3</command>
+             	-->
+             	<command>cmd /C F:/Downloads/Jive/docconverter/p2s.cmd ${inputfile} ${outputfile} ${page}</command>
+                <timelimit>120000</timelimit>
+                <executorSize>25</executorSize>
+                <executionTimeLimit>90000</executionTimeLimit>
+                <successExitCode>0</successExitCode>
+            </commandConfig>
+        </entry>
+
+		<entry>
+            <string>PDF2SWFPBM</string>
+            <commandConfig>
+              <command>cmd /C E:/work.home/tools/swftools-2009-03-15-1014/pdf2swf -o ${outputfile} -s multiple=3  -T 9 ${inputfile}
+                </command>
+                <timelimit>120000</timelimit>
+                <executorSize>25</executorSize>
+                <executionTimeLimit>90000</executionTimeLimit>
+                <successExitCode>0</successExitCode>
+            </commandConfig>
+        </entry>
+
+        <entry>
+            <string>PDF2SWFPBM-BAK</string>
+            <commandConfig>
+              <command>nice -10 /usr/local/jive/bin/pdf2swf --flashversion=9 -f -G -p ${inputfile} ${page} -o
+                    ${outputfile} -s poly2bitmap -s multiple=3
+                </command>
+                   <timelimit>120000</timelimit>
+                <executorSize>25</executorSize>
+                <executionTimeLimit>90000</executionTimeLimit>
+                <successExitCode>0</successExitCode>
+            </commandConfig>
+        </entry>
+
+        <entry>
+            <string>TEXTEXTRACT</string>
+            <commandConfig>
+                <command>cmd /C F:/Downloads/Jive/bin/text_extract/bin/text_extract ${inputfile} ${outputfile} ${contenttype}</command>
+                <timelimit>2500000</timelimit>
+                <executorSize>10</executorSize>
+                <executionTimeLimit>1000000</executionTimeLimit>
+                <successExitCode>0</successExitCode>
+            </commandConfig>
+        </entry>
+
+        <entry>
+            <string>IMAGER</string>
+            <commandConfig>
+                <command>cmd /C F:/Downloads/Jive/bin/imager/bin/imager ${inputfile} ${outputfile} ${page}</command>
+                <timelimit>360000</timelimit>
+                <executorSize>10</executorSize>
+                <executionTimeLimit>120000</executionTimeLimit>
+                <successExitCode>0</successExitCode>
+            </commandConfig>
+        </entry>
+    </commandConfigurationMap>
+
+</conversionConfig>
+

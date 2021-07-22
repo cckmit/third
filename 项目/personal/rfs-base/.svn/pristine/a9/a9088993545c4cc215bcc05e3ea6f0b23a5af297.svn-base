@@ -1,0 +1,107 @@
+/*
+ * $Id$
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.service;
+
+import java.util.Map;
+
+/**
+ * 表单数据加载器。
+ * 
+ * 专门针对PSS2中的业务办理前一个表单而设计的功能。
+ * @author Alex Lin(alex@opoo.org)
+ *
+ */
+public interface FormDataLoader {
+
+	/**
+	 * 构建表单所需的数据，包含基本对象数据和相关的task，work，risk等信息。
+	 * 如果没有查询到相应的task、work信息，则应根据TaskDef、WorkDef信息组装数据，否则
+	 * 前台表单没有事项的名称信息。
+	 * 
+	 * @param baseData 基本数据对象
+	 * @param objectId 业务对象ID(RFSObject)
+	 * @param objectType 业务对象类型
+	 * @param taskType task类型
+	 * @return 组装好的表单数据（平面结构）
+	 */
+
+	Map<String, Object> buildFormData(Object baseData, long objectId, int objectType, int taskType);
+	
+	/**
+	 * 构建表单所需的数据，包含基本对象数据和相关的task，work，risk等信息。
+	 * 如果没有查询到相应的task、work信息，则应根据TaskDef、WorkDef信息组装数据，否则
+	 * 前台表单没有事项的名称信息。
+	 * 
+	 * @param baseData 基本数据对象
+	 * @param objectId 业务对象ID(RFSObject)
+	 * @param objectType 业务对象类型
+	 * @param taskTypes 多个指定的task的类型数组
+	 * @return 组装好的表单数据（平面结构）
+	 */
+	Map<String, Object> buildFormData(Object baseData, long objectId, int objectType, int[] taskTypes);
+	
+//	/**
+//	 * 保存指定对象(不一定是业务对象)与Task、Work之间的关系。
+//	 * 
+//	 * @param objectId 对象ID
+//	 * @param task task对象
+//	 * @param objectsTypeOfTask 对象与task在objects中的关系类型
+//	 * @param work work对象
+//	 * @param objectsTypeOfWork 对象与work在objects中的关系类型
+//	 */
+//	void saveObjects(long objectId, Task task, short objectsTypeOfTask, Work work, short objectsTypeOfWork);
+	
+	
+//	/**
+//	 * 构建表单所需的数据，根据对象的ID和在objects中的关系类型，查找对应的task和work信息，并组装进表单中。
+//	 * 
+//	 * @param baseData
+//	 * @param objectId
+//	 * @param objectsTypeOfTask
+//	 * @param objectsTypeOfWorks
+//	 * @return
+//	 */
+//	Map<String, Object> buildObjectsData(Object baseData, long objectId, short objectsTypeOfTask, short... objectsTypeOfWorks);
+
+
+	/**
+	 * 创建表单数据构建器。
+	 * 
+	 * @return 表单数据构建器
+	 */
+	FormDataBuilder createBuilder();
+	
+	/**
+	 * 构建表单所需的数据，包含基本对象数据和相关的task，work，risk等信息。
+	 * 如果没有查询到相应的task、work信息，则应根据TaskDef、WorkDef信息组装数据，否则
+	 * 前台表单没有事项的名称信息。
+	 * 
+	 * @param baseData 基本数据对象
+	 * @param objectId 业务对象ID(RFSObject)
+	 * @param objectType 业务对象类型
+	 * @param taskType task类型
+	 * @return 返回 FormDataBuilder，可以继续组装数据
+	 */
+	FormDataBuilder createBuilder(Object baseData, long objectId, int objectType, int taskType);
+	
+	
+	/**
+	 * 构建表单所需的数据，包含基本对象数据和相关的task，work，risk等信息。
+	 * 如果没有查询到相应的task、work信息，则应根据TaskDef、WorkDef信息组装数据，否则
+	 * 前台表单没有事项的名称信息。
+	 * 
+	 * @param baseData 基本数据对象
+	 * @param objectId 业务对象ID(RFSObject)
+	 * @param objectType 业务对象类型
+	 * @param taskTypes 多个指定的task的类型数组
+	 * @return 返回 FormDataBuilder，可以继续组装数据
+	 */
+	FormDataBuilder createBuilder(Object baseData, long objectId, int objectType, int[] taskTypes);
+}

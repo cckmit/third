@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.ObjectOrgClerk" table="OBJECT_ORG_CLERK">
+
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		
+		<property name="objectType" column="OBJ_TYPE" type="int"/>
+		
+		<property name="objectId" column="OBJ_ID" type="java.lang.Long"/>
+		
+		<property name="objectName" column="OBJ_NAME" type="java.lang.String"/>
+		
+		<property name="orgId" column="ORG_ID" type="java.lang.Long"/>
+		
+		<property name="orgName" column="ORG_NAME" type="java.lang.String"/>
+		
+		<property name="clerk1Id" column="CLERK1_ID" type="java.lang.Long"/>
+		
+		<property name="clerk1Name" column="CLERK1_NAME" type="java.lang.String"/>
+		
+		<property name="clerk2Id" column="CLERK2_ID" type="java.lang.Long"/>
+		
+		<property name="clerk2Name" column="CLERK2_NAME" type="java.lang.String"/>
+		
+		<property name="clerk3Id" column="CLERK3_ID" type="java.lang.Long"/>
+		
+		<property name="clerk3Name" column="CLERK3_NAME" type="java.lang.String"/>
+		
+		<property name="accordingTo" column="ACCORDING_TO" type="java.lang.String"/>
+		
+		<property name="changeTime" column="CHANGE_TIME" type="java.sql.Timestamp"/>
+		
+		<property name="recorderId" column="RECORDER_ID" type="java.lang.Long"/>
+		
+		<property name="recorderName" column="RECORDER_NAME" type="java.lang.String"/>
+		
+		<property name="accordingToFileId" column="ACCORDING_TO_FILEID" type="java.lang.Long"/>
+		
+		<property name="accordingToFileNo" column="ACCORDING_TO_FILENO" type="java.lang.String"/>
+		
+		<property name="type" column="TP" type="int"/>
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+		
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+		
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.CautionSurvey" table="CAUTION_SURVEY">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+	
+	
+	<property name="cautionId" column="CAUTION_ID" type="java.lang.Long"/>
+	
+	<property name="cautionCode" column="CAUTION_CODE" type="java.lang.String"/>
+	
+	<property name="cautionName" column="CAUTION_NAME" type="java.lang.String"/>	
+	
+	<property name="surveyFileId" column="SURVEY_FILEID" type="java.lang.Long"/>
+	
+	<property name="surveyFileNo" column="SURVEY_FILENO" type="java.lang.String"/>
+	
+	<property name="surveyOrgId" column="SURVEY_ORGID" type="java.lang.Long"/>
+	
+	<property name="surveyOrgName" column="SURVEY_ORGNAME" type="java.lang.String"/>
+	
+	<property name="surveyTime" column="SURVEY_TIME" type="java.sql.Timestamp"/>
+	
+	
+	<!-- 当前表的status为业务状态，rfs_object表的status为归档状态  -->
+	<property name="status" column="STATUS" type="byte"/>
+	
+	<property name="type" column="TP" type="int"/>
+		
+	<property name="remark" column="REMARK" type="java.lang.String"/>
+		
+	<property name="creator" column="CREATOR" type="java.lang.Long"/>
+		
+	<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+	<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+		
+	<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+
+	</class>
+</hibernate-mapping>

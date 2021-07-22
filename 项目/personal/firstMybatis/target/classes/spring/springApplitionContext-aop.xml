@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+    <bean id ="userAOPService" class="com.beitie.test.aop.sevice.impl.UserAOPServiceImpl"></bean>
+    <bean id="myAspect1" class="com.beitie.test.aop.aspect.CustomAspectOne"></bean>
+    <aop:config>
+        <aop:aspect ref="myAspect1">
+            <aop:before method="checkAuthority"  pointcut="execution(* com.beitie.test.aop.sevice.impl.*.add(..))"></aop:before>
+            <aop:after-returning method="WriteLog"  pointcut="execution(* com.beitie.test.aop.sevice.impl.*.update(..))" returning="result"></aop:after-returning>
+            <aop:around method="aroundAdvice"  pointcut="execution(* com.beitie.test.aop.sevice.impl.*.delete(..))"></aop:around>
+            <aop:after-throwing method="throwException"   pointcut="execution(* com.beitie.test.aop.sevice.impl.*.find(..))" throwing="exception"></aop:after-throwing>
+        </aop:aspect>
+    </aop:config>
+</beans>

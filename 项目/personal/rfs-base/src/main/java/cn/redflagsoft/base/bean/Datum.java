@@ -1,0 +1,536 @@
+/*
+ * $Id: Datum.java 5375 2012-03-05 08:22:37Z lcj $
+ * 
+ * Copyright 2007-2008 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ */
+package cn.redflagsoft.base.bean;
+
+import java.util.Date;
+
+/**
+ * 
+ * 资料。
+ * 
+ * <p>
+ * 资料按状态分为历史资料和当前资料。
+ * 每个对象的每类（以categoryID区分）资料可以有多个历史资料，但只能最多有一个当前资料（也可以没有）。
+ * 资料在上传时必须检查这种关系，并使用最新的资料作为当前资料，而将原来的资料改为历史资料。
+ * 
+ *
+ */
+public class Datum extends VersionableBean /*implements Observable*/ {
+	
+	/**
+	 * 业务对象相关资料。
+	 */
+	public static final int TYPE_DATUM = 0;
+	/**
+	 * 业务对象相关图片。
+	 */
+	public static final int TYPE_IMAGE = 4;
+	/**
+	 * 业务对象相关附件。
+	 */
+	public static final int TYPE_ATTACHEMENTS = 2;
+	
+	/**
+	 * 
+	 */
+	public static final int TYPE_VIDEO = 3;
+	
+	/**
+	 * @deprecated using TYPE_SNAPSHOT for replacement.
+	 */
+	public static final int SNAPSHOT = 1;
+	
+	public static final int TYPE_SNAPSHOT = 1;
+	
+	public static final byte STATUS_当前资料 = 1;
+	public static final byte STATUS_历史资料 = 0;
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 603240160913857353L;
+//	private Long objectID;
+	private Long id;
+	private String code;//文档编号
+	private String name;
+	private String abbr;
+	private String sn;
+	private String referSN; //检索号
+	private String locus;//存储位置
+	private String brief;
+	private String content;
+	private String form;
+	private byte  format;
+	private byte origin;
+	private Long categoryID;
+	//上传者ID及简称
+	private Long promulgator;
+	private String promulgatorAbbr;
+	private short orderNo;
+	
+	/**
+	 * 资料文号。
+	 */
+	private String fileNo;
+	//发布单位ID及名称
+	private Long publishOrgId;
+	private String publishOrgName;
+	//发布者id及姓名
+	private Long publisherId;
+	private String publisherName;
+	
+	private String subject;	//文档题名
+	private Integer securityLevel; //文档密级
+	private String keywords; //主题词
+	private Long dispatchOrgId;//发文单位
+	private String dispatchOrgName;
+	private Date dispatchTime; //发文时间
+	private Date publishTime; //发布时间
+	
+	/**
+	 * 物理编号。
+	 */
+	private String physicalNo;
+	/**
+	 * 条码号
+	 */
+	private String barcode;
+	
+	
+	private Long workSN;
+	
+	private int flag = 0;
+	
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * 唯一
+	 * @param id :
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the code
+	 */
+	public String getCode() {
+		return code;
+	}
+
+	/**
+	 * 代码
+	 * @param code ：
+	 */
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * 名称
+	 * @param name ：
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the abbr
+	 */
+	public String getAbbr() {
+		return abbr;
+	}
+
+	/**
+	 * 简称
+	 * @param abbr ：
+	 */
+	public void setAbbr(String abbr) {
+		this.abbr = abbr;
+	}
+
+	/**
+	 * @return the sn
+	 */
+	public String getSn() {
+		return sn;
+	}
+
+	/**
+	 * 编号.资料本身的编号,null表示忽略
+	 * @param sn ：
+	 */
+	public void setSn(String sn) {
+		this.sn = sn;
+	}
+
+	/**
+	 * @return the referSN
+	 */
+	public String getReferSN() {
+		return referSN;
+	}
+
+	/**
+	 * 检索号.对应外部的检索编号,null表示忽略
+	 * @param referSN :
+	 */
+	public void setReferSN(String referSN) {
+		this.referSN = referSN;
+	}
+
+	/**
+	 * @return the locus
+	 */
+	public String getLocus() {
+		return locus;
+	}
+
+	/**
+	 * 位置.存储位置,null表示忽略,根据存储格式,可能是表名,可能是文件名
+	 * @param locus :
+	 */
+	public void setLocus(String locus) {
+		this.locus = locus;
+	}
+
+	/**
+	 * @return the brief
+	 */
+	public String getBrief() {
+		return brief;
+	}
+
+	/**
+	 * 摘要.摘要内容,100个汉字之内
+	 * @param brief :
+	 */
+	public void setBrief(String brief) {
+		this.brief = brief;
+	}
+
+	/**
+	 * @return the content
+	 */
+	public String getContent() {
+		return content;
+	}
+
+	/**
+	 * 内容.具体内容,不出现在本表中
+	 * @param content :
+	 */
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	/**
+	 * @return the form
+	 */
+	public String getForm() {
+		return form;
+	}
+
+	/**
+	 * 样式.展现样式名称
+	 * @param form :
+	 */
+	public void setForm(String form) {
+		this.form = form;
+	}
+
+	/**
+	 * @return the format
+	 */
+	public byte getFormat() {
+		return format;
+	}
+
+	/**
+	 * 格式.存储格式:0 未存储;1 数据库; 2 XML; 3 word; 4 excel等. 默认为0
+	 * @param format :
+	 */
+	public void setFormat(byte format) {
+		this.format = format;
+	}
+
+	/**
+	 * @return the origin
+	 */
+	public byte getOrigin() {
+		return origin;
+	}
+
+	/**
+	 * 来源.资料的来源,包括:生成、录入、扫描、上传、交换等.默认为0,表示忽略
+	 * @param origin :
+	 */
+	public void setOrigin(byte origin) {
+		this.origin = origin;
+	}
+
+	
+//	/**
+//	 * object表种的ID.默认为0，表忽略
+//	 * @param objectID 
+//	 */
+//	public Long getObjectID() {
+//		return objectID;
+//	}
+//
+//	public void setObjectID(Long objectID) {
+//		this.objectID = objectID;
+//
+//	}
+
+	/**
+	 * @return the categoryID
+	 */
+	public Long getCategoryID() {
+		return categoryID;
+	}
+
+	/**
+	 * @param categoryID the categoryID to set
+	 */
+	public void setCategoryID(Long categoryID) {
+		this.categoryID = categoryID;
+	}
+
+	/**
+	 * @return the promulgator
+	 */
+	public Long getPromulgator() {
+		return promulgator;
+	}
+
+	/**
+	 * @param promulgator the promulgator to set
+	 */
+	public void setPromulgator(Long promulgator) {
+		this.promulgator = promulgator;
+	}
+
+	/**
+	 * @return the promulgatorAbbr
+	 */
+	public String getPromulgatorAbbr() {
+		return promulgatorAbbr;
+	}
+
+	/**
+	 * @param promulgatorAbbr the promulgatorAbbr to set
+	 */
+	public void setPromulgatorAbbr(String promulgatorAbbr) {
+		this.promulgatorAbbr = promulgatorAbbr;
+	}
+
+	public short getOrderNo() {
+		return orderNo;
+	}
+
+	public void setOrderNo(short orderNo) {
+		this.orderNo = orderNo;
+	}
+
+	public String getFileNo() {
+		return fileNo;
+	}
+
+	public void setFileNo(String fileNo) {
+		this.fileNo = fileNo;
+	}
+
+	public Long getPublishOrgId() {
+		return publishOrgId;
+	}
+
+	public void setPublishOrgId(Long publishOrgId) {
+		this.publishOrgId = publishOrgId;
+	}
+
+	public String getPublishOrgName() {
+		return publishOrgName;
+	}
+
+	public void setPublishOrgName(String publishOrgName) {
+		this.publishOrgName = publishOrgName;
+	}
+
+	public Long getPublisherId() {
+		return publisherId;
+	}
+
+	public void setPublisherId(Long publisherId) {
+		this.publisherId = publisherId;
+	}
+
+	public String getPublisherName() {
+		return publisherName;
+	}
+
+	public void setPublisherName(String publisherName) {
+		this.publisherName = publisherName;
+	}
+
+	public String getPhysicalNo() {
+		return physicalNo;
+	}
+
+	public void setPhysicalNo(String physicalNo) {
+		this.physicalNo = physicalNo;
+	}
+
+	public String getBarcode() {
+		return barcode;
+	}
+
+	public void setBarcode(String barcode) {
+		this.barcode = barcode;
+	}
+
+	/**
+	 * @return the workSN
+	 */
+	public Long getWorkSN() {
+		return workSN;
+	}
+
+	/**
+	 * @param workSN the workSN to set
+	 */
+	public void setWorkSN(Long workSN) {
+		this.workSN = workSN;
+	}
+
+	/**
+	 * 非持久化属性
+	 * @return the flag
+	 */
+	public int getFlag() {
+		return flag;
+	}
+
+	/**
+	 * 非持久化属性
+	 * @param flag the flag to set
+	 */
+	public void setFlag(int flag) {
+		this.flag = flag;
+	}
+
+	/**
+	 * @return the subject
+	 */
+	public String getSubject() {
+		return subject;
+	}
+
+	/**
+	 * @param subject the subject to set
+	 */
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	/**
+	 * @return the securityLevel
+	 */
+	public Integer getSecurityLevel() {
+		return securityLevel;
+	}
+
+	/**
+	 * @param securityLevel the securityLevel to set
+	 */
+	public void setSecurityLevel(Integer securityLevel) {
+		this.securityLevel = securityLevel;
+	}
+
+	/**
+	 * @return the keywords
+	 */
+	public String getKeywords() {
+		return keywords;
+	}
+
+	/**
+	 * @param keywords the keywords to set
+	 */
+	public void setKeywords(String keywords) {
+		this.keywords = keywords;
+	}
+
+	/**
+	 * @return the dispatchOrgId
+	 */
+	public Long getDispatchOrgId() {
+		return dispatchOrgId;
+	}
+
+	/**
+	 * @param dispatchOrgId the dispatchOrgId to set
+	 */
+	public void setDispatchOrgId(Long dispatchOrgId) {
+		this.dispatchOrgId = dispatchOrgId;
+	}
+
+	/**
+	 * @return the dispatchOrgName
+	 */
+	public String getDispatchOrgName() {
+		return dispatchOrgName;
+	}
+
+	/**
+	 * @param dispatchOrgName the dispatchOrgName to set
+	 */
+	public void setDispatchOrgName(String dispatchOrgName) {
+		this.dispatchOrgName = dispatchOrgName;
+	}
+
+	/**
+	 * @return the dispatchTime
+	 */
+	public Date getDispatchTime() {
+		return dispatchTime;
+	}
+
+	/**
+	 * @param dispatchTime the dispatchTime to set
+	 */
+	public void setDispatchTime(Date dispatchTime) {
+		this.dispatchTime = dispatchTime;
+	}
+
+	/**
+	 * @return the publishTime
+	 */
+	public Date getPublishTime() {
+		return publishTime;
+	}
+
+	/**
+	 * @param publishTime the publishTime to set
+	 */
+	public void setPublishTime(Date publishTime) {
+		this.publishTime = publishTime;
+	}
+}
+

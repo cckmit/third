@@ -1,0 +1,13 @@
+<projectDescription>
+  <name>opoo-apps</name>
+  <comment>JEE base framework by Alex(Struts2, Spring2.5, Hibernate3.2)</comment>
+  <projects/>
+  <buildSpec>
+    <buildCommand>
+      <name>org.eclipse.jdt.core.javabuilder</name>
+    </buildCommand>
+  </buildSpec>
+  <natures>
+    <nature>org.eclipse.jdt.core.javanature</nature>
+  </natures>
+</projectDescription>

@@ -1,0 +1,301 @@
+/*
+ * $Id$
+ * 
+ * Copyright 2007-2008 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ */
+package cn.redflagsoft.base.bean;
+
+import java.util.Date;
+
+/**
+ * @author Alex Lin
+ *
+ */
+public class DatumCategoryWithData extends DatumCategory {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8862400459399931009L;
+	private DatumCategory category = new DatumCategory();
+	private DatumAttachment datum = new DatumAttachment(null, null);
+	
+	public DatumCategoryWithData(DatumCategory category, DatumAttachment datum){
+		if(category != null) this.category = category;
+		if(datum != null) this.datum = datum;
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.bean.DatumCategory#getAbbr()
+	 */
+	@Override
+	public String getAbbr() {
+		return category.getAbbr();
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.bean.DatumCategory#getForm()
+	 */
+	@Override
+	public String getForm() {
+		return category.getForm();
+	}
+
+
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.bean.DatumCategory#getName()
+	 */
+	@Override
+	public String getName() {
+		return category.getName();
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.bean.DatumCategory#getOrigin()
+	 */
+	@Override
+	public byte getOrigin() {
+		return category.getOrigin();
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.bean.DatumCategory#getStore()
+	 */
+	@Override
+	public byte getStore() {
+		return category.getStore();
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.bean.DatumCategory#setAbbr(java.lang.String)
+	 */
+	@Override
+	public void setAbbr(String abbr) {
+		category.setAbbr(abbr);
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.bean.DatumCategory#setForm(java.lang.String)
+	 */
+	@Override
+	public void setForm(String form) {
+		category.setForm(form);
+	}
+
+
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.bean.DatumCategory#setName(java.lang.String)
+	 */
+	@Override
+	public void setName(String name) {
+		category.setName(name);
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.bean.DatumCategory#setOrigin(byte)
+	 */
+	@Override
+	public void setOrigin(byte origin) {
+		category.setOrigin(origin);
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.bean.DatumCategory#setStore(byte)
+	 */
+	@Override
+	public void setStore(byte store) {
+		category.setStore(store);
+	}
+
+	/**
+	 * @return the fileType
+	 */
+	public String getFileType() {
+		return datum.getFileType();
+	}
+
+	/**
+	 * @param fileType the fileType to set
+	 */
+	public void setFileType(String fileType) {
+		datum.setFileType(fileType);
+	}
+
+	/**
+	 * @return the fileId
+	 */
+	public String getFileId() {
+		return datum.getContent();
+	}
+
+	/**
+	 * @param fileId the fileId to set
+	 */
+	public void setFileId(String fileId) {
+		//readonly
+	}
+
+
+	/**
+	 * @return the contentType
+	 */
+	public String getContentType() {
+		return datum.getContentType();
+	}
+
+	/**
+	 * @param contentType the contentType to set
+	 */
+	public void setContentType(String contentType) {
+		//readonly
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.bean.DatumCategory#getCreationTime()
+	 */
+	@Override
+	public Date getCreationTime() {
+		return category.getCreationTime();
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.bean.DatumCategory#getCreator()
+	 */
+	@Override
+	public Long getCreator() {
+		return category.getCreator();
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.bean.DatumCategory#getModificationTime()
+	 */
+	@Override
+	public Date getModificationTime() {
+		return category.getModificationTime();
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.bean.DatumCategory#getModifier()
+	 */
+	@Override
+	public Long getModifier() {
+		return category.getModifier();
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.bean.DatumCategory#getRemark()
+	 */
+	@Override
+	public String getRemark() {
+		return category.getRemark();
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.bean.DatumCategory#getStatus()
+	 */
+	@Override
+	public byte getStatus() {
+		return category.getStatus();
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.bean.DatumCategory#getType()
+	 */
+	@Override
+	public int getType() {
+		return category.getType();
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.bean.DatumCategory#setCreationTime(java.util.Date)
+	 */
+	@Override
+	public void setCreationTime(Date creationTime) {
+		category.setCreationTime(creationTime);
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.bean.DatumCategory#setCreator(java.lang.Long)
+	 */
+	@Override
+	public void setCreator(Long creator) {
+		category.setCreator(creator);
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.bean.DatumCategory#setModificationTime(java.util.Date)
+	 */
+	@Override
+	public void setModificationTime(Date modificationTime) {
+		category.setModificationTime(modificationTime);
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.bean.DatumCategory#setModifier(java.lang.Long)
+	 */
+	@Override
+	public void setModifier(Long modifier) {
+		category.setModifier(modifier);
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.bean.DatumCategory#setRemark(java.lang.String)
+	 */
+	@Override
+	public void setRemark(String remark) {
+		category.setRemark(remark);
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.bean.DatumCategory#setStatus(byte)
+	 */
+	@Override
+	public void setStatus(byte status) {
+		category.setStatus(status);
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.bean.DatumCategory#setType(short)
+	 */
+	@Override
+	public void setType(int type) {
+		category.setType(type);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.opoo.apps.bean.LongKeyBean#getKey()
+	 */
+	@Override
+	public Long getKey() {
+		return category.getKey();
+	}
+
+	/* (non-Javadoc)
+	 * @see org.opoo.apps.bean.LongKeyBean#setKey(java.lang.Long)
+	 */
+	@Override
+	public void setKey(Long id) {
+		category.setKey(id);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.opoo.ndao.domain.Entity#getId()
+	 */
+	@Override
+	public Long getId() {
+		return category.getId();
+	}
+
+	/* (non-Javadoc)
+	 * @see org.opoo.ndao.domain.Entity#setId(java.io.Serializable)
+	 */
+	@Override
+	public void setId(Long id) {
+		category.setId(id);
+	}
+	
+	
+	
+}

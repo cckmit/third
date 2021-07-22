@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class  name="cn.redflagsoft.base.bean.HistoryRisk" table="HISTORY_RISK">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>	
+
+		<property name="objectID" column="OBJECTID" type="java.lang.Long"/>
+		
+		<property name="objectType" column="OBJECT_TYPE" type="int"/>
+
+		<property name="category" column="category" type="short"/>
+		
+		<property name="thingCode" column="THINGCODE" type="java.lang.String"/>
+		
+		<property name="thingName" column="THINGNAME" type="java.lang.String"/>
+		
+		<property name="taskSn" column="TASKSN" type="java.lang.Long"/>
+		
+		<property name="taskName" column="TASK_NAME" type="java.lang.String"/>
+		
+		<property name="entityName" column="ENTITY_NAME" type="java.lang.String"/>
+		
+		<property name="taskBeginTime" column="TASK_BEGIN_TIME" type="java.sql.Timestamp"/>
+		
+		<property name="taskEndTime" column="TASK_END_TIME" type="java.sql.Timestamp"/>
+		
+		<property name="taskStatus" column="TASK_STATUS" type="byte"/>
+		
+		<property name="taskStatusName" column="TASK_STATUS_NAME" type="java.lang.String"/>
+		
+		<property name="taskCode" column="TASK_CODE" type="java.lang.String"/>
+		
+		<property name="type" column="TP" type="int"/>
+		
+		<property name="dutyerType" column="DUTYER_TYPE" type="short"/>
+		
+		<property name="dutyerID" column="DUTYERID" type="java.lang.Long"/>
+		
+		<property name="valueSign" column="VALUE_SIGN" type="byte"/>
+		
+		<property name="valueType" column="VALUE_TYPE" type="byte"/>
+		
+		<property name="valueUnit" column="VALUE_UNIT" type="byte"/>
+		
+		<property name="valueFormat" column="VALUE_FORMAT" type="java.lang.String"/>
+		
+		<property name="valueSource" column="VALUE_SOURCE" type="byte"/>
+		
+		<property name="value" column="VAL" type="java.math.BigDecimal"/>
+		
+		<property name="grade" column="GRADE" type="byte"/>
+		
+		<property name="scaleValue1" column="SCALE_VALUE1" type="java.math.BigDecimal"/>
+		
+		<property name="scaleValue2" column="SCALE_VALUE2" type="java.math.BigDecimal"/>
+		
+		<property name="scaleValue3" column="SCALE_VALUE3" type="java.math.BigDecimal"/>
+		
+		<property name="scaleValue4" column="SCALE_VALUE4" type="java.math.BigDecimal"/>
+		
+		<property name="scaleValue5" column="SCALE_VALUE5" type="java.math.BigDecimal"/>
+		
+		<property name="scaleValue6" column="SCALE_VALUE6" type="java.math.BigDecimal"/>
+		
+		<property name="scaleValue" column="SCALE_VALUE" type="java.math.BigDecimal"/>
+		
+		<property name="scaleMark" column="SCALE_MARK" type="byte"/>
+		
+		<property name="pause" column="PAUSE" type="byte"/>
+		
+		<property name="refType" column="REF_TYPE" type="int"/>
+		
+		<property name="refID" column="REFID" type="java.lang.Long"/>
+		
+		<property name="refObjectId" column="REF_OBJECTID" type="java.lang.Long"/>
+		
+		<property name="refObjectType" column="REF_OBJECT_TYPE" type="int"/>
+		
+		<property name="name" column="NAME" type="java.lang.String"/>
+		
+		<property name="juralLimit" column="JURAL_LIMIT" type="java.lang.String"/>
+		
+		<!-- 
+		<property name="conclusionTpl1" column="CONCLUSIONTPL1" type="java.lang.String"/>
+		
+		<property name="conclusionTpl2" column="CONCLUSIONTPL2" type="java.lang.String"/>
+		
+		<property name="conclusionTpl3" column="CONCLUSIONTPL3" type="java.lang.String"/>
+		
+		<property name="conclusionTpl4" column="CONCLUSIONTPL4" type="java.lang.String"/>
+		
+		<property name="conclusionTpl5" column="CONCLUSIONTPL5" type="java.lang.String"/>
+		
+		<property name="conclusionTpl6" column="CONCLUSIONTPL6" type="java.lang.String"/>
+		-->
+		
+		<property name="conclusion" column="CONCLUSION" type="java.lang.String"/>
+		
+		<property name="objectAttr" column="OBJECT_ATTR" type="java.lang.String"/>
+		
+		<property name="ruleID" column="RULEID" type="java.lang.Long"/>
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+		
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+		
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+		
+		<property name="systemID" column="SYSTEMID" type="java.lang.Long"/>
+	</class>
+</hibernate-mapping>

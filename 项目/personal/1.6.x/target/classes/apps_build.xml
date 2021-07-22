@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- for apps-1.5 -->
+<!--
+    This file stores all properties needed by system to startup. Property names must be in the
+    format: "example.prop.is=value"
+    That will be stored as:
+        <example>
+            <prop>
+                <is>value</is>
+            </prop>
+        </example>
+
+     All properties must be under the "apps" element.
+
+     This file should live in your appsHome directory. The path to that directory
+     should be specified in your apps_init.xml file or by one of the other
+     supported mechanisms.
+-->
+<apps> 
+	<!--
+	#
+	Specification-Title=opoo-apps
+	Specification-Vendor=RedFlagSoft.COM
+	Specification-Version=1.6.8-SNAPSHOT
+	Implementation-Title=opoo-apps
+	Implementation-Vendor=RedFlagSoft.COM
+	Implementation-Version=1.6.8-SNAPSHOT-20170601.130634-4
+	Mode=development
+	URL=http://opoo.org
+	-->
+	<specification>
+		<title>opoo-apps</title>
+		<vendor>RedFlagSoft.COM</vendor>
+		<version>1.6.8-SNAPSHOT</version>
+	</specification>
+	<implementation>
+		<title>opoo-apps</title>
+		<vendor>RedFlagSoft.COM</vendor>
+		<version>1.6.8-SNAPSHOT-20170601.130634-4</version>
+	</implementation>
+
+	<product>
+		<name>opoo-apps</name>
+		<version>1.6.8-SNAPSHOT</version>
+		<modules>base,core,als</modules>
+		<instanceId>0001</instanceId>
+	</product>
+	<order>1</order>
+</apps>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="cn.redflagsoft.base.bean.BizTrack" table="BIZ_TRACK">
+        <id name="sn" column="SN" type="java.lang.Long">
+            <generator class="assigned" />
+        </id>
+        <property name="category" column="CATEGORY" type="byte"/>
+        
+        <property name="bizSN" column="BIZSN" type="java.lang.Long"/>
+
+        <property name="name" column="NAME" type="java.lang.String"/>
+
+        <property name="abbr" column="ABBR" type="java.lang.String"/>
+
+        <property name="sectNum" column="SECT_NUM" type="byte"/>
+        
+        <property name="stepNum" column="STEP_NUM" type="byte"/>
+
+        <property name="nodeNum" column="NODE_NUM" type="byte"/>
+        
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+		            
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="cn.redflagsoft.base.bean.Receiver" table="RECEIVER">
+        <id name="id" column="ID" type="java.lang.Long">
+            <generator class="assigned" />
+        </id>
+        
+		<property name="type" column="TP" type="int"/>        
+        
+        <property name="category" column="CATEGORY" type="byte"/>
+        
+        <property name="taskType" column="TASK_TYPE" type="int"/>
+        
+        <property name="workType" column="WORK_TYPE" type="int"/>
+        
+        <property name="processType" column="PROCESS_TYPE" type="int"/>
+
+        <property name="clerkID" column="CLERKID" type="java.lang.Long"/>
+
+        <property name="receiver" column="RECEIVER" type="java.lang.Long"/>
+        
+        <property name="selected" column="SELECTED" type="byte"/>
+        
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+		
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+		
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>        
+    </class>
+</hibernate-mapping>

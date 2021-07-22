@@ -1,0 +1,131 @@
+/*
+ * $Id$
+ * 
+ * Copyright 2007-2010 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.scheme.schemes.objects;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Required;
+import org.springframework.util.Assert;
+
+import cn.redflagsoft.base.bean.Checkable;
+import cn.redflagsoft.base.bean.Clerk;
+import cn.redflagsoft.base.scheme.AbstractScheme;
+import cn.redflagsoft.base.security.UserClerkHolder;
+import cn.redflagsoft.base.service.CheckableService;
+import cn.redflagsoft.base.service.ObjectEntityService;
+import cn.redflagsoft.base.vo.BatchUpdateResult;
+
+/**
+ * @author Alex Lin(alex@opoo.org)
+ *
+ */
+public class ObjectEntityScheme extends AbstractScheme{
+	private CheckableService<Long> checkableService;
+	private ObjectEntityService objectEntityService;
+	private int objectType;
+	
+	private List<Long> ids;
+	private Integer type;
+	private Long entityId;
+	
+	public CheckableService<Long> getCheckableService() {
+		return checkableService;
+	}
+	@Required
+	public void setCheckableService(CheckableService<Long> checkableService) {
+		this.checkableService = checkableService;
+	}
+	public ObjectEntityService getObjectEntityService() {
+		return objectEntityService;
+	}
+	@Required
+	public void setObjectEntityService(ObjectEntityService objectEntityService) {
+		this.objectEntityService = objectEntityService;
+	}
+	public int getObjectType() {
+		return objectType;
+	}
+	public void setObjectType(int objectType) {
+		this.objectType = objectType;
+	}
+	public List<Long> getIds() {
+		return ids;
+	}
+	public void setIds(List<Long> ids) {
+		this.ids = ids;
+	}
+	public Integer getType() {
+		return type;
+	}
+	public void setType(Integer type) {
+		this.type = type;
+	}
+	public Long getEntityId() {
+		return entityId;
+	}
+	public void setEntityId(Long entityId) {
+		this.entityId = entityId;
+	}
+	
+	/**
+	 * 设置批量对象到单位的关联。
+	 * @return
+	 */
+	public Object doSetObjectsToEntity(){
+		//Assert.notNull(ids, "被设置的对象 id 不能为 null");
+		Assert.notNull(type, "关系类型不能为空");
+		
+		if(entityId == null){
+			//当前人员
+			Clerk uc = UserClerkHolder.getClerk();
+			entityId = uc.getEntityID();
+		}
+		return setObjectsToEntity(entityId, ids, type, objectType);
+	}
+	/**
+	 * 
+	 * @param entityId
+	 * @param objectIds
+	 * @param type
+	 * @param objectType
+	 * @return
+	 */
+	protected Object setObjectsToEntity(Long entityId, List<Long> objectIds, int type, int objectType){
+		BatchUpdateResult result = objectEntityService.setObjectsToEntity(entityId, objectIds, type, objectType);
+		return "新增了 " + result.getCreatedRows() + " 项， 删除了 " + result.getDeletedRows() + " 项。"; 
+	}
+	
+	
+	/**
+	 * 查询对象列表，将已选中的对象标记为选中。
+	 * @return
+	 */
+	public List<Checkable<Long>> viewList(){
+		Assert.notNull(type, "关系类型不能为空");
+		if(entityId == null){
+			//当前人员
+			Clerk uc = UserClerkHolder.getClerk();
+			entityId = uc.getEntityID();
+		}
+		return findCheckableList(entityId, type.shortValue(), objectType);
+	}
+	
+	/**
+	 * 根据关联关系中的数据查询对象列表，以选中的对象被标记为checked=true。
+	 * @param entityId 单位ID
+	 * @param type 关系类型
+	 * @param objectType 对象类型
+	 * @return
+	 */
+	protected List<Checkable<Long>> findCheckableList(Long entityId, int type, int objectType){
+		List<Long> checkedObjectIds = objectEntityService.findObjectIdsByEntityId(entityId, type, objectType);
+		return checkableService.findCheckableList(getParameters(), checkedObjectIds);
+	}
+}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class  name="cn.redflagsoft.base.bean.SmsgAttachment" table="SMSG_ATTACHMENTS">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>	
+	
+	<property name="smsgId" column="SMSGID" type="java.lang.Long"/>
+	
+	<property name="smsgCode" column="SMSGCODE" type="java.lang.String"/>
+	
+	<property name="type" column="TP" type="int" not-null="true"/>
+	
+	<property name="fileId" column="FILEID" type="java.lang.Long" not-null="true"/>
+	
+	<property name="fileType" column="FILETYPE" type="java.lang.String"/>
+	
+	</class>
+</hibernate-mapping>

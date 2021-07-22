@@ -1,0 +1,120 @@
+/*
+ * $Id: Amounts.java 4342 2011-04-22 02:17:01Z lcj $
+ * 
+ * Copyright 2007-2010 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.bean;
+
+import java.math.BigDecimal;
+import java.util.Date;
+
+/**
+ * @author Alex Lin(alex@opoo.org)
+ *
+ */
+public class Amounts extends VersionableBean {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6402952542155693955L;
+//	ID                   NUMBER(19)                      not null,
+//	   D                    NUMBER(10)                      not null,
+//	   OBJ_TYPE             VARCHAR2(200),
+//	   OBJ_ID               VARCHAR2(32),
+//	   OBJ_NAME             VARCHAR2(200),
+//	   AMOUNT               NUMBER(21,6),
+//	   DESC_               VARCHAR2(2000),
+//	   LOG_TIME             TIMESTAMP,
+//	   CLERK_ID             NUMBER(19),
+//	   CLERK_NAME           VARCHAR2(30),
+//	   IMAGE_COUNT          NUMBER(10)                     default 0 not null,
+//	   IMAGES               VARCHAR2(600),
+//	   ATTACHMENT_COUNT     NUMBER(10)                     default 0 not null,
+//	   ATTACHMENTS          VARCHAR2(600),
+//	   VERSION              NUMBER(10)                     default 1 not null,
+//	   TP                   NUMBER(6)                      default 0,
+//	   STATUS               NUMBER(3)                      default 0,
+//	   REMARK               VARCHAR2(50),
+//	   CREATOR              NUMBER(19),
+//	   CTIME                TIMESTAMP,
+//	   MODIFIER             NUMBER(19),
+//	   MTIME                TIMESTAMP
+	
+	private BigDecimal amount;		//数值
+	private String description;		//描述
+	private Date logTime;			//操作时间，系统操作时间由ctime和mtime确定
+	private Long clerkId;			//操作者ID
+	private String clerkName;		//操作者姓名
+	private int imageCount;			//附图数量
+	private String images;			//附图。通常是附图的id集合，使用逗号分隔。
+	private int attachmentCount;	//附件数量
+	private String attachments;		//附件.通常是附件的id集合，使用逗号分隔。
+	private int version;			//版本
+	
+	
+	public BigDecimal getAmount() {
+		return amount;
+	}
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public Date getLogTime() {
+		return logTime;
+	}
+	public void setLogTime(Date logTime) {
+		this.logTime = logTime;
+	}
+	public Long getClerkId() {
+		return clerkId;
+	}
+	public void setClerkId(Long clerkId) {
+		this.clerkId = clerkId;
+	}
+	public String getClerkName() {
+		return clerkName;
+	}
+	public void setClerkName(String clerkName) {
+		this.clerkName = clerkName;
+	}
+	public int getImageCount() {
+		return imageCount;
+	}
+	public void setImageCount(int imageCount) {
+		this.imageCount = imageCount;
+	}
+	public String getImages() {
+		return images;
+	}
+	public void setImages(String images) {
+		this.images = images;
+	}
+	public int getAttachmentCount() {
+		return attachmentCount;
+	}
+	public void setAttachmentCount(int attachmentCount) {
+		this.attachmentCount = attachmentCount;
+	}
+	public String getAttachments() {
+		return attachments;
+	}
+	public void setAttachments(String attachments) {
+		this.attachments = attachments;
+	}
+	public int getVersion() {
+		return version;
+	}
+	public void setVersion(int version) {
+		this.version = version;
+	}
+}

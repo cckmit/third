@@ -1,0 +1,153 @@
+/*
+ * $Id$
+ * 
+ * Copyright 2007-2010 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.util;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import cn.redflagsoft.base.bean.LifeStage;
+import cn.redflagsoft.base.util.SummaryHelper.SummaryValueAcceptor;
+
+/**
+ * @author Alex Lin(alex@opoo.org)
+ * 
+ */
+public class LifeStageSummaryHelper {
+//	private static class GroupFields implements Serializable {
+//		private static final long serialVersionUID = 7917004014027322192L;
+//
+//		private String[] groupFieldNames;
+//		private Object[] groupFieldValues;
+//
+//		public GroupFields(LifeStage ls, String... groupFieldNames) {
+//			this.groupFieldNames = groupFieldNames;
+//			if (groupFieldNames != null) {
+//				groupFieldValues = new Object[groupFieldNames.length];
+//				for (int i = 0; i < groupFieldNames.length; i++) {
+//					groupFieldValues[i] = getProperty(ls, groupFieldNames[i]);
+//				}
+//			}
+//		}
+//
+//		@Override
+//		public boolean equals(Object obj) {
+//			if (obj == null || !(obj instanceof GroupFields)) {
+//				return false;
+//			}
+//			GroupFields gf = (GroupFields) obj;
+//			return new EqualsBuilder().append(groupFieldNames, gf.groupFieldNames)
+//					.append(groupFieldValues, gf.groupFieldValues).isEquals();
+//		}
+//
+//		@Override
+//		public int hashCode() {
+//			return new HashCodeBuilder().append(groupFieldNames).append(groupFieldValues).toHashCode();
+//		}
+//
+//		@Override
+//		public String toString() {
+//			return new ToStringBuilder(this).append(groupFieldNames).append(groupFieldValues).toString();
+//		}
+//
+//		public Map<String, Object> toMap() {
+//			Map<String, Object> map = new HashMap<String, Object>();
+//			if (groupFieldNames != null) {
+//				for (int i = 0; i < groupFieldNames.length; i++) {
+//					map.put(groupFieldNames[i], groupFieldValues[i]);
+//				}
+//			}
+//			return map;
+//		}
+//	}
+//
+//	private static class SummaryLifeStage {
+//		private Map<String, Object> summaryFields;
+//		private byte compareStatusValue = 1;
+//
+//		public SummaryLifeStage(LifeStage ls, byte compareStatusValue) {
+//			this.summaryFields = new HashMap<String, Object>();
+//			addLifeStage(ls);
+//		}
+//
+//		public void addLifeStage(LifeStage ls) {
+//			for (int i = 0; i < 100; i++) {
+//				String f = "status" + i;
+//				Byte status = (Byte) getProperty(ls, f);
+//				if (status == null) {
+//					status = new Byte((byte) 0);
+//				}
+//				byte s = status.byteValue();
+//				if (s == compareStatusValue) {
+//					Integer integer = (Integer) summaryFields.get(f);
+//					if (integer == null) {
+//						integer = 0;
+//					}
+//					int newValue = integer.intValue() + 1;
+//					summaryFields.put(f, newValue);
+//				}
+//			}
+//		}
+//
+//		// public boolean isGroupFieldsEquals(LifeStage ls){
+//		// if(groupFieldNames == null || groupFieldNames.length == 0){
+//		// return true;
+//		// }
+//		// for(String f: groupFieldNames){
+//		// Object p1 = getProperty(ls, f);
+//		// Object p2 = groupFields.get(f);
+//		// if(!EqualsUtils.equals(p1, p2)){
+//		// return false;
+//		// }
+//		// }
+//		// return true;
+//		// }
+//
+//		public Map<String, Object> toMap() {
+//			return summaryFields;
+//		}
+//	}
+//
+//	public static Object getProperty(Object obj, String prop) {
+//		try {
+//			return PropertyUtils.getProperty(obj, prop);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return null;
+//		}
+//	}
+//	
+	/**
+	 * 将LifeStage的信息，转化成有分组（或者无）的统计信息
+	 * @param list LifeStage的数据
+	 * @param compareStatusValue 用于比较的status的值
+	 * @param groupFieldNames 分组字段名集合
+	 * @return
+	 */
+	public static List<Map<String, Object>> makeSummaryList(final List<LifeStage> list, 
+			final byte compareStatusValue, String... groupFieldNames) {
+		String[] summaryFieldNames = new String[100];
+		for(int i = 0 ; i < summaryFieldNames.length ; i++){
+			summaryFieldNames[i] = "status" + i;
+		}
+		
+		SummaryValueAcceptor acc = new SummaryValueAcceptor(){
+			public boolean accepts(Object value) {
+				Byte b = (Byte) value;
+				if(b == null){
+					b = 0;
+				}
+				return b.byteValue() == compareStatusValue;
+			}
+		};
+		
+		return SummaryHelper.makeSummaryList(new ArrayList<Object>(list), summaryFieldNames, acc, groupFieldNames);
+	}
+}

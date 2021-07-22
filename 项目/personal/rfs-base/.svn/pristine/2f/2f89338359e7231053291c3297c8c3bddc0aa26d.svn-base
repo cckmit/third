@@ -1,0 +1,42 @@
+/*
+ * $Id$
+ * 
+ * Copyright 2007-2008 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ */
+package cn.redflagsoft.base.process.impl;
+
+import java.util.Map;
+
+import cn.redflagsoft.base.process.AbstractWorkProcess;
+import cn.redflagsoft.base.process.annotation.ProcessType;
+import cn.redflagsoft.base.service.DatumService;
+
+/**
+ * 查询指定对象的所有资料。
+ * 
+ * @author ymq
+ *
+ */
+@ProcessType(DatumWorkProcess.TYPE)
+public class DatumWorkProcess extends AbstractWorkProcess {
+	public static final int TYPE = 6003;
+	private DatumService datumService;
+	private Long objectId;
+
+	public void setDatumService(DatumService datumService) {
+		this.datumService = datumService;
+	}
+
+	public Long getObjectId() {
+		return objectId;
+	}
+
+	public void setObjectId(Long objectId) {
+		this.objectId = objectId;
+	}
+
+	public Object execute(Map parameters, boolean needLog) {
+		return datumService.findDatum(objectId);
+	}
+}

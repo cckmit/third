@@ -1,0 +1,334 @@
+/*
+ * $Id: CautionServiceImpl.java 5777 2012-05-25 06:59:43Z lcj $
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.service.impl;
+
+import static cn.redflagsoft.base.service.impl.CautionHelper.copyDutyerFromRFSObject;
+import static cn.redflagsoft.base.service.impl.CautionHelper.copyDutyerFromRisk;
+import static cn.redflagsoft.base.service.impl.CautionHelper.copyDutyerFromRiskRule;
+import static cn.redflagsoft.base.service.impl.CautionHelper.copyDutyerFromTask;
+
+import java.math.BigDecimal;
+import java.util.Date;
+
+import org.opoo.apps.event.v2.EventDispatcher;
+import org.springframework.util.Assert;
+
+import cn.redflagsoft.base.bean.ArchivingStatus;
+import cn.redflagsoft.base.bean.Caution;
+import cn.redflagsoft.base.bean.Clerk;
+import cn.redflagsoft.base.bean.RFSEntityObject;
+import cn.redflagsoft.base.bean.RFSObject;
+import cn.redflagsoft.base.bean.Risk;
+import cn.redflagsoft.base.bean.RiskRule;
+import cn.redflagsoft.base.bean.Task;
+import cn.redflagsoft.base.codegenerator.CodeGeneratorProvider;
+import cn.redflagsoft.base.dao.RiskRuleDao;
+import cn.redflagsoft.base.event2.CautionEvent;
+import cn.redflagsoft.base.service.CautionService;
+import cn.redflagsoft.base.service.ClerkService;
+import cn.redflagsoft.base.service.EntityObjectLoader;
+
+public class CautionServiceImpl extends AbstractRFSObjectService<Caution> implements CautionService {
+//	private CautionDao cautionDao;
+	private RiskRuleDao riskRuleDao;
+	private ClerkService clerkService;
+	private EntityObjectLoader entityObjectLoader;
+//	private EventDispatcher dispatcher;
+	private CodeGeneratorProvider codeGeneratorProvider;
+	
+	/**
+	 * @return the codeGeneratorProvider
+	 */
+	public CodeGeneratorProvider getCodeGeneratorProvider() {
+		return codeGeneratorProvider;
+	}
+
+	/**
+	 * @param codeGeneratorProvider the codeGeneratorProvider to set
+	 */
+	public void setCodeGeneratorProvider(CodeGeneratorProvider codeGeneratorProvider) {
+		this.codeGeneratorProvider = codeGeneratorProvider;
+	}
+
+	/**
+	 * @return the riskRuleDao
+	 */
+	public RiskRuleDao getRiskRuleDao() {
+		return riskRuleDao;
+	}
+
+	/**
+	 * @param riskRuleDao the riskRuleDao to set
+	 */
+	public void setRiskRuleDao(RiskRuleDao riskRuleDao) {
+		this.riskRuleDao = riskRuleDao;
+	}
+
+	/**
+	 * @return the clerkService
+	 */
+	public ClerkService getClerkService() {
+		return clerkService;
+	}
+
+	/**
+	 * @param clerkService the clerkService to set
+	 */
+	public void setClerkService(ClerkService clerkService) {
+		this.clerkService = clerkService;
+	}
+
+	/**
+	 * @return the entityObjectLoader
+	 */
+	public EntityObjectLoader getEntityObjectLoader() {
+		return entityObjectLoader;
+	}
+
+	/**
+	 * @param entityObjectLoader the entityObjectLoader to set
+	 */
+	public void setEntityObjectLoader(EntityObjectLoader entityObjectLoader) {
+		this.entityObjectLoader = entityObjectLoader;
+	}
+
+//	public CautionDao getCautionDao() {
+//		return (CautionDao) super.getObjectDao();
+//	}
+//
+//	public void setCautionDao(CautionDao cautionDao) {
+//		super.setObjectDao(cautionDao);
+//	}
+//
+//	public void removeCaution(Long id) {
+//		Caution caution = cautionDao.get(id);
+//		cautionDao.delete(caution);
+//	}
+//
+//	public Caution saveCaution(Caution caution) {
+//		return cautionDao.save(caution);
+//	}
+//
+//	public Caution updateCaution(Caution caution) {
+//		return cautionDao.update(caution);
+//	}
+	
+	public Caution createCaution(Risk risk, Clerk superviseClerk){
+		return createCaution(risk, superviseClerk, null, null, null, null, null, null, null, null);
+	}
+	/**
+	 * 创建警示并
+	 * @param risk 监察，不能为空
+	 * @param superviseClerk 警示发布者，不能为空，一般为监察单位监察者
+	 * @param name
+	 * @param code
+	 * @param grade
+	 * @param objectAttrValue
+	 * @param conclusion
+	 * @param happenTime
+	 * @return
+	 */
+	public Caution createCaution(Risk risk, Clerk superviseClerk, String name, String code, 
+			Byte grade, BigDecimal objectAttrValue, String conclusion, Date happenTime, String cautionSumary, String remark) {
+		Assert.notNull(superviseClerk, "监察者不能为空");
+		if(happenTime == null){
+			happenTime = risk.getGradeChangedTime();
+		}
+		if(happenTime == null){
+			happenTime = new Date();
+		}
+		
+		Caution c = new Caution();
+		
+		c.setCautionSummary(cautionSumary);
+		c.setRemark(remark);
+		c.setConclusion(conclusion != null ? conclusion : risk.getConclusion());
+		//
+		RiskRule rule = riskRuleDao.get(risk.getRuleID());
+		setDutyer(c, risk, rule);
+		
+		c.setGrade(grade != null ? grade.byteValue() : risk.getGrade());
+		c.setHappenTime(happenTime);
+		c.setJuralLimit(risk.getJuralLimit());
+		//修正，不能直接取Risk的grade对应的messageconfig，因为前台登记时grade是可以指定的。
+		c.setMessageConfig(/*risk.getGradeMessageConfig()*/ RiskRule.getGradeMessageConfig(rule, c.getGrade()));
+		c.setMessageTemplate(RiskRule.getGradeMessageTemplate(rule, c.getGrade()));
+		c.setName(name != null ? name : risk.getName());
+		c.setObjAttr(risk.getObjectAttr());
+		c.setObjAttrName(risk.getObjectAttrName());
+		c.setObjAttrUnit(risk.getValueUnit());
+		//
+		c.setObjAttrValue(objectAttrValue != null ? objectAttrValue : risk.getValue());
+		c.setObjCode(risk.getObjectCode());
+		c.setObjId(risk.getObjectID());
+		c.setObjName(risk.getObjectName());
+		c.setObjType(risk.getObjectType());
+		c.setPause(risk.getPause());
+		c.setRefObjectId(risk.getRefObjectId());
+		c.setRefObjectType(risk.getRefObjectType());
+		c.setRefObjectName(risk.getRefObjectName());
+//		c.setRemark(risk.getRemark());
+		c.setRiskCode(risk.getCode());
+		c.setRiskId(risk.getId());
+		c.setRiskName(risk.getName());
+		c.setRiskType(risk.getType());
+		
+		c.setRuleCode(risk.getRuleCode());
+		c.setRuleId(risk.getRuleID());
+		
+		c.setScaleValue(risk.getScaleValue());
+		c.setStatus(ArchivingStatus.STATUS_公开档);
+//		c.setSuperviseClerkId(risk.getSuperviseOrgId());
+//		c.setSuperviseClerkName(null);
+		c.setSuperviseOrgAbbr(risk.getSuperviseOrgAbbr());
+		c.setSuperviseOrgId(risk.getSuperviseOrgId());
+		c.setSystemId(risk.getSystemID());
+		
+		if(risk.getSuperviseClerkId() != null){
+			c.setSuperviseClerkName(risk.getSuperviseClerkName());
+			c.setSuperviseClerkId(risk.getSuperviseClerkId());
+		}else{
+			c.setSuperviseClerkName(superviseClerk.getName());
+			c.setSuperviseClerkId(superviseClerk.getId());
+			//c.setSuperviseOrgId(risk.getSuperviseOrgId());
+			//c.setSuperviseOrgAbbr(risk.getSuperviseOrgAbbr());
+		}
+		c.setRuleSummary(risk.getRuleSummary());
+		c.setBizSummary(risk.getBizSummary());
+		
+		//即监察级别
+		c.setType(c.getGrade());
+		
+		if(code == null){
+			code = codeGeneratorProvider.generateCode(c);
+		}
+		c.setCode(code);
+		
+		Caution caution = saveObject(c);
+		
+		//发送警示事件
+		EventDispatcher dispatcher = getEventDispatcher();
+		if(dispatcher != null){
+			dispatcher.dispatchEvent(new CautionEvent(CautionEvent.Type.CREATED, caution, risk, rule));
+		}
+		return caution;
+	}
+	
+	/**
+	 * 抄写责任人信息。
+	 * @param rl
+	 * @param risk
+	 * @param rule
+	 */
+	protected void setDutyer(Caution rl, Risk risk, RiskRule rule){
+//		rl.setSuperviseOrgAbbr(risk.getSuperviseOrgAbbr());
+//		rl.setSuperviseOrgId(risk.getSuperviseOrgId());
+		rl.setDutyerDeptId(risk.getDutyerDeptId());
+		rl.setDutyerDeptName(risk.getDutyerDeptName());
+		rl.setDutyerId(risk.getDutyerID());
+		rl.setDutyerLeaderId(risk.getDutyerLeaderId());
+		rl.setDutyerLeaderMobNo(risk.getDutyerLeaderMobNo());
+		rl.setDutyerLeaderName(risk.getDutyerLeaderName());
+		rl.setDutyerManagerId(risk.getDutyerManagerId());
+		rl.setDutyerManagerMobNo(risk.getDutyerManagerMobNo());
+		rl.setDutyerManagerName(risk.getDutyerManagerName());
+		rl.setDutyerMobNo(risk.getDutyerMobNo());
+		rl.setDutyerName(risk.getDutyerName());
+		rl.setDutyerOrgId(risk.getDutyerOrgId());
+		rl.setDutyerOrgName(risk.getDutyerOrgName());
+	}
+	
+	/**
+	 * 设置Caution的责任人信息。
+	 * 
+	 * @param c
+	 * @param risk
+	 * @param rule
+	 * @deprecated
+	 */
+	protected void setDutyer_BAK(Caution c, Risk risk, RiskRule rule){
+		// 查RiskRule表
+		//RiskRule rule = riskRuleDao.get(risk.getRuleID());
+		short dutyerType = rule.getDutyerType();
+		if(dutyerType == RiskRule.DUTYER_TYPE_FROM_RISK_RULE){
+			copyDutyerFromRiskRule(c, rule);
+		}else if(dutyerType == RiskRule.DUTYER_TYPE_FROM_MONITORABLE_OBJECT){
+			RFSEntityObject object = entityObjectLoader.getEntityObject(risk.getObjectType(), risk.getObjectID());
+			if(object instanceof Task){
+				copyDutyerFromTask(c, (Task)object);
+			}else if(object instanceof RFSObject){
+				copyDutyerFromRFSObject(c, (RFSObject) object);
+			}else{
+				copyDutyerFromRisk(c, risk);
+			}
+		}else if(dutyerType == RiskRule.DUTYER_TYPE_FROM_REF_OBJECT){
+			RFSEntityObject object = entityObjectLoader.getEntityObject(risk.getRefObjectType(), risk.getRefObjectId());
+			if(object instanceof RFSObject){
+				copyDutyerFromRFSObject(c, (RFSObject) object);
+			}else{
+				copyDutyerFromRisk(c, risk);
+			}
+		}else{
+			copyDutyerFromRisk(c, risk);
+		}
+		
+		if(c.getDutyerLeaderId() != null){
+			Clerk clerk = clerkService.getClerk(c.getDutyerLeaderId());
+			if(clerk != null){
+				c.setDutyerLeaderMobNo(clerk.getMobNo());
+			}
+		}
+		if(c.getDutyerManagerId() != null){
+			Clerk clerk = clerkService.getClerk(c.getDutyerManagerId());
+			if(clerk != null){
+				c.setDutyerManagerMobNo(clerk.getMobNo());
+			}
+		}
+		if(c.getDutyerId() != null){
+			Clerk clerk = clerkService.getClerk(c.getDutyerId());
+			if(clerk != null){
+				c.setDutyerMobNo(clerk.getMobNo());
+			}
+		}
+	}
+
+	
+//	public int getObjectType() {
+//		return CautionObject.OBJECT_TYPE;
+//	}
+//
+//	public CautionObject loadObject(long id) throws NotFoundException {
+//		Caution caution = getCautionDao().get(id);
+//		if(caution != null){
+//			return new CautionObject(caution);
+//		}
+//		return null;
+//	}
+//
+//	public List<CautionObject> loadObjects(List<Long> objectIds)
+//			throws NotFoundException {
+//		ResultFilter f = new ResultFilter();
+//		f.setCriterion(Restrictions.in("id", objectIds));
+//		List<Caution> list = getCautionDao().find(f);
+//		if(list.size() > 0){
+//			List<CautionObject> result = new ArrayList<CautionObject>();
+//			for(Caution caution: list){
+//				result.add(new CautionObject(caution));
+//			}
+//			return result;
+//		}
+//		return Collections.emptyList();
+//	}
+
+//	public void setEventDispatcher(EventDispatcher arg0) {
+//		super.setEventDispatcher(arg0);
+//		dispatcher = arg0;
+//	}
+}

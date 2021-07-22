@@ -1,0 +1,131 @@
+/*
+ * $Id: DatumCategoryWorkProcess.java 4677 2011-09-14 01:29:38Z lcj $
+ * 
+ * Copyright 2007-2008 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ */
+package cn.redflagsoft.base.process.impl;
+
+import java.util.Map;
+
+import cn.redflagsoft.base.bean.MatterDatum;
+import cn.redflagsoft.base.process.AbstractWorkProcess;
+import cn.redflagsoft.base.process.annotation.ProcessType;
+import cn.redflagsoft.base.service.DatumCategoryService;
+
+/**
+ * 查询资料类型。
+ * 如果指定了objectID属性，则查询指定对象已经上传的资料，和资料类型一起返回。
+ * 
+ * @author ymq
+ * 
+ */
+@ProcessType(DatumCategoryWorkProcess.TYPE)
+public class DatumCategoryWorkProcess extends AbstractWorkProcess {
+	public static final int TYPE = 6004;
+	private DatumCategoryService datumCategoryService;
+	private int taskType;
+	private int workType;
+	private int actualProcessType;
+	private Long matterID;
+	private Long objectID;
+	private int matterDatumType = -1;// MatterDatum.TYPE_默认;
+	private int objectType = 0;//RFSObject时，objectType为0
+	private byte bizAction = MatterDatum.BIZ_ACTION_DEFAULT;
+
+	public Long getObjectID() {
+		return objectID;
+	}
+
+	public void setObjectID(Long objectID) {
+		this.objectID = objectID;
+	}
+
+	public int getActualProcessType() {
+		return actualProcessType;
+	}
+
+	public void setActualProcessType(int actualProcessType) {
+		this.actualProcessType = actualProcessType;
+	}
+
+	public void setDatumCategoryService(DatumCategoryService datumCategoryService) {
+		this.datumCategoryService = datumCategoryService;
+	}
+
+	public int getTaskType() {
+		return taskType;
+	}
+
+	public void setTaskType(int taskType) {
+		this.taskType = taskType;
+	}
+
+	public int getWorkType() {
+		return workType;
+	}
+
+	public void setWorkType(int workType) {
+		this.workType = workType;
+	}
+
+	public Long getMatterID() {
+		return matterID;
+	}
+
+	public void setMatterID(Long matterID) {
+		this.matterID = matterID;
+	}
+	
+	public int getMatterDatumType() {
+		return matterDatumType;
+	}
+
+	public void setMatterDatumType(int matterDatumType) {
+		this.matterDatumType = matterDatumType;
+	}
+
+	public DatumCategoryService getDatumCategoryService() {
+		return datumCategoryService;
+	}
+	
+
+	/**
+	 * @return the objectType
+	 */
+	public int getObjectType() {
+		return objectType;
+	}
+
+	/**
+	 * @param objectType the objectType to set
+	 */
+	public void setObjectType(int objectType) {
+		this.objectType = objectType;
+	}
+
+	
+	
+	/**
+	 * @return the bizAction
+	 */
+	public byte getBizAction() {
+		return bizAction;
+	}
+
+	/**
+	 * @param bizAction the bizAction to set
+	 */
+	public void setBizAction(byte bizAction) {
+		this.bizAction = bizAction;
+	}
+
+	@SuppressWarnings("unchecked")
+	public Object execute(Map parameters, boolean needLog) {
+		if(matterDatumType != -1){
+			return getDatumCategoryService().findDatumCategory(taskType, workType, actualProcessType, matterID, matterDatumType, objectID, objectType);
+		}else{
+			return getDatumCategoryService().findDatumCategory(taskType, workType, actualProcessType, matterID, objectID, objectType);
+		}
+	}
+}

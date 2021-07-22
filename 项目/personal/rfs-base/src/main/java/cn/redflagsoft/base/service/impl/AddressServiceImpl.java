@@ -1,0 +1,75 @@
+/*
+ * $Id: AddressServiceImpl.java 3996 2010-10-18 06:56:46Z lcj $
+ * 
+ * Copyright 2007-2008 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ */
+package cn.redflagsoft.base.service.impl;
+
+import java.util.List;
+
+import org.opoo.ndao.support.PageableList;
+import org.opoo.ndao.support.ResultFilter;
+
+import cn.redflagsoft.base.bean.Address;
+import cn.redflagsoft.base.dao.AddressDao;
+import cn.redflagsoft.base.service.AddressService;
+
+/**
+ * @author Alex Lin
+ *
+ */
+public class AddressServiceImpl implements AddressService {
+	
+	private AddressDao addressDao;
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.service.AddressService#findAddresses(org.opoo.ndao.support.ResultFilter)
+	 */
+	public List<Address> findAddresses(ResultFilter rf) {
+		return addressDao.find(rf);
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.service.AddressService#findPageableAddresses(org.opoo.ndao.support.ResultFilter)
+	 */
+	public PageableList<Address> findPageableAddresses(ResultFilter rf) {
+		return addressDao.findPageableList(rf);
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.service.AddressService#getAddress()
+	 */
+	public Address getAddress(Long id) {
+		return addressDao.get(id);
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.service.AddressService#saveAddress(cn.redflagsoft.base.bean.Address)
+	 */
+	public Address saveAddress(Address address) {
+		return addressDao.save(address);
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.service.AddressService#updateAddress(cn.redflagsoft.base.bean.Address)
+	 */
+	public void updateAddress(Address address) {
+		addressDao.update(address);
+	}
+
+	/**
+	 * @return the addressDao
+	 */
+	public AddressDao getAddressDao() {
+		return addressDao;
+	}
+
+	/**
+	 * @param addressDao the addressDao to set
+	 */
+	public void setAddressDao(AddressDao addressDao) {
+		this.addressDao = addressDao;
+	}
+
+}

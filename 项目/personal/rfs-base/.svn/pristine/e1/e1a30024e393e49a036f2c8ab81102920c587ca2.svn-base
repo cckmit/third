@@ -1,0 +1,81 @@
+/*
+ * $Id$
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.listener;
+
+import java.util.concurrent.Executor;
+
+import org.opoo.apps.event.v2.EventListener;
+
+import cn.redflagsoft.base.scheme.event.SchemeEvent;
+import cn.redflagsoft.base.stat.Statistics;
+import cn.redflagsoft.base.stat.StatisticsImplementor;
+
+/**
+ * @author Alex Lin(lcql@msn.com)
+ *
+ */
+public class SchemeEventListener implements EventListener<SchemeEvent> {
+	private StatisticsImplementor statisticsImplementor;
+	private Statistics statistics;
+	private Executor executor;
+	
+	
+	/**
+	 * @param statisticsImplementor the statisticsImplementor to set
+	 */
+	public void setStatisticsImplementor(StatisticsImplementor statisticsImplementor) {
+		this.statisticsImplementor = statisticsImplementor;
+	}
+
+	/**
+	 * @param statistics the statistics to set
+	 */
+	public void setStatistics(Statistics statistics) {
+		this.statistics = statistics;
+	}
+
+	/**
+	 * @param executor the executor to set
+	 */
+	public void setExecutor(Executor executor) {
+		this.executor = executor;
+	}
+
+	/**
+	 * 
+	 */
+	public SchemeEventListener() {
+	}
+
+	/* (non-Javadoc)
+	 * @see org.opoo.apps.event.v2.EventListener#handle(org.opoo.apps.event.v2.Event)
+	 */
+	public void handle(SchemeEvent e) {
+		if(SchemeEvent.Type.EXECUTED == e.getType()){
+			handleSchemeExecuted(e);
+		}
+	}
+
+	/**
+	 * @param source
+	 */
+	private void handleSchemeExecuted(final SchemeEvent e) {
+		final String name = e.getSchemeName();
+		final String method = e.getMethodName();
+		executor.execute(new Runnable() {
+			public void run() {
+				if(statistics.isStatisticsEnabled()){
+					statisticsImplementor.schemeExecuted(name, method, e.getTime());
+				}
+			}
+		});
+	}
+
+}

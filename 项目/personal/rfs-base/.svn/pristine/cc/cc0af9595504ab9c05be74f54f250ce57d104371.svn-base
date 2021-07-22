@@ -1,0 +1,49 @@
+/*
+ * $Id$
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.schemes;
+
+import junit.framework.TestCase;
+
+/**
+ * @author Alex Lin(alex@opoo.org)
+ *
+ */
+public class DelayTest extends TestCase {
+
+	public void testD(){
+		final Bean b = new Bean();
+		b.name = "Test Bean";
+		b.x = 1000;
+		
+		printBean(b);
+		
+		Runnable task = new Runnable() {
+			public void run() {
+				printBean(b);
+			}
+		};
+		task.run();
+		printBean(b);
+		b.name = "yyyyyyyyyuuu";
+		task.run();
+	}
+	
+	public void printBean(Bean bean){
+		System.out.println(bean.name);
+		System.out.println(bean.x);
+		System.out.println(bean.y);
+	}
+	
+	public static class Bean{
+		public String name;
+		public int x;
+		public int y;
+	}
+}

@@ -1,0 +1,197 @@
+/*
+ * $Id$
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.web.struts2;
+
+import java.util.List;
+
+import org.opoo.apps.license.annotation.ProductModule;
+import org.opoo.apps.service.QueryService;
+import org.opoo.util.Assert;
+
+import com.opensymphony.xwork2.Action;
+
+import cn.redflagsoft.base.bean.SelectResult;
+import cn.redflagsoft.base.support.RFSQueryParameters;
+import cn.redflagsoft.base.web.struts2.interceptor.Printable;
+
+/**
+ * @author Alex Lin
+ *
+ */
+@Deprecated
+@ProductModule(edition = "common", module = "base")
+public class QueryAction2 extends org.opoo.apps.web.struts2.QueryAction2 implements Printable, RFSQueryParameters {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -570789477406604890L;
+	private List<String> eps;//entity id params，部门参数
+	private List<String> ups;//user id params，用户参数
+	private String printConfig;
+	private boolean xlsExport = false;
+	private String selectId;
+	private boolean requireRefreshExcelRowHeight = true;
+	
+	/**
+	 * @return the requireRefreshExcelRowHeight
+	 */
+	public boolean isRequireRefreshExcelRowHeight() {
+		return requireRefreshExcelRowHeight;
+	}
+	/**
+	 * @param requireRefreshExcelRowHeight the requireRefreshExcelRowHeight to set
+	 */
+	public void setRequireRefreshExcelRowHeight(boolean requireRefreshExcelRowHeight) {
+		this.requireRefreshExcelRowHeight = requireRefreshExcelRowHeight;
+	}
+	/**
+	 * @return the eps
+	 */
+	public List<String> getEps() {
+		return eps;
+	}
+	/**
+	 * @param eps the eps to set
+	 */
+	public void setEps(List<String> eps) {
+		this.eps = eps;
+	}
+	/**
+	 * @return the ups
+	 */
+	public List<String> getUps() {
+		return ups;
+	}
+	/**
+	 * @param ups the ups to set
+	 */
+	public void setUps(List<String> ups) {
+		this.ups = ups;
+	}
+	/**
+	 * @return the printConfig
+	 */
+	public String getPrintConfig() {
+		return printConfig;
+	}
+	/**
+	 * @param printConfig the printConfig to set
+	 */
+	public void setPrintConfig(String printConfig) {
+		this.printConfig = printConfig;
+	}
+	/**
+	 * @return the xlsExport
+	 */
+	public boolean isXlsExport() {
+		return xlsExport;
+	}
+	/**
+	 * @param xlsExport the xlsExport to set
+	 */
+	public void setXlsExport(boolean xlsExport) {
+		this.xlsExport = xlsExport;
+	}
+	
+	public String getSelectId() {
+		return selectId;
+	}
+	public void setSelectId(String selectId) {
+		this.selectId = selectId;
+	}
+	
+	public String getSid(){
+		return getSelectId();
+	}
+	public void setSid(String sid){
+		setSelectId(sid);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.opoo.apps.web.struts2.QueryAction2#dynlist()
+	 */
+	@Override
+	public String dynlist() throws Exception {
+		return super.dynlist();
+	}
+	/* (non-Javadoc)
+	 * @see org.opoo.apps.web.struts2.QueryAction2#dynpage()
+	 */
+	@Override
+	public String dynpage() throws Exception {
+		return super.dynpage();
+	}
+	/* (non-Javadoc)
+	 * @see org.opoo.apps.web.struts2.QueryAction2#invoke()
+	 */
+	@Override
+	public String invoke() throws Exception {
+		return super.invoke();
+	}
+	/* (non-Javadoc)
+	 * @see org.opoo.apps.web.struts2.QueryAction2#labeldata()
+	 */
+	@Override
+	public String labeldata() throws Exception {
+		return super.labeldata();
+	}
+	/* (non-Javadoc)
+	 * @see org.opoo.apps.web.struts2.QueryAction2#list()
+	 */
+	@Override
+	public String list() throws Exception {
+		return super.list();
+	}
+	/* (non-Javadoc)
+	 * @see org.opoo.apps.web.struts2.QueryAction2#namedQueryList()
+	 */
+	@Override
+	public String namedQueryList() throws Exception {
+		return super.namedQueryList();
+	}
+	/* (non-Javadoc)
+	 * @see org.opoo.apps.web.struts2.QueryAction2#namedQueryPageableList()
+	 */
+	@Override
+	public String namedQueryPageableList() throws Exception {
+		return super.namedQueryPageableList();
+	}
+	/* (non-Javadoc)
+	 * @see org.opoo.apps.web.struts2.QueryAction2#page()
+	 */
+	@Override
+	public String page() throws Exception {
+		return super.page();
+	}
+
+	
+	/**
+	 * 查询选择器数据。可带查询条件。
+	 * @return
+	 * @throws Exception
+	 */
+	public String select() throws Exception{
+		Assert.notBlank(getSelectId(), "必须指定选择器ID。");
+		QueryService service = getQueryService();
+		if(service instanceof cn.redflagsoft.base.service.QueryService){
+			cn.redflagsoft.base.service.QueryService qs = (cn.redflagsoft.base.service.QueryService) service;
+			try {
+				SelectResult result = qs.select(getSelectId(), this);
+				model.setRows(result.getSelectDataList());
+				model.setData(result.getSelectDataSource());
+			} catch (Exception e) {
+				model.setMessage(false, e.getMessage(), null);
+			}
+		}else{
+			model.setMessage(false, "没有找到正确的查询服务", null);
+		}
+		return Action.SUCCESS;
+	}
+}

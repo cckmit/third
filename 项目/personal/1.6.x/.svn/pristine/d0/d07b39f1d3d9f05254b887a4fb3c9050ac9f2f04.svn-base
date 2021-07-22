@@ -1,0 +1,375 @@
+<?xml version="1.0"?>
+
+<!--
+Note: This XML document is an example Coherence Cache Configuration deployment
+descriptor that should be customized (or replaced) for your particular caching
+requirements. The cache mappings and schemes declared in this descriptor are
+strictly for demonstration purposes and are not required.
+
+For detailed information on each of the elements that can be used in this
+descriptor please see the Coherence Cache Configuration deployment descriptor
+guide included in the Coherence distribution or on the web at:
+
+http://www.tangosol.com/UserGuide-Reference-CacheConfig.jsp
+-->
+
+<!DOCTYPE cache-config SYSTEM "cache-config.dtd">
+
+<cache-config>
+    <caching-schemes>
+
+        <!-- scheme for partitioned cache -->
+        <distributed-scheme>
+            <scheme-name>default-distributed</scheme-name>
+            <service-name>DistributedCache</service-name>
+
+            <backing-map-scheme>
+                <local-scheme>
+                    <scheme-ref>default-backing-map</scheme-ref>
+                </local-scheme>
+            </backing-map-scheme>
+            <!--<autostart>true</autostart>-->
+        </distributed-scheme>
+
+        <!-- scheme for partitioned cache with db read and write through -->
+        <distributed-scheme>
+            <scheme-name>read-write-through-distributed</scheme-name>
+            <service-name>DistributedCache</service-name>
+
+            <backing-map-scheme>
+                <read-write-backing-map-scheme>
+                    <scheme-ref>read-write-through-backing-map</scheme-ref>
+                </read-write-backing-map-scheme>
+            </backing-map-scheme>
+            <!--<autostart>true</autostart>-->
+        </distributed-scheme>
+
+        <!-- scheme for partitioned cache fronted by near cache -->
+        <near-scheme>
+            <scheme-name>default-near</scheme-name>
+
+            <front-scheme>
+                <local-scheme>
+                    <eviction-policy>LRU</eviction-policy>
+                    <high-units>{near-size-high 1000}</high-units>
+                    <low-units>{near-size-low 900}</low-units>
+                    <expiry-delay>{near-expiry 2s}</expiry-delay>
+                    <flush-delay>{near-flush 1s}</flush-delay>
+                </local-scheme>
+            </front-scheme>
+
+            <back-scheme>
+                <distributed-scheme>
+                    <scheme-ref>{distributed-scheme-name default-distributed}</scheme-ref>
+                </distributed-scheme>
+            </back-scheme>
+
+            <invalidation-strategy>{near-invalidation-strategy none}</invalidation-strategy>
+            <!--<autostart>true</autostart>-->
+        </near-scheme>
+
+        <!-- Optimistic caching scheme. -->
+        <optimistic-scheme>
+            <scheme-name>default-optimistic</scheme-name>
+            <service-name>OptimisticCache</service-name>
+
+            <backing-map-scheme>
+                <local-scheme>
+                    <scheme-ref>default-backing-map</scheme-ref>
+                </local-scheme>
+            </backing-map-scheme>
+
+            <!--<autostart>true</autostart>-->
+        </optimistic-scheme>
+
+        <!-- scheme for backing map implementation-->
+
+        <read-write-backing-map-scheme>
+            <scheme-name>read-write-through-backing-map</scheme-name>
+            <internal-cache-scheme>
+                <local-scheme>
+                    <scheme-ref>default-backing-map</scheme-ref>
+                </local-scheme>
+            </internal-cache-scheme>
+            <cachestore-scheme>
+                <class-scheme>
+                    <class-name>{cache-store-class org.opoo.apps.cache.coherence.DummyCacheStore}</class-name>
+                </class-scheme>
+            </cachestore-scheme>
+        </read-write-backing-map-scheme>
+
+        <local-scheme>
+            <scheme-name>default-backing-map</scheme-name>
+            <class-name>{backing-map-class org.opoo.apps.cache.coherence.CoherenceCache}</class-name>
+            <eviction-policy>LRU</eviction-policy>
+            <high-units>{back-size-high 1000}</high-units>
+            <low-units>{back-size-low 900}</low-units>
+            <expiry-delay>{back-expiry 0}</expiry-delay>
+            <flush-delay>{back-flush 1m}</flush-delay>
+        </local-scheme>
+
+
+        <!-- scheme for service allowing cluster wide tasks -->
+        <invocation-scheme>
+            <scheme-name>Apps Cluster Service</scheme-name>
+            <service-name>Apps Cluster Service</service-name>
+            <autostart>true</autostart>
+        </invocation-scheme>
+
+
+
+
+
+
+
+
+		<distributed-scheme>
+	      <scheme-name>example-distributed</scheme-name>
+	      <service-name>DistributedCache</service-name>
+	
+	      <!-- To use POF serialization for this partitioned service, 
+	           uncomment the following section -->
+	      <!--
+	      <serializer>
+	        <class-name>com.tangosol.io.pof.ConfigurablePofContext</class-name>
+	      </serializer>
+	      -->
+	
+	      <backing-map-scheme>
+	        <local-scheme>
+	          <scheme-ref>example-binary-backing-map</scheme-ref>
+	        </local-scheme>
+	      </backing-map-scheme>
+	
+	      <autostart>true</autostart>
+	    </distributed-scheme>
+		    
+		<!--
+	     A scheme used by backing maps that store data in internal (binary) format
+	     and employ size limitation and/or expiry eviction policies.
+	    -->
+	    <local-scheme>
+	      <scheme-name>example-binary-backing-map</scheme-name>
+	
+	      <eviction-policy>HYBRID</eviction-policy>
+	      <high-units>{back-size-limit 0}</high-units>
+	      <unit-calculator>BINARY</unit-calculator>
+	      <expiry-delay>{back-expiry 1h}</expiry-delay>
+	      <flush-delay>1m</flush-delay>
+	
+	      <cachestore-scheme></cachestore-scheme>
+	    </local-scheme>
+	    
+    </caching-schemes>
+
+    <caching-scheme-mapping>
+
+     
+        <cache-mapping>
+            <cache-name>onlineUserCache</cache-name>
+            <scheme-name>default-optimistic</scheme-name>
+            <init-params>
+                <init-param>
+                    <param-name>back-size-high</param-name>
+                    <param-value>0</param-value>
+                </init-param>
+                <init-param>
+                    <param-name>back-expiry</param-name>
+                    <param-value>6h</param-value>
+                </init-param>
+                <init-param>
+                    <param-name>back-size-low</param-name>
+                    <param-value>0</param-value>
+                </init-param>
+            </init-params>
+        </cache-mapping>
+
+      
+
+        <cache-mapping>
+            <cache-name>opt-$cacheStats</cache-name>
+            <scheme-name>default-optimistic</scheme-name>
+            <init-params>
+                <init-param>
+                    <param-name>back-size-high</param-name>
+                    <param-value>0</param-value>
+                </init-param>
+                <init-param>
+                    <param-name>back-expiry</param-name>
+                    <param-value>0</param-value>
+                </init-param>
+                <init-param>
+                    <param-name>back-size-low</param-name>
+                    <param-value>0</param-value>
+                </init-param>
+            </init-params>
+        </cache-mapping>
+
+
+      
+
+        <!-- partitioned caches -->
+
+        <cache-mapping>
+            <cache-name>$lockingMap</cache-name>
+            <scheme-name>default-distributed</scheme-name>
+            <init-params>
+                <init-param>
+                    <param-name>back-size-high</param-name>
+                    <param-value>0</param-value>
+                </init-param>
+                <init-param>
+                    <param-name>back-expiry</param-name>
+                    <param-value>0</param-value>
+                </init-param>
+                <init-param>
+                    <param-name>back-size-low</param-name>
+                    <param-value>0</param-value>
+                </init-param>
+            </init-params>
+        </cache-mapping>
+
+       <cache-mapping>
+            <cache-name>importDataCache</cache-name>
+            <scheme-name>default-distributed</scheme-name>
+            <init-params>
+                <init-param>
+                    <param-name>back-size-high</param-name>
+                    <param-value>0</param-value>
+                </init-param>
+                <init-param>
+                    <param-name>back-expiry</param-name>
+                    <param-value>0</param-value>
+                </init-param>
+                <init-param>
+                    <param-name>back-size-low</param-name>
+                    <param-value>0</param-value>
+                </init-param>
+            </init-params>
+       </cache-mapping>
+
+      <cache-mapping>
+            <cache-name>clerkCache</cache-name>
+            <scheme-name>default-distributed</scheme-name>
+            <init-params>
+                <init-param>
+                    <param-name>back-size-high</param-name>
+                    <param-value>0</param-value>
+                </init-param>
+                <init-param>
+                    <param-name>back-expiry</param-name>
+                    <param-value>0</param-value>
+                </init-param>
+                <init-param>
+                    <param-name>back-size-low</param-name>
+                    <param-value>0</param-value>
+                </init-param>
+            </init-params>
+       </cache-mapping>
+      <cache-mapping>
+            <cache-name>menuCache</cache-name>
+            <scheme-name>default-distributed</scheme-name>
+            <init-params>
+                <init-param>
+                    <param-name>back-size-high</param-name>
+                    <param-value>0</param-value>
+                </init-param>
+                <init-param>
+                    <param-name>back-expiry</param-name>
+                    <param-value>0</param-value>
+                </init-param>
+                <init-param>
+                    <param-name>back-size-low</param-name>
+                    <param-value>0</param-value>
+                </init-param>
+            </init-params>
+       </cache-mapping>
+       
+      	<cache-mapping>
+            <cache-name>actionCache</cache-name>
+            <scheme-name>default-distributed</scheme-name>
+            <init-params>
+                <init-param>
+                    <param-name>back-size-high</param-name>
+                    <param-value>0</param-value>
+                </init-param>
+                <init-param>
+                    <param-name>back-expiry</param-name>
+                    <param-value>0</param-value>
+                </init-param>
+                <init-param>
+                    <param-name>back-size-low</param-name>
+                    <param-value>0</param-value>
+                </init-param>
+            </init-params>
+       </cache-mapping>
+
+        <cache-mapping>
+            <cache-name>userCache</cache-name>
+            <scheme-name>default-near</scheme-name>
+            <init-params>
+                <init-param>
+                    <param-name>back-size-high</param-name>
+                    <param-value>4194304</param-value>
+                </init-param>
+                <init-param>
+                    <param-name>back-expiry</param-name>
+                    <param-value>6h</param-value>
+                </init-param>
+                <init-param>
+                    <param-name>back-size-low</param-name>
+                    <param-value>3774874</param-value>
+                </init-param>
+            </init-params>
+        </cache-mapping>
+
+
+
+
+        <!--<cache-mapping>-->
+        <!--<cache-name>*DAO*</cache-name>-->
+        <!--<scheme-name>default-near</scheme-name>-->
+        <!--<init-params>-->
+        <!--<init-param>-->
+        <!--<param-name>back-size-high</param-name>-->
+        <!--<param-value>0</param-value>-->
+        <!--</init-param>-->
+        <!--<init-param>-->
+        <!--<param-name>back-expiry</param-name>-->
+        <!--<param-value>6h</param-value>-->
+        <!--</init-param>-->
+        <!--<init-param>-->
+        <!--<param-name>back-size-low</param-name>-->
+        <!--<param-value>0</param-value>-->
+        <!--</init-param>-->
+        <!--</init-params>-->
+        <!--</cache-mapping>-->
+
+		<!--
+		<cache-mapping>
+            <cache-name>*</cache-name>
+            <scheme-name>default-distributed</scheme-name>
+            <init-params>
+                <init-param>
+                    <param-name>back-size-high</param-name>
+                    <param-value>0</param-value>
+                </init-param>
+                <init-param>
+                    <param-name>back-expiry</param-name>
+                    <param-value>0</param-value>
+                </init-param>
+                <init-param>
+                    <param-name>back-size-low</param-name>
+                    <param-value>0</param-value>
+                </init-param>
+            </init-params>
+        </cache-mapping>
+        -->
+        
+       	<cache-mapping>
+	      <cache-name>*</cache-name>
+	      <scheme-name>example-distributed</scheme-name>
+	    </cache-mapping>
+
+    </caching-scheme-mapping>
+</cache-config>

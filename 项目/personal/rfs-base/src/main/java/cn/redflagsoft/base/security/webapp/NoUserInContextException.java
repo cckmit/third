@@ -1,0 +1,48 @@
+/*
+ * $Id: NoUserInContextException.java 4984 2011-10-28 04:14:29Z lcj $
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.security.webapp;
+
+import org.springframework.security.AuthenticationException;
+
+/**
+ * @author Alex Lin(lcql@msn.com)
+ *
+ */
+public class NoUserInContextException extends AuthenticationException {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2126529113829113534L;
+
+	/**
+	 * @param msg
+	 */
+	public NoUserInContextException(String msg) {
+		super(msg);
+	}
+
+	/**
+	 * @param msg
+	 * @param t
+	 */
+	public NoUserInContextException(String msg, Throwable t) {
+		super(msg, t);
+	}
+
+	/**
+	 * @param msg
+	 * @param extraInformation
+	 */
+	public NoUserInContextException(String msg, Object extraInformation) {
+		super(msg, extraInformation);
+	}
+
+}

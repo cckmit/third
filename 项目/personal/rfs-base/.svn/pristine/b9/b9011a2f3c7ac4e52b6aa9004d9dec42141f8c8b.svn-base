@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class  name="cn.redflagsoft.base.dest.bean.BusiReport" table="BUSI">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>	  
+		
+		<property name="busiID" column="BUSIID" type="java.lang.String"/>
+		
+		<property name="busiType" column="BUSITYPE" type="java.lang.String"/>
+			
+		<property name="itemID" column="ITEMID" type="java.lang.String"/>
+		
+		<property name="itemName" column="ITEMNAME" type="java.lang.String"/>
+		
+		<property name="content" column="CONTENT" type="java.lang.String"/>
+		
+		<property name="orgID" column="ORG_ID" type="java.lang.Long"/>
+		
+		<property name="orgName" column="ORG_NAME" type="java.lang.String"/>
+		
+		<property name="p1ID" column="P1_ID" type="java.lang.Long"/>
+	
+		<property name="p1Name" column="P1_NAME" type="java.lang.String"/>
+	
+		<property name="p1Phone" column="P1_PHONE" type="java.lang.String"/>
+		
+		<property name="p2ID" column="P2_ID" type="java.lang.Long"/>
+	
+		<property name="p2Name" column="P2_NAME" type="java.lang.String"/>
+	
+		<property name="p2Phone" column="P2_PHONE" type="java.lang.String"/>
+		
+		<property name="p3ID" column="P3_ID" type="java.lang.Long"/>
+	
+		<property name="p3Name" column="P3_NAME" type="java.lang.String"/>
+	
+		<property name="p3Phone" column="P3_PHONE" type="java.lang.String"/>
+		
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+		<property name="timeLimit" column="TIMELIMIT" type="int"/>
+		
+		<property name="timeUnit" column="TIMEUNIT" type="java.lang.String"/>
+		
+		<property name="limitStatus" column="LIMITSTATUS" type="java.lang.String"/>
+		
+		<property name="note" column="NOTE" type="java.lang.String"/>
+		
+		<property name="standBY1" column="STANDBY1" type="java.lang.String"/>
+		
+		<property name="standBY2" column="STANDBY2" type="java.lang.String"/>
+		
+		<property name="standBY3" column="STANDBY3" type="java.lang.String"/>
+	
+		<property name="writeTime" column="WRITETIME" type="java.sql.Timestamp"/>
+		<!-- 新加的字段 -->
+		<property name="projectID" column="PROJECT_ID" type="java.lang.Long"/>
+		<property name="projectSn" column="PROJECT_SN" type="java.lang.String"/>
+		<property name="projectName" column="PROJECT_NAME" type="java.lang.String"/>
+		<property name="timeUsed" column="TIMEUSED" type="java.lang.Integer"/>
+		<property name="timeRemain" column="TIMEREMAIN" type="java.lang.Integer"/>
+	</class>
+</hibernate-mapping>

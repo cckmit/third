@@ -1,0 +1,231 @@
+/*
+ * $Id: BaseTaskManagerImpl.java 6392 2014-04-17 09:48:05Z lcj $
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.task.impl;
+
+import java.io.PrintWriter;
+import java.io.Serializable;
+import java.io.StringWriter;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.commons.beanutils.MethodUtils;
+import org.apache.commons.lang.ClassUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.opoo.apps.lifecycle.Application;
+import org.opoo.util.Assert;
+
+import cn.redflagsoft.base.bean.BaseTaskBean;
+import cn.redflagsoft.base.dao.BaseTaskBeanDao;
+import cn.redflagsoft.base.task.BaseParamTask;
+import cn.redflagsoft.base.task.BaseTask;
+import cn.redflagsoft.base.task.BaseTaskManager;
+
+/**
+ * @author Alex Lin(lcql@msn.com)
+ *
+ */
+public class BaseTaskManagerImpl implements BaseTaskManager {
+	private static final Log log = LogFactory.getLog(BaseTaskManagerImpl.class);
+	private BaseTaskBeanDao baseTaskBeanDao;
+	private ObjectMapper mapper = new ObjectMapper();
+	private ScheduledExecutorService executorService;
+	
+	protected BaseTaskBean saveBaseTaskBean(Class<?> clazz, Object param){
+		BaseTaskBean bean = new BaseTaskBean();
+		bean.setStatus(BaseTaskBean.STATUS_RUNNING);
+		bean.setBaseTask(clazz.getName());
+		if(param != null){
+			bean.setParamType(param.getClass().getName());
+			try {
+				String  value = mapper.writeValueAsString(param);
+				bean.setParamValue(value);
+			} catch (Exception e) {
+				//log.error("无法提交任务，格式化参数值出错。", e);
+				throw new RuntimeException("无法提交任务，格式化参数值出错。", e);
+			}
+		}
+		return baseTaskBeanDao.save(bean);
+	}
+	
+	protected void executeInExecutor(final BaseTaskBean bean, long delay){
+		Runnable runnable = new Runnable(){
+			public void run() {
+				executeTask(bean);
+			}
+		};
+		if(delay > 0){
+			executorService.schedule(runnable, delay, TimeUnit.SECONDS);
+		}else{
+			executorService.execute(runnable);
+		}
+	}
+	
+	protected void executeInExecutor(final long beanId, long delay){
+		Runnable runnable = new Runnable(){
+			public void run() {
+				executeTask(beanId);
+			}
+		};
+		if(delay > 0){
+			executorService.schedule(runnable, delay, TimeUnit.SECONDS);
+		}else{
+			executorService.execute(runnable);
+		}
+	}
+	
+	
+	protected void executeTask(long baseTaskBeanId){
+		BaseTaskBean bean = baseTaskBeanDao.get(baseTaskBeanId);
+		executeTask(bean);
+	}
+
+	protected void executeTask(BaseTaskBean bean){
+		try{
+			//baseTaskBeanDao.updateStatus(bean.getId(), BaseTaskBean.STATUS_RUNNING);
+			String className = bean.getBaseTask();
+			String paramType = bean.getParamType();
+			
+			if(paramType != null){
+				Class<?> valueType = ClassUtils.getClass(paramType);
+				Object param = mapper.readValue(bean.getParamValue(), valueType);
+				
+				Class<?> clazz = ClassUtils.getClass(className);
+				log.info("执行：" + clazz.getName() + "#execute(" + param + ")");
+				Object object = clazz.newInstance();
+				MethodUtils.invokeMethod(object, "execute", new Object[]{Application.getContext(), param});
+			}else{
+				Class<?> clazz = ClassUtils.getClass(className);
+				
+				log.info("执行：" + clazz.getName() + "#execute()");
+				Object object = clazz.newInstance();
+				MethodUtils.invokeMethod(object, "execute", Application.getContext());
+			}
+			
+			bean.setExecuteTime(new Date());
+			bean.setStatus(BaseTaskBean.STATUS_EXECUTED);
+			baseTaskBeanDao.update(bean);
+		}catch(Exception e){
+			Throwable a = e;
+			if(e instanceof InvocationTargetException){
+				a = ((InvocationTargetException)e).getTargetException();
+			}
+			log.error("执行失败，创建新的任务。", a);
+			
+			StringWriter sw = new StringWriter();
+			PrintWriter writer = new PrintWriter(sw);
+			a.printStackTrace(writer);
+			
+			String string = sw.toString();
+			if(string.length() > 500){
+				string = string.substring(0, 500);
+			}
+			bean.setRemark(string);
+			bean.setStatus(BaseTaskBean.STATUS_FAILED);
+			baseTaskBeanDao.update(bean);
+			
+			
+			//log.error("执行失败，创建新的任务。", a);
+			//create new 
+			BaseTaskBean newBean = new BaseTaskBean();
+			newBean.setStatus(BaseTaskBean.STATUS_READY);
+			newBean.setBaseTask(bean.getBaseTask());
+			newBean.setParamType(bean.getParamType());
+			newBean.setParamValue(bean.getParamValue());
+			newBean.setExecuteNumber(bean.getExecuteNumber() + 1);
+			baseTaskBeanDao.save(newBean);
+		}
+	}
+	 
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.task.BaseTaskManager#submit(java.lang.Class, java.io.Serializable, int)
+	 */
+	public <T extends Serializable> void submit(
+			Class<? extends BaseParamTask<T>> clazz, T param, int failoverLimit) {
+		Assert.notNull(param, "参数不能为空，否则请使用BaseTask");
+		BaseTaskBean taskBean = saveBaseTaskBean(clazz, param);
+		executeInExecutor(taskBean, 5);
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.task.BaseTaskManager#submit(java.lang.Class, java.io.Serializable)
+	 */
+	public <T extends Serializable> void submit(Class<? extends BaseParamTask<T>> clazz, T param) {
+		Assert.notNull(param, "参数不能为空，否则请使用BaseTask");
+		BaseTaskBean taskBean = saveBaseTaskBean(clazz, param);
+		executeInExecutor(taskBean, 5);
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.task.BaseTaskManager#submit(java.lang.Class, int)
+	 */
+	public void submit(Class<? extends BaseTask> clazz, int failoverLimit) {
+		BaseTaskBean taskBean = saveBaseTaskBean(clazz, null);
+		executeInExecutor(taskBean, 5);
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.task.BaseTaskManager#submit(java.lang.Class)
+	 */
+	public void submit(Class<? extends BaseTask> clazz) {
+		BaseTaskBean taskBean = saveBaseTaskBean(clazz, null);
+		executeInExecutor(taskBean, 5);
+	}
+	
+	public int findAndSubmitTasks(int limit){
+//		ResultFilter filter = ResultFilter.createPageableResultFilter(0, limit);
+//		filter.setCriterion(Restrictions.eq("status", BaseTaskBean.STATUS_READY));
+//		filter.setOrder(Order.desc("id"));
+//		List<BaseTaskBean> list = baseTaskBeanDao.find(filter);
+//		for(BaseTaskBean bean: list){
+//			executeInExecutor(bean, 0);
+//		}
+//		return list.size();
+		
+		List<Long> ids = baseTaskBeanDao.updateStatusAndReturnIds(BaseTaskBean.STATUS_READY, BaseTaskBean.STATUS_RUNNING);
+		for(Long beanId: ids){
+			executeInExecutor(beanId, 0);
+		}
+		return ids.size();
+	}
+
+	/**
+	 * @return the baseTaskBeanDao
+	 */
+	public BaseTaskBeanDao getBaseTaskBeanDao() {
+		return baseTaskBeanDao;
+	}
+
+	/**
+	 * @param baseTaskBeanDao the baseTaskBeanDao to set
+	 */
+	public void setBaseTaskBeanDao(BaseTaskBeanDao baseTaskBeanDao) {
+		this.baseTaskBeanDao = baseTaskBeanDao;
+	}
+
+	/**
+	 * @return the executorService
+	 */
+	public ScheduledExecutorService getExecutorService() {
+		return executorService;
+	}
+
+	/**
+	 * @param executorService the executorService to set
+	 */
+	public void setExecutorService(ScheduledExecutorService executorService) {
+		this.executorService = executorService;
+	}
+}

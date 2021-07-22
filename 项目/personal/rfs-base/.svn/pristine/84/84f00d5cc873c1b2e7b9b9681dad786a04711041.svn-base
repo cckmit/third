@@ -1,0 +1,203 @@
+/*
+ * $Id$
+ * 
+ * Copyright 2007-2008 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ */
+package cn.redflagsoft.base.bean;
+
+import java.util.Date;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.builder.ToStringBuilder;
+
+import cn.redflagsoft.base.util.CodeMapUtils;
+
+import com.googlecode.jsonplugin.annotations.JSON;
+
+
+/**
+ * @author py
+ *
+ */
+public class SmsgReceiver extends VersionableBean {
+	
+	private static final long serialVersionUID = -1064819275254742692L;
+	
+	public static final byte SEND_STATUS_未发送 = 0;
+	public static final byte SEND_STATUS_已发送 = 1;
+	public static final byte SEND_STATUS_已撤销 = 2;
+	public static final byte SEND_STATUS_正在发送 = 3;
+	public static final byte SEND_STATUS_发送失败 = 9;//发送失败次数超过最大次数时
+	
+	public static final byte READ_STATUS_未读 = 0;
+	public static final byte READ_STATUS_已读 = 1;
+	
+	public static final byte STATUS_无效 = 0;
+	public static final byte STATUS_有效 = 1;
+	
+	public static final int TYPE_TO = 0;
+	public static final int TYPE_CC = 1;
+	public static final int TYPE_BCC = 2;
+	
+	
+	
+//	private Long id; 				//主键
+//	private int tp; 				//类型
+//	private String remark; 			//备注
+//	private Long creator; 			//创建者
+//	private Date ctime; 			//创建时间
+//	private Long modifier; 			//最后修改者
+//	private Date mtime; 			//最后修改时间
+
+	private Long smsgId; 			//消息ID
+	private String smsgCode; 		//消息编码
+	private Long toId; 				//接收人ID
+	private String toName; 			//接收人姓名
+	private String toAddr; 			//接收地址 电子邮件或手机号码或地址
+	private byte sendStatus = SEND_STATUS_未发送; 		//发送状态 0未发送，1已发送，2已撤销。只有未发送的才可以发送。
+	private Date sendTime; 			//发送时间
+	private int trySendCount = 0; 	//发送重试次数
+	private byte readStatus = READ_STATUS_未读; 		//阅读状态  0未读，1已读
+	private Date readTime; 			//阅读时间
+	private Date expirationTime; 	//失效时间
+	private byte status = STATUS_有效; 	//状态 0无效（已删除），1有效
+	private Long systemId; 			//系统编号
+	public Long getSmsgId() {
+		return smsgId;
+	}
+	public void setSmsgId(Long smsgId) {
+		this.smsgId = smsgId;
+	}
+
+	public Long getToId() {
+		return toId;
+	}
+	public void setToId(Long toId) {
+		this.toId = toId;
+	}
+
+	
+	public String getSmsgCode() {
+		return smsgCode;
+	}
+	public void setSmsgCode(String smsgCode) {
+		this.smsgCode = smsgCode;
+	}
+	public String getToName() {
+		return toName;
+	}
+	public void setToName(String toName) {
+		this.toName = toName;
+	}
+	public String getToAddr() {
+		return toAddr;
+	}
+	public void setToAddr(String toAddr) {
+		this.toAddr = toAddr;
+	}
+	public byte getSendStatus() {
+		return sendStatus;
+	}
+	public void setSendStatus(byte sendStatus) {
+		this.sendStatus = sendStatus;
+	}
+	@JSON(format="yyyy-MM-dd HH:mm")
+	public Date getSendTime() {
+		return sendTime;
+	}
+	public void setSendTime(Date sendTime) {
+		this.sendTime = sendTime;
+	}
+	public int getTrySendCount() {
+		return trySendCount;
+	}
+	public void setTrySendCount(int trySendCount) {
+		this.trySendCount = trySendCount;
+	}
+	public byte getReadStatus() {
+		return readStatus;
+	}
+	public void setReadStatus(byte readStatus) {
+		this.readStatus = readStatus;
+	}
+	@JSON(format="yyyy-MM-dd HH:mm")
+	public Date getReadTime() {
+		return readTime;
+	}
+	public void setReadTime(Date readTime) {
+		this.readTime = readTime;
+	}
+	@JSON(format="yyyy-MM-dd HH:mm")
+	public Date getExpirationTime() {
+		return expirationTime;
+	}
+	public void setExpirationTime(Date expirationTime) {
+		this.expirationTime = expirationTime;
+	}
+	public byte getStatus() {
+		return status;
+	}
+	public void setStatus(byte status) {
+		this.status = status;
+	}
+	public Long getSystemId() {
+		return systemId;
+	}
+	public void setSystemId(Long systemId) {
+		this.systemId = systemId;
+	}
+	
+	public String getSendStatusName(){
+		return CodeMapUtils.getCodeName(SmsgReceiver.class, "SEND_STATUS",getSendStatus());
+	}
+	
+	public String getReadStatusName(){
+		return CodeMapUtils.getCodeName(SmsgReceiver.class, "READ_STATUS",getReadStatus());
+	}
+	
+	public String getStatusName(){
+		return CodeMapUtils.getCodeName(SmsgReceiver.class, "STATUS",getStatus());
+	}
+
+	public String getToNameLabel(){
+		String addr = getToAddr();
+		String name = getToName();
+		if(StringUtils.isNotBlank(name) && StringUtils.isNotBlank(addr)){
+			return getToName() + "(" + getToAddr()+")";
+		}
+		if(StringUtils.isBlank(name) && StringUtils.isNotBlank(addr)){
+			return addr;
+		}
+		return name;
+	}
+	
+	
+	@Override	
+	public boolean equals(Object o){
+		if(o == null){
+			return false;
+		}
+		if(!(o instanceof SmsgReceiver)){
+			return false;
+		}
+		SmsgReceiver sr = (SmsgReceiver) o;
+		
+		if(toAddr == null){
+			return false;
+		}
+		if(toId == null){
+			return false;
+		}
+		return toAddr.equals(sr.toAddr) && toId.equals(sr.toId);
+	}
+	
+	public String toString(){
+		return new ToStringBuilder(this).append("id", getId())
+			.append("smsgId", getSmsgId())
+			.append("toId", toId)
+			.append("toName", toName)
+			.append("toAddr", toAddr)
+			.toString();
+	}
+}

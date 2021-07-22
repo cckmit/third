@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:element name="components">
+        <xs:annotation>
+            <xs:documentation>
+                Top-level element defining one or more user interface components.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="component" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="component">
+        <xs:annotation>
+            <xs:documentation>
+                Defines a piece of user interface for inclusion in Clearspace. Use the id attribute
+                to specify just where the component should show up in the UI.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:group ref="nodeElements" />
+                <xs:element maxOccurs="unbounded" ref="tab" />
+            </xs:sequence>
+            <xs:attribute name="id">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="admin-console"/>
+                        <xs:enumeration value="blog-actions"/>
+                        <xs:enumeration value="community-actions"/>
+                        <xs:enumeration value="community-tabs"/>
+                        <xs:enumeration value="document-actions"/>
+                        <xs:enumeration value="image-picker-tabs"/>
+                        <xs:enumeration value="profile-actions"/>
+                        <xs:enumeration value="profile-actions-self"/>
+                        <xs:enumeration value="profile-overview-content"/>
+                        <xs:enumeration value="thread-actions"/>
+                        <xs:enumeration value="user-bar"/>
+                        <xs:enumeration value="user-profile"/>
+                        <xs:enumeration value="project-actions"/>
+                        <xs:enumeration value="project-tabs"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>            
+            <!--
+            <xs:attribute name="id" use="required" type="xs:string" />
+                -->
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="tab">
+        <xs:annotation>
+            <xs:documentation>
+                Top level UI element. Most often this is rendered as a tab on the page. In places
+                where there is not really a concept of multiple tabs it is just the top level
+                UI item holder.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:group ref="nodeElements" />
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="section" />
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="item" />
+            </xs:sequence>
+            <xs:attributeGroup ref="nodeAttributes" />
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="section">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:group ref="nodeElements" />
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="item" />
+            </xs:sequence>
+            <xs:attributeGroup ref="nodeAttributes" />
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="item">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:group ref="nodeElements" />
+                <xs:element minOccurs="0" ref="section" />
+            </xs:sequence>
+            <xs:attributeGroup ref="nodeAttributes" />
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="nodeAttributes">
+        <xs:attribute name="id" use="required" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>
+                    The unique id for this node.
+                    This id only needs to be unique within its component.
+                    This id is often, but not necessarily used for an html id.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="name" use="optional" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of this node. This name should be specified if
+                    it is the first time the element is being specified.
+                    If you are trying to override
+                    behavior for an element there is no need to specify its name, just its id
+                    (unless you whish to change the the name of the node).
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="description" use="optional" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>
+                    A description of this node. This is often used in tooltips or as a short
+                    description below the node in the ui.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="url" use="optional" type="xs:string" />
+        <xs:attribute name="module" use="optional" type="xs:string" />
+        <xs:attribute name="edition" use="optional" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>
+                    Whether or not this item shows up, depending on edition of the product.  Valid values are 'internal'
+                    and 'external'.  If nothing is specified the item will appear in either edition.  Currently this
+                    attribute is only respected in the admin console.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="role" use="optional" type="xs:string" />
+        <xs:attribute name="accesskey" use="optional" type="xs:string" />
+        <xs:attribute name="cssClass" use="optional" type="xs:string" />
+        <xs:attribute name="style" use="optional" type="xs:string" />
+        <xs:attribute name="onclick" use="optional" type="xs:string" />
+    </xs:attributeGroup>
+    <xs:group name="nodeElements">
+        <xs:sequence>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element name="name" type="xs:string" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>Synonym for name attribute,
+                            easier for holding CDATA
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>Synonym for description attribute,
+                            easier for holding CDATA
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="url" type="xs:string" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>Synonym for url attribute,
+                            easier for holding CDATA.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="when" type="xs:string" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>Synonym for when attribute, easier for holding
+                            CDATA
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="cssClass" type="xs:string" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>Synonym for cssClass attribute, easier for holding
+                            CDATA
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="style" type="xs:string" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>Synonym for style attribute, easier for holding
+                            CDATA
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="onclick" type="xs:string" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>Synonym for onclick attribute, easier for holding
+                            CDATA
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:choice>
+        </xs:sequence>
+    </xs:group>
+</xs:schema>

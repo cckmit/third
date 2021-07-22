@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="cn.redflagsoft.base.bean">
+	<!-- 
+	<class name="EntityObjectToBizLog" abstract="true" table="OBJECT_TO_BIZLOG">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		
+		<discriminator type="string" column="D" not-null="true" length="3"></discriminator>
+		
+		<property name="objectId" column="OBJ_ID" type="long" not-null="true"/>
+		
+		<property name="objectType" column="OBJ_TYPE" type="int" not-null="true"/>
+		
+		<property name="type" column="TP" type="int"/>
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+		
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+		
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+	
+		<subclass name="EntityObjectToWork" discriminator-value="W">
+			<property name="workSN" column="BIZ_SN" type="long"  not-null="true"/>
+		</subclass>
+		
+		<subclass name="EntityObjectToTask" discriminator-value="T">
+			<property name="taskSN" column="BIZ_SN" type="long"  not-null="true"/>
+		</subclass>
+	
+	</class>
+	-->
+
+<!-- 
+	<class name="cn.redflagsoft.base.bean.RFSEntityObjectWork" table="OBJECT_WORK">
+		<id name="sn" column="SN" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		
+		<property name="workSN" column="WORK_SN" type="long"/>
+		
+		<property name="objectId" column="OBJ_ID" type="long"/>
+		
+		<property name="objectType" column="OBJ_TYPE" type="short"/>
+		
+		<property name="type" column="TP" type="int"/>
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+		
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+		
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+		
+	</class>
+	-->
+	
+	
+	<class name="EntityObjectToTask" table="OBJECT_TO_TASK">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		
+		<property name="type" column="TP" type="int"/>
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+		
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+		
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+		<property name="objectId" column="OBJ_ID" type="long" not-null="true"/>
+		
+		<property name="objectType" column="OBJ_TYPE" type="int" not-null="true"/>
+		
+		<property name="taskSN" column="TASK_SN" type="long"  not-null="true"/>
+	
+	</class>
+	
+	
+	<class name="EntityObjectToWork" table="OBJECT_TO_WORK">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		
+		<property name="type" column="TP" type="int"/>
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+		
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+		
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+		<property name="objectId" column="OBJ_ID" type="long" not-null="true"/>
+		
+		<property name="objectType" column="OBJ_TYPE" type="int" not-null="true"/>
+		
+		<property name="workSN" column="WORK_SN" type="long"  not-null="true"/>
+	</class>
+	
+</hibernate-mapping>

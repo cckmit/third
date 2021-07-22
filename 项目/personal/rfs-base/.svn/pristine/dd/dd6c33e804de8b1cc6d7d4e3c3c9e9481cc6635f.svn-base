@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<joined-subclass name="cn.redflagsoft.base.bean.Clerk" table="CLERK" extends="cn.redflagsoft.base.bean.People">
+		<!-- 
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		<property name="peopleID" column="PEOPLEID" type="java.lang.Long"/>
+		-->
+		
+		<key column="ID"/>
+		
+		<property name="type" column="TP" type="int"/>
+		
+		<property name="code" column="CODE" type="java.lang.String"/>
+		
+		<property name="clerkNo" column="CLERKNO" type="java.lang.String"/>
+		
+		<property name="entityID" column="ENTITYID" type="java.lang.Long"/>
+		
+		<property name="entityName" column="ENTITY_NAME" type="java.lang.String"/>
+		
+		<property name="departmentID" column="DEPTID" type="java.lang.Long"/>
+		
+		<property name="departmentName" column="DEPT_NAME" type="java.lang.String"/>
+		
+		<property name="departmentNum" column="DEPT_NUM" type="byte"/>
+		
+		<property name="postNum" column="POST_NUM" type="byte"/>
+		
+		<property name="workNum" column="WORK_NUM" type="short"/>
+		
+		<property name="taskNum" column="TASK_NUM" type="short"/>
+		
+		<property name="processNum" column="PROCESS_NUM" type="int"/>
+		
+		<property name="position" column="POSITION" type="java.lang.String"/>
+		
+		<property name="displayOrder" column="DISPLAY_ORDER" type="int"/>
+		
+		<property name="displayLevel" column="DISPLAY_LEVEL" type="int"/>
+		
+		<!--
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+		
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+		
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+		-->
+		
+		<!-- 
+		<property name="name" column="NAME" type="java.lang.String"/>
+		-->
+	</joined-subclass>
+</hibernate-mapping>

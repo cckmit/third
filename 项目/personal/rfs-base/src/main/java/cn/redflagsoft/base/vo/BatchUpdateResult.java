@@ -1,0 +1,55 @@
+/*
+ * $Id: BatchUpdateResult.java 4342 2011-04-22 02:17:01Z lcj $
+ * 
+ * Copyright 2007-2010 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.vo;
+
+import java.io.Serializable;
+
+/**
+ * 批量更新结果。
+ * 
+ * @author Alex Lin(alex@opoo.org)
+ *
+ */
+public class BatchUpdateResult implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7801302523146253302L;
+	private int deletedRows;
+	private int updatedRows;
+	private int createdRows;
+
+	public BatchUpdateResult() {
+		super();
+	}
+	public BatchUpdateResult(int createdRows, int deletedRows, int updatedRows) {
+		this.createdRows = createdRows;
+		this.deletedRows = deletedRows;
+		this.updatedRows = updatedRows;
+	}
+	public int getDeletedRows() {
+		return deletedRows;
+	}
+	public void setDeletedRows(int deletedRows) {
+		this.deletedRows = deletedRows;
+	}
+	public int getUpdatedRows() {
+		return updatedRows;
+	}
+	public void setUpdatedRows(int updatedRows) {
+		this.updatedRows = updatedRows;
+	}
+	public int getCreatedRows() {
+		return createdRows;
+	}
+	public void setCreatedRows(int createdRows) {
+		this.createdRows = createdRows;
+	}
+}

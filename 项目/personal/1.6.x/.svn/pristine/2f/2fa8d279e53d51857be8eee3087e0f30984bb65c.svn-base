@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       					http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       					http://www.springframework.org/schema/context 
+       					http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<!-- 
+	<bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean"/>
+	-->
+	<bean id="scheduler" class="org.opoo.apps.scheduling.quartz.AppsSchedulerFactoryBean"/>
+	
+	<!--
+	<bean id="helloWorldJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="org.opoo.apps.scheduling.quartz.HelloWorldJob"></property>
+	</bean>
+	
+	<bean id="helloWorldTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="helloWorldJobDetail"/>
+		<property name="repeatCount" value="100"></property>
+		<property name="repeatInterval" value="1000"></property>
+	</bean>
+	
+	
+	可用作分布式配置
+	<bean id="s0001" class="org.opoo.apps.scheduling.quartz.SchedulerConfigurator">
+		<property name="scheduler" ref="scheduler"></property>
+		<property name="triggers">
+			<list>
+				<ref bean="helloWorldTrigger"/>
+			</list>
+		</property>
+	</bean>
+	-->
+	
+</beans>
+

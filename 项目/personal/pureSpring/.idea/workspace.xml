@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a2965dee-4cea-4326-877b-202fac7c7af3" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="D:\work\repository" />
+        <option name="mavenHome" value="D:/worksoft/apache-maven-3.2.5" />
+        <option name="userSettingsFile" value="D:\worksoft\apache-maven-3.2.5\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1glk4s8VVTQ0uLswGNfruhKt2P2" />
+  <component name="ProjectViewState">
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="E:/BaiduNetdiskDownload/redflag-project/redflag-project/2.1.18" />
+    <property name="project.structure.last.edited" value="Facets" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.34827587" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.AccountTest.deleteAccountTest">
+    <configuration name="AccountTest.deleteAccountTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="pureSpring" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.beitie.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.beitie" />
+      <option name="MAIN_CLASS_NAME" value="com.beitie.AccountTest" />
+      <option name="METHOD_NAME" value="deleteAccountTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AccountTest.findAllAccountTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="pureSpring" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.beitie.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.beitie" />
+      <option name="MAIN_CLASS_NAME" value="com.beitie.AccountTest" />
+      <option name="METHOD_NAME" value="findAllAccountTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AccountTest.findByNameTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="pureSpring" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.beitie.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.beitie" />
+      <option name="MAIN_CLASS_NAME" value="com.beitie.AccountTest" />
+      <option name="METHOD_NAME" value="findByNameTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AccountTest.findTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="pureSpring" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.beitie.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.beitie" />
+      <option name="MAIN_CLASS_NAME" value="com.beitie.AccountTest" />
+      <option name="METHOD_NAME" value="findTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AccountTest.transferTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="pureSpring" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.beitie.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.beitie" />
+      <option name="MAIN_CLASS_NAME" value="com.beitie.AccountTest" />
+      <option name="METHOD_NAME" value="transferTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.AccountTest.deleteAccountTest" />
+        <item itemvalue="JUnit.AccountTest.transferTest" />
+        <item itemvalue="JUnit.AccountTest.findAllAccountTest" />
+        <item itemvalue="JUnit.AccountTest.findTest" />
+        <item itemvalue="JUnit.AccountTest.findByNameTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\Lenovo\AppData\Roaming\Subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a2965dee-4cea-4326-877b-202fac7c7af3" name="Default Changelist" comment="" />
+      <created>1598696378536</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1598696378536</updated>
+      <workItem from="1598696384561" duration="7138000" />
+      <workItem from="1598779518029" duration="695000" />
+      <workItem from="1598881885639" duration="6993000" />
+      <workItem from="1598970768209" duration="5365000" />
+      <workItem from="1599056703632" duration="1245000" />
+      <workItem from="1599227431620" duration="4652000" />
+      <workItem from="1599277295586" duration="221000" />
+      <workItem from="1599401536241" duration="199000" />
+      <workItem from="1599965426044" duration="2510000" />
+      <workItem from="1599990730580" duration="3531000" />
+      <workItem from="1600354660398" duration="680000" />
+      <workItem from="1602936604093" duration="826000" />
+      <workItem from="1603116792059" duration="665000" />
+      <workItem from="1603202509463" duration="3568000" />
+      <workItem from="1603288077138" duration="1799000" />
+      <workItem from="1603466123734" duration="1404000" />
+      <workItem from="1603502937812" duration="1232000" />
+      <workItem from="1603635089296" duration="698000" />
+      <workItem from="1603719907601" duration="1464000" />
+      <workItem from="1603725743161" duration="944000" />
+      <workItem from="1603810670603" duration="885000" />
+      <workItem from="1606835858273" duration="52000" />
+      <workItem from="1606836024410" duration="562000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="488" y="47" key="#com.intellij.ide.util.MemberChooser" timestamp="1599991829915">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="488" y="47" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1599991829915" />
+    <state x="462" y="221" width="441" height="295" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1598711214954">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="462" y="221" width="441" height="295" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1366.728@0.0.1366.728" timestamp="1598711214954" />
+    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1599993538702">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1599993538702" />
+    <state width="1322" height="216" key="GridCell.Tab.0.bottom" timestamp="1599277492169">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1322" height="216" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1599277492169" />
+    <state width="1322" height="216" key="GridCell.Tab.0.center" timestamp="1599277492168">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1322" height="216" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1599277492168" />
+    <state width="1322" height="216" key="GridCell.Tab.0.left" timestamp="1599277492168">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1322" height="216" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1599277492168" />
+    <state width="1322" height="216" key="GridCell.Tab.0.right" timestamp="1599277492169">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1322" height="216" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1599277492169" />
+    <state width="1322" height="217" key="GridCell.Tab.1.bottom" timestamp="1598711170925">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1322" height="217" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1598711170925" />
+    <state width="1322" height="217" key="GridCell.Tab.1.center" timestamp="1598711170925">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1322" height="217" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1598711170925" />
+    <state width="1322" height="217" key="GridCell.Tab.1.left" timestamp="1598711170925">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1322" height="217" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1598711170925" />
+    <state width="1322" height="217" key="GridCell.Tab.1.right" timestamp="1598711170925">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1322" height="217" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1598711170925" />
+    <state x="213" y="18" key="Maven.ArtifactSearchDialog" timestamp="1598885170775">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="213" y="18" key="Maven.ArtifactSearchDialog/0.0.1366.728@0.0.1366.728" timestamp="1598885170775" />
+    <state x="184" y="0" key="SettingsEditor" timestamp="1603719931735">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="184" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1603719931735" />
+    <state x="0" y="0" width="786" height="728" key="find.popup" timestamp="1598883581734">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="0" y="0" width="786" height="728" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1598883581734" />
+    <state x="53" y="58" key="new project wizard" timestamp="1603288255220">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="53" y="58" key="new project wizard/0.0.1366.728@0.0.1366.728" timestamp="1603288255220" />
+    <state x="339" y="157" key="run.anything.popup" timestamp="1598885455143">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="339" y="157" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1598885455143" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1603635407643">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1603635407643" />
+    <state x="384" y="46" key="spring file set editor" timestamp="1603206369148">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="384" y="46" key="spring file set editor/0.0.1366.728@0.0.1366.728" timestamp="1603206369148" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/beitie/test/ConfigParse.java</url>
+          <line>12</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

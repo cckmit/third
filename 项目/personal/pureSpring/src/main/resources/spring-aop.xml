@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd">
+    <bean id="log" class="com.beitie.pojo.LogTest"></bean>
+    <bean id="commonAdvice" class="com.beitie.CommonAdvice"></bean>
+    <aop:config>
+        <aop:pointcut id="doMethods" expression="execution(* com.beitie.service.impl..*.*(..))"/>
+        <aop:advisor advice-ref="commonAdvice" pointcut-ref="doMethods"></aop:advisor>
+        <aop:aspect ref="log"   >
+            <aop:after pointcut-ref="doMethods" method="printLog"></aop:after>
+        </aop:aspect>
+    </aop:config>
+</beans>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+	<subclass name="cn.redflagsoft.base.bean.SignCard" extends="cn.redflagsoft.base.bean.RFSObject"
+		discriminator-value="211">
+		<join table="SIGN_CARD" fetch="select">
+			<key column="ID" />
+			
+			<property name="code" column="CODE" type="java.lang.String" />
+
+			<property name="grade" column="GRADE" type="java.lang.Byte" />
+
+			<property name="type" column="TYPE" type="int" />
+			
+			<property name="label" column="LABEL" type="java.lang.String" />
+			
+			<property name="rvDutyerOrgId" column="RV_DUTYER_ORG_ID" type="java.lang.Long" />
+			
+			<property name="rvDutyerOrgName" column="RV_DUTYER_ORG_NAME" type="java.lang.String" />
+
+			<property name="rvDutyerID" column="RV_DUTYER_ID" type="java.lang.Long" />
+			
+			<property name="rvDutyerName" column="RV_DUTYER_NAME" type="java.lang.String" />
+
+			<property name="rvOccurTime" column="RV_OCCUR_TIME" type="java.sql.Timestamp" />
+
+			<property name="rvDesc" column="RV_DESC" type="java.lang.String" />
+
+			<property name="juralLimit" column="JURAL_LIMIT" type="java.lang.String" />
+
+			<property name="finalDealResult" column="FINAL_DEAL_RESULT"		type="java.lang.String" />
+
+			<property name="finalDealTime" column="FINAL_DEAL_TIME"			type="java.sql.Timestamp" />
+
+			<property name="dealPersonID" column="DEAL_PERSONID" type="java.lang.Long" />
+
+			<property name="createType" column="CTYPE" type="java.lang.Short" />
+
+			<property name="refObjectType" column="REF_OBJ_TYPE" type="java.lang.Integer" />
+
+			<property name="refObjectId" column="REF_OBJID" type="java.lang.Long" />
+
+			<property name="refRiskLogID" column="REF_RISK_LOG_ID" type="java.lang.Long" />
+			
+			<property name="status" column="STATUS" type="byte" />
+
+			<property name="creator" column="CREATOR" type="java.lang.Long" />
+
+			<property name="creationTime" column="CTIME" type="java.sql.Timestamp" />
+
+			<property name="modifier" column="MODIFIER" type="java.lang.Long" />
+
+			<property name="modificationTime" column="MTIME" type="java.sql.Timestamp" />
+
+			<property name="remark" column="REMARK" type="java.lang.String" />
+		</join>
+	</subclass>
+</hibernate-mapping>

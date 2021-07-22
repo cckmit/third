@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.MatterAffair" table="MATTER_AFFAIR">
+		<id name="sn" column="SN" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		
+		<property name="bizID" column="BIZID" type="java.lang.Long"/>
+		
+		<property name="bizType" column="BIZ_TYPE" type="int"/>
+		
+		<property name="bizAction" column="BIZ_ACTION" type="byte"/>
+		
+		<property name="refType" column="REF_TYPE" type="int"/>
+		
+		<property name="category" column="CATEGORY" type="byte"/>
+		
+        <property name="affairID" column="AFFAIRID" type="java.lang.Long"/>
+        
+        <property name="action" column="ACTION" type="byte"/>
+        
+        <property name="taskAction" column="TASK_ACTION" type="byte"/>
+        
+        <property name="objectAction" column="OBJECT_ACTION" type="byte"/>
+        
+        <property name="objectLifeStage" column="OBJECT_LIFE_STAGE" type="int"/>
+        
+        <property name="objectTag" column="OBJECT_TAG" type="short"/>
+        
+        <property name="affairCategory" column="AFFAIR_CATEGORY" type="byte"/>
+        
+        <property name="affairAction" column="AFFAIR_ACTION" type="byte"/>
+        
+        <property name="dutyerID" column="DUTYERID" type="java.lang.Long"/>
+        
+        <property name="dutyerType" column="DUTYER_TYPE" type="short"/>
+        
+        <property name="affairObjectRelation" column="AFFAIR_OBJECT_RELATION" type="short"/>
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+		
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+		
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+		
+		<property name="tag" column="TAG" type="short"/>
+		
+		<property name="objectStatus" column="OBJECT_STATUS" type="byte"/>
+		
+		<property name="objectKeyMatter" column="OBJECT_KEY_MATTER" type="byte"/>
+		
+		<property name="clerkType" column="CLERK_TYPE" type="short"/>
+		
+		<property name="clerkID" column="CLERKID" type="java.lang.Long"/>
+		
+		<property name="affairType" column="AFFAIR_TYPE" type="int"/>
+		<property name="displayOrder" column="DISPLAY_ORDER" type="short"/>
+		<property name="bizObjectType" column="BIZ_OBJECT_TYPE" type="int"/>
+		<property name="affairObjectType" column="AFFAIR_OBJECT_TYPE" type="int"/>
+		
+		<property name="validTag" column="VALID_TAG" type="short"/>
+		
+		<property name="schemeInfo" column="SCHEME_INFO" type="java.lang.String"/>
+	</class>
+</hibernate-mapping>

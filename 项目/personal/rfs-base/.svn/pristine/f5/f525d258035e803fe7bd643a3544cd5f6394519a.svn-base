@@ -1,0 +1,95 @@
+/*
+ * $Id$
+ * 
+ * Copyright 2007-2008 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ */
+package cn.redflagsoft.base.process;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.aopalliance.aop.Advice;
+import org.opoo.util.ClassUtils;
+
+import cn.redflagsoft.base.aop.interceptor.ParametersInterceptor;
+import cn.redflagsoft.base.process.interceptor.TestBeforeAdvice;
+
+
+
+/**
+ * 
+ * 推荐使用。
+ * @author Alex Lin
+ *
+ */
+public class ReflectionWorkProcessManager extends AbstractWorkProcessManager {
+	//private static final Log log = LogFactory.getLog(ReflectionWorkProcessManager.class);
+	private Map<String, Class<WorkProcess>> classes = new HashMap<String, Class<WorkProcess>>();
+	
+	public void setWorkProcessClassNames(String[] classNames){
+		for(String className: classNames){
+			Class<WorkProcess> clazz = forName(className);
+			if(clazz != null){
+				Integer processType = WorkProcessUtils.getProcessType(clazz);
+				if(processType != null){
+					String name0 = getNames().get(processType);
+					if(name0 != null){
+						throw new IllegalArgumentException("WorkProcess定义重复: processType is ["
+								+ processType + "], processes are [" + name0 + ", " + className + "]");
+					}
+					super.getNames().put(processType, className);
+					classes.put(className, clazz);
+					if(log.isDebugEnabled()){
+						log.debug("set workprocess: " + processType + "[" + className + "] -> " + clazz.getName());
+					}
+				}
+			}
+		}
+	}
+	
+	
+	
+	@SuppressWarnings("unchecked")
+	private Class<WorkProcess> forName(String className){
+		try {
+			return ClassUtils.forName(className, ReflectionWorkProcessManager.class.getClassLoader());
+		} catch (ClassNotFoundException e) {
+			log.error(e);
+			return null;
+		}
+	}
+	
+	
+	
+	/* (non-Javadoc)
+	 * @see cn.redflagsoft.base.process.AbstractWorkProcessManager#findProcess(java.lang.String)
+	 */
+	@Override
+	protected WorkProcess buildWorkProcess(String name) {
+		log.debug("new instance: " + name);
+		Class<WorkProcess> clazz = classes.get(name);
+		if(clazz != null){
+			return (WorkProcess) ClassUtils.newInstance(clazz);
+		}
+		return (WorkProcess) ClassUtils.newInstance(name);
+	}
+	
+	
+	public static void main(String[] args){
+		ReflectionWorkProcessManager manager = new ReflectionWorkProcessManager();
+		//WorkProcess wp = manager.getProcess("cn.redflagsoft.base.process.EmptyWorkProcess");
+		//System.out.println(wp);
+		//manager.getNames().put((short) 1000, "cn.redflagsoft.base.process.EmptyWorkProcess");
+		manager.setWorkProcessAdvices(new Advice[]{new TestBeforeAdvice(), new ParametersInterceptor()});
+		manager.setOptimize(true);
+		manager.setProxied(false);
+		//manager.getWorkProcessAdvices().add(new TestBeforeAdvice());
+		manager.setWorkProcessClassNames(new String[]{"cn.redflagsoft.base.process.EmptyWorkProcess"});
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("abcd", "abcd");
+		map.put("name", "name");
+		manager.getProcess( -1001).execute(map, true);
+	}
+}

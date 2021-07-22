@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="GBK"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       						http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       						http://www.springframework.org/schema/util
+  							http://www.springframework.org/schema/util/spring-util-2.5.xsd ">
+  	
+	<!--  
+		JobDetail 和 Trigger 必须配对，一个JobDetail可以配置多个Trigger，但
+		一个Trigger只能搭配一个JobDetail。		
+	-->
+	
+	<!-- schedule -->
+	<bean id="taskJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="cn.redflagsoft.base.scheduling.TaskQuartzJob">
+		</property>
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="taskService" value-ref="taskService"/>
+			</map>
+		</property>
+	</bean>	
+	<bean id="taskTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="taskJobDetail"/>
+		<property name="cronExpression" value="0 1 * * * ?"/><!-- once an hour -->
+		<!-- 0 1 * * * ? -->
+		<!-- 0 1/7 * * * ? -->
+		<!-- 0 0,5,15,20,25,30,35,40,45,50,55 * * * ? -->
+	</bean>
+	
+  
+	<!-- schedule -->
+	<bean id="riskJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="cn.redflagsoft.base.scheduling.RiskQuartzJob">
+		</property>
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="riskService" value-ref="riskService"/>
+			</map>
+		</property>
+	</bean>	
+	<bean id="riskTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="riskJobDetail"/>
+		<property name="cronExpression" value="0 41 * * * ?"/><!-- once an hour -->
+		<!-- 0 1 * * * ? -->
+		<!-- 0 1/7 * * * ? -->
+		<!-- 0 0,5,15,20,25,30,35,40,45,50,55 * * * ? -->
+	</bean>
+	
+  	<!-- _短信发送定时器 -->
+  	<bean id="messageJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="cn.redflagsoft.base.scheduling.MessageQuartzJob">
+		</property>
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="smsgManager" value-ref="smsgService"/>
+			</map>
+		</property>
+	</bean>	
+	<bean id="messageTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="messageJobDetail"/>
+		<property name="cronExpression" value="0 0/2 9-12,14-19 * * ?"/><!-- "0 30/30 8-11,14-19 * * ?" -->
+	</bean>
+	
+	<!-- 预备消息处理通知 -->
+  	<bean id="createRemindSendingMsgForAdminJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="cn.redflagsoft.base.scheduling.CreateRemindSendingMsgForAdminQuartzJob">
+		</property>
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="eventMsgService" value-ref="eventMsgService"/>
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="createRemindSendingMsgForAdminTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="createRemindSendingMsgForAdminJobDetail"/>
+		<property name="cronExpression" value="0 0 8-12,14-19 * * ?"/><!-- "0 30/30 8-11,14-19 * * ?" -->
+	</bean>
+	
+	<!-- 系统运行及短信发送功能运行情况提醒 -->
+  	<bean id="systemRuningRemindJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="cn.redflagsoft.base.scheduling.SystemRuningRemindQuartzJob">
+		</property>
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="holidayService" value-ref="holidayService"/>
+				<entry key="eventMsgService" value-ref="eventMsgService"/>
+				<entry key="runType" value="2"/><!--0:工作日、1:假日、2:自然日 -->
+			</map>
+		</property>		 
+	</bean>	
+	<bean id="systemRuningRemindTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="systemRuningRemindJobDetail"/>
+		<property name="cronExpression" value="0 29 8 * * ?"/><!--0 30 8 * * ?  -->
+	</bean>
+	
+	<!-- 监察状况预提醒 -->
+  	<bean id="riskRemindJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="cn.redflagsoft.base.scheduling.RiskRemindQuartzJob">
+		</property>
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="riskService" value-ref="riskService"/>
+				<entry key="holidayService" value-ref="holidayService"/>
+				<entry key="runType" value="0"/><!--0:工作日、1:假日、2:自然日 -->
+				<entry key="nowRiskRemindEnabled" value="1"/><!-- 开启当前监察状况提醒 -->
+				<entry key="advanceRiskRemindEnabled" value="1"/><!-- 开启监察状态预提醒 -->
+				<entry key="days" value="3"/><!--预提醒提前天数 -->
+			</map>
+		</property>		 
+	</bean>	
+	<bean id="riskRemindTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="riskRemindJobDetail"/>
+		<property name="cronExpression" value="0 0/30 * * * ?"/><!--0 0/30 * * * ?  -->
+	</bean>
+	
+	<!-- 监察警告信息抄送 -->
+  	<bean id="riskRemindCopySendJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="cn.redflagsoft.base.scheduling.RiskRemindCopySendQuartzJob">
+		</property>
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="riskLogService" value-ref="riskLogService"/>
+			</map>
+		</property>		 
+	</bean>	
+	<bean id="riskRemindCopySendTrigger1" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="riskRemindCopySendJobDetail"/>
+		<property name="cronExpression" value="0 40 8 * * ?"/><!-- -->
+	</bean>	
+	<bean id="riskRemindCopySendTrigger2" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="riskRemindCopySendJobDetail"/>
+		<property name="cronExpression" value="0 30 14 * * ?"/><!-- -->
+	</bean>	
+	<bean id="riskRemindCopySendTrigger3" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="riskRemindCopySendJobDetail"/>
+		<property name="cronExpression" value="0 50 17 * * ?"/><!-- -->
+	</bean>
+	
+	<!-- License到期提醒 -->
+  	<bean id="licenseTimeoutRemindJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="cn.redflagsoft.base.scheduling.LicenseTimeoutRemindQuartzJob">
+		</property>
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="holidayService" value-ref="holidayService"/>
+				<entry key="eventMsgService" value-ref="eventMsgService"/>
+				<entry key="alertDays1" value="20"/>
+				<entry key="alertDays2" value="15"/>
+				<entry key="alertDays3" value="15"/>
+				<entry key="alertDays4" value="5"/>
+				<entry key="alertDays5" value="1"/>
+			</map>
+		</property>		 
+	</bean>	
+	<bean id="licenseTimeoutRemindTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="licenseTimeoutRemindJobDetail"/>
+		<property name="cronExpression" value="0 55 9 * * ?"/>
+	</bean>
+	
+	<!-- 在一个应用中可以配置多个SchedulerConfigurator， 引用同一个scheduler对象-->
+	<bean id="rfsBaseSchedulerConfigurator" class="org.opoo.apps.scheduling.quartz.SchedulerConfigurator">
+		<property name="scheduler" ref="scheduler"></property>
+		<property name="triggers">
+			<list>
+				<ref bean="taskTrigger" />
+				<ref bean="riskTrigger" />
+				<ref bean="messageTrigger" />
+				<ref bean="createCautionRemindSmsgTrigger" />
+				<ref bean="licenseTimeoutRemindTrigger" />
+				<ref bean="systemRuningRemindTrigger" />
+				<ref bean="systemStatusReportSMSTrigger"/>
+				<!-- 
+				<ref bean="createRemindSendingMsgForAdminTrigger" />
+				
+				<ref bean="riskRemindTrigger" />
+				<ref bean="riskRemindCopySendTrigger1" />
+				<ref bean="riskRemindCopySendTrigger2" />
+				<ref bean="riskRemindCopySendTrigger3" />
+				
+				-->
+			</list>
+		</property>
+	</bean>
+	
+	<!--待处理的监察任务提醒  -->
+	<bean id="createCautionRemindSmsgQueartzJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="cn.redflagsoft.base.scheduling.CreateCautionRemindSmsgQueartzJob">
+		</property>
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="eventMsgService" value-ref="eventMsgService"/>
+				<entry key="cautionService" value-ref="cautionService"/>
+			</map>
+		</property>
+	</bean>
+	<bean id="createCautionRemindSmsgTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="createCautionRemindSmsgQueartzJob"/>
+		<property name="cronExpression" value="0 0 9 * * ?"/>
+	</bean>	
+	
+	
+	<bean id="systemStatusReportSMSQuartzJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="cn.redflagsoft.base.scheduling.SystemStatusReportSMSQuartzJob"/>
+	</bean>
+	
+	<bean id="systemStatusReportSMSTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="systemStatusReportSMSQuartzJob"/>
+		<property name="cronExpression" value="0 0 8,14 * * ?"/>
+	</bean>	
+</beans>

@@ -1,0 +1,126 @@
+/*
+ * $Id: ObjectsService.java 6128 2012-11-23 02:03:54Z lcj $
+ * 
+ * Copyright 2007-2008 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ */
+package cn.redflagsoft.base.service;
+
+import java.util.List;
+
+import org.opoo.apps.bean.core.Attachment;
+import org.opoo.ndao.support.ResultFilter;
+
+import cn.redflagsoft.base.bean.Objects;
+import cn.redflagsoft.base.bean.Task;
+import cn.redflagsoft.base.bean.Work;
+
+/**
+ * @author mwx
+ *
+ */
+public interface ObjectsService {
+	
+	/**
+	 * 创建 Objects 
+	 * 
+	 * @param objects
+	 * @return Objects
+	 */
+	Objects createObjects(Objects objects);
+	
+	/**
+	 * 修改 Objects
+	 * 
+	 * @param objects
+	 * @return Objects
+	 */
+	Objects updateObjects(Objects objects);
+	
+	/**
+	 * 删除Objects
+	 * 
+	 * @param objects
+	 * @return int类型，为1时表示删除成功
+	 */
+	int deleteObjects(Objects objects);
+	
+	/**
+	 * 根据第一个对象的ID和关系类型，查询关联的第二个对象ID。
+	 * 
+	 * @param firstObjectID 第一个对象的ID
+	 * @param type 关联关系类型
+	 * @return 关联的第二个对象的ID
+	 */
+	Long getRelatedObjectID(Long firstObjectID, int type);
+	
+	/**
+	 * 根据第一个对象的ID和关系类型，删除关联对象。
+	 * @param firstObjectID 第一个对象的ID
+	 * @param type 关联关系类型
+	 */
+	void removeByFirstObjectID(Long firstObjectID, int type);
+	
+	/**
+	 * 根据第一个对象的ID和关系类型，查询关联对象。
+	 * 
+	 * @param firstObjectID 第一个对象的ID
+	 * @param type 关联关系类型
+	 * @return 关联对象
+	 */
+	Objects getObjectsByFirstObjectID(Long firstObjectID, int type);
+
+	/**
+	 * 创建对象之间的关联关系。
+	 * <p>
+	 * 首先根据 firstObjectId、secondObjectId和type查找要创建的关系是否
+	 * 已经存在，如果存在则更新，否则进行新建。
+	 * 
+	 * @param firstObjectId 第一个对象的ID
+	 * @param secondObjectId 第二个对象的ID
+	 * @param type 关联关系类型
+	 * @param remark 备注
+	 * @return 关系对象
+	 */
+	Objects createObjects(Long firstObjectId, Long secondObjectId, int type, String remark);
+	
+	/**
+	 * 根据taskType、workType和对象的ID查找与之相关的附件列表。
+	 * 
+	 * @param taskType task类型
+	 * @param workType work类型
+	 * @param objectID 对象ID
+	 * @param objectType 对象类型，为空或者为0时表示主对象
+	 * @return 附件集合
+	 */
+	List<Attachment> findAttachments(int taskType, int workType, final Long objectID, Integer objectType);
+	
+	/**
+	 * 查找指定对象的附件。
+	 * 
+	 * @param objectId 对象ID
+	 * @param objectType 对象类型，为空或者为0时表示主对象
+	 * @return 附件集合
+	 */
+	List<Attachment> findObjectAttachments(long objectId, Integer objectType);
+	
+	/**
+	 * 保存指定步骤的全部附件信息。
+	 * 
+	 * @param task
+	 * @param work
+	 * @param attachmentIds
+	 */
+	void saveAttachments(Task task, Work work, List<Long> attachmentIds);
+
+	/**
+	 * 根据附件信息删除对象之间的关系。
+	 * @param id
+	 */
+	void deleteObjectsByAttachment(Long id);
+	
+	
+	List<Objects> findObjects(ResultFilter filter);
+	
+	Objects saveOrUpdateObjects(long fstObject, long sndObject, int type, String remark);
+}

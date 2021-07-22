@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="cn.redflagsoft.base.bean.BizDutyersConfig" table="BIZ_DUTYERS_CONFIG">
+        <id name="id" column="ID" type="java.lang.Long">
+            <generator class="assigned" />
+        </id>
+        
+		<property name="type" column="TP" type="int"/>        
+        
+        <property name="status" column="STATUS" type="byte"/>
+		
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+		
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+		
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+		
+		<!-- 
+		 DEF_OBJ_TYPE         NUMBER(10)                      not null,
+   DEF_ID               NUMBER(10)                      not null,
+   DISPLAY_ORDER        NUMBER(10)                      not null,
+   DUTY_ENTITY_ID       NUMBER(19),
+   DUTY_ENTITY_NAME     VARCHAR2(200),
+   DUTYER_ID            NUMBER(19),
+   DUTYER_NAME          VARCHAR2(100),
+   DUTYER_LEADER1_ID    NUMBER(19),
+   DUTYER_LEADER1_NAME  VARCHAR2(100),
+   DUTYER_LEADER2_ID    NUMBER(19),
+   DUTYER_LEADER2_NAME  VARCHAR2(100)
+		 -->
+		 <property name="defObjectType" column="DEF_OBJ_TYPE" type="int"/>    
+		 
+		 <property name="defId" column="DEF_ID" type="int"/>    
+		 
+		 <property name="displayOrder" column="DISPLAY_ORDER" type="int"/>
+		 
+		 <property name="dutyEntityID" column="DUTY_ENTITY_ID" type="java.lang.Long"/>
+		 
+		 <property name="dutyEntityName" column="DUTY_ENTITY_NAME" type="java.lang.String"/>
+
+		 <property name="dutyDepartmentID" column="DUTY_DEPT_ID" type="java.lang.Long"/>
+		 
+		 <property name="dutyDepartmentName" column="DUTY_DEPT_NAME" type="java.lang.String"/>
+		 
+		 <property name="dutyerID" column="DUTYER_ID" type="java.lang.Long"/>
+		 
+		 <property name="dutyerName" column="DUTYER_NAME" type="java.lang.String"/>
+		 
+		 <property name="dutyerLeader1Id" column="DUTYER_LEADER1_ID" type="java.lang.Long"/>
+		 
+		 <property name="dutyerLeader1Name" column="DUTYER_LEADER1_NAME" type="java.lang.String"/>
+		 
+		 <property name="dutyerLeader2Id" column="DUTYER_LEADER2_ID" type="java.lang.Long"/>
+		 
+		 <property name="dutyerLeader2Name" column="DUTYER_LEADER2_NAME" type="java.lang.String"/>
+		 
+    </class>
+</hibernate-mapping>

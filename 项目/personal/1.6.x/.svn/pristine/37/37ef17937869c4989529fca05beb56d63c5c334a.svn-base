@@ -1,0 +1,1 @@
+mvn deploy:deploy-file -Durl=scp://192.168.18.6/var/www/html/maven2/releases -DrepositoryId=sf -DrepositoryLayout=default -DuniqueVersion=false -DgeneratePom=true -DartifactId=opoo-apps -DgroupId=org.opoo.war -Dfile=target\opoo-apps-1.6.8.war -Dversion=1.6.8 -Dpackaging=war

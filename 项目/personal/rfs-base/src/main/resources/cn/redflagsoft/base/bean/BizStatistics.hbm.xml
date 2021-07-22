@@ -1,0 +1,66 @@
+<?xml version="1.0"  encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.BizStatistics" table="BIZ_STATISTICS">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		
+		<many-to-one name="definition" class="cn.redflagsoft.base.bean.BizStatisticsDefinition" 
+			column="DATA_ID" not-null="true" foreign-key="FK_125">
+		</many-to-one>
+		
+		<property name="refObjectType" column="REF_OBJ_TYPE" type="int"/>
+		
+		<property name="refObjectId" column="REF_OBJ_ID" type="long"/>
+		
+		<property name="refObjectName" column="REF_OBJ_NAME" type="java.lang.String"/>
+		
+		<!-- 		
+		<property name="dataId" column="DATA_ID" type="java.lang.String"/>		
+		
+		<property name="dataName" column="DATA_NAME" type="java.lang.String"/>
+		-->
+		
+		<property name="dataSum" column="DATA_SUM" type="java.math.BigDecimal"/>
+		
+		<!-- 
+		<property name="dataUnit" column="DATA_UNIT" type="java.lang.Short"/>
+		
+		<property name="dataUnitName" column="DATA_UNIT_NAME" type="java.lang.String"/>
+		
+		<property name="dataFormat" column="DATA_FORMAT" type="java.lang.String"/>
+		-->
+		
+		<property name="theYear" column="THE_YEAR" type="short"/>
+		
+		<property name="theMonth" column="THE_MONTH" type="byte"/>
+		
+		<property name="theWeek" column="THE_WEEK" type="byte"/>
+		
+		<property name="theDay" column="THE_DAY" type="short"/>
+		
+		<property name="lastBizSn" column="LAST_BIZ_SN" type="long"/>
+		
+		<property name="lastBizTime" column="LAST_BIZ_TIME" type="java.sql.Timestamp"/>
+		
+		<property name="lastBizGetTime" column="LAST_BIZ_GET_TIME" type="java.sql.Timestamp"/>
+
+		<property name="type" column="TP" type="int"/>        
+        
+        <property name="status" column="STATUS" type="byte"/>
+		
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+		
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+		
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,4 @@
+ParamTag.linkParam=param tag 必须在 params tag的内部。
+PaginatorTag.prevPage=上一页
+PaginatorTag.nextPage=下一页
+PaginatorTag.urlEncoding=GBK

@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  - Sample namespace-based configuration
+  -
+  - $Id: applicationContext-security.xml 13 2010-11-26 05:04:02Z alex $
+  -->
+
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+    xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:os="http://www.opoo.org/schema/security"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    					http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+                        http://www.springframework.org/schema/security 
+                        http://www.springframework.org/schema/security/spring-security-2.0.1.xsd
+                        http://www.opoo.org/schema/security
+                        http://www.opoo.org/schema/security-1.5.0.xsd">
+
+	<!-- <global-method-security secured-annotations="enabled"> -->
+		<!-- AspectJ pointcut expression that locates our "post" method and applies security that way
+		<protect-pointcut expression="execution(* bigbank.*Service.post*(..))" access="ROLE_TELLER"/>
+		-->
+	<!-- </global-method-security> -->
+
+	<!--  -->
+    <http auto-config="true" > <!--  auto-config="false"  entry-point-ref="eppp" -->
+    <!--  access-denied-page="/WEB-INF/jsp/access-denied.jsp" -->
+    	<intercept-url pattern="/**/login.jsp*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+    	<intercept-url pattern="/test/**" access="ROLE_USER" />
+		<intercept-url pattern="/state-*.jspa" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<intercept-url pattern="/login.jsp" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+		<intercept-url pattern="/logout.jsp" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+		<intercept-url pattern="/admin/images/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+
+		<intercept-url pattern="/admin/**" access="ROLE_ADMIN"/>
+		<intercept-url pattern="/switchuser.jsp" access="ROLE_ADMIN"/>
+		<intercept-url pattern="/license-server/**" access="ROLE_ADMIN"/>
+		<intercept-url pattern="/als/**" access="ROLE_ADMIN"/>
+
+		<intercept-url pattern="/**/*.jspa" access="ROLE_USER" />
+    	<intercept-url pattern="/**/*.jsp" access="ROLE_USER"/>
+		<intercept-url pattern="/" access="ROLE_USER"/>
+		<intercept-url pattern="/comp/**" access="ROLE_USER" />
+
+    	<!-- <intercept-url pattern="/*.jsp**" access="ROLE_USER" /> -->
+    	<!-- 
+		<intercept-url pattern="/index.jsp*" access="ROLE_USER"/>
+		-->
+        <!-- <intercept-url pattern="/AC_OETags.js" access="ROLE_USER" />
+		<intercept-url pattern="/assets/**" access="ROLE_USER" /> -->
+		
+		<!-- <intercept-url pattern="/history/**" access="ROLE_USER" /> -->
+		<!--
+		<intercept-url pattern="/menu**" access="ROLE_USER" />
+		<intercept-url pattern="/main**" access="ROLE_USER" />
+		<intercept-url pattern="/*track*.jsp" access="ROLE_USER" />
+		-->
+		<!--
+		<intercept-url pattern="/xml/**" access="ROLE_USER" />
+		<intercept-url pattern="/json/**" access="ROLE_USER" />
+		-->
+		
+
+		<!-- Disable web URI authorization, as we're using <global-method-security> and have @Secured the services layer instead
+        <intercept-url pattern="/listAccounts.html" access="IS_AUTHENTICATED_REMEMBERED" />
+        <intercept-url pattern="/post.html" access="ROLE_TELLER" />
+		<intercept-url pattern="/secure/**" access="ROLE_SUPERVISOR"/>
+		-->
+
+
+        <intercept-url pattern="/j_spring_security_switch_user" access="ROLE_ADMIN"/>
+        <intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+<!--
+    Uncomment to enable X509 client authentication support
+        <x509 /> 
+-->
+
+        <!-- All of this is unnecessary if auto-config="true"
+        <form-login />
+        <anonymous />
+        <http-basic />
+        <logout />
+        <remember-me /> -->
+
+
+		
+        <!-- Uncomment to limit the number of sessions a user can have
+        <concurrent-session-control max-sessions="1" exception-if-maximum-exceeded="true"/>
+		-->		
+	
+		<!-- 
+		<form-login login-page="/login.jsp" authentication-failure-url="/login.jsp?login_error=1" default-target-url="/go.jsp"	always-use-default-target="true"/>
+		-->
+		<!-- 
+		<form-login login-page="/login.jsp" authentication-failure-url="/login.jsp?login_error=1" 
+			default-target-url="/go.jsp"	
+			always-use-default-target="false"
+			login-processing-url="/login"/>
+		-->	
+		
+        
+        <!--
+        <anonymous />
+        <http-basic />
+        -->
+        
+        
+		
+		<!-- <logout logout-success-url="/login.jsp"/> -->
+		<!-- <logout logout-success-url="/close.jsp"/> -->
+		<logout logout-success-url="/go.jsp" logout-url="/j_spring_security_logout"/>
+		<remember-me/>
+    </http>
+
+    <!--
+    Usernames/Passwords are
+        rod/koala
+        dianne/emu
+        scott/wombat
+        peter/opal
+    -->
+    
+    <!--
+    <authentication-provider>
+        <password-encoder hash="md5"/>
+        <user-service>
+            <user name="fgj_user1" password="202cb962ac59075b964b07152d234b70" authorities="ROLE_SUPERVISOR, ROLE_USER, ROLE_TELLER" />
+	        <user name="fgj_user2" password="202cb962ac59075b964b07152d234b70" authorities="ROLE_USER,ROLE_TELLER" />
+            <user name="fgj_user3" password="202cb962ac59075b964b07152d234b70" authorities="ROLE_USER" />
+            <user name="fgj_user4" password="202cb962ac59075b964b07152d234b70" authorities="ROLE_USER" />
+	    </user-service>
+	</authentication-provider>
+	-->
+	<authentication-provider user-service-ref='userManager'>
+		<password-encoder hash="md5"/>
+	</authentication-provider>
+	
+	<authentication-manager alias="authenticationManager"/>
+
+	<!-- 
+	<beans:bean class="org.opoo.apps.security.webapp.FormLoginFilter">
+		<beans:property name="authenticationManager" ref="authenticationManager"></beans:property>
+		<beans:property name="authenticationFailureUrl" value="/login.jsp?login_error=1"></beans:property>
+		<beans:property name="defaultTargetUrl" value="/index.jsp" />  
+		<beans:property name="filterProcessesUrl"  value="/login" />
+		<beans:property name="alwaysUseDefaultTargetUrl" value="false"></beans:property>
+		<custom-filter position="AUTHENTICATION_PROCESSING_FILTER"/>
+	</beans:bean>
+	
+	-->
+	
+	<os:form-login-entry-point login-page="/login.jsp" id="eppp">
+		<os:form-login-map>
+			<os:form-login pattern="/admin/**" login-page="/login.jsp" target-url="/admin/index.jsp"/>
+		</os:form-login-map>
+	</os:form-login-entry-point>
+	
+	<beans:bean id="appsEntryPoint" class="org.opoo.apps.security.webapp.FormLoginFilterEntryPoint">
+		<beans:property name="loginFormUrl" value="/login.jsp"></beans:property>
+		<beans:property name="formLoginMap">
+			<beans:bean class="org.opoo.apps.security.webapp.FormLoginMapImpl">
+				<beans:constructor-arg>
+					<beans:bean class="org.springframework.security.util.AntUrlPathMatcher"></beans:bean>
+				</beans:constructor-arg>
+				<beans:constructor-arg>
+					<beans:map>
+						<beans:entry key="/test/**">
+							<beans:bean class="org.opoo.apps.security.webapp.FormLogin">
+								<beans:property name="loginPage" value="/login.jsp"/>
+								<beans:property name="targetUrl" value="/test/context.jsp"></beans:property>
+								<!--
+								<beans:property name="authenticationFailureUrl" value="/test/login.jsp?login_error=1"/>
+								<beans:property name="loginProcessingUrl"  value="/test/j_spring_security_check"/>
+								-->
+							</beans:bean>
+						</beans:entry>			
+					</beans:map>
+				</beans:constructor-arg>
+			</beans:bean>
+		</beans:property>
+	</beans:bean>
+
+	<beans:bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"> 
+	  <beans:property name="basename" value="org.springframework.security.messages"/> 
+	</beans:bean>
+	
+	<beans:bean id="nullPrincipalFilter" class="org.opoo.apps.security.context.NullPrincipalFilter"> 
+		<custom-filter before="LAST"/> 
+	</beans:bean> 
+	
+	<beans:bean id="sessionTrackingFilter" class="org.opoo.apps.web.filter.SessionTrackingFilter">
+		<custom-filter before="AUTHENTICATION_PROCESSING_FILTER"/> 
+	</beans:bean>
+	
+	<beans:bean id="switchUserProcessingFilter" class="org.springframework.security.ui.switchuser.SwitchUserProcessingFilter" autowire="byType">
+       <custom-filter position="SWITCH_USER_FILTER"/>       
+       <beans:property name="targetUrl" value="/go.jsp"/>
+    </beans:bean>
+
+	<!-- 
+	<beans:bean id="ll1" class="org.springframework.security.event.authentication.LoggerListener"/>
+	<beans:bean id="ll2" class="org.springframework.security.event.authorization.LoggerListener"/>
+	-->
+		<!-- 
+	<os:entry-points id="abcde">
+		<os:entry-point pattern="/admin/**" login-page="/admin/login.jsp"/>
+	</os:entry-points>
+	
+
+	<beans:bean id="abcde" class="java.util.HashMap">
+		<beans:constructor-arg>
+			<os:entry-points>
+				<os:entry-point pattern="/admin/**" login-page="/admin/login.jsp"/>
+			</os:entry-points>
+		</beans:constructor-arg>
+	</beans:bean>
+	-->
+	
+	
+</beans:beans>

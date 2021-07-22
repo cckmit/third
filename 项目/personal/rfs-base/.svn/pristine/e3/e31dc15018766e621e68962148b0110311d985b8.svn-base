@@ -1,0 +1,78 @@
+/*
+ * $Id$
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.service;
+
+import java.util.List;
+
+import org.opoo.ndao.support.PageableList;
+import org.opoo.ndao.support.ResultFilter;
+
+import cn.redflagsoft.base.bean.RFSObject;
+import cn.redflagsoft.base.bean.TaskableObject;
+
+/**
+ * ObjectService 继承体系二级接口。
+ * @author Alex Lin(alex@opoo.org)
+ *
+ * @param <T>
+ */
+public interface RFSObjectService<T extends RFSObject> extends ObjectService<T> {
+	
+	
+	/**
+	 * 查询业务对象，并附带指定类型的活动的Task信息。
+	 * 
+	 * 附带的Task信息也可能不存在，如果存在，只查询在办或暂停的Task。
+	 * 
+	 * @param taskType 指定的task的类型，必须指定，不能为空
+	 * @param name 对象名称，用作模糊查询查询条件，可为空
+	 * @param sn 对象编号，用作模糊查询查询条件，可为空
+	 * @return
+	 */
+	List<TaskableObject> findTaskableObject(int taskType, String name, String sn);
+	
+	
+	/**
+	 * 分页查询业务对象，并附带指定类型的活动的Task信息。
+	 * 
+	 * 附带的Task信息也可能不存在，如果存在，只查询在办或暂停的Task。
+	 * @param start 开始记录号
+	 * @param limit 页大小
+	 * @param taskType 指定的task的类型，必须指定，不能为空
+	 * @param name 对象名称，用作模糊查询查询条件，可为空
+	 * @param sn 对象编号，用作模糊查询查询条件，可为空
+	 * @param beiginTime task的开始时间，用作查询条件，可为空
+	 * @return
+	 */
+	PageableList<TaskableObject> findPageableTaskableObject(int start, int limit, int taskType, String name, String sn);
+
+	/**
+	 * 查询业务对象，并附带指定类型的活动的Task信息。
+	 * 
+	 * <p>接受参数为 ResultFilter，一般需要指定原始参数 taskType。
+	 * 查询对象相关的task不进行状态过滤。
+	 * 
+	 * @param filter 过滤条件。
+	 * @return
+	 */
+	List<TaskableObject> findTaskableObjectByFilter(ResultFilter filter);
+
+
+	/**
+	 * 分页查询业务对象，并附带指定类型的活动的Task信息。
+	 * 
+	 * <p>接受参数为 ResultFilter，一般需要指定原始参数 taskType。
+	 * 查询对象相关的task不进行状态过滤。
+	 * 
+	 * @param filter
+	 * @return
+	 */
+	PageableList<TaskableObject> findPageableTaskableObjectByFilter(ResultFilter filter);
+}

@@ -1,0 +1,64 @@
+/*
+ * $Id: EntityObjectLoader.java 5951 2012-08-02 06:22:41Z lcj $
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.service;
+
+import java.util.List;
+
+import org.opoo.ndao.support.ResultFilter;
+
+import cn.redflagsoft.base.bean.RFSEntityDescriptor;
+import cn.redflagsoft.base.bean.RFSEntityObject;
+
+/**
+ * 实体加载器。
+ * 
+ * @author Alex Lin(alex@opoo.org)
+ *
+ */
+public interface EntityObjectLoader {
+
+	/**
+	 * 是否是已知（支持）的实体类型。
+	 * @param type
+	 * @return
+	 */
+	boolean isKnownType(int type);
+	
+	/**
+	 * 查询指定实体。
+	 * @param descriptor 实体对象描述
+	 * @return 实体对象
+	 */
+	<T extends RFSEntityObject> T getEntityObject(RFSEntityDescriptor descriptor);
+	
+	/**
+	 * 查询指定实体。
+	 * @param objectType 实体类型
+	 * @param objectId 实体ID
+	 * @return 实体对象
+	 */
+	<T extends RFSEntityObject> T getEntityObject(int objectType, long objectId);
+	
+	/**
+	 * 批量查询实体。
+	 * @param objectType 实体类型
+	 * @param objectIds 实体ID集合
+	 * @return 实体对象集合
+	 */
+	<T extends RFSEntityObject> List<T> findEntityObjects(int objectType, List<Long> objectIds);
+	
+	/**
+	 * 查询符合条件的实体。
+	 * @param objectType
+	 * @param filter
+	 * @return
+	 */
+	<T extends RFSEntityObject> List<T> findEntityObjects(int objectType, ResultFilter filter);
+}

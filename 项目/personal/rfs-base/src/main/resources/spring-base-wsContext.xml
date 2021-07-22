@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="GBK"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       						http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       						http://www.springframework.org/schema/util
+  							http://www.springframework.org/schema/util/spring-util-2.5.xsd
+  							http://cxf.apache.org/jaxrs
+							http://cxf.apache.org/schemas/jaxrs.xsd">
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+  	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+  	<!-- <import resource="classpath:META-INF/cxf/cxf-extension-http-jetty.xml" /> -->
+  	
+  	<!-- 
+  	https://issues.apache.org/jira/browse/CXF-2936
+  	在 CXF 2.2.9 中，必须导入以下配置，否则启动时报错。
+  	Caused by: java.lang.NullPointerException
+        at org.apache.cxf.endpoint.ServerImpl.start(ServerImpl.java:127)
+        at org.apache.cxf.jaxrs.JAXRSServerFactoryBean.create(JAXRSServerFactoryBean.java:113)
+        ... 63 more
+    
+    It is a config issue, but for 2.2.10 (and trunk), I've made importing that spring config not required.
+  	 -->
+  	<import resource="classpath:META-INF/cxf/cxf-extension-jaxrs-binding.xml" />
+  
+	<jaxrs:server id="baseQueryService" address="/q">
+		<jaxrs:serviceBeans>
+			<ref bean="baseQueryServiceImpl"/>
+		</jaxrs:serviceBeans>
+		<jaxrs:providers>
+	        <!-- <bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/> -->
+	        <!-- <ref bean="jacksonJsonProvider"/> -->
+	        <bean class="org.opoo.apps.ws.jaxrs.AppsJacksonJsonProvider"/>
+	    </jaxrs:providers>
+	</jaxrs:server>
+	
+	<bean id="baseQueryServiceImpl" class="cn.redflagsoft.base.ws.rest.impl.QueryServiceImpl">
+		<property name="queryManager" ref="queryManager"></property>
+	</bean>
+	
+	<!--
+	<bean id="googleJsonpluginAnnotationIntrospector" class="org.opoo.apps.json.jackson.JSONAnnotationIntrospector"/>
+	
+	<bean id="jacksonAnnotationIntrospector" class="org.codehaus.jackson.map.introspect.JacksonAnnotationIntrospector"/>
+	
+	<bean id="annotationIntrospectorPair" class="org.codehaus.jackson.map.AnnotationIntrospector$Pair">
+		<constructor-arg ref="googleJsonpluginAnnotationIntrospector"></constructor-arg>
+		<constructor-arg ref="jacksonAnnotationIntrospector"></constructor-arg>
+	</bean>
+
+	<bean id="objectMapper" class="org.codehaus.jackson.map.ObjectMapper">
+		<property name="annotationIntrospector" ref="annotationIntrospectorPair"></property>
+	</bean>
+	
+	<bean id="jacksonJsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider">
+		<constructor-arg ref="objectMapper"></constructor-arg>
+	</bean>
+	-->
+</beans>
+

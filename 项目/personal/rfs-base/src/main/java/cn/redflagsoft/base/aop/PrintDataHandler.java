@@ -1,0 +1,130 @@
+/*
+ * $Id: PrintDataHandler.java 5827 2012-06-01 10:11:22Z lcj $
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.aop;
+
+import java.lang.reflect.Array;
+import java.util.Map;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.opoo.apps.Model;
+import org.opoo.apps.exception.SystemException;
+import org.opoo.apps.lifecycle.Application;
+
+import cn.redflagsoft.base.service.PrintHandler;
+import cn.redflagsoft.base.web.struts2.interceptor.Printable;
+
+import com.opensymphony.xwork2.Action;
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.util.profiling.UtilTimerStack;
+
+/**
+ * 打印数据处理器。
+ * 
+ * 用在对ACTION的拦截（AspectJ）。
+ * @author Alex Lin
+ * @since 1.5
+ */
+public class PrintDataHandler{
+	private static final Log log = LogFactory.getLog(PrintDataHandler.class);
+	private PrintHandler printHandler;
+	
+	public void preparePrintDataIfRequired(Object returnValue, Printable action) {
+		if(Action.SUCCESS.equals(returnValue)){
+			String printConfig = action.getPrintConfig();
+			boolean xlsExport = action.isXlsExport();
+			Model model = action.getModel();
+			boolean requireRefreshExcelRowHeight = action.isRequireRefreshExcelRowHeight();
+			
+			if(StringUtils.isNotBlank(printConfig) && model != null){
+				//处理打印相关的操作。
+				//这期间result可能改变。
+				
+				if(log.isDebugEnabled()){
+					log.debug("处理打印数据：" + model + ", 数据量：" + model.getTotal());
+				}
+				
+				String profileKey = "处理打印数据：";
+				
+				try{
+					UtilTimerStack.push(profileKey);
+					appendActionParameters(model);
+					Model m = getPrintHandler().preparePrint(printConfig, model, xlsExport, requireRefreshExcelRowHeight);
+					//以现在的处理结果替换原来的处理结果。
+					action.setModel(m);
+				}catch(Exception e){
+					SystemException se = null;
+					if(e instanceof SystemException){
+						se = (SystemException) e;
+					}else{
+						se = new SystemException("准备打印或导出数据时发生异常", e);
+					}
+					model.setMessage(false, se.getMessage(), se.getExceptionId());
+					//model.setMessage(false, "处理打印数据出错：" + e.getMessage(), null);
+					if(log.isDebugEnabled()){
+						log.debug("处理打印数据出错", se);
+					}
+				}finally{
+//					ThreadLocalTempFileUtils.deleteTempFiles();
+					UtilTimerStack.pop(profileKey);
+				}
+				
+			}else{
+				if(log.isDebugEnabled()){
+					//log.debug("不符合打印条件，config=" + printConfig + ", model=" + model);
+					log.debug("根据配置，该查询不是打印。");
+				}
+			}
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	protected void appendActionParameters(Model model){
+		//处理参数
+		try {
+			//判断Model是不是有setParameters方法，在apps-1.5以及
+			//1.5.1的部分版本中没有这个方法。
+			//throws NoSuchMethodException
+			Model.class.getMethod("setParameters", Map.class);
+			
+			Map<String,Object> map = ActionContext.getContext().getParameters();
+			for(Map.Entry<String, ?> en: map.entrySet()){
+				Object value = en.getValue();
+				if(value != null && value.getClass().isArray() && Array.getLength(value) == 1){
+					map.put(en.getKey(), Array.get(value, 0));
+				}
+			}
+			model.setParameters(map);
+		} catch(NoSuchMethodException e){
+			log.warn("Model缺少方法setParameters，忽略错误，继续执行", e);
+		}catch (Throwable e) {
+			log.warn("准备打印数据的额外参数时发生错误，忽略错误，继续执行", e);
+		}
+	}
+
+	/**
+	 * @return the printHandler
+	 */
+	public PrintHandler getPrintHandler() {
+		if(printHandler == null){
+			printHandler = Application.getContext().get("printHandler", PrintHandler.class);
+		}
+		return printHandler;
+	}
+
+	/**
+	 * @param printHandler the printHandler to set
+	 */
+	public void setPrintHandler(PrintHandler printHandler) {
+		this.printHandler = printHandler;
+	}
+
+}

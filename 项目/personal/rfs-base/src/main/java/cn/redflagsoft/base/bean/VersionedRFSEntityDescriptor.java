@@ -1,0 +1,69 @@
+/*
+ * $Id: VersionedRFSEntityDescriptor.java 4615 2011-08-21 07:10:37Z lcj $
+ * 
+ * Copyright 2007-2009 RedFlagSoft.CN All Rights Reserved.
+ * RedFlagSoft PROPRIETARY/CONFIDENTIAL.
+ *
+ * 未经深圳市红旗信息技术有限公司许可，任何人不得擅自（包括但不限于：
+ * 以非法的方式复制、传播、展示、镜像、上载、下载、引用）使用。
+ */
+package cn.redflagsoft.base.bean;
+
+/**
+ * @author Alex Lin(alex@opoo.org)
+ *
+ */
+public class VersionedRFSEntityDescriptor extends RFSEntityDescriptor {
+	private static final long serialVersionUID = -6418967638262827956L;
+	protected int version = -1;
+	
+	public VersionedRFSEntityDescriptor(RFSEntityObject bean) {
+		super(bean);
+	}
+
+	public VersionedRFSEntityDescriptor() {
+		super();
+	}
+
+	public VersionedRFSEntityDescriptor(int objectType, long objectID, int version) {
+		super(objectType, objectID);
+		this.version = version;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		if (!super.equals(o)) {
+			return false;
+		}
+
+		VersionedRFSEntityDescriptor that = (VersionedRFSEntityDescriptor) o;
+
+		if (version != that.version) {
+			return false;
+		}
+
+		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = super.hashCode();
+		result = 31 * result + version;
+		return result;
+	}
+
+	@Override
+	public String toString() {
+		return "VersionedRFSEntityDescriptor{" + super.toString() + ", version=" + version + '}';
+	}
+}

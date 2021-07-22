@@ -1,0 +1,73 @@
+针对使用第三方编译指令（即设置了executable，fork=true）的情况下，有以下2类问题容易出现，必须注意
+
+
+
+1. 在2.0.2的版本下，
+===================================================================================================================
+<plugin>
+	<artifactId>maven-compiler-plugin</artifactId>
+	<version>2.0.2</version>
+	<configuration>
+		<source>1.5</source>
+		<target>1.5</target>
+		<executable>java -jar jocky-1.0.3.jar</executable>
+		<verbose>true</verbose>
+		<fork>true</fork>
+		<compilerArgument>-scramble:package</compilerArgument>
+		<showWarnings>true</showWarnings>
+		<encoding>GBK</encoding>
+	</configuration>
+</plugin>
+
+编译时，executable的两边不会被自动加上空格，executable后面的参数也不会被自动加上空格，所以最终
+执行的编译指令示例如下
+
+java -jar jocky-1.0.3.jar @D:/temp/org.codehaus.plexus.compiler.javac.JavacCompiler5904117506518157246arguments
+
+最后一个参数是编译时所需的参数列表所在的文件，而且这个文件位于系统当前用户的临时目录中，由于这个
+参数没有加引号，所以如果临时目录恰好有空格（默认的临时目录一般都是这样C:\Documents and Settings
+\Administrator\Local settings\Temp），那么执行时就会出错。
+
+-----------------------------
+要解决这个问题，只需要将临时目录设置到没有空格的路径即可。
+
+
+
+2. 在2.0.2以后的版本（如2.3.2)
+===================================================================================================================
+2.0.2以后的版本(具体从哪个版本起不详)中，executable和后面的参数都默认会加上空格，上面示例执行时
+如下
+
+"java -jar jocky-1.0.3.jar" "@D:/temp/org.codehaus.plexus.compiler.javac.JavacCompiler5904117506518157246arguments"
+
+此时，后面的参数临时目录有无空格都没有问题，但是前面要执行的executable则有问题，加了引号后“java -jar jocky-1.0.3.jar”
+当成一个完整的指令调用，会出现
+
+'"java -jar jocky-1.0.3.jar"' 不是内部或外部命令，也不是可运行的程序或批处理文件。
+
+------------------------------
+解决这个问题，需要将单独定义到一个批处理中，然后executable中设置批处理文件名即可
+
+
+pom.xml
+----------
+<plugin>
+	<artifactId>maven-compiler-plugin</artifactId>
+	<version>2.3.2</version>
+	<configuration>
+		<source>1.5</source>
+		<target>1.5</target>
+		<executable>cp.cmd</executable>
+		<verbose>true</verbose>
+		<fork>true</fork>
+		<compilerArgument>-scramble:package</compilerArgument>
+		<showWarnings>true</showWarnings>
+		<encoding>GBK</encoding>
+	</configuration>
+</plugin>
+
+
+cp.cmd
+----------
+java -jar jocky-1.0.3.jar %1
+

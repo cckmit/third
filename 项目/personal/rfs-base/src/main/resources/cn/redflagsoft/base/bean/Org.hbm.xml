@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="cn.redflagsoft.base.bean.Org" table="ORG">
+
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>
+		
+		<property name="objectID" column="OBJECTID" type="java.lang.Long"/>
+		
+		<property name="type" column="TP" type="int"/>
+		
+		<property name="code" column="CODE" type="java.lang.String"/>
+		
+		<property name="name" column="NAME" type="java.lang.String"/>
+		
+		<property name="abbr" column="ABBR" type="java.lang.String"/>
+		
+		<property name="entityCode" column="ENTITY_CODE" type="java.lang.String"/>
+		
+		<property name="license" column="LICENSE" type="java.lang.String"/>
+		
+		<property name="authorizer" column="AUTHORIZER" type="java.lang.String"/>
+		
+		<property name="holder" column="HOLDER" type="java.lang.String"/>
+		
+		<property name="manager" column="MANAGER" type="java.lang.String"/>
+		
+		<property name="parents" column="PARENTS" type="short"/>
+		
+		<property name="children" column="CHILDREN" type="short"/>
+		
+		<property name="telNo" column="TELNO" type="java.lang.String"/>
+		
+		<property name="faxNo" column="FAXNO" type="java.lang.String"/>
+		
+		<property name="legalAddr" column="LEGAL_ADDR" type="java.lang.String"/>
+		
+		<property name="workAddr" column="WORK_ADDR" type="java.lang.String"/>
+		
+		
+		<property name="categoryId" column="CATEGORY_ID" type="java.lang.Long"/>
+		<property name="categoryName" column="CATEGORY_NAME" type="java.lang.String"/>
+		
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="creator" column="CREATOR" type="java.lang.Long"/>
+		
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+		<property name="modifier" column="MODIFIER" type="java.lang.Long"/>
+		
+		<property name="modificationTime" column="MTIME" type="java.sql.Timestamp"/>
+		
+		<property name="remark" column="REMARK" type="java.lang.String"/>		
+		
+		<property name="displayOrder" column="DISPLAY_ORDER" type="java.lang.Integer"/>
+		
+		<property name="parentOrgId" column="PARENT_ORG_ID" type="java.lang.Long"/>
+		
+		<property name="districtCode" column="DISTRICT_CODE" type="java.lang.String"/>
+		
+		<property name="districtName" column="DISTRICT_NAME" type="java.lang.String"/>
+		
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class  name="cn.redflagsoft.base.bean.ExDataRisk" table="EX_DATA_RISK">
+		<id name="recID" column="RECID" type="java.lang.Long">
+			<generator class="assigned"/>
+		</id>	
+		
+		<property name="dataID" column="DATAID" type="java.lang.Long"/>
+		
+		<property name="status" column="STATUS" type="byte"/>
+		
+		<property name="creationTime" column="CTIME" type="java.sql.Timestamp"/>
+		
+		<property name="exTime" column="extime" type="java.sql.Timestamp"/>
+	
+		<property name="remark" column="REMARK" type="java.lang.String"/>
+		
+	</class>
+</hibernate-mapping>
