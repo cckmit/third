@@ -19,7 +19,11 @@ public class DeptController_Provider_8080 {
     private DiscoveryClient client;
     @RequestMapping("/list")
     public List<Dept> list(){
-        return deptService.findAll();
+        List<Dept> list = deptService.findAll();
+        for (Dept dept : list) {
+            dept.setOrigDataBase("springcloud1");
+        }
+        return list;
     }
     @RequestMapping("/get/{id}")
     public Dept get(@PathVariable Long id){

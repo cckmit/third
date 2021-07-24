@@ -158,11 +158,13 @@ Eureka可以很好的应对因网络故障导致部分节点失去联系的情�
 
 #### Ribbon瑞本
 
-基于netfix的客户端的负载均衡工具
+基于netfix的客户端的负载均衡工具，基于http和tcp协议的客户端负载均衡工具。
 
 pom.xml引入依赖，并在RestTemplate类前加注解@LoadBalanced
 
 此处展示的ribbon与Eureka配合的负载均衡
+
+第一步：添加ribbon的依赖关系
 
 ```xml
 <dependency>
@@ -196,19 +198,64 @@ public RestTemplate getRestTemplate(){
 
 ​		1.AbstractLoadBalancerRule是每个负载均衡策略需要直接继承的类，Ribbon提供的几个负载均衡策略，都继承了这个抽象类。同理，我们如果需要自定义负载均衡策略，也要继承这个抽象类。
 
-​		2.不能放在@ComponentScan所扫描的当前包和子包下
+​		2.不能放在@ComponentScan所扫描的当前包和子包下（springboot的主启动类@SpringBootApplication中引入了@ComponentScan，相当于扫描了当前包机器自包）
+
+```java
+@SpringBootConfiguration
+@EnableAutoConfiguration
+@ComponentScan(
+    excludeFilters = {@Filter(
+    type = FilterType.CUSTOM,
+    classes = {TypeExcludeFilter.class}
+), @Filter(
+    type = FilterType.CUSTOM,
+    classes = {AutoConfigurationExcludeFilter.class}
+)}
+)
+public @interface SpringBootApplication {
+```
 
 ​		3.在主启动类添加@RibbonClient(name="微服务名称", configuration="自定义配置类.class")
 
-**轮询策略**
+**轮询策略**   
+
+轮询策略理解起来比较简单，就是拿到所有的server集合，然后根据id进行遍历。这里的id是ip+端口，Server实体类中定义的id属性如下
+
+```java
+RoundRobinRule
+```
 
 **随机策略**
 
+使用jdk自带的随机数生成工具，生成一个随机数，然后去可用服务列表中拉取服务节点Server。如果当前节点不可用，则进入下一轮随机策略，直到选到可用服务节点为止
+
+```
+RandomRule
+```
+
 **可用过滤策略**
+
+~~~
+AvailabilityFilteringRule
+~~~
+
+过滤掉连接失败的服务节点，并且过滤掉高并发的服务节点，然后从健康的服务节点中，使用轮询策略选出一个节点返回
 
 **响应时间权重策略**
 
+~~~java
+WeightedResponseTimeRule
+~~~
+
+根据响应时间，分配一个权重weight，响应时间越长，weight越小，被选中的可能性越低
+
 **并发量最小可用策略**
+
+~~~
+BestAvailableRule
+~~~
+
+选择一个并发量最小的server返回。如何判断并发量最小呢？ServerStats有个属性activeRequestCount，这个属性记录的就是server的并发量。轮询所有的server，选择其中activeRequestCount最小的那个server，就是并发量最小的服务节点
 
 #### Feign费恩
 
@@ -264,7 +311,15 @@ public interface DeptClientService {
 }
 ```
 
-##### 
+@PathVariable
+
+识别url中携带的参数
+
+@RequestParam
+
+识别request请求中携带的参数
+
+@PathParam
 
 ### Hystrix断路器	
 

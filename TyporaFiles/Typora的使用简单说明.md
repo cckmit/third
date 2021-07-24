@@ -67,9 +67,7 @@
 
 + 插入代码块：输入三个~ 即{~~~}
 
-+ 插入图片：Ctrl +   Shift  +   I 或者拖动图片即可 
-
-[中国人](http://www.baidu.com)
++ 插入图片：Ctrl +   Shift  +   I 或者拖动图片即可 http://www.baidu.com)
 
 *H~2~O*
 

@@ -7,8 +7,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="springcloud2_api" />
         <module name="springcloud2_payModule8002" />
+        <module name="springcloud2_api" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

@@ -1,7 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="bb79773b-f29e-4040-8a01-6199fbbe9e65" name="Default Changelist" comment="" />
+    <list default="true" id="bb79773b-f29e-4040-8a01-6199fbbe9e65" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../microservicecloud/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../microservicecloud/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/springCloud/git使用.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud/mc_hystix_dashboard_9001/mc_hystix_dashboard_9001.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud/.idea/microservicecloud.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-api-nx/microservicecloud-api-nx.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-config-client/microservicecloud-config-client.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-config-provider/microservicecloud-config-provider.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-custom-80/microservicecloud-custom-80.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-custom-80/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud/microservicecloud-custom-80/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-custom-80/src/main/java/com/beitie/custom/configBeans/ConfigBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud/microservicecloud-custom-80/src/main/java/com/beitie/custom/configBeans/ConfigBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-custom-80/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud/microservicecloud-custom-80/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-custom-80/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud/microservicecloud-custom-80/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-custom-80/target/classes/com/beitie/custom/DeptController_Consumer_80.class" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud/microservicecloud-custom-80/target/classes/com/beitie/custom/DeptController_Consumer_80.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-custom-feign80/microservicecloud-custom-feign80.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-eureka-config7001/microservicecloud-eureka-config7001.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-provider-8002/microservicecloud-provider-8002.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-provider-8003/microservicecloud-provider-8003.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-provider-8080/microservicecloud-provider-8080.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-provider-8080/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud/microservicecloud-provider-8080/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-provider-8080/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud/microservicecloud-provider-8080/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-provider-hystrix8080/microservicecloud-provider-hystrix8080.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud/microserviceeureka7001/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud/microserviceeureka7001/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud/microserviceeureka7001/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud/microserviceeureka7001/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud/microserviceeureka7002/microserviceeureka7002.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud/microserviceeureka7002/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud/microserviceeureka7002/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud/microserviceeureka7002/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud/microserviceeureka7002/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud/microserviceeureka7003/microserviceeureka7003.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud/microserviceeureka7003/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud/microserviceeureka7003/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud/microserviceeureka7003/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud/microserviceeureka7003/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springcloud2_api/springcloud2_api.iml" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,19 +54,15 @@
       </list>
     </option>
   </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHome" value="D:/worksoft/apache-maven-3.2.5" />
-      </MavenGeneralSettings>
-    </option>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
   </component>
   <component name="MavenRunner">
     <option name="skipTests" value="true" />
   </component>
   <component name="ProjectId" id="1t7lUO6U211F4vFmDkSjwjJk1vf" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
@@ -35,10 +70,17 @@
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth0" value="75" />
     <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/springcloud2_payModule8001/src/main/resources" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../microservicecloud" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="project.structure.last.edited" value="Facets" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -73,6 +115,7 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -86,65 +129,14 @@
       <workItem from="1622128026137" duration="871000" />
       <workItem from="1622208544434" duration="5565000" />
       <workItem from="1623765916788" duration="503000" />
+      <workItem from="1626950400709" duration="1858000" />
+      <workItem from="1627035867138" duration="1229000" />
+      <workItem from="1627090777604" duration="23000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="275" y="21" key="#Project_Structure" timestamp="1622212630832">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="275" y="21" key="#Project_Structure/0.0.1366.728@0.0.1366.728" timestamp="1622212630832" />
-    <state width="1306" height="445" key="GridCell.Tab.0.bottom" timestamp="1622214119004">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="1306" height="445" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1622214119004" />
-    <state width="1306" height="445" key="GridCell.Tab.0.center" timestamp="1622214119004">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="1306" height="445" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1622214119004" />
-    <state width="1306" height="445" key="GridCell.Tab.0.left" timestamp="1622214119004">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="1306" height="445" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1622214119004" />
-    <state width="1306" height="445" key="GridCell.Tab.0.right" timestamp="1622214119004">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="1306" height="445" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1622214119004" />
-    <state width="1306" height="445" key="GridCell.Tab.1.bottom" timestamp="1622214119004">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="1306" height="445" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1622214119004" />
-    <state width="1306" height="445" key="GridCell.Tab.1.center" timestamp="1622214119004">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="1306" height="445" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1622214119004" />
-    <state width="1306" height="445" key="GridCell.Tab.1.left" timestamp="1622214119004">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="1306" height="445" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1622214119004" />
-    <state width="1306" height="445" key="GridCell.Tab.1.right" timestamp="1622214119004">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="1306" height="445" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1622214119004" />
-    <state x="184" y="0" key="SettingsEditor" timestamp="1622213142561">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="184" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1622213142561" />
-    <state x="53" y="57" key="new project wizard" timestamp="1622213330734">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="53" y="57" key="new project wizard/0.0.1366.728@0.0.1366.728" timestamp="1622213330734" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1622213425208">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1622213425208" />
-    <state x="384" y="46" key="spring file set editor" timestamp="1622213056587">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="384" y="46" key="spring file set editor/0.0.1366.728@0.0.1366.728" timestamp="1622213056587" />
+    <option name="version" value="3" />
   </component>
   <component name="se.expertsystem.intellij.aop.aspectj.AspectJProjectComponent">
     <setting name="isActivated" value="false" />
