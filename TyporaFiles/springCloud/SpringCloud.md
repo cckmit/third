@@ -68,6 +68,8 @@ eureka:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/ #服务注册需要连接的路径（接口）	
 ```
 
+ defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/不能少了/eureka/的后缀
+
 3.启动类中添加@EnableEurekaServer
 
 ##### **EurekaClient**
@@ -191,6 +193,12 @@ pom.xml引入依赖，并在RestTemplate类前加注解@LoadBalanced
 @LoadBalanced // ribbon基于netfix的一种客户端开发工具，负责负载均衡
 public RestTemplate getRestTemplate(){
     return new RestTemplate();
+}
+@RibbonClient(name = "MICROSERVICECLOUD-DEPT-PROVIDER",configuration = RandomRule.class)
+public class DeptController_Consumer_80 {
+    public static void main(String[] args) {
+        SpringApplication.run(DeptController_Consumer_80.class,args);
+    }
 }
 ```
 
@@ -327,7 +335,40 @@ public interface DeptClientService {
 
 扇出：像扇子展开一样，环环相扣（A调用B和C，B和C调用其他），一旦其中一个服务出现故障，当用户又访问此服务过多时，就会占用过多的资源
 
+超时机制
+通过网络请求其他服务器时，都必须设置超时。正常情况下，一个远程调用一般在几十毫秒内就返回了。当依赖的服务不可用，或者因为网络问题，响应时间将会变得很长（几十秒）。而通常情况下，一次远程调用对应了一个线程/进程，如果响应太慢，那个线程/进程就会得不到释放。而线程/进程都对应了系统资源，如果大量的线程/进程得不到释放，并且越积越多，服务资源就会被耗尽，从而导致自身服务不可用。
+
 hystrix的功能：当某个服务出现异常之时，向调用方返回一个fallback（用以处理异常之时的返回提示信息）
+
+![img](https://img-blog.csdnimg.cn/20190830100649185.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTM1MTc3OTc=,size_16,color_FFFFFF,t_70)
+
+在Spring Cloud中，只要Hystrix在项目的classpath中，Feign就会用断路器包裹Feign客户端的所有方法，如果要禁用Hystrix则可以通过自定义feign的配置来解决。
+
+**feign禁用Hystrix**
+
+在Spring Cloud中，只要Hystrix在项目的classpath中，Feign就会用断路器包裹Feign客户端的所有方法，如果要禁用Hystrix则可以通过自定义feign的配置来解决。
+
+要禁用Hystrix的接口引用该配置即可
+
+```java
+@Configuration
+public class FeignConfiguration{
+     @Bean
+     @Scope("prototype")
+     public Feign Builder feignBuilder(){
+           return Feign.builder();
+     }
+}
+```
+
+要禁用Hystrix的接口引用该配置即可
+
+```java
+@FeignClient(name="hello",configuration=FeignConfiguration.class)
+public interface HelloService{
+    ......
+}
+```
 
 pom文件的引入
 
@@ -355,7 +396,11 @@ public Dept get(@PathVariable Long id){
  }
 ```
 
-批量处理服务异常情况
+
+
+**feign禁用Hystrix**
+
+​	**批量处理服务异常情况**FallbackFactory<T>
 
 1、定义一个实现了FallBackFactory接口的类
 
