@@ -10,7 +10,7 @@ import org.springframework.cloud.netflix.ribbon.RibbonClient;
 
 @SpringBootApplication
 @EnableEurekaClient
-@RibbonClient(name = "MICROSERVICECLOUD-DEPT-PROVIDER",configuration = RandomRule.class)
+@RibbonClient(name = "MICROSERVICECLOUD-DEPT-PROVIDER",configuration = RoundRobinRule.class)
 public class DeptController_Consumer_80 {
     public static void main(String[] args) {
         SpringApplication.run(DeptController_Consumer_80.class,args);

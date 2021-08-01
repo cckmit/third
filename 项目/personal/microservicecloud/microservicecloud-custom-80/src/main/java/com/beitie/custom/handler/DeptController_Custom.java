@@ -11,7 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/consumer")
 public class DeptController_Custom {
-//    public static  final String PREFIX="http://localhost:8080/dept/";
+//    public static  final String PREFIX="http://localhost:8002/dept/";
     public static  final String PREFIX="http://MICROSERVICECLOUD-DEPT-PROVIDER/dept/";
     @Autowired
     private RestTemplate restTemplate;

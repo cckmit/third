@@ -19,6 +19,7 @@ public class DeptController_Provider_8080 {
     private DiscoveryClient client;
     @RequestMapping("/list")
     public List<Dept> list(){
+        System.out.println("从springcloud获取数据");
         List<Dept> list = deptService.findAll();
         for (Dept dept : list) {
             dept.setOrigDataBase("springcloud1");

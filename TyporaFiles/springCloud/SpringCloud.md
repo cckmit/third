@@ -32,6 +32,8 @@ https://spring.io/projects/spring-cloud
 
 约定  》  配置   》 编码
 
+## 注册中心
+
 ### Eureka 尤瑞克
 
 核心功能是注册和发现服务，是一种基于rest风格访问的框架，一种cs框架，分为服务端和客户端
@@ -156,7 +158,62 @@ Zookeeper保证了cp原则
 
 Eureka可以很好的应对因网络故障导致部分节点失去联系的情况，而不会像zookeeper那样使整个注册服务瘫痪。Eureka作为单纯的服务注册中心来说要比zookeeper更加“专业”，因为注册服务更重要的是可用性，我们可以接受短期内达不到一致性的状况。
 
-### 负载均衡LB
+### Consul 康素偶
+
+作为服务的注册和发现中心
+
+- 服务发现
+- 健康检查
+- Key/Value 存储
+- 多数据中心
+
+使用：
+
+1、官网下载consul的可执行文件
+
+2、在cmd命令下执行，执行成功后访问http://localhost:8500，看到访问界面，证明服务启动成功
+
+```yml
+consul agent -dev  # -dev表示开发模式运行，另外还有-server表示服务模式运行
+```
+
+3、开发服务端server
+
+引入依赖
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-consul-discovery</artifactId>
+</dependency>
+```
+
+配置yml文件
+
+```yml
+spring:
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        service-name: microservicecloud-dept-provider-consul
+```
+
+启动类
+
+```java
+@SpringBootApplication
+@EnableDiscoveryClient
+public class ConsulProducerApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(ConsulProducerApplication.class, args);
+	}
+}
+```
+
+## 负载均衡LB
 
 #### Ribbon瑞本
 
@@ -536,13 +593,15 @@ public class DeptController_Consumer_feign80 {
 
 ### ZUUL
 
-zull是基于Eureka的对请求的路由和过滤，注册在Eureka集群里面，然后再访问集群中的服务。
+zull是基于Eureka的对请求的路由【**URL**到**函数**的**映射**】和过滤，注册在Eureka集群里面，然后再访问集群中的服务。
 
 - 统一管理微服务请求，权限控制、负载均衡、路由转发、监控、安全控制黑名单和白名单等
 
 路由功能是代理外部请求访问到对应的微服务上面，是外部访问的统一入口
 
 过滤功能是负责对请求的过程进行干预，实现请求验证	、服务聚合等功能。
+
+1、简化客户端调用复杂度
 
 使用：
 
@@ -568,7 +627,7 @@ zuul:
   routes:
     aaa.serviceId: microservicecloud-dept-provider # 当前需要路由映射配置的服务id
     aaa.path:  /mydept/**	# 服务映射实际应该访问的路径
-    aaa.url: http://myserver/
+    aaa.url: http://localhost/
   ignored-services: microservicecloud-dept-provider #"*"代表忽略所有的微服务 不能通过服务名字对服务进行调用
   prefix: /beitie	# 为所有访问该集群中的服务的请求统一带上前缀（显示标志）
 ```
@@ -587,119 +646,339 @@ public class ZuulAppStart_9527 {
 }
 ```
 
+有prefix的话，访问http://localhost:9527/beitie/tie/mydept/consumer/list，实际访问地址http://localhost/consumer/list
 
+无prefix情况下，访问http://localhost:9527/tie/mydept/consumer/list，实际访问地址http://localhost/consumer/list
 
-### git的常用命令
+**网关的默认路由规则**
 
-​	git是分布式版本管理工具，可以管理一个开发项目的源码历史记录
+但是如果后端服务多达十几个的时候，每一个都这样配置也挺麻烦的，spring cloud zuul已经帮我们做了默认配置。默认情况下，Zuul会代理所有注册到Eureka Server的微服务，并且Zuul的路由规则如下：**`http://ZUUL_HOST:ZUUL_PORT/微服务在Eureka上的serviceId/**`会被转发到serviceId对应的微服务。
 
-​	github是围绕git工具构建的云平台
+```yml
+zuul:
+  routes:
+#    aaa.serviceId: microservicecloud-dept-provider
+#    aaa.path:  /tie/mydept/**
+#    aaa.url: http://localhost/
+#  ignored-services: microservicecloud-dept-provider # "*"代表忽略所有的微服务
+```
 
-​	git是一个开发者在本地按照的工具
+访问http://localhost:9527/microservicecloud-dept-provider/dept/list时，会自动跳转到http://()[微服务对应的ip地址或者域]):（[微服务对应的端口号]）/dept/list
 
-​	github是一个在线服务，它可以存储并运行计算机推送的代码（git推送）
+#### Zuul的核心
 
+Filter时zull的核心，用来实现对外部服务的控制。Filter的生命周期有4个，分别“pre”，“routing”，“post”，“error”，整个生命周期用下图所示：
 
+![img](http://favorites.ren/assets/images/2018/springcloud/zuul-core.png)
 
-命令 
+##### filter类型
 
-git config --list
+- **PRE：** 这种过滤器在请求被路由之前调用。我们可利用这种过滤器实现身份验证、在集群中选择请求的微服务、记录调试信息等。
+- **ROUTING：**这种过滤器将请求路由到微服务。这种过滤器用于构建发送给微服务的请求，并使用Apache HttpClient或Netfilx Ribbon请求微服务。
+- **POST：**这种过滤器在路由到微服务以后执行。这种过滤器可用来为响应添加标准的HTTP Header、收集统计信息和指标、将响应从微服务发送给客户端等。
+- **ERROR：**在其他阶段发生错误时执行该过滤器。 除了默认的过滤器类型，Zuul还允许我们创建自定义的过滤器类型。例如，我们可以定制一种STATIC类型的过滤器，直接在Zuul中生成响应，而不将请求转发到后端的微服务。
 
-git config --global --list
+##### Zuul中默认实现的Filter
 
-git init
+| 类型  | 顺序 | 过滤器                  | 功能                       |
+| :---- | :--- | :---------------------- | :------------------------- |
+| pre   | -3   | ServletDetectionFilter  | 标记处理Servlet的类型      |
+| pre   | -2   | Servlet30WrapperFilter  | 包装HttpServletRequest请求 |
+| pre   | -1   | FormBodyWrapperFilter   | 包装请求体                 |
+| route | 1    | DebugFilter             | 标记调试标志               |
+| route | 5    | PreDecorationFilter     | 处理请求上下文供后续使用   |
+| route | 10   | RibbonRoutingFilter     | serviceId请求转发          |
+| route | 100  | SimpleHostRoutingFilter | url请求转发                |
+| route | 500  | SendForwardFilter       | forward请求转发            |
+| post  | 0    | SendErrorFilter         | 处理有错误的请求响应       |
+| post  | 1000 | SendResponseFilter      | 处理正常的请求响应         |
 
-touch a.txt	新建a.txt文件
+**禁用指定的Filter**
 
-cat a.txt 查看文件的内容
+可以在application.yml中配置需要禁用的filter，格式：
 
-git log 查看日志
+```yml
+zuul:
+	FormBodyWrapperFilter:
+		pre:
+			disable: true
+```
 
-git status 查看当前工作空间的状态
+##### 自定义Filter
 
-git commit -m "提交信息"
+实现自定义Filter，需要继承ZuulFilter的类，并覆盖其中的4个方法。
 
-git config --global user.name = "qingfeng"
+```java
+public class MyFilter extends ZuulFilter {
+    @Override
+    String filterType() {
+        return "pre"; //定义filter的类型，有pre、route、post、error四种
+    }
 
-git conifg --global user.email = "8967557002qq.com"
+    @Override
+    int filterOrder() {
+        return 10; //定义filter的顺序，数字越小表示顺序越高，越先执行
+    }
 
-git remote add origin git@github.com:beitieforerver/myfirstRepository  添加服务器源
+    @Override
+    boolean shouldFilter() {
+        return true; //表示是否需要执行该filter，true表示执行，false表示不执行
+    }
 
-git remote rm origin  移除服务器源
+    @Override
+    Object run() {
+        return null; //filter需要执行的具体操作
+    }
+}
+```
 
-git push -u origin master 向服务端提交本地数据库master
+```java
+package com.betie.filter;
 
-ls 列出当前目录所有的文件和文件夹
+import com.netflix.zuul.ZuulFilter;
+import com.netflix.zuul.context.RequestContext;
+import org.apache.commons.lang.StringUtils;
 
-git reset --hard head^2回退两个版本
+import javax.servlet.http.HttpServletRequest;
 
-git reset --hard [版本号] 回退到某个版本号（版本号的前四位）
+public class TokenFilter extends ZuulFilter {
 
-pwd 查看当前所在的目录位置
+    @Override
+    public String filterType() {
+        return "pre";
+    }
 
-步骤：
+    @Override
+    public int filterOrder() {
+        return 0;
+    }
 
-1、创建一个目录，并进入目录
+    @Override
+    public boolean shouldFilter() {
+        return true;
+    }
 
-2、执行git init命令，在当前目录中生成一个git仓库
+    @Override
+    public Object run() {
+        RequestContext ctx=RequestContext.getCurrentContext();
+        HttpServletRequest request=ctx.getRequest();
+        String token = request.getParameter("tk");
+        if(StringUtils.isBlank(token)){
+            ctx.setSendZuulResponse(false);
+            ctx.setResponseStatusCode(400);
+            ctx.set("isSuccess",true);
+            ctx.setResponseBody("没有携带token访问不成功");
+            ctx.getResponse().setContentType("text/html;charset=utf-8");
+        }else{
+            ctx.setSendZuulResponse(true);
+            ctx.setResponseStatusCode(200);
+            ctx.set("isSuccess",true);
+        }
+        return null;
+    }
+}
+```
 
-3、创建文件或者修改文件
+以上事例实现了访问时必须携带tk，否则系统无法进入
 
-4、git add . [application.xml] 添加所有的或者某个文件到index
+ctx.getResponse().setContentType("text/html;charset=utf-8");设置防止中文乱码
 
-git  remote add origin "github上面的ssh访问路径"
+##### 路由熔断
 
-5、git commit -m"本次提交的信息备注"
+当我们的后端服务出现异常的时候，我们不希望将异常抛出给最外层，期望服务可以自动进行一降级。Zuul给我们提供了这样的支持。当某个服务出现异常时，直接返回我们预设的信息。
 
-6、git  push 推送到github对应的库
+我们通过自定义的fallback方法，并且将其指定给某个route来实现该route访问出问题的熔断处理。主要继承ZuulFallbackProvider接口来实现，ZuulFallbackProvider默认有两个方法，一个用来指明熔断拦截哪个服务，一个定制返回内容。
 
-访问github服务器上文件内容格式
+```java
+public interface ZuulFallbackProvider {
+   /**
+	 * The route this fallback will be used for.
+	 * @return The route the fallback will be used for.
+	 */
+	public String getRoute();
 
-/{application}/ {profile}[/{labe1}]
-1 {application}-{profile} .yml
-/{1abe1}/{application}- {profiley. yml
-/ {application}- {profile} .properties
-/ {labe1}/ {application}- {profile}. properties
+	/**
+	 * Provides a fallback response.
+	 * @return The fallback response.
+	 */
+	public ClientHttpResponse fallbackResponse();
+}
+```
 
+后来Spring又扩展了此类，丰富了返回方式，在返回的内容中添加了异常信息，因此最新版本建议直接继承类`FallbackProvider` 
 
+```java
+package com.betie.fusing;
 
-#### 新机器的操作步骤
+import org.springframework.cloud.netflix.zuul.filters.route.ZuulFallbackProvider;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.stereotype.Component;
 
-1、安装git客户端
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+@Component
+public class ProducerFallback implements ZuulFallbackProvider {
+    @Override
+    public String getRoute() {
+        return "microservicecloud-dept-provider";
+    }
 
-2、在磁盘上新建一个文件夹 ，并执行 git init 命令，初始化数据
+    @Override
+    public ClientHttpResponse fallbackResponse() {
+        return new ClientHttpResponse() {
+            @Override
+            public HttpStatus getStatusCode() throws IOException {
+                return HttpStatus.OK;
+            }
 
-~~~git
-git init
+            @Override
+            public int getRawStatusCode() throws IOException {
+                return 200;
+            }
+
+            @Override
+            public String getStatusText() throws IOException {
+                return "好的";
+            }
+
+            @Override
+            public void close() {
+
+            }
+
+            @Override
+            public InputStream getBody() throws IOException {
+                return new ByteArrayInputStream("this service unvailable".getBytes());
+            }
+
+            @Override
+            public HttpHeaders getHeaders() {
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.APPLICATION_JSON);
+                return headers;
+            }
+        };
+    }
+}
+```
+
+目前的zuul只支持服务级别的熔断，不支持具体url的熔断
+
+访问需要通过服务名访问http://localhost:9527/microservicecloud-dept-provider/dept/get/11?tk=1
+
+而不是http://localhost:9527/beitie/dept/index?tk=1，只支持服务级别的熔断
+
+##### 路由重试
+
+​	1、添加依赖
+
+```java
+<dependency>
+	<groupId>org.springframework.retry</groupId>
+	<artifactId>spring-retry</artifactId>
+</dependency>
+```
+
+​	2、开启Zuul Retry
+
+```yml
+#是否开启重试功能
+zuul.retryable=true
+#对当前服务的重试次数
+ribbon.MaxAutoRetries=2
+#切换相同Server的次数
+ribbon.MaxAutoRetriesNextServer=0
+```
+
+### Sleuth 司璐思
+
+用来跟踪一条完整的http链条，记录服务到服务间的调用，每次调用所耗用的时间
+
+添加pom依赖
+
+```xml
+<dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-sleuth</artifactId>
+ </dependency>
+```
+
+配置yml文件
+
+```yml
+spring:
+  application:
+    name: server-provider1
+server:
+  port: 9000
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://mrbird:123456@peer1:8080/eureka/,http://mrbird:123456@peer2:8081/eureka/
+```
+
+启动类加入@EnableDiscoverClient
+
+```java
+@SpringBootApplication
+@EnableDiscoveryClient
+public class DemoApplication {
+......
+}
+```
+
+如此服务间的调用就会产生额外的信息
+
+~~~tex
+2018-06-25 10:13:40.921  INFO [server-provider1,939ca3c1d060ed40,939ca3c1d060ed40,false] 12516 --- [nio-9000-exec-6] c.e.demo.controller.HelloController      : 调用server-provider1的hello接口
+
 ~~~
 
-3、生成公钥和私钥 ssh-keygen -t rsa -C "896755700@qq.com"
+1. `server-provider2`微服务的名称，与`spring.application.name`对应；
+2. `939ca3c1d060ed40`称为**Trace ID**，在一条完整的请求链路中，这个值是固定的。观察上面的日志即可证实这一点；
+3. `3f31114e88154074`称为**Span ID**，它表示一个基本的工作单元；
+4. `false`表示是否要将该信息输出到Zipkin等服务中来收集和展示，这里我们还没有集成Zipkin，所以为false。
 
-~~~git
-ssh-keygen -t rsa -C "896755700@qq.com"
-~~~
+### Zipkin
 
-4、配置全局用户名和邮箱
+分布式的任务追踪，用于狙击来自各个异构系统的实时监控数据，和微服务架构下的链路以及延时和依赖分析等问题。
 
-~~~git
-git config --global set user.name 'beitieforerver'
-git config --global set user.email '896755700@qq.com'
-git config --global --list 
-~~~
+引入依赖
 
-5、配置远程服务名
+```xml
+ <dependency>
+        <groupId>io.zipkin.java</groupId>
+        <artifactId>zipkin-server</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>io.zipkin.java</groupId>
+        <artifactId>zipkin-autoconfigure-ui</artifactId>
+    </dependency>
 
-~~~git
-git remote add orgin git@github.com:beitieforerver/third
-~~~
+```
 
-6、从远程服务器拉取数据
+### 微服务引入Zipkin
 
-~~~git
-git pull origin master
-~~~
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-sleuth-zipkin</artifactId>
+</dependency>
+```
 
+微服务中yml文件添加配置
 
+```yml
+spring:
+  zipkin:
+    base-url: http://localhost:9100
+```
 
 
 

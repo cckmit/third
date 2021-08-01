@@ -46,6 +46,12 @@ git reset --hard [版本号] 回退到某个版本号（版本号的前四位）
 
 pwd 查看当前所在的目录位置
 
+
+
+git remote -v
+
+git branch -a
+
 步骤：
 
 1、创建一个目录，并进入目录

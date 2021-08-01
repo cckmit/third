@@ -4,6 +4,12 @@ server:
 spring:
   application:
     name: microservicecloud-zull
+  zipkin:
+    base-url: http://localhost:9090
+    sleuth:
+      sampler:
+        percentage: 1.0
+    enabled: true
 eureka:
   client:
     service-url:
@@ -21,6 +27,6 @@ info:
 zuul:
   routes:
     aaa.serviceId: microservicecloud-dept-provider
-    aaa.path:  /tie/mydept/**
-  ignored-services: microservicecloud-dept-provider # "*"代表忽略所有的微服务
-  prefix: /beitie
+    aaa.path:  /beitie/**
+    aaa.url: http://localhost:8002/
+#  ignored-services: microservicecloud-dept-provider # "*"代表忽略所有的微服务

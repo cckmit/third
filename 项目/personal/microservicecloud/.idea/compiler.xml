@@ -24,6 +24,7 @@
         <module name="microserviceeureka7001" />
         <module name="microserviceeureka7003" />
         <module name="microservicecloud-provider-hystrix8080" />
+        <module name="ZipkinServer" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

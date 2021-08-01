@@ -24,6 +24,7 @@
         <module>microservicecloud-config-client</module>
         <module>microservicecloud-eureka-config7001</module>
         <module>microservicecloud-config-provider</module>
+        <module>ZipkinServer</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -36,6 +37,7 @@
         <junit.version>4.12</junit.version>
         <log4j.version>1.2.17</log4j.version>
         <lombok.version>1.16.18</lombok.version>
+        <project.version>1.0-SNAPSHOT</project.version>
     </properties>
     <!--依赖管理器，子model按需引用即可，子模块无需声明版本号-->
     <dependencyManagement>
@@ -43,7 +45,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Dalston.SR1</version>
+                <version>Edgware.SR3</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
