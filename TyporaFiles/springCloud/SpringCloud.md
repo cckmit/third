@@ -895,6 +895,152 @@ ribbon.MaxAutoRetries=2
 ribbon.MaxAutoRetriesNextServer=0
 ```
 
+### Gateway
+
+Spring Cloud Gateway 是 Spring Cloud 的一个全新项目，该项目是基于 **Spring 5.0**，**Spring Boot 2.0** 和 **Project Reactor** 等技术开发的网关，它旨在为微服务架构提供一种简单有效的统一的 API 路由管理方式。
+
+#### 相关概念
+
++ 路由 route
+
+  这是网关的基本构建块。它由一个 ID，一个目标 URI，一组断言和一组过滤器定义。如果断言为真，则路由匹配。
+
++ 预言 predicate
+
+   输入类型是一个 ServerWebExchange。我们可以使用它来匹配来自 HTTP 请求的任何内容，从而来实现路由的匹配规则，例如 headers 或参数。
+
+  ```yml
+  spring:
+    cloud:
+      gateway:
+        routes:
+         - id: host_foo_path_headers_to_httpbin
+          uri: http://ityouknow.com
+          predicates:
+          - Host=**.foo.org
+          - Path=/headers
+          - Method=GET
+          - Header=X-Request-Id, \d+
+          - Query=foo, ba.
+          - Query=baz
+          - Cookie=chocolate, ch.p
+          - After=2018-01-20T06:06:06+08:00[Asia/Shanghai]
+  ```
+
+  
+
+  当多个条件共存时，需要满足所有的条件才能够成功的路由
+
++ 过滤器 filter
+
+  这是`org.springframework.cloud.gateway.filter.GatewayFilter`的实例，我们可以使用它修改请求和响应。
+
+#### 预言用法
+
+见上面 参见 http://www.ityouknow.com/springcloud/2019/01/19/spring-cloud-gateway-service.html
+
+#### filter用法
+
+```yml
+server:
+  port: 8888
+spring:
+  application:
+    name: cloud-gateway-eureka
+  cloud:
+    gateway:
+     discovery:
+        locator:
+         enabled: true
+     routes:
+     - id: add_request_parameter_route
+       uri: http://localhost:9000
+     #  uri: lb://MICROSERVICECLOUD-DEPT-PROVIDER 配置为这种情况时，所有的请求不用再添加服务名，直接用负载均衡策略，在MICROSERVICECLOUD-DEPT-PROVIDER服务的提供者之间进行切换。
+       filters:
+       - AddRequestParameter=foo, bar #添加参数
+       predicates:
+         - Method=GET
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka/
+logging:
+  level:
+    org.springframework.cloud.gateway: debug
+```
+
+​	这样就会在使用网关进行调用服务时为每个请求添加foo=bar的参数
+
+eg：http://localhost:8080/dept/list 不会进行添加，因为没有经过网关调用
+
+http://localhost:6060/MICROSERVICECLOUD-DEPT-PROVIDER/dept/list 通过网关进行调用，会添加参数
+
+#### 使用
+
+server端
+
+引入依赖
+
+升级前：
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-eureka-server</artifactId>
+</dependency>
+```
+
+升级后：
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+</dependency>
+```
+
+客户端：（包含了服务提供者、消费者、以及网关）
+
+升级前：
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-eureka</artifactId>
+</dependency>
+```
+
+升级后：
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+</dependency>
+```
+
+网关gateway配置
+
+```yml
+server:
+  port: 8888
+spring:
+  application:
+    name: cloud-gateway-eureka
+  cloud:
+    gateway:
+     discovery:
+        locator:
+         enabled: true #是否与服务注册于发现组件进行结合，通过 serviceId 转发到具体的服务实例。默认为 false，设为 true 便开启通过服务中心的自动根据 serviceId 创建路由的功能
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka/
+logging:
+  level:
+    org.springframework.cloud.gateway: debug	#调整相 gateway 包的 log 级别，以便排查问题
+```
+
 ### Sleuth 司璐思
 
 用来跟踪一条完整的http链条，记录服务到服务间的调用，每次调用所耗用的时间
