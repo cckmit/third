@@ -957,7 +957,7 @@ spring:
        uri: http://localhost:9000
      #  uri: lb://MICROSERVICECLOUD-DEPT-PROVIDER 配置为这种情况时，所有的请求不用再添加服务名，直接用负载均衡策略，在MICROSERVICECLOUD-DEPT-PROVIDER服务的提供者之间进行切换。
        filters:
-       - AddRequestParameter=foo, bar #添加参数
+       - AddRequestParameter=foo, bar #为所有经过网关的请求添加参数foo=bar
        predicates:
          - Method=GET
 eureka:
@@ -974,6 +974,132 @@ logging:
 eg：http://localhost:8080/dept/list 不会进行添加，因为没有经过网关调用
 
 http://localhost:6060/MICROSERVICECLOUD-DEPT-PROVIDER/dept/list 通过网关进行调用，会添加参数
+
+
+
+**StripPrefix** Filter:修改请求路径的过滤器，移除
+
+```yml
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: nameRoot
+        uri: http://nameservice
+        predicates:
+        - Path=/name/**
+        filters:
+        - StripPrefix=2 # 截取后面两个字符串，eg：如下面截取掉name和bar两个分割开来的路径
+```
+
+当请求**/name/bar/foo**后端匹配到的请求路径就会变成**http://nameservice/foo**
+
+**PrefixPath** Filter：修改请求路径的过滤器，添加
+
+**Hystrix** Filter：熔断过滤器
+
+```yml
+server:
+  port: 8089
+
+spring:
+  application:
+    name: spring-cloud-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: service_customer
+          #下游服务地址
+          uri: http://127.0.0.1:8083/
+          order: 0
+          #网关断言匹配
+          predicates:
+            - Path=/gateway/**
+          filters:
+            #熔断过滤器
+            - name: Hystrix
+              args:
+                name: fallbackcmd 
+                fallbackUri: forward:/defaultfallback #熔断时，回调此请求http://127.0.0.1:8083/defaultfallback
+            - StripPrefix=1
+
+#熔断器配置
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE
+          thread:
+            timeoutInMilliseconds: 3000
+  shareSecurityContext: true
+
+#网关日志输出
+logging:
+  level:
+    org.springframework.cloud.gateway: TRACE
+    org.springframework.http.server.reactive: DEBUG
+    org.springframework.web.reactive: DEBUG
+    reactor.ipc.netty: DEBUG
+```
+
+**RequestRateLimiter**：限速过滤器（redis）
+
+添加依赖
+
+```xml
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
+        </dependency>
+```
+
+配置redis地址
+
+```yml
+server:
+  redis:
+    host: localhost
+```
+
+配置yml文件
+
+```yml
+spring:
+  application:
+    name: spring-cloud-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: service_customer
+          #下游服务地址
+          uri: http://127.0.0.1:8083/
+          order: 0
+          #网关断言匹配
+          predicates:
+            - Path=/gateway/**
+          filters:
+            #熔断过滤器
+            - name: Hystrix
+              args:
+                name: fallbackcmd
+                fallbackUri: forward:/defaultfallback
+            - StripPrefix=1
+            #限流过滤器
+            - name: RequestRateLimiter
+              args:
+                key-resolver: '#{@remoteAddKeyResolver}'
+                # 每秒最大访问次数（放令牌桶的速率）
+                redis-rate-limiter.replenishRate: 10
+                # 令牌桶最大容量（令牌桶的大小）
+                redis-rate-limiter.burstCapacity: 10
+```
+
+redis限流
+
+redis-rate-limiter.replenishRate：每秒钟最大的投放量
+
+redis-rate-limiter.burstCapacity：当前容器的最大容量，超过容量时，请求无法进入，发生异常情况，执行熔断机制，调用请求http://127.0.0.1:8083/defaultfallback
 
 #### 使用
 
