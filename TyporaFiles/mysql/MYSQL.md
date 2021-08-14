@@ -144,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `user`(
  # 在分组的列上我们可以使用 COUNT, SUM, AVG等函数。
  select avg(t.score),sum(t.score),t.name,count(*) fromm table_name t group t.name;
  
- # coalesce函数中如果a==null,则选择b；如果b==null,则选择c；如果a!=null,则选择a；如果a b c 都为null ，则返回为null（没意义）
+ # coalesce函数中如果a==null,则选择b；如果b==null,则选择c；如果a!=null,则选择a；如果a b c 都为null ，则返回为null（没意义）   【扣儿莱斯】
  select coalesce(a,b,c);
     SELECT coalesce(name, '总数'), SUM(singin) as singin_count FROM  employee_tbl GROUP BY name WITH ROLLUP;
     +--------------------------+--------------+| 
@@ -156,6 +156,7 @@ CREATE TABLE IF NOT EXISTS `user`(
     | 总数                   |           16 |
     +--------------------------+--------------+
   # 上面例子中name为null时，就会取值总数。
+  # with rollup在分组统计数据的基础上再进行统计汇总，即用来得到group by的汇总信息
 ~~~
 
 #### 3.表间的连接
@@ -192,6 +193,20 @@ CREATE TABLE IF NOT EXISTS `user`(
 - IS NOT NULL: 当列的值不为 NULL, 运算符返回 true。
 
 - <=>: 比较操作符（不同于=运算符），当比较的的两个值为 NULL 时返回 true。
+
+- | 运算符              | 作用                         |
+| ------------------- | ---------------------------- |
+  | =                   | 等于                         |
+  | <=>                 | 安全的等于                   |
+  | <> 或者 !=          | 不等于                       |
+  | <=                  | 小于等于                     |
+  | >=                  | 大于等于                     |
+| >                   | 大于                         |
+  | IS NULL 或者 ISNULL | 判断一个值是否为空           |
+| IS NOT NULL         | 判断一个值是否不为空         |
+  | BETWEEN AND         | 判断一个值是否落在两个值之间 |
+  
+- 
 
   ~~~mysql
   # null值比较

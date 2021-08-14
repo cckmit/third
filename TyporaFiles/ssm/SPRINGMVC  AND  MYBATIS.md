@@ -171,7 +171,7 @@ handler的编写可以实现**Controller**接口、	**HttpRequestHandler**接口
 
 ​			==**展现层（jsp，php，html，pdf等），需要程序员开发**==
 
-#### 1、常用注解学习
+#### 1、常用xml配置
 
 ```xml
 <!-- 启用注解驱动 -->
@@ -235,6 +235,57 @@ public ModelAndView updateUserInfoByIdBefore(int uid,User user){
     return modelAndView;
 }
 ```
+
+
+
+Map绑定
+
+~~~java
+class User{
+    private String name;
+    private int age;
+    ......
+        
+}
+~~~
+
+
+
+users["name"]='zhangsan'
+
+users["age"]='11'
+
+map.put("name","zhangsan");
+
+map.put("age","11");
+
+map的size为2，保存入两个键值对
+
+其实如果后面用user来接收，user的属性中也是会进行赋值的
+
+users["a"].name=zhangsan;
+
+users["a"].age=11;
+
+users["b"].name="lisi";
+
+users["b"].age=12;
+
+map的size为2，保存入两个键值对，分别保存了一个user对象（值），对应的键分别a和b
+
+listt和set绑定
+
+传递参数时一样
+
+user[1].name="zhangsan";
+
+user[1].age="11";
+
+user[2].name="lisi";
+
+user[2].age="12";
+
+list或者set的集合尺寸为2
 
 在参数绑定时，有事类型转换器可能不太够用或者不太合适，我们需要添加类型转换器
 
@@ -307,6 +358,326 @@ public void addUserInfo(HttpServletRequest request, HttpServletResponse response
 
 #### 7、RESTful支持
 
+#### 拦截器
+
+在Spring MVC中定义一个拦截器有两种方法：实现HandlerInterceptor接口，实现WebRequestInterceptor接口.
+
+HandlerInterceptor接口
+
+**preHandle()方法**：执行handler前执行，用于用户的登录权限的验证
+
+**postHandle()方法**：执行handler后执行，在渲染view前执行，用于改变要渲染的内容
+
+**afterCompletion()**：handler执行完成后执行，用于日志、垃圾的清理
+
+```java
+/**
+ *  登录拦截器
+ */
+public class LoginInterceptor implements HandlerInterceptor {
+    
+    /**
+        在执行Controller方法前拦截，判断用户是否已经登录，
+        登录了就放行，还没登录就重定向到登录页面
+    */
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+        HttpSession session = request.getSession();
+        User user = session.getAttribute("user");
+        if (user == null){
+            //还没登录，重定向到登录页面
+            response.sendRedirect("/toLogin");
+        }else {
+            //已经登录，放行
+            return true;
+        }
+    }
+
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {}
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {}
+}
+```
+
+```xml
+<!--配置拦截器-->
+<mvc:interceptors>
+    <!--此处的配置拦截所有经过dispatcherservlet的请求-->
+     <bean id="loginInterceptor" class="cn.zwq.springmvc.interceptor.LoginInterceptor"/>
+    <mvc:interceptor>
+        <!--
+            mvc:mapping：拦截的路径
+            /**：是指所有文件夹及其子孙文件夹
+            /*：是指所有文件夹，但不包含子孙文件夹
+            /：Web项目的根目录
+        -->
+        <mvc:mapping path="/**"/>
+        <!--
+            mvc:exclude-mapping：不拦截的路径,不拦截登录路径
+            /toLogin：跳转到登录页面
+            /login：登录操作
+        -->
+        <mvc:exclude-mapping path="/toLogin"/>
+        <mvc:exclude-mapping path="/login"/>
+        <!--class属性就是我们自定义的拦截器-->
+        <bean id="loginInterceptor" class="cn.zwq.springmvc.interceptor.LoginInterceptor"/>
+    </mvc:interceptor>
+    <!--如果还有其他拦截器，那么还是按照上面的拦截器配置-->
+</mvc:interceptors>
+```
+
+
+![img](SPRINGMVC  AND  MYBATIS/1460000024464170)
+
+在上面的配置中，可在mvc:interceptors标签下配置多个拦截器其子元素 bean 定义的是全局拦截器，它会拦截所有的请求；而mvc:interceptor元素中定义的是指定元素的拦截器，它会对指定路径下的请求生效，其子元素必须按照mvc:mapping --> mvc:exclude-mapping --> bean的顺序，否则文件会报错。
+
+WebRequestInterceptor接口
+
+#### 异常处理
+
+**@ControllerAdvice**
+
+​		@ControllerAdvice标识一个类是全局异常处理类。
+
+**@ExceptionHandler**
+
+​		@ExceptionHandler标识一个方法为全局异常处理的方法。
+
+**1. 使用@ExceptionHandler注解**
+
+作用范围：在当前的Controller里面
+
+```java
+@Controller
+public class ExceptionHandlerController {
+
+    @ExceptionHandler(RuntimeException.class)
+    public String exception(Exception e){
+        e.printStackTrace();
+        return "exception";
+        // 可以返回静态页面，有错误信息页面（ModelAndView中添加数据），也可以直接返回json数据（@ResponseBody）
+    }
+
+    @RequestMapping("/exception")
+    public void exception(){
+        int i = 5/0;
+    }
+}
+```
+
+**2.实现HandlerExceptionResolver接口**
+
+1. 这种方式可以实现全局的异常控制，只要在系统运行中发生异常，它都会捕获到。
+2. 实现该接口，必须重写resolveException方法，该方法就是异常处理逻辑，只能返回ModelAndView 对象。
+
+```java
+@Component
+public class MyGlobalException implements HandlerExceptionResolver {
+
+    @Override
+    public ModelAndView resolveException(HttpServletRequest httpServletRequest,
+                                         HttpServletResponse httpServletResponse, Object o, Exception e) {
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("msg",e.getMessage());
+        mv.setViewName("/exception");
+        e.printStackTrace();
+        return mv;
+    }
+}
+```
+
+**3.使用@ControllerAdvice注解+@ExceptionHandler注解**
+
+​		上面说到@ExceptionHandler**需要**进行异常处理的方法必须与出错的方法在同一个Controller里面。那么当代码加入了 @ControllerAdvice，则**不需要**必须在同一个controller中了。
+
+​		从名字上可以看出大体意思是控制器增强。 也就是说，@controlleradvice+@ExceptionHandler也可以实现全局的异常捕捉。
+
+```java
+@ControllerAdvice
+@ResponseBody
+@Slf4j
+public class GlobalExceptionHandle {
+
+    /**
+     *  捕获404异常
+     * @return
+     */
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public ExceptionResponse notFoundException(NoHandlerFoundException e){
+        log.error("资源未找到",e);
+        return new ExceptionResponse<>("你好，你要的资源找不到！");
+    }
+
+    /**
+     * 400——Bad Request
+     */
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+     public ExceptionResponse handleHttpMessageNotReadableException(HttpMessageNotReadableException  e) {
+        log.error("参数解析失败", e);
+        return new ExceptionResponse<>("bad request");
+    }
+
+    /**
+     *  405——Method Not Allowed
+     * @param e
+     * @return
+     */
+    @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ExceptionResponse<String> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException  e){
+        log.error("不支持当前请求方法",e);
+        return new ExceptionResponse<>("request_method_not_supported");
+    }
+
+    /**
+     * 415——Unsupported Media Type
+     * @param e
+     * @return
+     */
+    @ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
+    @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
+    public ExceptionResponse handleHttpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException e){
+        log.error("不支持当前媒体",e);
+        return new ExceptionResponse("content_type_not_supported");
+    }
+
+    /**
+     * 500：服务器内部异常
+     * @param e
+     * @return
+     */
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)//匹配对应的转台
+    @ExceptionHandler
+    public ExceptionResponse internalServerError(Exception e){
+        log.error("服务器内部异常",e);
+        return new ExceptionResponse("你好，请稍等会...");
+    }
+}
+```
+
+404异常的捕捉需要添加下面的配置才行
+
+```properties
+#出现错误时, 直接抛出异常
+spring.mvc.throw-exception-if-no-handler-found=true
+#不要为我们工程中的资源文件建立映射
+spring.resources.add-mappings=false
+```
+
+#### 常用注解
+
+**@Controller**
+
+​		标注该类为控制器类
+
+**@RequestMapping**
+
+​		标注请求的地址，映射到该方法。	
+
+**@ResponseBody**
+
+​		把Java对象转化为json对象，这种方式用于Ajax异步请求，返回的不是一个页面而是JSON格式的数据。
+
+**@PathVariable**
+
+​		@PathVariable用于接收uri地址传过来的参数，Url中可以通过一个或多个{Xxx}占位符映射，通过@PathVariable可以绑定占位符参数到方法参数中，在RestFul接口风格中经常使用
+
+```java
+// 使用了多个占位符
+@RequestMapping("/user/{userId}/{userName}/query")
+public User query(@PathVariable("userId") Long userId, @PathVariable("userName") String userName){
+
+}
+```
+
+**@RequestParam**
+
+​		用于将请求中的参数传递给变量（当传递的参数和方法中定义的形参不一致时使用）
+
+
+
+#### 返回值类型18
+
+1. 使用Map、Model和ModelMap的方式，这种方式存储的数据是在request域中
+
+```java
+@RequestMapping("/getUser")
+public String getUser(Map<String,Object> map,Model model,ModelMap modelMap){
+    //1.放在map里  
+    map.put("name", "xq");
+    //2.放在model里，一般是使用这个
+    model.addAttribute("habbit", "Play");
+    //3.放在modelMap中 
+    modelMap.addAttribute("city", "gd");
+    modelMap.put("gender", "male");
+    return "userDetail";
+}
+```
+
+​	2.使用request的方式
+
+```java
+@RequestMapping("/getUser")
+public String getUser(Map<String,Object> map,Model model,ModelMap modelMap,HttpServletRequest request){
+    //放在request里  
+    request.setAttribute("user", userService.getUser());
+    return "userDetail";
+}
+```
+
+​	3.使用ModelAndView
+
+```java
+@RequestMapping("/getUser")  
+public ModelAndView getUser(ModelAndView modelAndView) {
+    mav.addObject("user", userService.getUser());  
+    mav.setViewName("userDetail");  
+    return modelAndView;  
+}  
+```
+
+#### Session关注点
+
+​		怎么样把ModelMap里面的数据放入session里面？
+
+​		在类上添加`@SessionAttributes`注解将指定的Model数据存储到session中
+
+eg：value={"currentUser","saveTime"},types={User.class,Date.class}
+
+将key值为"currentUser","saveTime"放入modelMap中的参数，放入session中去
+
+@ModelAttribute("currentUser")User u：将model中key值为currentUser的赋值给User
+
+
+
+```java
+
+@Controller  
+@SessionAttributes(value={"currentUser","saveTime"},types={User.class,Date.class})  
+public class SessionAttributesController { 
+
+    @RequestMapping("/session/attributes/{id}/{name}")  
+    public ModelAndView sessionAttributes(@PathVariable Integer id,@PathVariable String 	name){  
+        ModelAndView mav = new ModelAndView("session");  
+        mav.addObject("currentUser", new User(id,name));  
+        mav.addObject("saveTime", new Date());  
+        return mav;  
+    }  
+    @RequestMapping("/session/attributes/test")  
+    public ModelAndView sessionAttributesage(@ModelAttribute("currentUser") User 		u,@ModelAttribute("saveTime") Date d){  
+        System.out.println(u.getUsername());  
+        System.out.println(d);  
+        ModelAndView mav = new ModelAndView("session");  
+        return mav;  
+    }  
+```
+
+
+
 ### 二、springmvc 和struts的区别
 
 1.分别基于方法（springmvc）和基于类（struts）进行开发的，因此springmvc的bean可以设置为单例，也应该设置为单例，但是struts就必须设置为非单例
@@ -314,8 +685,6 @@ public void addUserInfo(HttpServletRequest request, HttpServletResponse response
 2.struts2速度慢在于struts标签的使用。
 
 相比较而言，二者都可以，但是struts相对漏洞较多
-
-
 
 ### 三、springmvc和mybatis的整合
 
