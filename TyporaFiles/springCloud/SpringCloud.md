@@ -823,11 +823,13 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 @Component
 public class ProducerFallback implements ZuulFallbackProvider {
+    //指定拦截的服务
     @Override
     public String getRoute() {
         return "microservicecloud-dept-provider";
     }
-
+	
+    //遇到异常自动降级，怎样处理
     @Override
     public ClientHttpResponse fallbackResponse() {
         return new ClientHttpResponse() {
@@ -1269,6 +1271,26 @@ config为微服务框架的微服务提供集中化的外部配置支持，为�
 3、配置发生改变时，无须重启服务器就可应用新的配置
 
 4、将配置信息以rest接口的形式暴露出去
+
+三种读取格式：
+
+[http://config-3344.com:3344](http://config-3344.com:3344/application-dev.yml)/**{application}-{profile}.yml**
+
+eg：http://config-3344.com:3344/application-dev.yml
+
+​		http://config-3344.com:3344/application-test.yml
+
+​		http://config-3344.com:3344/application-prod.yml
+
+
+
+***/{application}/{profile}[/{label}.yml***
+
+http://config-8537.com:8537/microservicecloud-config-provider/test/master.yml
+
+***/label/{application}-{profile}.yml***
+
+http://config-8537.com:8537/master/microservicecloud-config-provider-test.yml
 
 git@github.com:beitieforerver/second.git
 

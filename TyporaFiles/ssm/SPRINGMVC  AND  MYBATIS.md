@@ -600,7 +600,7 @@ public User query(@PathVariable("userId") Long userId, @PathVariable("userName")
 
 
 
-#### 返回值类型18
+#### 返回值类型
 
 1. 使用Map、Model和ModelMap的方式，这种方式存储的数据是在request域中
 
