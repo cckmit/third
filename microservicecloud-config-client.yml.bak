@@ -3,7 +3,7 @@ spring:
     active:
       - dev
   application:
-    name: microservicecloud-config-client
+    name: microservicecloud-config-client1
 ---
 spring:
   profiles: dev
