@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/ZipkinServer/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mc_hystix_dashboard_9001/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservice_zuul/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservicecloud-api-nx/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservicecloud-config-client/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservicecloud-config-provider/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservicecloud-config-server-8537/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservicecloud-custom-80/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservicecloud-eureka-config7001/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservicecloud-provider-8002/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservicecloud-provider-8003/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservicecloud-provider-8080/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservicecloud-provider-hystrix8080/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microserviceeureka7001/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microserviceeureka7002/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microserviceeureka7003/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

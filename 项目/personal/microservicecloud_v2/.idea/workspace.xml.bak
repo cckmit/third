@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5c8b986b-5cb6-4e05-816b-70018166634b" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="D:\work\repository" />
+        <option name="mavenHome" value="D:/worksoft/apache-maven-3.2.5" />
+        <option name="userSettingsFile" value="C:\Users\Administrator\.m2\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1r3H9BeRJrpebfixX62nBWFpmIQ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ExpandSpringBootJavaOptionsPanel" value="true" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelOrder2" value="2" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RequestMappingsPanelWidth2" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.1019368" />
+    <property name="project.structure.side.proportion" value="0.29815015" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Administrator\Desktop\git_repository\项目\personal\microservicecloud_v2\microservicecloud_v2-provider-8002" />
+      <recent name="D:\work\idea_java\microservicecloud_v2\microservicecloud_v2-config-provider\src\main\resources" />
+      <recent name="D:\work\idea_java\microservicecloud_v2\microservicecloud_v2-config-provider\src\main\java" />
+      <recent name="D:\work\idea_java\microservicecloud_v2\microservicecloud_v2-eureka-config7001\src\main\resources" />
+      <recent name="D:\work\idea_java\microservicecloud_v2\microservicecloud_v2-config-client\src\main\java" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.beitie" />
+      <recent name="com.beitie.eureka" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.DeptController_Consumer_feign80">
+    <configuration name="DeptController_Consumer_feign80" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="microservicecloud_v2-custom-feign80" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.beitie.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.beitie.DeptController_Consumer_feign80" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Dept_Provider_8002" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="microservicecloud_v2-provider-8002" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.beitie.provider.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.beitie.provider.Dept_Provider_8002" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Dept_Provider_8080" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="microservicecloud_v2-provider-8080" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.beitie.provider.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.beitie.provider.Dept_Provider_8080" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ZipkinAppStart9090" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="ZipkinServer" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.beitie.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.beitie.ZipkinAppStart9090" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ZuulAppStart_9527" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="microservice_zuul" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.betie.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.betie.ZuulAppStart_9527" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Spring Boot.Dept_Provider_8002" />
+      <item itemvalue="Spring Boot.Dept_Provider_8080" />
+      <item itemvalue="Spring Boot.ZuulAppStart_9527" />
+      <item itemvalue="Spring Boot.DeptController_Consumer_feign80" />
+      <item itemvalue="Spring Boot.ZipkinAppStart9090" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.DeptController_Consumer_feign80" />
+        <item itemvalue="Spring Boot.Dept_Provider_8080" />
+        <item itemvalue="Spring Boot.Dept_Provider_8002" />
+        <item itemvalue="Spring Boot.ZipkinAppStart9090" />
+        <item itemvalue="Spring Boot.ZuulAppStart_9527" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5c8b986b-5cb6-4e05-816b-70018166634b" name="Default Changelist" comment="" />
+      <created>1618197699540</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1618197699540</updated>
+      <workItem from="1618197703831" duration="670000" />
+      <workItem from="1618215538005" duration="5997000" />
+      <workItem from="1618275785581" duration="2553000" />
+      <workItem from="1618280725065" duration="10992000" />
+      <workItem from="1618301770165" duration="2660000" />
+      <workItem from="1618318163615" duration="4484000" />
+      <workItem from="1618323682050" duration="719000" />
+      <workItem from="1618360791700" duration="6217000" />
+      <workItem from="1618403315408" duration="58000" />
+      <workItem from="1618403512468" duration="6584000" />
+      <workItem from="1618446156975" duration="10396000" />
+      <workItem from="1618489911465" duration="4566000" />
+      <workItem from="1618542341099" duration="14367000" />
+      <workItem from="1618585618751" duration="2822000" />
+      <workItem from="1618644359875" duration="6487000" />
+      <workItem from="1618711637971" duration="7509000" />
+      <workItem from="1618798868163" duration="1821000" />
+      <workItem from="1618836556366" duration="4794000" />
+      <workItem from="1618882374896" duration="12321000" />
+      <workItem from="1619058743402" duration="5000" />
+      <workItem from="1619058959018" duration="2428000" />
+      <workItem from="1619098347399" duration="1557000" />
+      <workItem from="1619139471732" duration="4149000" />
+      <workItem from="1619252508960" duration="1799000" />
+      <workItem from="1619414413314" duration="625000" />
+      <workItem from="1620630411866" duration="10175000" />
+      <workItem from="1620742680091" duration="3447000" />
+      <workItem from="1620803247347" duration="1382000" />
+      <workItem from="1620828351532" duration="833000" />
+      <workItem from="1621134153264" duration="1490000" />
+      <workItem from="1621321951617" duration="4412000" />
+      <workItem from="1621329487129" duration="629000" />
+      <workItem from="1621344073794" duration="1581000" />
+      <workItem from="1621387137359" duration="5000" />
+      <workItem from="1621517444467" duration="1031000" />
+      <workItem from="1621866520844" duration="40000" />
+      <workItem from="1621995209428" duration="5341000" />
+      <workItem from="1622042217564" duration="86000" />
+      <workItem from="1622123602997" duration="2035000" />
+      <workItem from="1622209157761" duration="2520000" />
+      <workItem from="1627035892689" duration="8322000" />
+      <workItem from="1627090804426" duration="1079000" />
+      <workItem from="1627091899632" duration="8654000" />
+      <workItem from="1627207092886" duration="3616000" />
+      <workItem from="1627224108477" duration="1800000" />
+      <workItem from="1627284687259" duration="3913000" />
+      <workItem from="1627353083827" duration="13195000" />
+      <workItem from="1627437058447" duration="5352000" />
+      <workItem from="1627464250326" duration="1438000" />
+      <workItem from="1627476820032" duration="4579000" />
+      <workItem from="1627537196872" duration="2448000" />
+      <workItem from="1627541066979" duration="9806000" />
+      <workItem from="1627562601171" duration="1818000" />
+      <workItem from="1627564441061" duration="1041000" />
+      <workItem from="1627565869133" duration="2510000" />
+      <workItem from="1627629935944" duration="1315000" />
+      <workItem from="1627638327564" duration="4238000" />
+      <workItem from="1629449812974" duration="1047000" />
+      <workItem from="1629451245981" duration="1505000" />
+      <workItem from="1629453597870" duration="431000" />
+      <workItem from="1629454088857" duration="74000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="275" y="24" key="#Project_Structure" timestamp="1629450270214">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="275" y="24" key="#Project_Structure/0.0.1366.728@0.0.1366.728" timestamp="1629450270214" />
+    <state x="186" y="0" key="SettingsEditor" timestamp="1629453487416">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="186" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1629453487416" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/microservicecloud_v2-custom-feign80/src/java/com/beitie/custom/handler/DeptController_Custom.java</url>
+          <line>20</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/microservicecloud_v2-custom-feign80/src/java/com/beitie/custom/handler/DeptController_Custom.java</url>
+          <line>34</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/microservicecloud_v2-custom-80/src/main/java/com/beitie/custom/handler/DeptController_Custom.java</url>
+          <line>19</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="se.expertsystem.intellij.aop.aspectj.AspectJProjectComponent">
+    <setting name="isActivated" value="false" />
+  </component>
+</project>
