@@ -1,0 +1,32 @@
+server:
+  port: 9527
+
+spring:
+  application:
+    name: microservicecloud-zull
+  zipkin:
+    base-url: http://localhost:9090
+    sleuth:
+      sampler:
+        percentage: 1.0
+    enabled: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka,http://eureka7003.com:7003/eureka
+  instance:
+    instance-id: microservicecloud-zuul-9527
+    prefer-ip-address: true
+
+info:
+  app.name: microservice_dept_provider8080
+  company.name: 深圳市红旗信息技术有限公司
+  artifactId: microservice_zuul
+  version: 1.0-SNAPSHOT
+
+zuul:
+  routes:
+    aaa.serviceId: microservicecloud-dept-provider
+    aaa.path:  /beitie/**
+    aaa.url: http://localhost:8002/
+#  ignored-services: microservicecloud-dept-provider # "*"代表忽略所有的微服务

@@ -1,0 +1,5 @@
+com\beitie\custom\DeptController_Consumer_80.class
+com\beitie\custom\handler\DeptController_Custom.class
+com\beitie\custom\configBeans\ConfigBean.class
+com\beitie\ribbonrule\MyRule.class
+com\beitie\ribbonrule\RibbonRuleConfig.class

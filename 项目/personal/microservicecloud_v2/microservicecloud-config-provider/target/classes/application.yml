@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: microservicecloud-config-provider
+
+info:
+  app.name: microservice_dept_provider8080
+  company.name: 深圳市红旗信息技术有限公司
+  artifactId: microservicecloud-config-provider
+  version: 1.0-SNAPSHOT

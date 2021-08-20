@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    config:
+      name: microservicecloud-config-eureka
+      profile: dev
+      label: master
+      uri: http://config-8537.com:8537

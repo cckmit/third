@@ -1,0 +1,4 @@
+com\beitie\entity\Dept.class
+com\beitie\service\DeptClientService.class
+com\beitie\hystrix\DeptClientServiceFallBackFactory$1.class
+com\beitie\hystrix\DeptClientServiceFallBackFactory.class

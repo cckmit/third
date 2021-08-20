@@ -1,0 +1,11 @@
+server:
+  port: 8537
+
+spring:
+  application:
+    name: microservicecloud-config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: git@github.com:beitieforerver/third.git

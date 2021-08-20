@@ -8,10 +8,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="ZipkinServer" />
-        <module name="microserviceeureka7003" />
         <module name="microservicecloud-provider-hystrix8080" />
-        <module name="microserviceeureka7001" />
-        <module name="microservicecloud-config-server-8537" />
+        <module name="microservicecloud-provider-8080" />
         <module name="microservicecloud-config-provider" />
         <module name="microservicecloud-custom-feign80" />
         <module name="microservicecloud-config-client" />
@@ -19,12 +17,14 @@
         <module name="microservicecloud-provider-8002" />
         <module name="microservicecloud-eureka-config7001" />
         <module name="microservice_zuul" />
-        <module name="mc_hystix_dashboard_9001" />
-        <module name="microservicecloud-custom-80" />
-        <module name="microservicecloud-provider-8080" />
-        <module name="microserviceeureka7002" />
         <module name="microservicecloud-hystrix-dashboard-9001" />
+        <module name="mc_hystix_dashboard_9001" />
         <module name="microservicecloud-api-nx" />
+        <module name="microservicecloud-custom-80" />
+        <module name="microserviceeureka7003" />
+        <module name="microserviceeureka7002" />
+        <module name="microserviceeureka7001" />
+        <module name="microservicecloud-config-server-8537" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
