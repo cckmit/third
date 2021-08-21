@@ -57,6 +57,17 @@ https://spring.io/projects/spring-cloud
 </dependency>
 ```
 
+升级
+
+~~~xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-netflix-eureka-server</artifactId>
+</dependency>
+~~~
+
+
+
 2.配置application.yml
 
 ```yml
@@ -91,6 +102,15 @@ eureka:
     <version>2.3.4.RELEASE</version>
 </dependency>
 ```
+
+~~~xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-netflix-eureka-client</artifactId>
+</dependency>
+~~~
+
+
 
 2.配置application.yml
 
@@ -235,13 +255,11 @@ pom.xml引入依赖，并在RestTemplate类前加注解@LoadBalanced
 <dependency>
     <groupId>org.springframework.cloud</groupId>
     <artifactId>spring-cloud-starter-eureka</artifactId>
-    <version>1.4.3.RELEASE</version>
 </dependency>
 <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-ribbon -->
 <dependency>
     <groupId>org.springframework.cloud</groupId>
     <artifactId>spring-cloud-starter-ribbon</artifactId>
-    <version>1.4.7.RELEASE</version>
 </dependency>
 ```
 
@@ -336,6 +354,21 @@ BestAvailableRule
     <artifactId>spring-cloud-starter-feign</artifactId>
 </dependency>
 ```
+
+替代
+
+~~~xml
+ <dependency>
+     <groupId>org.springframework.cloud</groupId>
+     <artifactId>spring-cloud-starter-openfeign</artifactId>
+</dependency>
+~~~
+
+
+
+
+
+
 
 yml文件配置
 
@@ -1307,3 +1340,5 @@ bootstrap.yml 系统级别的，优先级别高
 application.yml 用户级别的，优先级别相对较低
 
 springcloud会创建一个BootStrap Context，作为Application Context的父级，初始化的时候BootStrap Context负责从外部加载配置并进行解析，这两个context共享一个environment。	
+
+bus

@@ -7,29 +7,29 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="ZipkinServer" />
-        <module name="microservicecloud-provider-hystrix8080" />
-        <module name="microservicecloud-provider-8080" />
-        <module name="microservicecloud-config-provider" />
-        <module name="microservicecloud-custom-feign80" />
-        <module name="microservicecloud-config-client" />
-        <module name="microservicecloud-provider-8003" />
-        <module name="microservicecloud-provider-8002" />
-        <module name="microservicecloud-eureka-config7001" />
-        <module name="microservice_zuul" />
         <module name="microservicecloud-hystrix-dashboard-9001" />
+        <module name="microservicecloud-eureka-config7001" />
+        <module name="microservicecloud-provider-8080" />
+        <module name="microservicecloud-config-client" />
+        <module name="microservicecloud-provider-8002" />
         <module name="mc_hystix_dashboard_9001" />
         <module name="microservicecloud-api-nx" />
+        <module name="microservicecloud-provider-8003" />
+        <module name="microservicecloud-config-server-8537" />
         <module name="microservicecloud-custom-80" />
-        <module name="microserviceeureka7003" />
+        <module name="microservicecloud-custom-feign80" />
+        <module name="microservicecloud-config-provider" />
         <module name="microserviceeureka7002" />
         <module name="microserviceeureka7001" />
-        <module name="microservicecloud-config-server-8537" />
+        <module name="microserviceeureka7003" />
+        <module name="microservicecloud-provider-hystrix8080" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="microservice_zuul" target="1.8" />
       <module name="microservicecloud-api" target="1.8" />
       <module name="microservicecloud-hystrix-dashboard-9001" target="1.8" />
+      <module name="ZipkinServer" target="8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

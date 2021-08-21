@@ -1,3 +1,2 @@
-spring:
-  application:
-    name: microservicecloud-config-client
+server:
+  port: 3355

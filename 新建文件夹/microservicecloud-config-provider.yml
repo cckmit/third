@@ -3,12 +3,6 @@ mybatis:
   type-aliases-package: com.beitie.entity
   mapper-locations: classpath:mybatis/mapper/**/*.xml
 spring:
-  cloud:
-    consul:
-      host: localhost
-      port: 8500
-      discovery:
-        service-name: microservicecloud-dept-provider-consul
   application:
     name: microservicecloud-dept-provider
   datasource:
@@ -22,19 +16,15 @@ spring:
       initial-size: 5
       max-idle: 200
       max-wait-millis: 200
-#eureka:
-#  client:
-#    service-url:
-#      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka,http://eureka7003.com:7003/eureka
-#  instance:
-#    instance-id: microservicecloud-dept-provider
-#    prefer-ip-address: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka
+  instance:
+    instance-id: microservicecloud-dept-provider
+    prefer-ip-address: true
 
-info:
-  app.name: microservice_dept_provider8080
-  company.name: 深圳市红旗信息技术有限公司
-  artifactId: microservicecloud-provider-8080
-  version: 2.0-SNAPSHOT
+
 
 ---
 server:
@@ -42,7 +32,7 @@ server:
 spring:
   profiles: dev
   datasource:
-    url:  jdbc:mysql://localhost:3306/springcloud1?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false
+    url:  jdbc:mysql://localhost:3306/springcloud3?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false
     username: root
     password: bestbnf
 

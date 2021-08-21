@@ -9,3 +9,5 @@ spring:
       server:
         git:
           uri: git@github.com:beitieforerver/third.git
+          force-pull: true
+      label: master
