@@ -3,7 +3,9 @@ spring:
     active:
       - dev
   application:
-    name: microservicecloud-config-client1
+    name: microservicecloud-config-client
+config:
+  info: 'peizhixinxi wei version 555'
 ---
 spring:
   profiles: dev

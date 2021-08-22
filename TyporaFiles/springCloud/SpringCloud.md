@@ -1289,7 +1289,7 @@ spring:
 
 
 
-### Springcloud Config
+### Config
 
 分为服务端和客户端，默认使用git来存储配置文件
 
@@ -1341,4 +1341,38 @@ application.yml 用户级别的，优先级别相对较低
 
 springcloud会创建一个BootStrap Context，作为Application Context的父级，初始化的时候BootStrap Context负责从外部加载配置并进行解析，这两个context共享一个environment。	
 
-bus
+### Bus
+
+​		将分布式系统节点与轻量级的消息代理框架（中间件）结合起来的框架，实现全局消息通知，程序自动刷新。由于所有的消息是被系统中所有的服务实例所共享和消费（故此称为消息总线）。在该系统中的各个实例，都可以广播一些让其他实例知道的消息。
+
+配合config，进行程序的自动刷新功能
+
+支持RabbitMQ和kafaka两种消息代理
+
+![img](SpringCloud/configbus1.jpg)
+
+一般情况下，有两种刷新，一种访问客户端进行刷新，一种访问服务端进行刷新（合理较为推荐）
+
+原因：
+
+破坏微服务的单一性
+
+破坏了微服务的对等性
+
+使用：
+
+1、RabbitMQ环境配置
+
+​		a.安装erlang   otp_win64_24.0
+
+​		b.安装Rabbit
+
+​		c.进入rabbitMq的安装目录sbin，执行如下命令,启动管理功能
+
+~~~cmd
+rabbitmq-server start
+~~~
+
+​		d.访问http://localhost:15672 默认账户名 密码 guest guest
+
+​	

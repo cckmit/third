@@ -9,6 +9,7 @@
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/microservicecloud-provider-8002/pom.xml" />
+        <option value="$PROJECT_DIR$/microservicecloud-config-client3355/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

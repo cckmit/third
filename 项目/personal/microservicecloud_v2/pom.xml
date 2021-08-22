@@ -20,9 +20,10 @@
         <module>microservicecloud-provider-hystrix8080</module>
         <module>mc_hystix_dashboard_9001</module>
         <module>microservicecloud-config-server-8537</module>
-        <module>microservicecloud-config-client</module>
+        <module>microservicecloud-config-client3355</module>
         <module>microservicecloud-eureka-config7001</module>
         <module>microservicecloud-config-provider</module>
+        <module>microservicecloud-config-client3366</module>
     </modules>
     <packaging>pom</packaging>
 
