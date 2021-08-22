@@ -4,27 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5c8b986b-5cb6-4e05-816b-70018166634b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/microservicecloud-config-client3366/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservicecloud-config-client3366/src/main/java/com/beitie/springcloud/Config_Client3366.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservicecloud-config-client3366/src/main/java/com/beitie/springcloud/handler/ConfigController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservicecloud-config-client3366/src/main/resources/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservicecloud-config-client3366/src/main/resources/bootstrap.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/springCloud/SpringCloud.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TyporaFiles/springCloud/SpringCloud.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservicecloud-config-client/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-config-client3355/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservicecloud-config-client/src/main/java/com/beitie/springcloud/Config_Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-config-client3355/src/main/java/com/beitie/springcloud/Config_Client3355.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservicecloud-config-client/src/main/java/com/beitie/springcloud/handler/ConfigController.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-config-client3355/src/main/java/com/beitie/springcloud/handler/ConfigController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservicecloud-config-client/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-config-client3355/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservicecloud-config-client/src/main/resources/bootstrap.yml" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-config-client3355/src/main/resources/bootstrap.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservicecloud-config-client/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-config-client3355/target/classes/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservicecloud-config-client/target/classes/bootstrap.yml" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-config-client3355/target/classes/bootstrap.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservicecloud-config-client/target/classes/com/beitie/springcloud/Config_Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-config-client3355/target/classes/com/beitie/springcloud/Config_Client.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservicecloud-config-client/target/classes/com/beitie/springcloud/handler/ConfigController.class" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-config-client3355/target/classes/com/beitie/springcloud/handler/ConfigController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservicecloud-config-server-8537/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-config-server-8537/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservicecloud-config-server-8537/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-config-server-8537/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservicecloud-config-server-8537/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-config-server-8537/target/classes/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-    </list>
+    <list default="true" id="5c8b986b-5cb6-4e05-816b-70018166634b" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -281,7 +261,7 @@
       <workItem from="1629469002870" duration="585000" />
       <workItem from="1629532689688" duration="162000" />
       <workItem from="1629532875706" duration="11688000" />
-      <workItem from="1629591768727" duration="2149000" />
+      <workItem from="1629591768727" duration="2937000" />
     </task>
     <servers />
   </component>

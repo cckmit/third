@@ -1375,4 +1375,42 @@ rabbitmq-server start
 
 ​		d.访问http://localhost:15672 默认账户名 密码 guest guest
 
-​	
+2、添加pom.xml文件依赖
+
+~~~xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-bus-amqp</artifactId>
+</dependency>
+~~~
+
+server端yml配置
+
+```yml
+rabbitmq:
+    username: qingfeng
+    password: bestbnf
+    host: localhost
+    port: 5672
+management:
+  endpoints:
+    web:
+      exposure:
+        include: 'bus-refresh'
+```
+
+client端yml配置
+
+~~~yml
+rabbitmq:
+    username: qingfeng
+    password: bestbnf
+    host: localhost
+    port: 5672
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+~~~
+
