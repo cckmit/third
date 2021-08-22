@@ -1382,6 +1382,10 @@ rabbitmq-server start
     <groupId>org.springframework.cloud</groupId>
     <artifactId>spring-cloud-starter-bus-amqp</artifactId>
 </dependency>
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
 ~~~
 
 server端yml配置
@@ -1402,7 +1406,7 @@ management:
 client端yml配置
 
 ~~~yml
-rabbitmq:
+rabbitmq: #此配置可以省略{涵盖下面的子配置}
     username: qingfeng
     password: bestbnf
     host: localhost
@@ -1414,3 +1418,6 @@ management:
         include: '*'
 ~~~
 
+3.配置启动类启动
+
+4.运行curl命令，用来触发 事件来提示消息总线所在系统各个实例进行刷新

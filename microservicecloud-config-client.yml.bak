@@ -5,7 +5,7 @@ spring:
   application:
     name: microservicecloud-config-client
 config:
-  info: 'peizhixinxi wei version 666'
+  info: 'peizhixinxi wei version 777'
 ---
 spring:
   profiles: dev

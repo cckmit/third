@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5c8b986b-5cb6-4e05-816b-70018166634b" name="Default Changelist" comment="" />
+    <list default="true" id="5c8b986b-5cb6-4e05-816b-70018166634b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/springCloud/SpringCloud.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TyporaFiles/springCloud/SpringCloud.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservicecloud-config-client3355/src/main/resources/bootstrap.yml" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-config-client3355/src/main/resources/bootstrap.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservicecloud-config-client3355/target/classes/bootstrap.yml" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-config-client3355/target/classes/bootstrap.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservicecloud-config-server-8537/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-config-server-8537/src/main/resources/application.yml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -176,8 +181,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.Config_Client3355" />
         <item itemvalue="Spring Boot.Config_Client3366" />
+        <item itemvalue="Spring Boot.Config_Client3355" />
         <item itemvalue="Spring Boot.ApplicationMainStart_8537" />
         <item itemvalue="Spring Boot.EurekaApplication_7001" />
         <item itemvalue="Spring Boot.AppStart_Provider" />
@@ -261,7 +266,7 @@
       <workItem from="1629469002870" duration="585000" />
       <workItem from="1629532689688" duration="162000" />
       <workItem from="1629532875706" duration="11688000" />
-      <workItem from="1629591768727" duration="2937000" />
+      <workItem from="1629591768727" duration="3666000" />
     </task>
     <servers />
   </component>
