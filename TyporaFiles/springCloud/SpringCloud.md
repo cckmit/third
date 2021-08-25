@@ -907,7 +907,7 @@ public class ProducerFallback implements ZuulFallbackProvider {
 
 访问需要通过服务名访问http://localhost:9527/microservicecloud-dept-provider/dept/get/11?tk=1
 
-而不是http://localhost:9527/beitie/dept/index?tk=1，只支持服务级别的熔断
+而不是http://localhost:9527/beitie/dept/get/11?tk=1，只支持服务级别的熔断
 
 ##### 路由重试
 
@@ -1139,45 +1139,24 @@ redis-rate-limiter.burstCapacity：当前容器的最大容量，超过容量时
 
 #### 使用
 
-server端
-
-引入依赖
-
-升级前：
+1、pom文件引入
 
 ```xml
 <dependency>
     <groupId>org.springframework.cloud</groupId>
-    <artifactId>spring-cloud-starter-eureka-server</artifactId>
+    <artifactId>spring-cloud-starter-gateway</artifactId>
 </dependency>
-```
-
-升级后：
-
-```xml
-<dependency>
-    <groupId>org.springframework.cloud</groupId>
-    <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
-</dependency>
-```
-
-客户端：（包含了服务提供者、消费者、以及网关）
-
-升级前：
-
-```xml
-<dependency>
-    <groupId>org.springframework.cloud</groupId>
-    <artifactId>spring-cloud-starter-eureka</artifactId>
-</dependency>
-```
-
-升级后：
-
-```xml
 <dependency>
     <groupId>org.springframework.cloud</groupId>
     <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-webflux</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
 </dependency>
 ```
 

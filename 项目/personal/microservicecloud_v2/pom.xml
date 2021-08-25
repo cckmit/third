@@ -27,6 +27,7 @@
         <module>microservicecloud-stream-rabbit-10001</module>
         <module>microservicecloud-stream-rabbit-consumer-10002</module>
         <module>microservicecloud-stream-rabbit-consumer-10003</module>
+        <module>microservicecloud_gateway11000</module>
     </modules>
     <packaging>pom</packaging>
 

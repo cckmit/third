@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/dept")
+@RequestMapping("/product")
 public class DeptController_Provider_8080 {
     @Autowired
     private DeptService deptService;

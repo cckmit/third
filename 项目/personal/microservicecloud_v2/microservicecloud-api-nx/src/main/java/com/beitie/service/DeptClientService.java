@@ -11,16 +11,16 @@ import java.util.List;
 @Component
 @FeignClient(value = "microservicecloud-dept-provider",fallbackFactory= DeptClientServiceFallBackFactory.class)
 public interface DeptClientService {
-    @RequestMapping("/dept/add")
+    @RequestMapping("/product/add")
     void addDept(Dept dept);
-    @RequestMapping("/dept/delte/{id}")
+    @RequestMapping("/product/delte/{id}")
     void deleteDept(@PathVariable("id") Long id);
-    @RequestMapping("/dept/update")
+    @RequestMapping("/product/update")
     void updateDept(Dept dept);
-    @RequestMapping("/dept/list")
+    @RequestMapping("/product/list")
     List<Dept> findAll();
-    @RequestMapping("/dept/get/{id}")
+    @RequestMapping("/product/get/{id}")
     Dept getDeptById(@PathVariable("id") Long id);
-    @RequestMapping("/dept/link")
+    @RequestMapping("/product/link")
     String invokeLink();
 }
