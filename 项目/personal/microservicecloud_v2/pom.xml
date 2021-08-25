@@ -24,6 +24,9 @@
         <module>microservicecloud-eureka-config7001</module>
         <module>microservicecloud-config-provider</module>
         <module>microservicecloud-config-client3366</module>
+        <module>microservicecloud-stream-rabbit-10001</module>
+        <module>microservicecloud-stream-rabbit-consumer-10002</module>
+        <module>microservicecloud-stream-rabbit-consumer-10003</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -45,14 +48,14 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Finchley.RELEASE</version>
+                <version>Hoxton.SR1</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>2.0.3.RELEASE</version>
+                <version>2.2.2.RELEASE</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

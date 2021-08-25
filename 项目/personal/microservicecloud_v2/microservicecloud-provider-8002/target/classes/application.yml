@@ -30,16 +30,16 @@ spring:
       port: 8500
       discovery:
         service-name: microservicecloud-dept-provider-consul
-#eureka:
-#  client:
-#    service-url:
-#      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka,http://eureka7003.com:7003/eureka
-#  instance:
-#    instance-id: microservicecloud-dept-provider8002
-#    prefer-ip-address: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka,http://eureka7003.com:7003/eureka
+  instance:
+    instance-id: microservicecloud-dept-provider8002
+    prefer-ip-address: true
 
 info:
   app.name: microservice_dept_provider8080
   company.name: 深圳市红旗信息技术有限公司
-  artifactId: microservicecloud-provider-8002
-  version: 1.0-SNAPSHOT
+  artifactId: ${project.artifactId}
+  version: ${project.version}

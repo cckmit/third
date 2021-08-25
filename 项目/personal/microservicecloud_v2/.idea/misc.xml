@@ -12,13 +12,6 @@
         <option value="$PROJECT_DIR$/microservicecloud-config-client3355/pom.xml" />
       </list>
     </option>
-    <option name="ignoredFiles">
-      <set>
-        <option value="$PROJECT_DIR$/ZipkinServer/pom.xml" />
-        <option value="$PROJECT_DIR$/microservice_zuul/pom.xml" />
-        <option value="$PROJECT_DIR$/microservicecloud-hystrix-dashboard-9001/pom.xml" />
-      </set>
-    </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />

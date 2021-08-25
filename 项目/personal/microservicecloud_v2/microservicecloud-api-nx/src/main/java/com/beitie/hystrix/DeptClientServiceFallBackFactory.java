@@ -37,6 +37,11 @@ public class DeptClientServiceFallBackFactory implements FallbackFactory<DeptCli
             public Dept getDeptById(Long id) {
                 return new Dept("该部门不存在或者当前库没有该数据factory", id, "unknown");
             }
+
+            @Override
+            public String invokeLink() {
+                return null;
+            }
         };
     }
 }

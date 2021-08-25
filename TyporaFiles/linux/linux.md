@@ -80,3 +80,23 @@ mv -rf  目录或文件 #递归移动
 
 tail -f 循环读取文件的内容（默认末尾10行内容）
 
+## 切换用户
+
+su （switch user） username：eg：su root 
+
+## 查看用户
+
+~~~
+cat /etc/passwd
+~~~
+
+查找安装目录
+
+ps -ef | grep 【redis】
+
+![img](linux/20201010174445794.png)
+
+然后根据进程号查找安装目录
+
+ll /proc/2423[进程号]/cwd
+

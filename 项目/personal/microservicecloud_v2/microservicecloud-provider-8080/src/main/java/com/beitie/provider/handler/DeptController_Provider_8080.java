@@ -37,5 +37,9 @@ public class DeptController_Provider_8080 {
             System.out.println("service=="+service);
         }
     }
+    @RequestMapping("/link")
+    public String invokeLink(){
+        return "invoke success";
+    }
 
 }

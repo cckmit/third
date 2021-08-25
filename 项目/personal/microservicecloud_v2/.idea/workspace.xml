@@ -5,10 +5,57 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5c8b986b-5cb6-4e05-816b-70018166634b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/microservicecloud-stream-rabbit-10001/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservicecloud-stream-rabbit-10001/src/main/java/com/beitie/StreamRabbitProducer10001.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservicecloud-stream-rabbit-10001/src/main/java/com/beitie/controller/SendMessageController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservicecloud-stream-rabbit-10001/src/main/java/com/beitie/service/JMessageSender.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservicecloud-stream-rabbit-10001/src/main/java/com/beitie/service/JMessageSenderImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservicecloud-stream-rabbit-10001/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservicecloud-stream-rabbit-consumer-10002/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservicecloud-stream-rabbit-consumer-10002/src/main/java/com/beitie/SteamConsumer10002.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservicecloud-stream-rabbit-consumer-10002/src/main/java/com/beitie/controller/ReceivedMsgController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservicecloud-stream-rabbit-consumer-10002/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservicecloud-stream-rabbit-consumer-10003/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservicecloud-stream-rabbit-consumer-10003/src/main/java/com/beitie/SteamConsumer10003.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservicecloud-stream-rabbit-consumer-10003/src/main/java/com/beitie/controller/ReceivedMsgController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservicecloud-stream-rabbit-consumer-10003/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/springCloud/SpringCloud.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TyporaFiles/springCloud/SpringCloud.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservicecloud-config-client3355/src/main/resources/bootstrap.yml" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-config-client3355/src/main/resources/bootstrap.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservicecloud-config-client3355/target/classes/bootstrap.yml" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-config-client3355/target/classes/bootstrap.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../新建文件夹/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../新建文件夹/keepalived.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../新建文件夹/microservicecloud-config-client.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../新建文件夹/microservicecloud-config-client.yml.bak" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../新建文件夹/microservicecloud-config-eureka.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../新建文件夹/microservicecloud-config-provider.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservicecloud-api-nx/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-api-nx/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservicecloud-api-nx/src/main/java/com/beitie/hystrix/DeptClientServiceFallBackFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-api-nx/src/main/java/com/beitie/hystrix/DeptClientServiceFallBackFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservicecloud-api-nx/src/main/java/com/beitie/service/DeptClientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-api-nx/src/main/java/com/beitie/service/DeptClientService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservicecloud-api-nx/target/classes/com/beitie/hystrix/DeptClientServiceFallBackFactory$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-api-nx/target/classes/com/beitie/hystrix/DeptClientServiceFallBackFactory$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservicecloud-api-nx/target/classes/com/beitie/service/DeptClientService.class" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-api-nx/target/classes/com/beitie/service/DeptClientService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservicecloud-config-provider/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-config-provider/target/classes/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/microservicecloud-config-server-8537/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-config-server-8537/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservicecloud-config-server-8537/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-config-server-8537/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservicecloud-custom-feign80/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-custom-feign80/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservicecloud-custom-feign80/src/java/com/beitie/DeptController_Consumer_feign80.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-custom-feign80/src/java/com/beitie/DeptController_Consumer_feign80.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservicecloud-custom-feign80/src/java/com/beitie/custom/configBeans/ConfigBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-custom-feign80/src/java/com/beitie/custom/configBeans/ConfigBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservicecloud-custom-feign80/src/java/com/beitie/custom/handler/DeptController_Custom.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-custom-feign80/src/java/com/beitie/custom/handler/DeptController_Custom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservicecloud-custom-feign80/src/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-custom-feign80/src/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservicecloud-custom-feign80/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-custom-feign80/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservicecloud-custom-feign80/target/classes/com/beitie/DeptController_Consumer_feign80.class" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-custom-feign80/target/classes/com/beitie/DeptController_Consumer_feign80.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservicecloud-custom-feign80/target/classes/com/beitie/custom/configBeans/ConfigBean.class" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-custom-feign80/target/classes/com/beitie/custom/configBeans/ConfigBean.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservicecloud-custom-feign80/target/classes/com/beitie/custom/handler/DeptController_Custom.class" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-custom-feign80/target/classes/com/beitie/custom/handler/DeptController_Custom.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservicecloud-provider-8002/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-provider-8002/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservicecloud-provider-8002/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-provider-8002/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservicecloud-provider-8002/target/classes/com/beitie/provider/Dept_Provider_8002.class" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-provider-8002/target/classes/com/beitie/provider/Dept_Provider_8002.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservicecloud-provider-8080/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-provider-8080/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservicecloud-provider-8080/src/main/java/com/beitie/provider/Dept_Provider_8080.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-provider-8080/src/main/java/com/beitie/provider/Dept_Provider_8080.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservicecloud-provider-8080/src/main/java/com/beitie/provider/handler/DeptController_Provider_8080.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-provider-8080/src/main/java/com/beitie/provider/handler/DeptController_Provider_8080.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservicecloud-provider-8080/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-provider-8080/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservicecloud-provider-8080/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-provider-8080/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservicecloud-provider-8080/target/classes/com/beitie/provider/Dept_Provider_8080.class" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-provider-8080/target/classes/com/beitie/provider/Dept_Provider_8080.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservicecloud-provider-8080/target/classes/com/beitie/provider/handler/DeptController_Provider_8080.class" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-provider-8080/target/classes/com/beitie/provider/handler/DeptController_Provider_8080.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservicecloud-provider-hystrix8080/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/microservicecloud-provider-hystrix8080/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microserviceeureka7001/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/microserviceeureka7001/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +79,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="spring-beans.schema" />
         <option value="Interface" />
         <option value="Class" />
       </list>
@@ -45,9 +93,12 @@
       <MavenGeneralSettings>
         <option name="localRepository" value="D:\work\repository" />
         <option name="mavenHome" value="D:\worksoft\apache-maven-3.8.2" />
-        <option name="userSettingsFile" value="C:\Users\Administrator\.m2\settings.xml" />
+        <option name="userSettingsFile" value="C:\Users\Lenovo\.m2\settings.xml" />
       </MavenGeneralSettings>
     </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedIndex" value="1" />
   </component>
   <component name="ProjectId" id="1r3H9BeRJrpebfixX62nBWFpmIQ" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -67,7 +118,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/microservicecloud-config-client3366/src/main/resources" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/microservicecloud-stream-rabbit-consumer-10003/src/main/resources" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -77,71 +128,33 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.1019368" />
-    <property name="project.structure.side.proportion" value="0.29815015" />
+    <property name="project.structure.side.proportion" value="0.34733257" />
     <property name="settings.editor.selected.configurable" value="MavenSettings" />
+  </component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Lenovo\Desktop\笔记\项目\personal\microservicecloud_v2\microservicecloud-stream-rabbit-consumer-10003\src\main\resources" />
+      <recent name="C:\Users\Lenovo\Desktop\笔记\项目\personal\microservicecloud_v2\microservicecloud-stream-rabbit-consumer-10003\src\main\java" />
       <recent name="C:\Users\Lenovo\Desktop\笔记\项目\personal\microservicecloud_v2\microservicecloud-config-client3366\src\main\resources" />
       <recent name="C:\Users\Lenovo\Desktop\笔记\项目\personal\microservicecloud_v2\microservicecloud-config-client3366\src\main\java" />
       <recent name="C:\Users\Administrator\Desktop\git_repository\项目\personal\microservicecloud_v2\microservicecloud_v2-provider-8002" />
-      <recent name="D:\work\idea_java\microservicecloud_v2\microservicecloud_v2-config-provider\src\main\resources" />
-      <recent name="D:\work\idea_java\microservicecloud_v2\microservicecloud_v2-config-provider\src\main\java" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.beitie" />
       <recent name="com.beitie.eureka" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.Config_Client3366">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+  <component name="RunManager" selected="Spring Boot.DeptController_Consumer_feign80">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="AppStart_Provider" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <module name="microservicecloud-config-provider" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.beitie.provider.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.beitie.provider.AppStart_Provider" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ApplicationMainStart_8537" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <module name="microservicecloud-config-server-8537" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.beitie.springcloud.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.beitie.springcloud.ApplicationMainStart_8537" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Config_Client3355" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <module name="microservicecloud-config-client3355" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.beitie.springcloud.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.beitie.springcloud.Config_Client3355" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -159,6 +172,32 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="DeptController_Consumer_feign80" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="microservicecloud-custom-feign80" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.beitie.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.beitie.DeptController_Consumer_feign80" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Dept_Provider_8080" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="microservicecloud-provider-8080" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.beitie.provider.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.beitie.provider.Dept_Provider_8080" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="EurekaApplication_7001" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="microserviceeureka7001" />
       <extension name="coverage">
@@ -172,20 +211,33 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="SteamConsumer10003" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="microservicecloud-stream-rabbit-consumer-10003" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.beitie.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.beitie.SteamConsumer10003" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
-      <item itemvalue="Spring Boot.EurekaApplication_7001" />
-      <item itemvalue="Spring Boot.AppStart_Provider" />
-      <item itemvalue="Spring Boot.ApplicationMainStart_8537" />
-      <item itemvalue="Spring Boot.Config_Client3355" />
       <item itemvalue="Spring Boot.Config_Client3366" />
+      <item itemvalue="Spring Boot.Dept_Provider_8080" />
+      <item itemvalue="Spring Boot.EurekaApplication_7001" />
+      <item itemvalue="Spring Boot.SteamConsumer10003" />
+      <item itemvalue="Spring Boot.DeptController_Consumer_feign80" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.Config_Client3366" />
-        <item itemvalue="Spring Boot.Config_Client3355" />
-        <item itemvalue="Spring Boot.ApplicationMainStart_8537" />
+        <item itemvalue="Spring Boot.DeptController_Consumer_feign80" />
+        <item itemvalue="Spring Boot.Dept_Provider_8080" />
         <item itemvalue="Spring Boot.EurekaApplication_7001" />
-        <item itemvalue="Spring Boot.AppStart_Provider" />
+        <item itemvalue="Spring Boot.SteamConsumer10003" />
+        <item itemvalue="Spring Boot.Config_Client3366" />
       </list>
     </recent_temporary>
   </component>
@@ -266,7 +318,14 @@
       <workItem from="1629469002870" duration="585000" />
       <workItem from="1629532689688" duration="162000" />
       <workItem from="1629532875706" duration="11688000" />
-      <workItem from="1629591768727" duration="3666000" />
+      <workItem from="1629591768727" duration="10436000" />
+      <workItem from="1629632821045" duration="1975000" />
+      <workItem from="1629635702272" duration="470000" />
+      <workItem from="1629636203043" duration="6133000" />
+      <workItem from="1629676484243" duration="9824000" />
+      <workItem from="1629690237569" duration="1543000" />
+      <workItem from="1629708426785" duration="2615000" />
+      <workItem from="1629711128953" duration="7293000" />
     </task>
     <servers />
   </component>
@@ -291,6 +350,24 @@
           <line>19</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://D:/worksoft/jdk8/jdk/src.zip!/java/lang/ArrayStoreException.java</url>
+          <line>47</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/microservicecloud-custom-feign80/src/java/com/beitie/custom/handler/DeptController_Custom.java</url>
+          <line>40</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="org.springframework.beans.factory.BeanDefinitionStoreException" package="org.springframework.beans.factory" />
+          <option name="timeStamp" value="13" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="org.springframework.web.client.ResourceAccessException" package="org.springframework.web.client" />
+          <option name="timeStamp" value="14" />
+        </breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

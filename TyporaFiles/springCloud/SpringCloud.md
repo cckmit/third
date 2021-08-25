@@ -62,7 +62,7 @@ https://spring.io/projects/spring-cloud
 ~~~xml
 <dependency>
     <groupId>org.springframework.cloud</groupId>
-    <artifactId>spring-cloud-netflix-eureka-server</artifactId>
+    <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
 </dependency>
 ~~~
 
@@ -102,11 +102,12 @@ eureka:
     <version>2.3.4.RELEASE</version>
 </dependency>
 ```
+升级之后
 
 ~~~xml
 <dependency>
     <groupId>org.springframework.cloud</groupId>
-    <artifactId>spring-cloud-netflix-eureka-client</artifactId>
+    <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
 </dependency>
 ~~~
 
@@ -696,7 +697,7 @@ zuul:
 #  ignored-services: microservicecloud-dept-provider # "*"代表忽略所有的微服务
 ```
 
-访问http://localhost:9527/microservicecloud-dept-provider/dept/list时，会自动跳转到http://()[微服务对应的ip地址或者域]):（[微服务对应的端口号]）/dept/list
+​		访问http://localhost:9527/microservicecloud-dept-provider/dept/list时，会自动跳转到http://()[微服务对应的ip地址或者域]):（[微服务对应的端口号]）/dept/list
 
 #### Zuul的核心
 
@@ -1206,6 +1207,39 @@ logging:
 
 用来跟踪一条完整的http链条，记录服务到服务间的调用，每次调用所耗用的时间
 
+从H版起，不用配置zipkin，直接下载jar运行
+
+1、下载并启动zipkin 参见https://www.itmuch.com/spring-cloud/zipkin-server-install/，访问http://localhost:9411
+
+2、
+
+a、在微服务中添加依赖支持
+
+~~~xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-zipkin</artifactId>
+</dependency>
+<!-- 
+	zipkin中引入了sleuth，相当于整合了zipkin和sleuth
+-->
+~~~
+
+b、配置yml文件
+
+~~~yml
+spring:
+  application:
+    name: microservice_consumer
+  zipkin:
+    base-url: http://localhost:9411/  #注册人zipkin的服务器中
+    sleuth:		#并加入链路控制当中
+      sampler:
+        probablity: 1  # 抽取样品的比例
+~~~
+
+另外一种专门的配置zipkin的服务器然后在其他的微服务中进行配置
+
 添加pom依赖
 
 ```xml
@@ -1373,7 +1407,7 @@ springcloud会创建一个BootStrap Context，作为Application Context的父级
 rabbitmq-server start
 ~~~
 
-​		d.访问http://localhost:15672 默认账户名 密码 guest guest
+​		d.访问http://localhost:15762	默认账户名 密码 guest guest
 
 2、添加pom.xml文件依赖
 
@@ -1421,3 +1455,69 @@ management:
 3.配置启动类启动
 
 4.运行curl命令，用来触发 事件来提示消息总线所在系统各个实例进行刷新
+
+~~~yml
+curl -X POST http://config-8537.com:8537/actuator/bus-refresh
+# config-8537.com 配置中心地址
+# 8537 配置中心端口号
+~~~
+
+此时实现一处通知，处处修改
+
+下面实现定点通知：
+
+~~~yml
+# 此处只修改了3355端口好的微服务config-client
+curl -X POST http://config-8537.com:8537/actuator/bus-refresh/config-client:3355
+# config-8537.com 配置中心地址
+# 8537 配置中心端口号
+# config-client 服务名字
+# 3355 服务实例对应的端口号
+~~~
+
+### Stream
+
+消息驱动：屏蔽底层消息中间件的差异，无须过多关注，降低切换成本，统一编程模型
+
+通过定义bingder的这个中间层，屏蔽了不同的消息中间件的差异性，统一化处理，更加专注于业务处理
+
+通信方式遵循发布--订阅模式	
+
+channel：在消息通讯中实现存储和转发的媒介，通过channel对队列进行配置
+
+Middleware:消息中间件，目前只支持RabbitMQ和kafka
+
+Binder：应用与消息中间件的封装。	通过binder，应用可以很轻松的连接消息中间件。
+
+@Input：通过该消息通道接受的消息进入到应用程序
+
+@Output：发布的消息将通过该消息通道
+
+@StringListener：监听队列，用于消费者消息的接收
+
+@EnableBinding：信道channel和交换机exchange绑定在一起
+
+interface org.springframework.cloud.netflix.eureka.EurekaClientAutoConfiguration$ConditionalOnRefreshScope
+
+使用sun.reflect.annotation.TypeNotPresentExceptionProxy
+
+
+
+**重复消费**：不同组可以重复消费，同组是竞争关系，只能有一个进行消费，可以通过分组来解决这个问题
+
+**分组**：默认的分组是位于不同的组
+
+​		自定义分组：
+
+~~~yml
+bindings:
+        input:
+          destination: studyExchange
+          content-type: application/json
+          binder: defaultRabbit
+          group: qingfeng #分组
+~~~
+
+
+
+**持久化**：添加了分组的消费者，及时服务关闭，也不会错过（在宕机期间，包括服务器关闭）服务生产者已经发送的消息

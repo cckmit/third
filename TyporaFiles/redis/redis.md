@@ -52,6 +52,26 @@ maxclients #最大允许客户端访问数
 maxmemory #最大的默认存储内存
 ~~~
 
+### 启动
+
+找到redis安装目录，在src目录下启动redis服务
+
+~~~
+./redis-server ../redis.conf
+~~~
+
+登录redis-cli客户端
+
+~~~
+./redis-client -h [host] -p [port] -a [password] # 依次为主机  端口号  密码
+~~~
+
+
+
+
+
+
+
 ### 内存方案
 
 redis内存占用较大解决方案：

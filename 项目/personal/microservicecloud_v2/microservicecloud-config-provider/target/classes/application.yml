@@ -5,5 +5,5 @@ spring:
 info:
   app.name: microservice_dept_provider8080
   company.name: 深圳市红旗信息技术有限公司
-  artifactId: microservicecloud-config-provider
-  version: 2.0-SNAPSHOT
+  artifactId: ${project.artifactId}
+  version: ${project.version}
