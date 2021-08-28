@@ -977,6 +977,10 @@ Spring Cloud Gateway 是 Spring Cloud 的一个全新项目，该项目是基于
 
 #### filter用法
 
+在pre类型中的过滤器中可以处理参数校验、权限验证、流量监控、日志输出、协议转换（http转https）
+
+在post类型的过滤器中可以做内容响应，响应header，日志输出、流量监控
+
 ```yml
 server:
   port: 8888
@@ -1160,7 +1164,9 @@ redis-rate-limiter.burstCapacity：当前容器的最大容量，超过容量时
 </dependency>
 ```
 
-网关gateway配置
+网关gateway配置两种方式yml和硬编码
+
+yml
 
 ```yml
 server:
@@ -1173,6 +1179,19 @@ spring:
      discovery:
         locator:
          enabled: true #是否与服务注册于发现组件进行结合，通过 serviceId 转发到具体的服务实例。默认为 false，设为 true 便开启通过服务中心的自动根据 serviceId 创建路由的功能
+      routes: #路由配置
+        - id: provider_service #无固定格式，但是要有意义，名字要唯一
+          uri: http://localhost:8080 #实际上要访问的uri
+          predicates:	#预言规则
+            - Path=/product/* #只有匹配了,才会转向路由
+          filters:
+            - AddRequestParameter=foo,bar
+        - id: consumer_service 
+          uri: http://localhost
+          predicates:
+            - Path=/consumer/*
+          filters:
+            - AddRequestParameter=foo,bar
 eureka:
   client:
     service-url:
@@ -1181,6 +1200,94 @@ logging:
   level:
     org.springframework.cloud.gateway: debug	#调整相 gateway 包的 log 级别，以便排查问题
 ```
+
+硬编码javabean
+
+```java
+@Configuration
+public class RouteSelfConfig {
+    @Bean
+    public RouteLocator buildRouteLocator(RouteLocatorBuilder routeLocatorBuilder){
+        RouteLocatorBuilder.Builder routes = routeLocatorBuilder.routes();
+        routes.route("baiduSelfConfig",r -> r.path("/{guonei}").uri("http://news.baidu.com")).build();
+        return routes.build();
+    }
+}
+```
+
+http://localhost:11000/guoji
+
+http://localhost:11000/guonei
+
+http://localhost:11000/game 
+
+均可以匹配然后分别跳入
+
+http://news.baidu.com/guoji
+
+http://news.baidu.com/guonei
+
+http://news.baidu.com/game
+
+负载均衡【动态路由】
+
+~~~yml
+spring:
+  application:
+    name: gateway_server
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true  #开启从注册中心动态创建路由功能，利用服务名进行路由
+      routes:
+        - id: provider-service
+#          uri: http://localhost:8080
+          uri: lb://microservicecloud-dept-provider 
+          # lb://微服务名称 这是动态路由，满足预言条件时自动跳入该服务，需要注意的是服务名不能使用下划线，但是可以使用数字【首字母不可以】，可以使用‘-’分隔符
+          predicates:
+            - Path=/product/*
+          filters:
+            - AddRequestParameter=foo,bar
+        - id: consumer-service
+#          uri: http://localhost
+          uri: lb://microservice-consumer
+          predicates:
+            - Path=/consumer/*
+          filters:
+            - AddRequestParameter=foo,bar
+
+~~~
+
+
+
+#### 熔断、限流、重试
+
+~~~yml
+filters:
+# 熔断降级配置
+- name: Hystrix
+  args:
+    name : default
+    fallbackUri: 'forward:/defaultfallback'
+
+# hystrix 信号量隔离，3秒后自动超时
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE
+          thread:
+            timeoutInMilliseconds: 3000
+  shareSecurityContext: true
+~~~
+
+
+
+#### WEBFLUX
+
+#### 集成hystrix
 
 ### Sleuth 司璐思
 
@@ -1476,27 +1583,172 @@ Binder：应用与消息中间件的封装。	通过binder，应用可以很轻�
 
 @EnableBinding：信道channel和交换机exchange绑定在一起
 
-interface org.springframework.cloud.netflix.eureka.EurekaClientAutoConfiguration$ConditionalOnRefreshScope
-
-使用sun.reflect.annotation.TypeNotPresentExceptionProxy
 
 
+#### 使用
 
-**重复消费**：不同组可以重复消费，同组是竞争关系，只能有一个进行消费，可以通过分组来解决这个问题
+pom文件
 
-**分组**：默认的分组是位于不同的组
+**消息提供者：**
+
+~~~xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-stream-rabbit</artifactId>
+</dependency>
+~~~
+
+**消息消费者：**其实消息提供者的依赖（spring-cloud-starter-stream-rabbit）已经涵盖了消息消费者（spring-cloud-stream-binder-rabbit）
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-stream-binder-rabbit</artifactId>
+</dependency>
+```
+
+**1、RabbitMQ环境配置**
+
+​		a.安装erlang   otp_win64_24.0
+
+​		b.安装Rabbit
+
+​		c.进入rabbitMq的安装目录sbin，执行如下命令,启动管理功能
+
+~~~cmd
+rabbitmq-server start
+~~~
+
+​	**消息提供者**：
+
+```yml
+server:
+  port: 10001
+
+spring:
+  application:
+    name: stream-rabbit-producer
+  cloud:
+    stream:
+      binders:
+        defaultRabbit:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: localhost
+                port: 5672
+                username: guest
+                password: guest
+      bindings:
+        output: #消息提供者
+          destination: studyExchange #目的地交换机
+          content-type: application/json #输出格式
+          binder: defaultRabbit	#绑定给指定的rabbitMQ
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka
+  instance:
+    instance-id: stream-rabbit-producer10001
+    prefer-ip-address: true
+```
+
+**消息消费者**
+
+```yml
+server:
+  port: 10002
+
+spring:
+  application:
+    name: stream-rabbit-consumer
+  cloud:
+    stream:
+      binders:
+        defaultRabbit: #配置一个启用的消息代理和队列服务器
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: localhost
+                port: 5672
+                username: guest
+                password: guest
+      bindings:
+        input:	#消息接收端
+          destination: studyExchange	#放到指定的交换机上面
+          content-type: application/json #数据返回格式
+          binder: defaultRabbit #绑定到对应的配置好的一个消息代理和队列服务器
+          group: qingfeng	#设置分组
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka
+  instance:
+    instance-id: stream-rabbit-consumer10002
+    prefer-ip-address: true
+```
+
+**消息提供者service**
+
+
+
+```java
+@EnableBinding(Source.class) //需要将消息绑定到 channel对应的exchange上面
+public class JMessageSenderImpl implements JMessageSender{
+    @Resource
+    private MessageChannel output;
+    @Override
+    public String send() {
+        String msg= UUID.randomUUID().toString();
+        output.send(MessageBuilder.withPayload(msg).build());
+        System.out.println("---msg-----"+msg);
+        return msg;
+    }
+}
+```
+
+消息消费者consumer
+
+```java
+@EnableBinding(Sink.class)	//需要将消息接受者绑定在exchange上面
+public class ReceivedMsgController {
+    @Value("${server.port}")
+    private String serverPort;
+
+    @StreamListener(Sink.INPUT)	//添加接收消息的监听，用来接收消息
+    public void receiveMsg(String msg){
+        System.out.println("---consumer received msg---"+msg+"\t端口号"+serverPort);
+    }
+
+}
+```
+
+这样就可以实现消息的发送和接收通过rabbitmq这个消息中间件进行了。
+
+#### 重复消费
+
+不同组可以重复消费，同组是竞争关系，只能有一个进行消费，可以通过分组来解决这个问题
+
+#### **分组**：
+
+​		默认的分组是位于不同的组
 
 ​		自定义分组：
 
 ~~~yml
 bindings:
-        input:
-          destination: studyExchange
-          content-type: application/json
-          binder: defaultRabbit
-          group: qingfeng #分组
+    input: 
+    destination: studyExchange
+    content-type: application/json
+    binder: defaultRabbit
+    group: qingfeng #分组 消息消费者使用分组
 ~~~
 
 
 
-**持久化**：添加了分组的消费者，及时服务关闭，也不会错过（在宕机期间，包括服务器关闭）服务生产者已经发送的消息
+#### **持久化**
+
+添加了分组的消费者，即使服务关闭，也不会错过（在宕机期间，包括服务器关闭）服务生产者已经发送的消息
+

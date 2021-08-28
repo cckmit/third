@@ -15,8 +15,8 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 @EnableEurekaClient
 @EnableDiscoveryClient
 @EnableHystrix
-public class GatewayStart11000 {
+public class GatewayStart11001 {
     public static void main(String[] args) {
-        SpringApplication.run(GatewayStart11000.class,args);
+        SpringApplication.run(GatewayStart11001.class,args);
     }
 }

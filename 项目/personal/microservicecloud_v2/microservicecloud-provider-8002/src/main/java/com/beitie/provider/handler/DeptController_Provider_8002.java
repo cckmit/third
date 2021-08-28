@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/dept")
+@RequestMapping("/product")
 public class DeptController_Provider_8002 {
     @Autowired
     private DeptService deptService;
@@ -32,5 +32,13 @@ public class DeptController_Provider_8002 {
             System.out.println("service=="+service);
         }
     }
-
+    @RequestMapping("/timeout")
+    public String timeout(){
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "success";
+    }
 }

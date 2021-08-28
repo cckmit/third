@@ -1,5 +1,5 @@
 server:
-  port: 11000
+  port: 11001
 spring:
   application:
     name: gateway_server
@@ -45,7 +45,7 @@ eureka:
     service-url:
       defaultZone: http://eureka7001.com:7001/eureka/
   instance:
-    instance-id: gateway_server11000
+    instance-id: gateway_server11001
 logging:
   level:
     org.springframework.cloud.gateway: debug

@@ -100,3 +100,22 @@ ps -ef | grep 【redis】
 
 ll /proc/2423[进程号]/cwd
 
+winscp连接注意问题
+
+1、需要开启虚拟主机的网络
+
+![image-20210826101701647](linux/image-20210826101701647.png)
+
+2、需要启动服务
+
+查看状态命令：systemctl status sshd.service
+
+启动服务命令：systemctl start sshd.service
+
+停止服务命令：systemctl stop sshd.service
+
+重启服务命令：systemctl restart sshd.service
+
+开机自启命令：systemctl enable sshd.service
+
+删除自启命令：systemctl disable sshd.service
