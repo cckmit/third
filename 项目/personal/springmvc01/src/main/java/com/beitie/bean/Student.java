@@ -1,5 +1,8 @@
 package com.beitie.bean;
 
+import java.util.Collections;
+import java.util.concurrent.FutureTask;
+
 public class Student {
     private int id;
     private String name;
@@ -7,6 +10,7 @@ public class Student {
     private String sexName;
 
     public Student(String name, String address, String sexName) {
+        FutureTask
         this.name = name;
         this.address = address;
         this.sexName = sexName;

@@ -1,196 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6dcdbb3-2419-4a94-9848-1e6e911ca4c4" name="Default Changelist" comment="" />
+    <list default="true" id="99dfebad-bf1a-4847-8f95-5e3c36913fa1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/thread/CallableTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/thread/CallableThread.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/thread/MyRunnable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/thread/RunnableTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/linux/linux.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TyporaFiles/linux/linux.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/ssm/SPRINGMVC  AND  MYBATIS.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TyporaFiles/ssm/SPRINGMVC  AND  MYBATIS.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/designModel/adapter/AdapterExecuter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/designModel/adapter/AdapterExecuter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/designModel/adapter/AdapterSampler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/designModel/adapter/AdapterSampler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/designModel/adapter/MyTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/designModel/adapter/MyTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/lamda/lamdaTest1.java" beforeDir="false" afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/lamda/lamdaTest1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dingShiRenWu/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../dingShiRenWu/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dingShiRenWu/src/main/java/jdkR/TimerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dingShiRenWu/src/main/java/jdkR/TimerServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dingShiRenWu/src/main/java/springold/ColorJob.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dingShiRenWu/src/main/java/springold/ColorJob.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dingShiRenWu/src/main/java/springold/JobStateExample.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dingShiRenWu/src/main/java/springold/JobStateExample.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dingShiRenWu/src/main/java/springold/MyScheduler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dingShiRenWu/src/main/java/springold/MyScheduler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dingShiRenWu/src/main/java/springold/SimpleJobQuartz.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dingShiRenWu/src/main/java/springold/SimpleJobQuartz.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dingShiRenWu/src/main/java/springold/config/SpringOldConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dingShiRenWu/src/main/java/springold/config/SpringOldConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dingShiRenWu/src/test/java/jdkR/TimerServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dingShiRenWu/src/test/java/jdkR/TimerServiceImplTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/beitie/aop/aspect/LogManagerV2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/beitie/aop/aspect/LogManagerV2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_Web_exploded/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_Web_exploded/WEB-INF/classes/com/beitie/bean/Student.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_Web_exploded/WEB-INF/classes/com/beitie/controller/StudentController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_Web_exploded/WEB-INF/classes/spring/springmvcConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_Web_exploded/WEB-INF/web.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/classes/com/beitie/controller/StudentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/classes/com/beitie/controller/StudentController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/lib/aspectjweaver-1.9.5.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/lib/spring-aop-5.1.13.RELEASE.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/lib/spring-aspects-5.1.13.RELEASE.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/lib/spring-beans-5.1.13.RELEASE.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/lib/spring-context-5.1.13.RELEASE.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/lib/spring-core-5.1.13.RELEASE.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/lib/spring-expression-5.1.13.RELEASE.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/lib/spring-jcl-5.1.13.RELEASE.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/lib/spring-test-5.1.13.RELEASE.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/lib/spring-web-5.1.13.RELEASE.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/lib/spring-webmvc-5.1.13.RELEASE.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/views/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../springmvc01/src/main/webapp/WEB-INF/views/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/src/main/java/com/beitie/bean/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/../springmvc01/src/main/java/com/beitie/bean/Student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/src/main/java/com/beitie/controller/SpecialController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../springmvc01/src/main/java/com/beitie/controller/SpecialController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/src/main/java/com/beitie/controller/StudentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../springmvc01/src/main/java/com/beitie/controller/StudentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/src/webapp/WEB-INF/views/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../springmvc01/src/main/webapp/WEB-INF/views/error.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/src/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../springmvc01/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/target/classes/com/beitie/controller/StudentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../springmvc01/target/classes/com/beitie/controller/StudentController.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Interface" />
-        <option value="spring-beans.schema" />
-        <option value="Class" />
-        <option value="Aspect" />
-      </list>
-    </option>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHome" value="D:/worksoft/apache-maven-3.2.5" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
-  <component name="ProjectId" id="1jsHXusoehgfkP6FlAqBk0ihOf1" />
+  <component name="ProjectId" id="1xUlx90Nvd2gYPnx65AsQkXZiXa" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
-    <option name="showExcludedFiles" value="true" />
+    <option name="showExcludedFiles" value="false" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../rfs-base" />
-    <property name="project.structure.last.edited" value="Facets" />
-    <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.34827587" />
-    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
-  <component name="RecentsManager">
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.beitie.aspectj" />
-      <recent name="com.beitie.service" />
-      <recent name="com.beitie.aop.aspect" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\work\idea_java\spring-aop01\src\main\resources" />
-    </key>
-  </component>
-  <component name="RunManager" selected="JUnit.StudentServiceImplTestV2.studyTest">
-    <configuration name="StudentServiceImplTestV2.playTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="spring-aop01" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.beitie.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.beitie.service" />
-      <option name="MAIN_CLASS_NAME" value="com.beitie.service.StudentServiceImplTestV2" />
-      <option name="METHOD_NAME" value="playTest" />
-      <option name="TEST_OBJECT" value="method" />
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StudentServiceImplTestV2.studyTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="spring-aop01" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.beitie.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.beitie.service" />
-      <option name="MAIN_CLASS_NAME" value="com.beitie.service.StudentServiceImplTestV2" />
-      <option name="METHOD_NAME" value="studyTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="StudentServiceImplTest.playTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="spring-aop01" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.beitie.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.beitie.service" />
-      <option name="MAIN_CLASS_NAME" value="com.beitie.service.StudentServiceImplTest" />
-      <option name="METHOD_NAME" value="playTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="StudentServiceImplTest.studyTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="spring-aop01" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.beitie.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.beitie.service" />
-      <option name="MAIN_CLASS_NAME" value="com.beitie.service.StudentServiceImplTest" />
-      <option name="METHOD_NAME" value="studyTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="JUnit.StudentServiceImplTestV2.studyTest" />
-        <item itemvalue="JUnit.StudentServiceImplTestV2.playTest" />
-        <item itemvalue="JUnit.StudentServiceImplTest.studyTest" />
-        <item itemvalue="JUnit.StudentServiceImplTest.playTest" />
-      </list>
-    </recent_temporary>
   </component>
-  <component name="SvnConfiguration">
-    <configuration />
-  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="a6dcdbb3-2419-4a94-9848-1e6e911ca4c4" name="Default Changelist" comment="" />
-      <created>1604585921933</created>
+      <changelist id="99dfebad-bf1a-4847-8f95-5e3c36913fa1" name="Default Changelist" comment="" />
+      <created>1630417793489</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1604585921933</updated>
-      <workItem from="1604585929885" duration="4846000" />
-      <workItem from="1604716641422" duration="636000" />
-      <workItem from="1604804771156" duration="1351000" />
-      <workItem from="1604841264251" duration="2564000" />
-      <workItem from="1607093539947" duration="1110000" />
-      <workItem from="1615002123037" duration="655000" />
-      <workItem from="1615470465536" duration="1099000" />
-      <workItem from="1617936830557" duration="5548000" />
-      <workItem from="1617952696617" duration="3632000" />
-      <workItem from="1617976094646" duration="2084000" />
-      <workItem from="1618064072971" duration="3761000" />
-      <workItem from="1618126850235" duration="2508000" />
+      <updated>1630417793489</updated>
+      <workItem from="1630417821940" duration="318000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1618064753776">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1618064753776" />
-    <state width="661" height="185" key="GridCell.Tab.0.bottom" timestamp="1618068079130">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="661" height="185" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1618068079130" />
-    <state width="661" height="185" key="GridCell.Tab.0.center" timestamp="1618068079130">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="661" height="185" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1618068079130" />
-    <state width="661" height="185" key="GridCell.Tab.0.left" timestamp="1618068079130">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="661" height="185" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1618068079130" />
-    <state width="661" height="185" key="GridCell.Tab.0.right" timestamp="1618068079130">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="661" height="185" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1618068079130" />
-    <state x="163" y="0" key="SettingsEditor" timestamp="1618066509130">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="163" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1618066509130" />
-    <state x="356" y="46" key="spring file set editor" timestamp="1617937621730">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="356" y="46" key="spring file set editor/0.0.1366.728@0.0.1366.728" timestamp="1617937621730" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/aspectj/com/beitie/aspectj/LogAspect.aj</url>
-          <line>11</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <option name="version" value="3" />
   </component>
   <component name="se.expertsystem.intellij.aop.aspectj.AspectJProjectComponent">
     <setting name="isActivated" value="false" />

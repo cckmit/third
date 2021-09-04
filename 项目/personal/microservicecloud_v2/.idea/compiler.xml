@@ -22,10 +22,12 @@
         <module name="microservicecloud-config-client3366" />
         <module name="microservicecloud-custom-80" />
         <module name="microservicecloud-custom-feign80" />
+        <module name="microservicecloud_gateway11001" />
         <module name="microservicecloud-config-provider" />
         <module name="microserviceeureka7002" />
         <module name="microserviceeureka7001" />
         <module name="microserviceeureka7003" />
+        <module name="microservicecloud_gateway11000" />
         <module name="microservicecloud-provider-hystrix8080" />
       </profile>
     </annotationProcessing>

@@ -5,8 +5,60 @@
       <artifact name="springmvc01:war exploded" />
     </artifacts-to-build>
   </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="88c6cda3-5916-4d99-bd2c-148906409357" name="Default Changelist" comment="" />
+    <list default="true" id="88c6cda3-5916-4d99-bd2c-148906409357" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/proxy/jdkproxy/JDKProxyTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/proxy/jdkproxy/JDKProxyUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/proxy/jdkproxy/JDkProxyHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/service/IUserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/thread/CallableTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/thread/CallableThread.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/thread/MyRunnable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/thread/RunnableTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/linux/linux.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TyporaFiles/linux/linux.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/ssm/SPRINGMVC  AND  MYBATIS.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TyporaFiles/ssm/SPRINGMVC  AND  MYBATIS.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/designModel/adapter/AdapterExecuter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/designModel/adapter/AdapterExecuter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/designModel/adapter/AdapterSampler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/designModel/adapter/AdapterSampler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/designModel/adapter/MyTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/designModel/adapter/MyTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/lamda/lamdaTest1.java" beforeDir="false" afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/lamda/lamdaTest1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dingShiRenWu/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../dingShiRenWu/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dingShiRenWu/src/main/java/jdkR/TimerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dingShiRenWu/src/main/java/jdkR/TimerServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dingShiRenWu/src/main/java/springold/ColorJob.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dingShiRenWu/src/main/java/springold/ColorJob.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dingShiRenWu/src/main/java/springold/JobStateExample.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dingShiRenWu/src/main/java/springold/JobStateExample.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dingShiRenWu/src/main/java/springold/MyScheduler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dingShiRenWu/src/main/java/springold/MyScheduler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dingShiRenWu/src/main/java/springold/SimpleJobQuartz.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dingShiRenWu/src/main/java/springold/SimpleJobQuartz.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dingShiRenWu/src/main/java/springold/config/SpringOldConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dingShiRenWu/src/main/java/springold/config/SpringOldConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dingShiRenWu/src/test/java/jdkR/TimerServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dingShiRenWu/src/test/java/jdkR/TimerServiceImplTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spring-aop01/src/main/java/com/beitie/aop/aspect/LogManagerV2.java" beforeDir="false" afterPath="$PROJECT_DIR$/../spring-aop01/src/main/java/com/beitie/aop/aspect/LogManagerV2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/springmvc01_Web_exploded/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/springmvc01_Web_exploded/WEB-INF/classes/com/beitie/bean/Student.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/springmvc01_Web_exploded/WEB-INF/classes/com/beitie/controller/StudentController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/springmvc01_Web_exploded/WEB-INF/classes/spring/springmvcConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/springmvc01_Web_exploded/WEB-INF/web.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/springmvc01_war_exploded/WEB-INF/classes/com/beitie/controller/StudentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/springmvc01_war_exploded/WEB-INF/classes/com/beitie/controller/StudentController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/springmvc01_war_exploded/WEB-INF/lib/aspectjweaver-1.9.5.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/springmvc01_war_exploded/WEB-INF/lib/spring-aop-5.1.13.RELEASE.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/springmvc01_war_exploded/WEB-INF/lib/spring-aspects-5.1.13.RELEASE.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/springmvc01_war_exploded/WEB-INF/lib/spring-beans-5.1.13.RELEASE.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/springmvc01_war_exploded/WEB-INF/lib/spring-context-5.1.13.RELEASE.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/springmvc01_war_exploded/WEB-INF/lib/spring-core-5.1.13.RELEASE.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/springmvc01_war_exploded/WEB-INF/lib/spring-expression-5.1.13.RELEASE.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/springmvc01_war_exploded/WEB-INF/lib/spring-jcl-5.1.13.RELEASE.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/springmvc01_war_exploded/WEB-INF/lib/spring-test-5.1.13.RELEASE.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/springmvc01_war_exploded/WEB-INF/lib/spring-web-5.1.13.RELEASE.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/springmvc01_war_exploded/WEB-INF/lib/spring-webmvc-5.1.13.RELEASE.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/springmvc01_war_exploded/WEB-INF/views/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/beitie/bean/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/beitie/bean/Student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/beitie/controller/SpecialController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/beitie/controller/SpecialController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/beitie/controller/StudentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/beitie/controller/StudentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/webapp/WEB-INF/views/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/error.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/beitie/controller/StudentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/beitie/controller/StudentController.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,11 +67,14 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="spring-beans.schema" />
         <option value="Jsp File" />
+        <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
   </component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
@@ -31,42 +86,60 @@
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="mavenHome" value="D:/worksoft/apache-maven-3.2.5" />
+        <option name="mavenHome" value="D:\worksoft\apache-maven-3.8.2" />
       </MavenGeneralSettings>
     </option>
   </component>
   <component name="ProjectId" id="1k0l1I5RZGBh2UvowTsB21lW5gK" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
-    <option name="showExcludedFiles" value="true" />
+    <option name="showExcludedFiles" value="false" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/webapp" />
-    <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.15" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../spring-aop01" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.1527495" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+    <property name="settings.editor.selected.configurable" value="preferences.fileTypes" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Lenovo\Desktop\笔记\项目\personal\springmvc01\out\artifacts\springmvc01_war_exploded\WEB-INF\views" />
+      <recent name="C:\Users\Lenovo\Desktop\笔记\项目\personal\springmvc01\src\webapp\WEB-INF\views" />
+      <recent name="D:\work\idea_java\springmvc01\src\main\WEB-INF" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Lenovo\Desktop\笔记\项目\personal\springmvc01\src\main" />
       <recent name="D:\work\idea_java\springmvc01\src\webapp\WEB-INF\views" />
       <recent name="D:\work\idea_java\springmvc01\src\webapp" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\work\idea_java\springmvc01\src\main\WEB-INF" />
-    </key>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Tomcat 8.5.16" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 8.5.16" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/user/findAllInfo.action" />
       <option name="BROWSER_ID" value="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" />
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
         <artifact name="springmvc01:war exploded">
           <settings>
-            <option name="CONTEXT_PATH" value="/springmvc01_war_exploded" />
+            <option name="CONTEXT_PATH" value="/" />
           </settings>
         </artifact>
       </deployment>
@@ -97,6 +170,21 @@
         </SHUTDOWN>
       </ConfigurationWrapper>
       <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Profile">
         <option name="USE_ENV_VARIABLES" value="true" />
         <STARTUP>
           <option name="USE_DEFAULT" value="true" />
@@ -156,6 +244,7 @@
       </list>
     </option>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="StructureViewFactory">
     <option name="ACTIVE_ACTIONS" value=",ALPHA_COMPARATOR" />
   </component>
@@ -184,16 +273,24 @@
       <workItem from="1606403705923" duration="1285000" />
       <workItem from="1607008855161" duration="1216000" />
       <workItem from="1617940244868" duration="12000" />
+      <workItem from="1630029829389" duration="540000" />
+      <workItem from="1630030389214" duration="7013000" />
+      <workItem from="1630112788520" duration="1921000" />
+      <workItem from="1630399628078" duration="1437000" />
+      <workItem from="1630401125078" duration="274000" />
+      <workItem from="1630401435991" duration="3493000" />
+      <workItem from="1630405002964" duration="5940000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="3" />
   </component>
-  <component name="WindowStateProjectService">
-    <state x="275" y="21" key="#Project_Structure" timestamp="1617940255371">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="275" y="21" key="#Project_Structure/0.0.1366.728@0.0.1366.728" timestamp="1617940255371" />
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+  <component name="se.expertsystem.intellij.aop.aspectj.AspectJProjectComponent">
+    <setting name="isActivated" value="false" />
   </component>
 </project>

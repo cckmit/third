@@ -1,3 +1,4 @@
+package springold;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,34 +32,37 @@ public class JobStateExample
 
         Date startTime = DateBuilder.nextGivenSecondDate(null, 10);
 
-        JobDetail job1 = JobBuilder.newJob(cn.zto.job.ColorJob.class).withIdentity("job1", "group1").build();
+        JobDetail job1 = JobBuilder.newJob(SimpleJobQuartz.class).withIdentity("job1", "group1").build();
 
         SimpleTrigger trigger1 = (SimpleTrigger)TriggerBuilder.newTrigger()
                 .withIdentity("trigger1", "group1")
                 .startAt(startTime)
                 .withSchedule(SimpleScheduleBuilder.simpleSchedule()
-                        .withIntervalInSeconds(10)
+                        .withIntervalInSeconds(1)
                         .withRepeatCount(4))
                 .build();
 
         job1.getJobDataMap().put("color", "Green");
         job1.getJobDataMap().put("count", 1);
+        job1.getJobDataMap().put("total", 1);
+        job1.getJobDataMap().put("sex", "boy");
 
         Date scheduleTime1 = sched.scheduleJob(job1, trigger1);
         System.out.println(job1.getKey() + "  将在:  " + dateFormat.format(scheduleTime1) + " 运行，重复 " + trigger1.getRepeatCount() + " 次,每 " + trigger1.getRepeatInterval() / 1000L + " 秒执行一次");
 
-        JobDetail job2 = JobBuilder.newJob(cn.zto.job.ColorJob.class).withIdentity("job2", "group1").build();
-
+        JobDetail job2 = JobBuilder.newJob(SimpleJobQuartz.class).withIdentity("job2", "group1").build();
         SimpleTrigger trigger2 = (SimpleTrigger)TriggerBuilder.newTrigger()
                 .withIdentity("trigger2", "group1")
                 .startAt(startTime)
                 .withSchedule(SimpleScheduleBuilder.simpleSchedule()
-                        .withIntervalInSeconds(10)
+                        .withIntervalInSeconds(1)
                         .withRepeatCount(4))
                 .build();
 
         job2.getJobDataMap().put("color", "Red");
         job2.getJobDataMap().put("count", 1);
+        job2.getJobDataMap().put("total", 1);
+        job2.getJobDataMap().put("sex", "girl");
 
         Date scheduleTime2 = sched.scheduleJob(job2, trigger2);
         System.out.println(job2.getKey().toString() + "  将在:  " + dateFormat.format(scheduleTime2) + " 运行，重复 " + trigger2.getRepeatCount() + " 次,每 " + trigger2.getRepeatInterval() / 1000L + " 秒执行一次");

@@ -17,4 +17,8 @@ public class SpecialController {
         session.removeAttribute("student");
         return "sesion 已移除";
     }
+    @RequestMapping("/specialError")
+    public String specialError(){
+        return ""+3/0;
+    }
 }

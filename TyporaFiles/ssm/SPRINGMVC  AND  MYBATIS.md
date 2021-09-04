@@ -422,7 +422,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         <mvc:exclude-mapping path="/toLogin"/>
         <mvc:exclude-mapping path="/login"/>
         <!--class属性就是我们自定义的拦截器-->
-        <bean id="loginInterceptor" class="cn.zwq.springmvc.interceptor.LoginInterceptor"/>
+        <bean id="loginInterceptor2" class="cn.zwq.springmvc.interceptor.LoginInterceptor"/>
     </mvc:interceptor>
     <!--如果还有其他拦截器，那么还是按照上面的拦截器配置-->
 </mvc:interceptors>
@@ -443,7 +443,7 @@ WebRequestInterceptor接口
 
 **@ExceptionHandler**
 
-​		@ExceptionHandler标识一个方法为全局异常处理的方法。
+​		@ExceptionHandler标识一个方法为全局异常处理的方法{和@ControllerAdvice配合使用时才是全局的，否则是单个Controller的异常处理方法}。
 
 **1. 使用@ExceptionHandler注解**
 

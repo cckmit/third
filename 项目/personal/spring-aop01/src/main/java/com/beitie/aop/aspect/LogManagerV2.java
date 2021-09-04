@@ -4,7 +4,6 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
 
 //@Aspect
 @Component("logManagerV2")
@@ -13,7 +12,7 @@ public class LogManagerV2 {
 
     }
     public void commonServiceDoMethodPointcut(){
-
+        System.out.println();
     }
     public void prepareWork(){
         System.out.println("正在进行预习功课。");

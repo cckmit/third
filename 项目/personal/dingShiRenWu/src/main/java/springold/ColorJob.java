@@ -1,4 +1,4 @@
-package cn.zto.job;
+package springold;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,17 +28,21 @@ public class ColorJob
     {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH时mm分ss秒");
         JobKey jobKey = context.getJobDetail().getKey();
-
         JobDataMap data = context.getJobDetail().getJobDataMap();
         String favoriteColor = data.getString("color");
         int count = data.getInt("count");
+        int total = data.getInt("total");
         System.out.println(("ColorJob:  在 " + dateFormat.format(new Date()) + "执行  "+  jobKey +"\n"
                 + " color : " + favoriteColor + "\n"
                 + " 第  " + count + "次 执行\n"
+                + " 第  " + total + "次 执行\n"
                 + " 成员变量_counter是第 " + this._counter+ "次 执行"));
 
-        ++count;
+        count++;
         data.put("count", count);
+        total++;
+        data.put("total", total);
+
 
         this._counter += 1;
     }

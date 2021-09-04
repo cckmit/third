@@ -16,6 +16,8 @@
     <file url="file://$PROJECT_DIR$/microservicecloud-stream-rabbit-10001/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/microservicecloud-stream-rabbit-consumer-10002/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/microservicecloud-stream-rabbit-consumer-10003/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservicecloud_gateway11000/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservicecloud_gateway11001/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/microserviceeureka7001/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/microserviceeureka7002/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/microserviceeureka7003/src/main/java" charset="UTF-8" />

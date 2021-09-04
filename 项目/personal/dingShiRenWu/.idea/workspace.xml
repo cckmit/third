@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c1d2942c-ea3f-42fd-95a2-b3fbecde5d47" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../compoundProject/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/lamda/lamdaTest1.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/jdkR/TimerServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/springold/ColorJob.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/springold/JobStateExample.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/springold/MyScheduler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/springold/SimpleJobQuartz.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/springold/config/SpringOldConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/jdkR/TimerServiceImplTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/新特性/接口新定义.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TyporaFiles/新特性/接口新定义.md" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="ProjectId" id="1xL40QTFHbdGaYd4bfwyizOHQkO" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="showExcludedFiles" value="false" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/jdkR/TimerServiceImpl.java" />
+    <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/src/main/java/jdkR/TimerServiceImpl.java" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="jdkR" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.MyScheduler">
+    <configuration name="JobStateExample" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="springold.JobStateExample" />
+      <module name="dingShiRenWu" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="springold.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MyScheduler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="springold.MyScheduler" />
+      <module name="dingShiRenWu" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="springold.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TimerServiceImpl" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="jdkR.TimerServiceImpl" />
+      <module name="dingShiRenWu" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="jdkR.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TimerServiceImplTest.printTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="dingShiRenWu" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="jdkR.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="jdkR" />
+      <option name="MAIN_CLASS_NAME" value="jdkR.TimerServiceImplTest" />
+      <option name="METHOD_NAME" value="printTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TimerServiceImplTest.scheduleTimerTask_Date_PeriodTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="dingShiRenWu" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="jdkR.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="jdkR" />
+      <option name="MAIN_CLASS_NAME" value="jdkR.TimerServiceImplTest" />
+      <option name="METHOD_NAME" value="scheduleTimerTask_Date_PeriodTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.MyScheduler" />
+        <item itemvalue="Application.JobStateExample" />
+        <item itemvalue="JUnit.TimerServiceImplTest.scheduleTimerTask_Date_PeriodTest" />
+        <item itemvalue="JUnit.TimerServiceImplTest.printTest" />
+        <item itemvalue="Application.TimerServiceImpl" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c1d2942c-ea3f-42fd-95a2-b3fbecde5d47" name="Default Changelist" comment="" />
+      <created>1630120812271</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1630120812271</updated>
+      <workItem from="1630120813613" duration="15370000" />
+      <workItem from="1630196560977" duration="1649000" />
+      <workItem from="1630237556128" duration="7130000" />
+    </task>
+    <task id="LOCAL-00001" summary="添加定时任务">
+      <created>1630120904693</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1630120904693</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="添加定时任务" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加定时任务" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/jdkR/TimerServiceImpl.java</url>
+          <line>26</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="se.expertsystem.intellij.aop.aspectj.AspectJProjectComponent">
+    <setting name="isActivated" value="false" />
+  </component>
+</project>

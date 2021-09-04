@@ -14,6 +14,11 @@ class TimerServiceImpl {
     static void println(String msg){
         System.out.println(msg);
     }
+
+    public static void main(String[] args) {
+        TimerServiceImpl timerService = new TimerServiceImpl();
+        timerService.scheduleTimerTask_Date();
+    }
     public void scheduleTimerTask_Date(){
         for (int i = 0; i < 10; ++i) {
             new Timer("timer - " + i).schedule(new TimerTask() {
