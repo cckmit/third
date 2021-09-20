@@ -9,23 +9,25 @@ public abstract class AbstractHandler implements Handler{
     public static int INFO = 1;
     public static int DEBUG = 2;
     public static int ERROR = 3;
-    private int level;
+    protected int level;
     private Handler nextHandler;
 
-    public Handler setNextHandler(Handler nextHandler) {
+    public void setNextHandler(Handler nextHandler) {
         this.nextHandler = nextHandler;
-        return nextHandler;
+    }
+
+    public AbstractHandler() {
     }
 
     @Override
     public void handle(int level,String msg) {
         if(this.level <= level){
-            write(msg);
+            business(msg);
         }
         if(this.nextHandler!=null){
             this.nextHandler.handle(level,msg);
         }
     }
 
-    public abstract void write(String msg) ;
+    public abstract void business(String msg) ;
 }

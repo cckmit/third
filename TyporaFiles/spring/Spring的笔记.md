@@ -232,3 +232,205 @@ music5--歌曲名：千里之外--作者是周杰伦
 
 music4和music5指向的是同一个bean，但是用的不同的 别名，其中不同的别名之间可以用空格、逗号（,）、分号(;)来分隔开来
 
+## bean生命周期
+
+~~~java
+public class MyBeanFactoryPostprocessor implements BeanFactoryPostProcessor {
+
+    public MyBeanFactoryPostprocessor() {
+        super();
+        System.out.println("这是BeanFactoryPostProcessor实现类构造器！！");
+    }
+
+    public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+        System.out.println("BeanFactoryPostProcessor调用postProcessBeanFactory方法");
+        BeanDefinition bd = beanFactory.getBeanDefinition("person");
+        bd.getPropertyValues().addPropertyValue("phone", "110");
+    }
+}
+
+public class MyBeanPostprocessor implements BeanPostProcessor {
+
+    public MyBeanPostprocessor() {
+        super();
+        System.out.println("这是BeanPostProcessor实现类构造器！！");
+    }
+
+    public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+        System.out.println("BeanPostProcessor接口方法postProcessBeforeInitialization对属性进行更改");
+        return bean;
+    }
+
+    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+        System.out.println("BeanPostProcessor接口方法postProcessAfterInitialization对属性进行更改");
+        return bean;
+    }
+}
+
+public class MyInstantiationProcessor extends InstantiationAwareBeanPostProcessorAdapter {
+    public MyInstantiationProcessor() {
+        super();
+        System.out.println("调用MyInstantiationProcessor构造器");
+    }
+
+    @Override
+    public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+        System.out.println("调用MyInstantiationProcessor的postProcessBeforeInitialization方法");
+        return super.postProcessBeforeInitialization(bean, beanName);
+    }
+
+    @Override
+    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+        System.out.println("调用MyInstantiationProcessor的postProcessAfterInitialization方法");
+        return super.postProcessAfterInitialization(bean, beanName);
+    }
+}
+
+
+
+public class Person implements BeanFactoryAware, BeanNameAware, InitializingBean, DisposableBean {
+    private String name;
+    private int age;
+    private String phone;
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                '}';
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public Person() {
+        super();
+        System.out.println("调用Person的构造器");
+    }
+
+    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+        System.out.println("调用Person的setBeanFactory方法");
+    }
+
+    public void setBeanName(String name) {
+        System.out.println("调用Person的setBeanName方法");
+    }
+
+    public void destroy() throws Exception {
+        System.out.println("调用Person的destroy方法");
+    }
+
+    public void afterPropertiesSet() throws Exception {
+        System.out.println("调用Person的afterPropertiesSet方法");
+    }
+
+    public void myInit(){
+        System.out.println("调用Person的myInit方法");
+    }
+    public void myDestroy(){
+        System.out.println("调用Person的myDestroy方法");
+    }
+}
+
+package com.beitie.spring;
+
+public class Student {
+    private String name;
+
+}
+
+
+~~~
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="myBeanFactoryPostprocessor" class="com.beitie.spring.MyBeanFactoryPostprocessor"></bean>
+    <bean id="myBeanPostprocessor" class="com.beitie.spring.MyBeanPostprocessor"></bean>
+    <bean id="myInstantiationProcessor" class="com.beitie.spring.MyInstantiationProcessor"></bean>
+    <bean id="person" class="com.beitie.spring.Person" init-method="myInit" destroy-method="myDestroy">
+        <property name="name" value="张三"></property>
+        <property name="age" value="22"></property>
+    </bean>
+    <bean id="student" class="com.beitie.spring.Student" lazy-init="true"></bean>
+    <bean id="studentPrototype" class="com.beitie.spring.Student" scope="prototype"></bean>
+</beans>
+```
+
+~~~
+----容器启动----
+这是BeanFactoryPostProcessor实现类构造器！！
+BeanFactoryPostProcessor调用postProcessBeanFactory方法
+这是BeanPostProcessor实现类构造器！！
+调用MyInstantiationProcessor构造器
+调用Person的构造器
+调用Person的setBeanName方法
+调用Person的setBeanFactory方法
+BeanPostProcessor接口方法postProcessBeforeInitialization对属性进行更改
+调用MyInstantiationProcessor的postProcessBeforeInitialization方法
+调用Person的afterPropertiesSet方法
+调用Person的myInit方法
+BeanPostProcessor接口方法postProcessAfterInitialization对属性进行更改
+调用MyInstantiationProcessor的postProcessAfterInitialization方法
+----启动完成----
+获取延迟加载对象student
+BeanPostProcessor接口方法postProcessBeforeInitialization对属性进行更改
+调用MyInstantiationProcessor的postProcessBeforeInitialization方法
+BeanPostProcessor接口方法postProcessAfterInitialization对属性进行更改
+调用MyInstantiationProcessor的postProcessAfterInitialization方法
+获取加载对象studentPrototype
+BeanPostProcessor接口方法postProcessBeforeInitialization对属性进行更改
+调用MyInstantiationProcessor的postProcessBeforeInitialization方法
+BeanPostProcessor接口方法postProcessAfterInitialization对属性进行更改
+调用MyInstantiationProcessor的postProcessAfterInitialization方法
+---准备关闭spring容器-----
+调用Person的destroy方法
+调用Person的myDestroy方法
+
+~~~
+
+因此我们可以看到
+
+1、首先进入BeanFactoryPostProcessor的构造器，创建实例，然后执行其postProcessBeanFactory方法
+
+2、然后进入BeanPostProcessor的构造器，创建实例
+
+3、接下来进入InstantiationPostProcessor[构造器
+
+4、实例化bean对象
+
+5、调用person的setBeanName方法
+
+6、调用person的setBeanFactory的方法
+
+7、执行BeanPostProcessor的BeanPostProcessor接口方法postProcessBeforeInitialization对属性进行更改
+
+8、执行InstantiationPostProcessor的调用MyInstantiationProcessor的postProcessBeforeInitialization方法
+
+9、执行person的afterProperties方法，设置属性
+

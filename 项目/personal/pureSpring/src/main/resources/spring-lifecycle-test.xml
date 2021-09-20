@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="myBeanFactoryPostprocessor" class="com.beitie.spring.MyBeanFactoryPostprocessor"></bean>
+    <bean id="myBeanPostprocessor" class="com.beitie.spring.MyBeanPostprocessor"></bean>
+    <bean id="myInstantiationProcessor" class="com.beitie.spring.MyInstantiationProcessor"></bean>
+    <bean id="person" class="com.beitie.spring.Person" init-method="myInit" destroy-method="myDestroy">
+        <property name="name" value="张三"></property>
+        <property name="age" value="22"></property>
+    </bean>
+    <bean id="student" class="com.beitie.spring.Student" lazy-init="true"></bean>
+    <bean id="studentPrototype" class="com.beitie.spring.Student" scope="prototype"></bean>
+</beans>

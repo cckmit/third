@@ -7,7 +7,7 @@ package com.beitie.designModel.dutyChain;
  */
 public interface Handler {
 
-    Handler setNextHandler();
+    void setNextHandler(Handler handler);
     void handle(int level,String msg);
-    void write(String msg);
+    void business(String msg);
 }

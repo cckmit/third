@@ -76,9 +76,22 @@ git  remote add origin "github上面的ssh访问路径"
 / {application}- {profile} .properties
 / {labe1}/ {application}- {profile}. properties
 
+覆盖本地文件
+
+~~~
+$ git fetch --all
+$ git reset --hard origin/master 
+$ git pull
+
+或者
+$ git checkout  #操作比上面简单多了
+~~~
 
 
-#### 新机器的操作步骤Git
+
+
+
+### 新机器的操作步骤Git
 
 1、安装git客户端
 
@@ -130,3 +143,4 @@ git remote add orgin git@github.com:beitieforerver/third
 git pull orgin master
 ~~~
 
+## 

@@ -11,7 +11,7 @@
     <aop:config>
         <aop:pointcut id="doMethods" expression="execution(* com.beitie.service.impl..*.*(..))"/>
         <aop:advisor advice-ref="commonAdvice" pointcut-ref="doMethods"></aop:advisor>
-        <aop:aspect ref="log">
+        <aop:aspect ref="log"   >
             <aop:after pointcut-ref="doMethods" method="printLog"></aop:after>
         </aop:aspect>
     </aop:config>
