@@ -388,6 +388,13 @@ stu-provide:
     OkToRetryOnAllOperations: true #对所有请求都进行重试
     MaxAutoRetriesNextServer: 2 #切换实例的重试次数
     MaxAutoRetries: 1 #对当前实例的重试次数
+ hystrix:
+  command:
+    default: #也可以针对多个服务
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 4000 # 设置hystrix的超时时间为4000ms
 ~~~
 
 ##### 使用方法
@@ -427,7 +434,7 @@ public interface DeptClientService {
 扇出：像扇子展开一样，环环相扣（A调用B和C，B和C调用其他），一旦其中一个服务出现故障，当用户又访问此服务过多时，就会占用过多的资源
 
 超时机制
-通过网络请求其他服务器时，都必须设置超时。正常情况下，一个远程调用一般在几十毫秒内就返回了。当依赖的服务不可用，或者因为网络问题，响应时间将会变得很长（几十秒）。而通常情况下，一次远程调用对应了一个线程/进程，如果响应太慢，那个线程/进程就会得不到释放。而线程/进程都对应了系统资源，如果大量的线程/进程得不到释放，并且越积越多，服务资源就会被耗尽，从而导致自身服务不可用。
+通过网络请求其他服务器时，都必须设置超时。正常情况下，一个远程调用一般在几十毫秒内就返回了。当依赖的服务不可用，或者因为网络问题，响应时间将会变得很长（几十秒）。而通常情况下，一次远程调用对应了一个线程/进程，如果响应太慢，那个线程/进程就会得不到释放。而线程/进程都占用了系统资源，如果大量的线程/进程得不到释放，并且越积越多，服务资源就会被耗尽，从而导致自身服务不可用。
 
 hystrix的功能：当某个服务出现异常之时，向调用方返回一个fallback（用以处理异常之时的返回提示信息）
 
@@ -1324,33 +1331,7 @@ spring:
         probablity: 1  # 抽取样品的比例
 ~~~
 
-另外一种专门的配置zipkin的服务器然后在其他的微服务中进行配置
-
-添加pom依赖
-
-```xml
-<dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-starter-sleuth</artifactId>
- </dependency>
-```
-
-配置yml文件
-
-```yml
-spring:
-  application:
-    name: server-provider1
-server:
-  port: 9000
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://mrbird:123456@peer1:8080/eureka/,http://mrbird:123456@peer2:8081/eureka/
-```
-
-启动类加入@EnableDiscoverClient
+c、启动类加入@EnableDiscoverClient
 
 ```java
 @SpringBootApplication
@@ -1374,46 +1355,15 @@ public class DemoApplication {
 
 ### Zipkin
 
-分布式的任务追踪，用于狙击来自各个异构系统的实时监控数据，和微服务架构下的链路以及延时和依赖分析等问题。
+**和sleuth配合，用于展示微服务架构中的链路跟踪**
 
-引入依赖
-
-```xml
- <dependency>
-        <groupId>io.zipkin.java</groupId>
-        <artifactId>zipkin-server</artifactId>
-    </dependency>
-    <dependency>
-        <groupId>io.zipkin.java</groupId>
-        <artifactId>zipkin-autoconfigure-ui</artifactId>
-    </dependency>
-
-```
-
-### 微服务引入Zipkin
-
-```xml
-<dependency>
-    <groupId>org.springframework.cloud</groupId>
-    <artifactId>spring-cloud-sleuth-zipkin</artifactId>
-</dependency>
-```
-
-微服务中yml文件添加配置
-
-```yml
-spring:
-  zipkin:
-    base-url: http://localhost:9100
-```
-
-
+**sleuth用于微服务框架微服务调用过程中的链路跟踪**
 
 ### Config
 
 分为服务端和客户端，默认使用git来存储配置文件
 
-config为微服务框架的微服务提供集中化的外部配置支持，为不同的微服务应用提供一个中心化的外部配置
+config为微服务框架的微服务提供集中化的**外部配置支持**，为不同的微服务应用提供一个**中心化的外部配置**
 
 作用：
 
@@ -1461,7 +1411,13 @@ application.yml 用户级别的，优先级别相对较低
 
 springcloud会创建一个BootStrap Context，作为Application Context的父级，初始化的时候BootStrap Context负责从外部加载配置并进行解析，这两个context共享一个environment。	
 
-### Bus
+
+
+### 消息总线
+
+​		在微服务架构中，通常会用**轻量级的消息代理**来构建一个**共同的消息主题**，	并让架构中的所有服务实例**共享（监听和消费）**。由于被所有实例监听和消费，所以被称为消息总线。在总线上的实例都可以广播一些消息让所有实例知道（监听和消费）。
+
+#### Bus
 
 ​		将分布式系统节点与轻量级的消息代理框架（中间件）结合起来的框架，实现全局消息通知，程序自动刷新。由于所有的消息是被系统中所有的服务实例所共享和消费（故此称为消息总线）。在该系统中的各个实例，都可以广播一些让其他实例知道的消息。
 
@@ -1494,6 +1450,48 @@ rabbitmq-server start
 ~~~
 
 ​		d.访问http://localhost:15762	默认账户名 密码 guest guest
+
+rabbitMq：消息队列中间件有connection、channel、exchange、quque等组件构成
+
+可以通过消息中间件来实现消息的发送、接收。
+
+发送端
+
+1、创建对应ip的connectionFactory
+
+2、connectionFactory生产处connection，
+
+3、connection创建channel，
+
+4、channel创建指定的队列quque【channel.queueDeclare(QUEUE_NAME, false, false, false, null)】
+
+ 5、channel.basicPublish("", QUEUE_NAME, null, message.getBytes())向指定的队列发送信息
+
+```java
+  public static void main(String[] argv) throws java.io.IOException, TimeoutException  
+    {  
+        /** 
+         * 创建连接连接到MabbitMQ 
+         */  
+        ConnectionFactory factory = new ConnectionFactory();  
+        //设置MabbitMQ所在主机ip或者主机名  
+        factory.setHost("localhost");  
+        //创建一个连接  
+        Connection connection = factory.newConnection();  
+        //创建一个频道  
+        Channel channel = connection.createChannel();  
+        //指定一个队列  （队列不存在就创建，存在了就不创建）
+        channel.queueDeclare(QUEUE_NAME, false, false, false, null);  
+        //发送的消息  
+        String message = "hello world!";  
+        //往队列中发出一条消息  
+        channel.basicPublish("", QUEUE_NAME, null, message.getBytes());  
+        System.out.println(" [x] Sent '" + message + "'");  
+        //关闭频道和连接  
+        channel.close();  
+        connection.close();  
+     }  
+```
 
 2、添加pom.xml文件依赖
 
@@ -1565,7 +1563,7 @@ curl -X POST http://config-8537.com:8537/actuator/bus-refresh/config-client:3355
 
 消息驱动：屏蔽底层消息中间件的差异，无须过多关注，降低切换成本，统一编程模型
 
-通过定义bingder的这个中间层，屏蔽了不同的消息中间件的差异性，统一化处理，更加专注于业务处理
+通过定义binder的这个中间层，屏蔽了不同的消息中间件的差异性，统一化处理，更加专注于业务处理
 
 通信方式遵循发布--订阅模式	
 
@@ -1583,7 +1581,7 @@ Binder：应用与消息中间件的封装。	通过binder，应用可以很轻�
 
 @EnableBinding：信道channel和交换机exchange绑定在一起
 
-
+![image-20211008112358908](SpringCloud/image-20211008112358908.png)
 
 #### 使用
 
@@ -1731,7 +1729,7 @@ public class ReceivedMsgController {
 
 不同组可以重复消费，同组是竞争关系，只能有一个进行消费，可以通过分组来解决这个问题
 
-#### **分组**：
+#### 分组
 
 ​		默认的分组是位于不同的组
 
@@ -1746,9 +1744,7 @@ bindings:
     group: qingfeng #分组 消息消费者使用分组
 ~~~
 
-
-
-#### **持久化**
+#### 持久化
 
 添加了分组的消费者，即使服务关闭，也不会错过（在宕机期间，包括服务器关闭）服务生产者已经发送的消息
 
