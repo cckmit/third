@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+    <import resource="classpath:META-INF/cxf/cxf.xml" />
+    <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+    <!-- 第一种写法   -->
+<!--    <jaxws:endpoint address="/fetchInfo">-->
+<!--        <jaxws:implementor>-->
+<!--            <ref bean="fetchListedInfoService"></ref>-->
+<!--        </jaxws:implementor>-->
+<!--    </jaxws:endpoint>-->
+    <bean id="fetchListedInfoService" class="com.beitie.webService.FetchListedInfoServiceImpl"></bean>
+    <!-- 第二种写法   推荐写法，既简单又可以引入依赖的对象（里面有属性需要注入的时候）-->
+    <jaxws:endpoint address="/fetchInfo" implementor="#fetchListedInfoService">
+    </jaxws:endpoint>
+    <!-- 第三种写法   -->
+<!--    <jaxws:endpoint address="/fetchInfo" implementor="com.beitie.webService.FetchListedInfoServiceImpl">-->
+<!--    </jaxws:endpoint>-->
+
+
+</beans>
