@@ -78,6 +78,7 @@ server {
     server_name  www.myserver; #要监听的主机[域名或者ip地址]
     location ~ /edu/ {
             proxy_pass http://192.168.220.131:8080; #将被重定向的服务器 1
+    location ~ /edu/ {
             proxy_pass http://192.168.220.131:8081/myinfo/; #将被重定向的服务器 2
                 root   html;
                 index  index.html index.htm;
@@ -87,7 +88,7 @@ server {
 
 “/edu/”可以解释为URI，同样proxy_pass http://192.168.220.131:8081/myinfo/中“/myinfo/”也可以理解为URI。“/myinfo/”的两个斜杠一个都不能少，后面的少了之后在拼接后续uri时候会出现没有斜杠的问题
 
-当url总包含uri时，请求的url将会被替代
+当url中包含uri时，请求的url将会被替代
 
 如http://www.myserver/edu/a/1  将会匹配到2，然后被重定向到http://192.168.220.131:8081/myinfo/a/1，如果没有2，将不会更改请求的地址http://192.168.220.131:8080/edu/a/1
 
