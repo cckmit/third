@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://cxf.apache.org/jaxws
+        http://cxf.apache.org/schemas/jaxws.xsd">
+
+    <bean id="processListedBizEndInfo" class="com.zb.ws.service.ProcessListedBizEndInfoImpl" >
+        <property name="ssjyxxLogService" ref="ssjyxxLogService"></property>
+        <property name="ssjyxxService" ref="ssjyxxService"></property>
+    </bean>
+
+    <!-- address就是服务访问的地址：http://localhost:8080/cxfweb/cxf/hello -->
+    <jaxws:server address="/fetchListedBizEndInfo">
+        <jaxws:serviceBean>　　　　　　　　
+            <ref bean="processListedBizEndInfo"/>
+        </jaxws:serviceBean>
+        <jaxws:inInterceptors>
+            <bean class="com.zb.ws.intercept.SignInterceptor"></bean>
+        </jaxws:inInterceptors>
+        <jaxws:outInterceptors>
+            <bean class="com.zb.ws.intercept.SignOutInterceptor"></bean>
+        </jaxws:outInterceptors>
+    </jaxws:server>
+
+</beans>
