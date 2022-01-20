@@ -34,7 +34,9 @@ public class MyScheduler {
         Trigger trigger2 =  TriggerBuilder.newTrigger().withIdentity("trigger2","group1")
                 .startAt(startTime).withSchedule(SimpleScheduleBuilder.simpleSchedule().
                         withIntervalInSeconds(1).withRepeatCount(4)).build();
-        Trigger trigger3=TriggerBuilder.newTrigger(CronScheduleBuilder.cronSchedule(""));
+        Trigger trigger3=TriggerBuilder.newTrigger().withIdentity("trigger3","group1")
+                .startAt(startTime).withSchedule(SimpleScheduleBuilder.simpleSchedule().
+                        withIntervalInSeconds(1).withRepeatCount(4)).build();;
         job2.getJobDataMap().put("count",1);
         job2.getJobDataMap().put("sex","girl");
         job2.getJobDataMap().put("total",1);

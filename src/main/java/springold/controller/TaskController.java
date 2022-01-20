@@ -22,14 +22,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import com.zealer.cps.base.annotation.Log;
-import com.zealer.cps.base.constant.AppConstant;
-import com.zealer.cps.base.controller.BaseController;
-import com.zealer.cps.base.message.SuccessActionResult;
-import com.zealer.cps.base.model.vo.PaginationBean;
-import com.zealer.cps.base.util.HttpUtils;
-import com.zealer.cps.task.value.ScheduleJobItem;
-import com.zealer.cps.task.value.ScheduleJobReq;
 import springold.JobMethod;
 import springold.bean.ScheduleJob;
 import springold.bean.ScheduleJobReq;
@@ -40,7 +32,7 @@ import springold.service.QuartzJobService;
 @RequestMapping( "/taskController" )
 public class TaskController
 {
-    private static Logger log = LoggerFactory.getLogger( TaskController.class );
+    private static final Logger log = LoggerFactory.getLogger( TaskController.class );
 
     @Resource( name = "quartzJobService" )
     private QuartzJobService quartzJobService;
@@ -52,11 +44,6 @@ public class TaskController
     public String listJob(@ModelAttribute("job") ScheduleJobReq jobReq, Model model, HttpServletRequest request )
     {
         List<ScheduleJob> pb = quartzJobService.getJobsByPage( jobReq );
-        try {
-            pb.setUrl( HttpUtils.getRequestInfo( request, true ) );
-        } catch ( Exception e ) {
-            log.error( "get request url error", e );
-        }
         model.addAttribute( "pb", pb );
         return("task/taskList");
     }
@@ -101,7 +88,7 @@ public class TaskController
         SimpleDateFormat format = new SimpleDateFormat( AppConstant.DATE_FORMAT_YYYYMMDDHHMMSS );
         job.setCreateTime( format.format( new Date() ) );
         quartzJobService.inserJob( job );
-        ra.addFlashAttribute( "actionResult", new SuccessActionResult() );
+        ra.addFlashAttribute( "actionResult", "success" );
         return("redirect:/taskController/list.do");
     }
 

@@ -1,25 +1,15 @@
 package springold;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.quartz.CronScheduleBuilder;
-import org.quartz.CronTrigger;
-import org.quartz.JobBuilder;
-import org.quartz.JobDetail;
-import org.quartz.JobKey;
-import org.quartz.Scheduler;
-import org.quartz.SchedulerException;
-import org.quartz.TriggerBuilder;
-import org.quartz.TriggerKey;
+import org.quartz.*;
 import org.springframework.stereotype.Component;
-
-import com.zealer.cps.task.QuartzJobFactory;
 import springold.bean.ScheduleJob;
+import springold.factory.QuartzJobFactory;
 import springold.service.QuartzJobService;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 
 /**
