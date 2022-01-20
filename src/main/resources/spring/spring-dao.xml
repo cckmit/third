@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:property-placeholder location="jdbc.properties"></context:property-placeholder>
+
+    <bean id="dataSourceC3p0" class="com.mchange.v2.c3p0.jboss.C3P0PooledDataSource" destroy-method="close">
+        <property name="driverClass" value="${database.driver}"></property>
+        <property name="jdbcUrl" value="${database.url}"></property>
+        <property name="user" value="${database.username}"></property>
+        <property name="password" value="${database.password}" />
+        <property name="maxPoolSize" value="10"></property>
+        <property name="minPoolSize" value="2"></property>
+        <property name="checkoutTimeout" value="30000"></property>
+     </bean>
+
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${database.driver}" />
+        <property name="url" value="${database.url}" />
+        <property name="username" value="${database.username}" />
+        <property name="password" value="${database.password}" />
+        <property name="maxOpenPreparedStatements" value="30"/>
+        <property name="maxIdle" value="5"/>
+    </bean>
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
+    </bean>
+</beans>

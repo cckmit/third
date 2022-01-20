@@ -1,10 +1,12 @@
 package springold.bean;
 
+import springold.base.version.VersionableBean;
+
 /**
  * 定时任务封装类
  * @author   xiaohe
  */
-public class ScheduleJob
+public class ScheduleJob extends VersionableBean
 {
     /** 任务id */
     private int jobId;

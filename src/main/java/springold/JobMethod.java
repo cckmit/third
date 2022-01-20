@@ -18,8 +18,6 @@ import org.quartz.TriggerKey;
 import org.springframework.stereotype.Component;
 
 import com.zealer.cps.task.QuartzJobFactory;
-import com.zealer.cps.task.service.QuartzJobService;
-import com.zealer.cps.task.value.ScheduleJob;
 import springold.bean.ScheduleJob;
 import springold.service.QuartzJobService;
 

@@ -3,6 +3,7 @@ package springold.controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -14,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,15 +28,17 @@ import com.zealer.cps.base.controller.BaseController;
 import com.zealer.cps.base.message.SuccessActionResult;
 import com.zealer.cps.base.model.vo.PaginationBean;
 import com.zealer.cps.base.util.HttpUtils;
-import com.zealer.cps.task.manage.JobMethod;
-import com.zealer.cps.task.service.QuartzJobService;
-import com.zealer.cps.task.value.ScheduleJob;
 import com.zealer.cps.task.value.ScheduleJobItem;
 import com.zealer.cps.task.value.ScheduleJobReq;
+import springold.JobMethod;
+import springold.bean.ScheduleJob;
+import springold.bean.ScheduleJobReq;
+import springold.constant.AppConstant;
+import springold.service.QuartzJobService;
 
 @Controller
 @RequestMapping( "/taskController" )
-public class TaskController extends BaseController
+public class TaskController
 {
     private static Logger log = LoggerFactory.getLogger( TaskController.class );
 
@@ -45,10 +49,9 @@ public class TaskController extends BaseController
     private JobMethod jobMethod;
 
     @RequestMapping( "/list" )
-    @Log( "任务列表" )
-    public String listJob( @ModelAttribute("job") ScheduleJobReq jobReq, Model model, HttpServletRequest request )
+    public String listJob(@ModelAttribute("job") ScheduleJobReq jobReq, Model model, HttpServletRequest request )
     {
-        PaginationBean<ScheduleJob> pb = quartzJobService.getJobsByPage( jobReq );
+        List<ScheduleJob> pb = quartzJobService.getJobsByPage( jobReq );
         try {
             pb.setUrl( HttpUtils.getRequestInfo( request, true ) );
         } catch ( Exception e ) {
@@ -67,7 +70,6 @@ public class TaskController extends BaseController
      */
     @ResponseBody
     @RequestMapping( value = "/executeJob", produces = "application/json;charset=utf-8" )
-    @Log( "立即执行任务" )
     public ResponseEntity<Map<String, Object> > executeJob( ScheduleJob job, Model model )
     {
         jobMethod.runJobNow( job );
@@ -81,7 +83,6 @@ public class TaskController extends BaseController
      *            储存结果的实体
      */
     @RequestMapping( value = "/addJob", method = RequestMethod.GET )
-    @Log( "初始化添加表单" )
     public String addForm( Model model )
     {
         model.addAttribute( "job", new ScheduleJob() );
@@ -94,7 +95,6 @@ public class TaskController extends BaseController
      * @param job 任务实体
      */
     @RequestMapping( value = "/addJob", method = RequestMethod.POST )
-    @Log( "新增操作员" )
     public String addUser( @ModelAttribute("job") ScheduleJob job, RedirectAttributes ra, Model model,
                            HttpServletRequest request )
     {
@@ -112,7 +112,6 @@ public class TaskController extends BaseController
      * @return 跳转地址
      */
     @RequestMapping( value = "/updateJob", method = RequestMethod.GET )
-    @Log( "初始化修改表单" )
     public String updateForm( @RequestParam("id") Integer jobId, Model model,
                               HttpServletRequest request )
     {
@@ -130,14 +129,13 @@ public class TaskController extends BaseController
      * @return 跳转地址
      */
     @RequestMapping( value = "/updateJob", method = RequestMethod.POST )
-    @Log( "修改定时任务" )
     public String updateJob( @ModelAttribute ScheduleJob job, RedirectAttributes ra, Model model,
                              HttpServletRequest request )
     {
         SimpleDateFormat format = new SimpleDateFormat( AppConstant.DATE_FORMAT_YYYYMMDDHHMMSS );
         job.setUpdateTime( format.format( new Date() ) );
         quartzJobService.updateJob( job );
-        ra.addFlashAttribute( "actionResult", new SuccessActionResult() );
+//        ra.addFlashAttribute( "actionResult", new SuccessActionResult() );
         return("redirect:/taskController/list.do");
     }
 
@@ -147,11 +145,10 @@ public class TaskController extends BaseController
      * @return
      */
     @RequestMapping( value = "/deleteJob" )
-    @Log( "删除任务" )
-    public String deleteJob( @RequestParam("id") int jobId, RedirectAttributes ra )
+    public String deleteJob(@RequestParam("id") int jobId, ModelMap modelMap)
     {
         quartzJobService.deleteJob( jobId );
-        ra.addFlashAttribute( "actionResult", new SuccessActionResult() );
+//        modelMap.addAttribute( "actionResult", new SuccessActionResult() );
         return("redirect:/taskController/list.do");
     }
 
@@ -163,7 +160,6 @@ public class TaskController extends BaseController
      */
     @ResponseBody
     @RequestMapping( value = "/checkExp", produces = "application/json;charset=utf-8" )
-    @Log( "校验任务表达式" )
     public ResponseEntity<Map<String, Object> > checkExpression( String expression )
     {
         Map<String, Object> map = new HashMap<String, Object>();
@@ -181,19 +177,18 @@ public class TaskController extends BaseController
      * @param jobReq
      * @return
      */
-    @RequestMapping( "/itemJob" )
-    @Log( "任务执行信息列表" )
-    public String executeJobList( @ModelAttribute("job") ScheduleJobReq jobReq, int jobId,
-                                  Model model, HttpServletRequest request )
-    {
-        PaginationBean<ScheduleJobItem> pb = quartzJobService.getJobItemsByPage( jobId, jobReq );
-        try {
-            pb.setUrl( HttpUtils.getRequestInfo( request, true ) );
-        } catch ( Exception e ) {
-            log.error( "get request url error", e );
-        }
-        model.addAttribute( "pb", pb );
-        model.addAttribute( "jobId", jobId );
-        return("task/taskItemList");
-    }
+//    @RequestMapping( "/itemJob" )
+//    public String executeJobList( @ModelAttribute("job") ScheduleJobReq jobReq, int jobId,
+//                                  Model model, HttpServletRequest request )
+//    {
+//        PaginationBean<ScheduleJobItem> pb = quartzJobService.getJobItemsByPage( jobId, jobReq );
+//        try {
+//            pb.setUrl( HttpUtils.getRequestInfo( request, true ) );
+//        } catch ( Exception e ) {
+//            log.error( "get request url error", e );
+//        }
+//        model.addAttribute( "pb", pb );
+//        model.addAttribute( "jobId", jobId );
+//        return("task/taskItemList");
+//    }
 }
