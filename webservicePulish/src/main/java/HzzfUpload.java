@@ -10,14 +10,13 @@ public class HzzfUpload {
         String uploadFile = "svn.txt";
         File file = new File(uploadFile);
         if (file.isFile() && file.exists()) { // 判断文件是否存在
-            InputStreamReader read = new InputStreamReader(new FileInputStream(file), "GBK");// 考虑到编码格式
+            InputStreamReader read = new InputStreamReader(new FileInputStream(file), "UTF-8");// 考虑到编码格式
             BufferedReader bufferedReader = new BufferedReader(read);
             String lineTxt = null;
             String bzFilePath = new String();// 标准目录
             String outFilePaht = new String();// 输出目录
             String localWorkSpace = new String();// 本地工程目录
             SimpleDateFormat sd = new SimpleDateFormat("yyyyMMddHHmm");
-            System.out.println("1111111");
             while ((lineTxt = bufferedReader.readLine()) != null) {
                 System.out.println(lineTxt);
                 if (lineTxt.startsWith("标准目录")) {
@@ -42,16 +41,16 @@ public class HzzfUpload {
                     // 如果是src下的文件，从/WEB-INF/classes/文件中获取
                     System.out.println("bzFilePath-->" + bzFilePath);
                     System.out.println("1-->" + array[0]);
-                    if (array[0].startsWith(bzFilePath + "/src/")) {
-                        String sourceFile = lineTxt.replace(bzFilePath + "/src/", localWorkSpace + "\\WebRoot\\WEB-INF\\classes\\").replace(".java", ".class").replace("/", "\\");
+                    if (array[0].startsWith(bzFilePath + "/src/main/java/")) {
+                        String sourceFile = lineTxt.replace(bzFilePath + "/src/", localWorkSpace + "\\src\\main\\webapp\\WEB-INF\\classes\\").replace(".java", ".class").replace("main/java/","").replace("/", "\\");
                         // 工程下路径
-                        String targetFile = lineTxt.replace(bzFilePath + "/src/", outFilePaht + "\\WebRoot\\WEB-INF\\classes\\").replace(".java", ".class").replace("/", "\\");
+                        String targetFile = lineTxt.replace(bzFilePath + "/src/", outFilePaht + "\\src\\main\\webapp\\WEB-INF\\classes\\").replace(".java", ".class").replace("main/java/","").replace("/", "\\");
                         // 目标路径
                         File tFile = new File(targetFile);
                         if (!tFile.getParentFile().exists()) {
                             // System.out.println("目标文件所在路径不存在，准备创建。。。");
                             if (!tFile.getParentFile().mkdirs()) {
-                                System.out.println("创建目录文件所在的目录失败！");
+                                System.out.println("创建目录文件所在的目录失败！!");
                             }
                         }
                         if (tFile.isFile() && !tFile.exists()) {
@@ -93,8 +92,8 @@ public class HzzfUpload {
                     }
                     // 如果是conf下的文件，从conf文件中获取
                     else if (array[0].startsWith(bzFilePath + "/conf/")) {
-                        String sourceFile = lineTxt.replace(bzFilePath + "/conf/", localWorkSpace + "\\WebRoot\\WEB-INF\\classes\\").replace("/", "\\");// 工程下路径
-                        String targetFile = lineTxt.replace(bzFilePath + "/conf/", outFilePaht + "\\WebRoot\\WEB-INF\\classes\\").replace("/", "\\");// 目标路径
+                        String sourceFile = lineTxt.replace(bzFilePath + "/conf/", localWorkSpace + "\\webapp\\WEB-INF\\classes\\").replace("/", "\\");// 工程下路径
+                        String targetFile = lineTxt.replace(bzFilePath + "/conf/", outFilePaht + "\\webapp\\WEB-INF\\classes\\").replace("/", "\\");// 目标路径
                         File tFile = new File(targetFile);
                         if (!tFile.getParentFile().exists()) {
                             // System.out.println("目标文件所在路径不存在，准备创建。。。");
