@@ -101,7 +101,7 @@
                job_desc,
                job_id
         from task_detail
-        where id = #{jobId}
+        where job_id = #{job_id}
     </select>
 
 </mapper>

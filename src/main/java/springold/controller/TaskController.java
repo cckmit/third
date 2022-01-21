@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.quartz.SchedulerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,16 +66,21 @@ public class TaskController
     }
 
 
-    /**
-     * 跳转到添加定时任务的页面
-     * @param model
-     *            储存结果的实体
-     */
+   /**
+    * @Description: 向当前的任务列表中添加工作
+    * @Author: weitj
+    * @Date:  
+    * @param id  job的id
+    * @param model 用于向页面传参
+    * @return: java.lang.String
+    */
     @RequestMapping( value = "/addJob", method = RequestMethod.GET )
-    public String addForm( Model model )
-    {
-        model.addAttribute( "job", new ScheduleJob() );
-        return("task/addJob");
+    public String addJob(int id, Model model ) throws SchedulerException {
+        ScheduleJob scheduleJobById = quartzJobService.getScheduleJobById(id);
+        jobMethod.addOrUpdateJob(scheduleJobById);
+        List<ScheduleJob> pb = quartzJobService.getJobsByPage( new ScheduleJobReq() );
+        model.addAttribute( "pb", pb );
+        return("task/taskList");
     }
 
 
