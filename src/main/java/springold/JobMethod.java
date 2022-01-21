@@ -16,7 +16,6 @@ import java.util.List;
  * 提供Job任务相关的方法
  * @author xiaohe
  */
-@Component( "JobMethod" )
 public class JobMethod
 {
     @Resource( name = "schedulerFactoryBean" )
@@ -36,7 +35,7 @@ public class JobMethod
     {
         /* 从数据库获得所有的任务信息记录 */
         List<ScheduleJob> jobList = quartzJobService.getAllJobs();
-
+        System.out.println("初始化方法执行");
         if ( jobList != null && !jobList.isEmpty() )
         {
             for ( ScheduleJob scheduleJob : jobList )
@@ -84,6 +83,12 @@ public class JobMethod
                 catch ( SchedulerException e )
                 {
                     log.error( "Task init failed.", e );
+                }
+                try {
+                    int size = scheduler.getJobGroupNames().size();
+                    System.out.println(size);
+                } catch (SchedulerException e) {
+                    e.printStackTrace();
                 }
             }
         }

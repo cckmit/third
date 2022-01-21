@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -37,11 +38,11 @@ public class TaskController
     @Resource( name = "quartzJobService" )
     private QuartzJobService quartzJobService;
 
-    @Resource( name = "JobMethod" )
+    @Autowired
     private JobMethod jobMethod;
 
     @RequestMapping( "/list" )
-    public String listJob(@ModelAttribute("job") ScheduleJobReq jobReq, Model model, HttpServletRequest request )
+    public String listJob(ScheduleJobReq jobReq, Model model, HttpServletRequest request )
     {
         List<ScheduleJob> pb = quartzJobService.getJobsByPage( jobReq );
         model.addAttribute( "pb", pb );

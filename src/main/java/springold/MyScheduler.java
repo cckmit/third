@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author betieforever
- * @description æè¿°
+ * @description ÃèÊö
  * @date 2021/8/28
  */
 
@@ -17,7 +17,7 @@ public class MyScheduler {
     public void run() throws SchedulerException, InterruptedException {
         SchedulerFactory factory=new StdSchedulerFactory();
         Scheduler scheduler=factory.getScheduler();
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyyå¹´MMæœˆddæ—¥ HHæ—¶mmåˆ†ssç§’");
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyyÄêMMÔÂddÈÕ HHÊ±mm·ÖssÃë");
         JobDetail job1=  JobBuilder.newJob(ColorJob.class).withIdentity("job1","group1").build();
         Date date = new Date();
         Date startTime = DateBuilder.nextGivenSecondDate(null, 13);
@@ -42,9 +42,9 @@ public class MyScheduler {
         job2.getJobDataMap().put("total",1);
         job2.getJobDataMap().put("color","red");
         Date date2=scheduler.scheduleJob(job2,trigger2);
-        System.out.println("å½“å‰æ—¶é—´==="+sdf.format(date));
-        System.out.println("job1å°†åœ¨"+sdf.format(date1)+"æ‰§è¡Œ");
-        System.out.println("job2å°†åœ¨"+sdf.format(date2)+"æ‰§è¡Œ");
+        System.out.println("µ±Ç°Ê±¼ä==="+sdf.format(date));
+        System.out.println("job1½«ÔÚ"+sdf.format(date1)+"Ö´ĞĞ");
+        System.out.println("job2½«ÔÚ"+sdf.format(date2)+"Ö´ĞĞ");
         scheduler.start();
         TimeUnit.MINUTES.sleep(1);
 

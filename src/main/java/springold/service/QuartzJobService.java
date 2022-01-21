@@ -1,5 +1,6 @@
 package springold.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import springold.bean.ScheduleJob;
 import springold.bean.ScheduleJobReq;
@@ -12,7 +13,7 @@ import java.util.List;
 @Service( "quartzJobService" )
 public class QuartzJobService
 {
-    @Resource( name = "quartzJobDao" )
+    @Autowired
     private QuartzJobDao quartzJobDao;
 
 
@@ -75,7 +76,7 @@ public class QuartzJobService
      */
     public PageableList<ScheduleJob> getJobsByPage(ScheduleJobReq jobReq )
     {
-        List<ScheduleJob> scheduleJobs = quartzJobDao.jobListPage(jobReq);
+        List<ScheduleJob> scheduleJobs = quartzJobDao.jobsList();
         return new PageableList<>(scheduleJobs ,jobReq.getStartIndex(),jobReq.getPageSize(),jobReq.getItemCount());
     }
 

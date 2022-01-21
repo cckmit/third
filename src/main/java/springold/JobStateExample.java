@@ -20,15 +20,15 @@ public class JobStateExample
     public void run()
             throws Exception
     {
-        System.out.println("------- åˆå§‹åŒ– -------------------");
+        System.out.println("------- ³õÊ¼»¯ -------------------");
 
         SchedulerFactory sf = new StdSchedulerFactory();
         Scheduler sched = sf.getScheduler();
 
-        System.out.println("------- åˆå§‹åŒ–å®Œæˆ --------");
+        System.out.println("------- ³õÊ¼»¯Íê³É --------");
 
-        System.out.println("------- å‘ScheduleråŠ å…¥Job ----------------");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyå¹´MMæœˆddæ—¥ HHæ—¶mmåˆ†ssç§’");
+        System.out.println("------- ÏòScheduler¼ÓÈëJob ----------------");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyÄêMMÔÂddÈÕ HHÊ±mm·ÖssÃë");
 
         Date startTime = DateBuilder.nextGivenSecondDate(null, 10);
 
@@ -48,7 +48,7 @@ public class JobStateExample
         job1.getJobDataMap().put("sex", "boy");
 
         Date scheduleTime1 = sched.scheduleJob(job1, trigger1);
-        System.out.println(job1.getKey() + "  å°†åœ¨:  " + dateFormat.format(scheduleTime1) + " è¿è¡Œï¼Œé‡å¤ " + trigger1.getRepeatCount() + " æ¬¡,æ¯ " + trigger1.getRepeatInterval() / 1000L + " ç§’æ‰§è¡Œä¸€æ¬¡");
+        System.out.println(job1.getKey() + "  ½«ÔÚ:  " + dateFormat.format(scheduleTime1) + " ÔËĞĞ£¬ÖØ¸´ " + trigger1.getRepeatCount() + " ´Î,Ã¿ " + trigger1.getRepeatInterval() / 1000L + " ÃëÖ´ĞĞÒ»´Î");
 
         JobDetail job2 = JobBuilder.newJob(SimpleJobQuartz.class).withIdentity("job2", "group1").build();
         SimpleTrigger trigger2 = (SimpleTrigger)TriggerBuilder.newTrigger()
@@ -65,15 +65,15 @@ public class JobStateExample
         job2.getJobDataMap().put("sex", "girl");
 
         Date scheduleTime2 = sched.scheduleJob(job2, trigger2);
-        System.out.println(job2.getKey().toString() + "  å°†åœ¨:  " + dateFormat.format(scheduleTime2) + " è¿è¡Œï¼Œé‡å¤ " + trigger2.getRepeatCount() + " æ¬¡,æ¯ " + trigger2.getRepeatInterval() / 1000L + " ç§’æ‰§è¡Œä¸€æ¬¡");
+        System.out.println(job2.getKey().toString() + "  ½«ÔÚ:  " + dateFormat.format(scheduleTime2) + " ÔËĞĞ£¬ÖØ¸´ " + trigger2.getRepeatCount() + " ´Î,Ã¿ " + trigger2.getRepeatInterval() / 1000L + " ÃëÖ´ĞĞÒ»´Î");
 
-        System.out.println("------- å¼€å§‹Scheduler ----------------");
+        System.out.println("------- ¿ªÊ¼Scheduler ----------------");
 
         sched.start();
 
-        System.out.println("------- Schedulerè°ƒç”¨jobç»“æŸ -----------------");
+        System.out.println("------- Schedulerµ÷ÓÃjob½áÊø -----------------");
 
-        System.out.println("------- ç­‰å¾…60ç§’... -------------");
+        System.out.println("------- µÈ´ı60Ãë... -------------");
         try
         {
             Thread.sleep(60000L);
@@ -82,11 +82,11 @@ public class JobStateExample
         {
         }
 
-        System.out.println("------- å…³é—­Scheduler ---------------------");
+        System.out.println("------- ¹Ø±ÕScheduler ---------------------");
 
         sched.shutdown(true);
 
-        System.out.println("------- å…³é—­å®Œæˆ -----------------");
+        System.out.println("------- ¹Ø±ÕÍê³É -----------------");
 
         SchedulerMetaData metaData = sched.getMetaData();
         System.out.println("Executed " + metaData.getNumberOfJobsExecuted() + " jobs.");

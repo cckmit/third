@@ -13,7 +13,7 @@ import org.quartz.JobKey;
 import org.quartz.PersistJobDataAfterExecution;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-//å¯¹jobDateMapå®ç°æŒä¹…åŒ–   å°†ä¸Šæ¬¡å¤„ç†è¿‡å¾—å€¼å­˜å…¥jobDateMap
+//¶ÔjobDateMapÊµÏÖ³Ö¾Ã»¯   ½«ÉÏ´Î´¦Àí¹ıµÃÖµ´æÈëjobDateMap
 @PersistJobDataAfterExecution
 @DisallowConcurrentExecution
 public class ColorJob
@@ -26,17 +26,17 @@ public class ColorJob
     public void execute(JobExecutionContext context)
             throws JobExecutionException
     {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyå¹´MMæœˆddæ—¥ HHæ—¶mmåˆ†ssç§’");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyÄêMMÔÂddÈÕ HHÊ±mm·ÖssÃë");
         JobKey jobKey = context.getJobDetail().getKey();
         JobDataMap data = context.getJobDetail().getJobDataMap();
         String favoriteColor = data.getString("color");
         int count = data.getInt("count");
         int total = data.getInt("total");
-        System.out.println(("ColorJob:  åœ¨ " + dateFormat.format(new Date()) + "æ‰§è¡Œ  "+  jobKey +"\n"
+        System.out.println(("ColorJob:  ÔÚ " + dateFormat.format(new Date()) + "Ö´ĞĞ  "+  jobKey +"\n"
                 + " color : " + favoriteColor + "\n"
-                + " ç¬¬  " + count + "æ¬¡ æ‰§è¡Œ\n"
-                + " ç¬¬  " + total + "æ¬¡ æ‰§è¡Œ\n"
-                + " æˆå‘˜å˜é‡_counteræ˜¯ç¬¬ " + this._counter+ "æ¬¡ æ‰§è¡Œ"));
+                + " µÚ  " + count + "´Î Ö´ĞĞ\n"
+                + " µÚ  " + total + "´Î Ö´ĞĞ\n"
+                + " ³ÉÔ±±äÁ¿_counterÊÇµÚ " + this._counter+ "´Î Ö´ĞĞ"));
 
         count++;
         data.put("count", count);

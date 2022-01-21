@@ -13,12 +13,10 @@ import java.util.Map;
  * @Date： 2022/01/20 9:57
  * @Version 1.0
  */
-@Component
 public interface QuartzJobDao {
     void addJob(ScheduleJob job);
     void deleteJob(int jobId);
     void updateJob(ScheduleJob job);
-    List<ScheduleJob> jobListPage(ScheduleJobReq jobReq);
     List<ScheduleJob> jobsList();
     ScheduleJob getScheduleJobById(int id);
 

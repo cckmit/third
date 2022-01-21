@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="../common/common_tags.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%--<%@ include file="../common/common_tags.jsp" %>--%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>任务管理>任务列表</title>
-
+    <script src="../../js/jquery-3.1.1.js"></script>
 </head>
 <body>
 <div id="accordion" class="accordion">
@@ -35,7 +36,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${pb.dataList}" var="job" varStatus="status">
+                    <c:forEach items="${pb}" var="job" varStatus="status">
                         <tr>
                             <td><input name="checkItem" type="checkbox" value="${job.jobId}" style="margin-top: 0px;"></td>
                             <td>${job.jobName}</td>
