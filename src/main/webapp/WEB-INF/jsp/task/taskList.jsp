@@ -6,9 +6,30 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>任务管理>任务列表</title>
-    <script src="../../js/jquery-3.1.1.js"></script>
+    <script src="/js/jquery-3.1.1.js"></script>
 </head>
 <body>
+<script>
+    function addOrUpdate(jobId){
+        $.ajax({
+            url:"/taskController/addJob.action?id="+jobId,
+            type:"get",
+            dataType:"json",
+            async: false,
+            complete: function(data){
+                alert(data);
+                //定义一个变量，用于保存结果
+                var str = "";
+                //插入数据
+                console.log(data);
+                $("div").html(str);
+            },
+            error: function (e){
+                alert("error");
+            }
+        })
+    }
+</script>
 <div id="accordion" class="accordion">
     <div class="accordion-group">
         <div class="accordion-heading">
@@ -48,10 +69,12 @@
                             <td>${job.beanClass}</td>
                             <td>${job.executeMethod}</td>
                             <td>
-                                <img src="${path}/resources/img/zengjian.png">
-                                <a href="${path}/taskController/itemJob.do?jobId=${job.jobId}" >详细</a> 
-                                <lt:img menuName="任务列表" moduleName="运营管理" privilegeName="执行定时任务" clickName="立即执行"
-                                        clickMethod="executeJob('${job.jobName}','${job.jobGroup}','${job.jobId}');"></lt:img>
+                                <a onclick="addOrUpdate(${job.jobId})" href="javascript:void(0);">新增/更新</a>
+                                <a href="${path}/taskController/itemJob.action?id=${job.jobId}">暂停</a>
+                                <a href="${path}/taskController/itemJob.action?id=${job.jobId}">立即执行</a>
+                                <a href="${path}/taskController/itemJob.action?id=${job.jobId}">重新运行</a>
+<%--                                <lt:img menuName="任务列表" moduleName="运营管理" privilegeName="执行定时任务" clickName="立即执行"--%>
+<%--                                        clickMethod="executeJob('${job.jobName}','${job.jobGroup}','${job.jobId}');"></lt:img>--%>
                             </td>
                         </tr>
                     </c:forEach>

@@ -59,10 +59,10 @@ public class TaskController
      */
     @ResponseBody
     @RequestMapping( value = "/executeJob", produces = "application/json;charset=utf-8" )
-    public ResponseEntity<Map<String, Object> > executeJob( ScheduleJob job, Model model )
-    {
-        jobMethod.runJobNow( job );
-        return(new ResponseEntity<Map<String, Object> > ( new HashMap<String, Object>(), HttpStatus.OK ) );
+    public String executeJob( int id, Model model ){
+    ScheduleJob scheduleJobById = quartzJobService.getScheduleJobById(id);
+        jobMethod.runJobNow( scheduleJobById );
+        return "sucess";
     }
 
 
@@ -71,16 +71,17 @@ public class TaskController
     * @Author: weitj
     * @Date:  
     * @param id  job的id
-    * @param model 用于向页面传参
     * @return: java.lang.String
     */
+    @ResponseBody
     @RequestMapping( value = "/addJob", method = RequestMethod.GET )
-    public String addJob(int id, Model model ) throws SchedulerException {
+    public Map<String,String>  addJob(int id) throws SchedulerException {
         ScheduleJob scheduleJobById = quartzJobService.getScheduleJobById(id);
         jobMethod.addOrUpdateJob(scheduleJobById);
         List<ScheduleJob> pb = quartzJobService.getJobsByPage( new ScheduleJobReq() );
-        model.addAttribute( "pb", pb );
-        return("task/taskList");
+        Map<String,String> map = new HashMap<>();
+        map.put("msg","success");
+        return map;
     }
 
 

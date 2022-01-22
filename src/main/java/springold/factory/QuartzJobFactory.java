@@ -12,9 +12,8 @@ import org.quartz.JobExecutionException;
 public class QuartzJobFactory implements Job{
 
     public void execute(JobExecutionContext context) throws JobExecutionException {
-        Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        System.out.println("hello myJob:"+sdf.format(date));
+        System.out.println(this.getClass().getName()+":::"+sdf.format(new Date()));
     }
 
 }
