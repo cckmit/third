@@ -124,6 +124,9 @@ public class JobMethod {
      */
     public void resumeJob(ScheduleJob scheduleJob) {
         JobKey jobKey = JobKey.jobKey(scheduleJob.getJobName(), scheduleJob.getJobGroup());
+        if(jobKey != null ){
+
+        }
         try {
             scheduler.resumeJob(jobKey);
         } catch (SchedulerException e) {

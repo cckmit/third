@@ -1,41 +1,49 @@
 package springold.bean;
 
 import springold.base.version.VersionableBean;
+import springold.utils.CodeMapUtils;
 
 /**
- * å®šæ—¶ä»»åŠ¡å°è£…ç±»
+ * ¶¨Ê±ÈÎÎñ·â×°Àà
  * @author   xiaohe
  */
-public class ScheduleJob extends VersionableBean
-{
-    /** ä»»åŠ¡id */
+public class ScheduleJob extends VersionableBean {
+
+    public static final byte STATUS_´ıÖ´ĞĞ = 0 ;
+    public static final byte STATUS_Ö´ĞĞÖĞ = 1 ;
+    public static final byte STATUS_ÔİÍ£ÖĞ = 2 ;
+    public static final byte STATUS_ÒÑ×¢Ïú = 3 ;
+
+    /** ÈÎÎñid */
     private int jobId;
 
-    /** ä»»åŠ¡åç§° */
+    /** ÈÎÎñÃû³Æ */
     private String jobName;
 
-    /** ä»»åŠ¡åˆ†ç»„ */
+    /** ÈÎÎñ·Ö×é */
     private String jobGroup;
 
-    /** ä»»åŠ¡çŠ¶æ€ 0ç¦ç”¨ 1å¯ç”¨ 2åˆ é™¤*/
+    /** ÈÎÎñ×´Ì¬ ºÍstatus¶ÔÓ¦ */
     private String jobStatus;
 
-    /** ä»»åŠ¡è¿è¡Œæ—¶é—´è¡¨è¾¾å¼ */
+    private String jobStatusName;
+
+    /** ÈÎÎñÔËĞĞÊ±¼ä±í´ïÊ½ */
     private String cronExpression;
 
-    /** ä»»åŠ¡æ‰§è¡Œç±» */
+    /** ÈÎÎñÖ´ĞĞÀà */
     private String beanClass;
 
-    /** ä»»åŠ¡æ‰§è¡Œæ–¹æ³• */
+    /** ÈÎÎñÖ´ĞĞ·½·¨ */
     private String executeMethod;
 
-    /** ä»»åŠ¡åˆ›å»ºæ—¶é—´ */
+    /** ÈÎÎñ´´½¨Ê±¼ä */
     private String createTime;
 
-    /** ä»»åŠ¡æ›´æ–°æ—¶é—´ */
+    /** ÈÎÎñ¸üĞÂÊ±¼ä */
     private String updateTime;
 
-    /** ä»»åŠ¡æè¿° */
+    /** ÈÎÎñÃèÊö */
     private String jobDesc;
 
     public int getJobId() {
@@ -68,6 +76,8 @@ public class ScheduleJob extends VersionableBean
 
     public void setJobStatus(String jobStatus) {
         this.jobStatus = jobStatus;
+        this.jobStatusName = CodeMapUtils.getCodeName(ScheduleJob.class,"STATUS",getJobStatus());
+
     }
 
     public String getCronExpression() {
@@ -116,6 +126,13 @@ public class ScheduleJob extends VersionableBean
 
     public void setJobDesc(String jobDesc) {
         this.jobDesc = jobDesc;
+    }
+
+    public String getJobStatusName() {
+        return jobStatusName;
+    }
+
+    public void setJobStatusName(String jobStatusName) {
     }
 
     @Override

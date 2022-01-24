@@ -29,6 +29,7 @@ import springold.bean.ScheduleJob;
 import springold.bean.ScheduleJobReq;
 import springold.constant.AppConstant;
 import springold.service.QuartzJobService;
+import springold.utils.DateFormatUtil;
 
 @Controller
 @RequestMapping( "/taskController" )
@@ -52,32 +53,60 @@ public class TaskController
 
 
     /**
-     * ç«‹å³æ‰§è¡Œå®šæ—¶ä»»åŠ¡
-     * @param job ä»»åŠ¡å®ä½“
+     * @Description: Á¢¼´Ö´ĞĞ¶¨Ê±ÈÎÎñ
+     * @Author: Weitj
+     * @Date: 2022/01/24 10:48
+      * @param id
      * @param model
-     * @return
+     * @return: java.lang.Strings
      */
     @ResponseBody
-    @RequestMapping( value = "/executeJob", produces = "application/json;charset=utf-8" )
+    @RequestMapping( value = "/executeJob" )
     public String executeJob( int id, Model model ){
     ScheduleJob scheduleJobById = quartzJobService.getScheduleJobById(id);
+        // Á¢ÂíÖ´ĞĞ¶¨Ê±ÈÎÎñ
         jobMethod.runJobNow( scheduleJobById );
-        return "sucess";
+        //¸üĞÂ¶¨Ê±ÈÎÎñµÄ×´Ì¬
+        scheduleJobById.setUpdateTime(DateFormatUtil.formatNow());
+        quartzJobService.updateJob(scheduleJobById);
+        return "success";
     }
 
 
    /**
-    * @Description: å‘å½“å‰çš„ä»»åŠ¡åˆ—è¡¨ä¸­æ·»åŠ å·¥ä½œ
+    * @Description: Ïòµ±Ç°µÄÈÎÎñÁĞ±íÖĞÌí¼Ó¹¤×÷
     * @Author: weitj
     * @Date:  
-    * @param id  jobçš„id
+    * @param id  jobµÄid
     * @return: java.lang.String
     */
     @ResponseBody
-    @RequestMapping( value = "/addJob", method = RequestMethod.GET )
-    public Map<String,String>  addJob(int id) throws SchedulerException {
+    @RequestMapping( value = "/addOrUpdate", method = RequestMethod.GET )
+    public Map<String,String>  addOrUpdate(int id) throws SchedulerException {
         ScheduleJob scheduleJobById = quartzJobService.getScheduleJobById(id);
+        // Ìí¼Ó»òÕß¸üĞÂ¶¨Ê±ÈÎÎñ
         jobMethod.addOrUpdateJob(scheduleJobById);
+        scheduleJobById.setUpdateTime(DateFormatUtil.formatNow());
+        scheduleJobById.setJobStatus(ScheduleJob.STATUS_Ö´ĞĞÖĞ+"");
+        // ¸üĞÂ¶¨Ê±ÈÎÎñµÄ×´Ì¬
+        quartzJobService.updateJob(scheduleJobById);
+        List<ScheduleJob> pb = quartzJobService.getJobsByPage( new ScheduleJobReq() );
+        Map<String,String> map = new HashMap<>();
+        map.put("msg","success");
+        return map;
+    }
+
+
+    @ResponseBody
+    @RequestMapping( value = "/pauseJob", method = RequestMethod.GET )
+    public Map<String,String>  pauseJob(int id) throws SchedulerException {
+        ScheduleJob scheduleJobById = quartzJobService.getScheduleJobById(id);
+        // Ìí¼Ó»òÕß¸üĞÂ¶¨Ê±ÈÎÎñ
+        jobMethod.pauseJob(scheduleJobById);
+        scheduleJobById.setUpdateTime(DateFormatUtil.formatNow());
+        scheduleJobById.setJobStatus(ScheduleJob.STATUS_ÔİÍ£ÖĞ+"");
+        // ¸üĞÂ¶¨Ê±ÈÎÎñµÄ×´Ì¬
+        quartzJobService.updateJob(scheduleJobById);
         List<ScheduleJob> pb = quartzJobService.getJobsByPage( new ScheduleJobReq() );
         Map<String,String> map = new HashMap<>();
         map.put("msg","success");
@@ -86,8 +115,8 @@ public class TaskController
 
 
     /**
-     * æ·»åŠ å®šæ—¶ä»»åŠ¡è®°å½•
-     * @param job ä»»åŠ¡å®ä½“
+     * Ìí¼Ó¶¨Ê±ÈÎÎñ¼ÇÂ¼
+     * @param job ÈÎÎñÊµÌå
      */
     @RequestMapping( value = "/addJob", method = RequestMethod.POST )
     public String addUser( @ModelAttribute("job") ScheduleJob job, RedirectAttributes ra, Model model,
@@ -102,9 +131,9 @@ public class TaskController
 
 
     /**
-     * åˆå§‹åŒ–ä¿®æ”¹è¡¨å•
+     * ³õÊ¼»¯ĞŞ¸Ä±íµ¥
      * @param jobId
-     * @return è·³è½¬åœ°å€
+     * @return Ìø×ªµØÖ·
      */
     @RequestMapping( value = "/updateJob", method = RequestMethod.GET )
     public String updateForm( @RequestParam("id") Integer jobId, Model model,
@@ -117,11 +146,11 @@ public class TaskController
 
 
     /**
-     * ä¿®æ”¹å®šæ—¶ä»»åŠ¡è®°å½•ä¿¡æ¯
-     * @param job å¾…ä¿®æ”¹çš„æ“ä½œå‘˜å®ä½“
-     * @param model å°è£…å¤„ç†ç»“æœçš„å®ä½“
-     * @param request è¯·æ±‚å¯¹è±¡
-     * @return è·³è½¬åœ°å€
+     * ĞŞ¸Ä¶¨Ê±ÈÎÎñ¼ÇÂ¼ĞÅÏ¢
+     * @param job ´ıĞŞ¸ÄµÄ²Ù×÷Ô±ÊµÌå
+     * @param model ·â×°´¦Àí½á¹ûµÄÊµÌå
+     * @param request ÇëÇó¶ÔÏó
+     * @return Ìø×ªµØÖ·
      */
     @RequestMapping( value = "/updateJob", method = RequestMethod.POST )
     public String updateJob( @ModelAttribute ScheduleJob job, RedirectAttributes ra, Model model,
@@ -136,20 +165,43 @@ public class TaskController
 
 
     /**
-     * åˆ é™¤ä¸€æ¡å®šæ—¶ä»»åŠ¡è®°å½•ä¿¡æ¯
+     * É¾³ıÒ»Ìõ¶¨Ê±ÈÎÎñ¼ÇÂ¼ĞÅÏ¢
      * @return
      */
     @RequestMapping( value = "/deleteJob" )
     public String deleteJob(@RequestParam("id") int jobId, ModelMap modelMap)
     {
-        quartzJobService.deleteJob( jobId );
-//        modelMap.addAttribute( "actionResult", new SuccessActionResult() );
+        ScheduleJob scheduleJob = quartzJobService.getScheduleJobById(jobId);
+        // ÒÆ³ıÈÎÎñ¶ÓÁĞÖĞµÄjob
+        jobMethod.deleteJob(scheduleJob);
+        scheduleJob.setUpdateTime(DateFormatUtil.formatNow());
+        scheduleJob.setJobStatus(ScheduleJob.STATUS_ÒÑ×¢Ïú+"");
+        // ¸üĞÂ¶¨Ê±ÈÎÎñµÄ×´Ì¬
+        quartzJobService.updateJob(scheduleJob);
         return("redirect:/taskController/list.do");
+    }
+    /**
+     * É¾³ıÒ»Ìõ¶¨Ê±ÈÎÎñ¼ÇÂ¼ĞÅÏ¢
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping( value = "/resumeJob" )
+    public String resumeJob(@RequestParam("id") int jobId, ModelMap modelMap)
+    {
+        ScheduleJob scheduleJob = quartzJobService.getScheduleJobById(jobId);
+        // ÖØĞÂÔËĞĞ
+        jobMethod.resumeJob(scheduleJob);
+        scheduleJob.setUpdateTime(DateFormatUtil.formatNow());
+        scheduleJob.setJobStatus(ScheduleJob.STATUS_Ö´ĞĞÖĞ+"");
+        // ¸üĞÂ¶¨Ê±ÈÎÎñµÄ×´Ì¬
+        quartzJobService.updateJob(scheduleJob);
+//        return("redirect:/taskController/list.action");
+        return "success";
     }
 
 
     /**
-     * æ ¡éªŒæ‰§è¡Œä»»åŠ¡çš„è¡¨è¾¾å¼æ˜¯å¦æ­£ç¡®
+     * Ğ£ÑéÖ´ĞĞÈÎÎñµÄ±í´ïÊ½ÊÇ·ñÕıÈ·
      * @param expression
      * @return
      */
@@ -168,7 +220,7 @@ public class TaskController
 
 
     /**
-     * æŸä¸ªå®šæ—¶ä»»åŠ¡ä¸‹çš„æ‰€æœ‰æ‰§è¡Œè®°å½•ä¿¡æ¯åˆ—è¡¨
+     * Ä³¸ö¶¨Ê±ÈÎÎñÏÂµÄËùÓĞÖ´ĞĞ¼ÇÂ¼ĞÅÏ¢ÁĞ±í
      * @param jobReq
      * @return
      */
