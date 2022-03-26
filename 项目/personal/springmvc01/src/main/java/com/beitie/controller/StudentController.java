@@ -9,11 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/user")
-@ControllerAdvice
+//@ControllerAdvice
 public class StudentController {
     @RequestMapping("/findAllInfo")
     public String findAllInfo(Model model){
-        Student student =new Student("张三","瓦亭镇","男");
+        Student student =new Student();
+//        Student student =new Student("张三","瓦亭镇","男");
         student.setName("张三");
         model.addAttribute("user",student);
         return "index";

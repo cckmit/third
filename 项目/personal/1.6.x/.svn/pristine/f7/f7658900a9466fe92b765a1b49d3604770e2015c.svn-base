@@ -1,6 +1,0 @@
-SecurityManager.cannot_delete_system_users=不能删除系统用户。
-SecurityManager.cannot_delete_system_roles=不能删除系统角色。
-SecurityManager.cannot_delete_system_departments=不能删除系统管理部门。
-RoleImpl.cannot_set_modulepermissions_for_admin=该角色拥有系统管理或超级管理的权限，拥有对全部模块的管理权限，所以不必对每个模块再单独授权。
-UserImpl.cannot_set_modulepermissions_for_admin=该用户拥有系统管理或超级管理的权限，拥有对全部模块的管理权限，所以不必对每个模块再单独授权。
-

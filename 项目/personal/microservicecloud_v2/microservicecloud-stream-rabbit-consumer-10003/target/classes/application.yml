@@ -21,7 +21,7 @@ spring:
           destination: studyExchange
           content-type: application/json
           binder: defaultRabbit
-          group: qingfeng
+          group: beitie
 eureka:
   client:
     service-url:

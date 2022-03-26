@@ -1,6 +1,6 @@
-package com.beitie.lygdp_normal.bean;
+package com.beitie.bean;
 
-import com.beitie.lygdp_normal.util.PhotoEncodeBase64;
+import com.beitie.util.PhotoEncodeBase64;
 
 import java.io.IOException;
 import java.io.Serializable;

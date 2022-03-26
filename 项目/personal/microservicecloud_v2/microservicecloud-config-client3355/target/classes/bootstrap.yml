@@ -1,3 +1,5 @@
+server:
+  port: 3355
 spring:
   cloud:
     config:

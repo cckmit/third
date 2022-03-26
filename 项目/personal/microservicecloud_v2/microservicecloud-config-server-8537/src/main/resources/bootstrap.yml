@@ -1,10 +1,16 @@
+server:
+  port: 8537
+
 spring:
+  application:
+    name: microservicecloud-config-server
   cloud:
     config:
-      name: microservicecloud-config-client
-      profile: dev
+      server:
+        git:
+          uri: git@github.com:beitieforerver/third.git
       label: master
-      uri: http://config-8537.com:8537
+
   rabbitmq:
     username: qingfeng
     password: bestbnf
@@ -14,7 +20,4 @@ management:
   endpoints:
     web:
       exposure:
-        include: '*'
-
-server:
-  port: 3366
+        include: 'bus-refresh'

@@ -23,7 +23,8 @@ public class TesthandlerIntercept implements HandlerInterceptor {
             //还没登录，重定向到登录页面
             response.sendRedirect("/login.action");
             // request.getRequestDispatcher("/login.action").forward(request,response);
-            Student studentNew= new Student(UUID.randomUUID().toString(),null,null);
+//            Student studentNew= new Student(UUID.randomUUID().toString(),null,null);
+            Student studentNew= new Student();
             session.setAttribute("student",studentNew);
             return false;
         }

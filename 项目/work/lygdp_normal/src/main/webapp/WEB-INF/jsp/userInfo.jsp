@@ -53,7 +53,7 @@
                 <th><a href="${pageContext.request.contextPath}/user/querySingleUserInfo.action?uid=100">修改</a></th>
                 <th><a href="${pageContext.request.contextPath}/user/deleteUserInfo.action?uid=${student.uid}">删除</a></th>
                 <th ><a href="${pageContext.request.contextPath}/user/tiaoZhuan.action?viewName=AddUserInfo">添加</a></th>
-                <th height="100px"><a><img src="${student.photoBase64}"/></a></th>
+                <th height="100px"><a href="/view/${student.uid}" target="_blank"><img src="${student.photoBase64}"/></a></th>
             </tr>
         </c:forEach>
     </table>

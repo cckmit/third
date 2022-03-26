@@ -1,8 +1,7 @@
-package com.beitie.lygdp_normal.controller;
+package com.beitie.controller;
 
-import com.beitie.lygdp_normal.bean.User;
-import com.beitie.lygdp_normal.mapper.UserMapper;
-import com.sun.deploy.net.HttpResponse;
+import com.beitie.bean.User;
+import com.beitie.mapper.UserMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

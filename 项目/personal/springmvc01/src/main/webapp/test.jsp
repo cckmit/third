@@ -8,12 +8,10 @@
         {
             $.ajax
             ({
-                url: "http://localhost:8080/getJsonString.action",
+                url: "http://localhost:8080/msg.action",
                 dataType: "json",
-                type: "get",
-                data: {
-                    key: "7486e10d3ca83a934438176cf941df0c",
-                },
+                type: "post",
+                data: {"name":"zhangsan"},
                 success:function(res){
                     console.log(res);  //在console中查看数据
                 },
@@ -27,6 +25,7 @@
 </head>
 <body>
 <button onclick="showAdress()">点击我</button>
+<img src="/getImage.action">
 <h2>Hello World!</h2>
 </body>
 </html>

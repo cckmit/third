@@ -1,20 +1,16 @@
 package com.beitie.bean;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.concurrent.FutureTask;
 
-public class Student {
+public class Student implements Serializable {
     private int id;
     private String name;
     private String address;
     private String sexName;
 
-    public Student(String name, String address, String sexName) {
-        FutureTask
-        this.name = name;
-        this.address = address;
-        this.sexName = sexName;
-    }
+
 
     public int getId() {
         return id;

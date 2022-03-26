@@ -6,8 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="secondSSM" />
+        <module name="firstMybatis" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="firstMybatis" target="1.7" />
+    </bytecodeTargetLevel>
   </component>
 </project>

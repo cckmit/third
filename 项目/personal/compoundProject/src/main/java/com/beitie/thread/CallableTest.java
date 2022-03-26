@@ -22,6 +22,7 @@ public class CallableTest {
             if(fs.isDone()){
                 System.out.println(fs.get());
             }else{
+                System.out.println("延时等待"+fs.get());
                 System.out.println("Future result is not yet complete");
             }
         }

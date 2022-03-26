@@ -28,7 +28,7 @@ public class LygdpData {
     @RequestMapping("/getData")
     public Object getDatat(String keyword){
         Map map  = new HashMap();
-        map.put("data",yjxxMapper.findYjxx());
+        map.put("data",yjxxMapper.findYjxx().subList(1,9));
         return map;
     }
 }

@@ -7,7 +7,7 @@
 <struts>
     <package name="test" namespace="/test" extends="struts-default">
         <action name="login" class="com.neixiang.beitie.test.action.LoginAction" method="login">
-            <result name="success">success.jsp</result>
+            <result name="success">/page/success.jsp</result>
         </action>
     </package>
 </struts>

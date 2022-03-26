@@ -1,2 +1,0 @@
-:\java-works\opoo-apps-1.5.x>mvn jetty:run -DmoduleDirs=E:\java-works\extensions\license-server\target\license-server -Dapps.devMode=true -Dlicense.h
-sp.enabled=true -Ddatabase.embedded=true -Dals.port=8080

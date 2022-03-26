@@ -1,3 +1,5 @@
+package com.beitie.filter;
+
 import org.springframework.context.annotation.Configuration;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;

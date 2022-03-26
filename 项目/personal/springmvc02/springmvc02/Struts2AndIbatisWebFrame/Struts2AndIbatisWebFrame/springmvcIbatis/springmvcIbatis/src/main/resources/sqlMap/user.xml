@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="word">
+
+    <typeAlias alias="Word" type="com.**.im.RiskKeyWord"/>
+    <typeAlias alias="hashMap" type="java.util.HashMap"/>
+
+    <insert id="add" parameterClass="Word">
+        INSERT
+        INTO key_word(lib_id, word)
+        VALUES (#lib_id#, #word:VARCHAR#)
+        <selectKey resultClass="int" keyProperty="id">
+            select last_insert_id() limit 1
+        </selectKey>
+    </insert>
+
+    <update id="update" parameterClass="Word">
+        UPDATE key_word
+        SET lib_id = #lib_id#, word = #word:VARCHAR#
+        WHERE id = #id#
+    </update>
+
+    <select id="query" parameterClass="java.lang.String" resultClass="hashMap">
+        SELECT id, lib_id, word
+        FROM key_word
+        WHERE  id = #id#
+    </select>
+
+    <delete id="del" parameterClass="int" >
+        DELETE
+        FROM key_word
+        WHERE  id = #id#
+    </delete>
+</sqlMap>

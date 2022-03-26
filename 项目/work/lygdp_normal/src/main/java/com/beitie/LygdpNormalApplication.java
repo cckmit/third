@@ -1,4 +1,4 @@
-package com.beitie.lygdp_normal;
+package com.beitie;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

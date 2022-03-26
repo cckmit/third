@@ -1,4 +1,4 @@
-package com.beitie.lygdp_normal.util;
+package com.beitie.util;
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;

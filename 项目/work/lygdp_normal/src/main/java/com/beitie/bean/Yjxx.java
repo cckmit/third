@@ -1,4 +1,4 @@
-package com.beitie.lygdp_normal.bean;
+package com.beitie.bean;
 
 /**
  * @author betieforever

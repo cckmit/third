@@ -1,406 +1,244 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ArtifactsWorkspaceSettings">
-    <artifacts-to-build>
-      <artifact name="secondSSM:war exploded" />
-    </artifacts-to-build>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="58aa2c2f-9a60-4008-8209-3a2bb3d45a07" name="Default Changelist" comment="" />
+    <list default="true" id="cf971373-a1ed-4727-8467-a10e94be7ccf" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/bean/Student.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/hashcode/HashMapModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/hashcode/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/interfaceInvoke/HttpConnectionUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/interfaceInvoke/HttpConnectionUtilDemo2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/jiaMi/TieRSA.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/other/ArrayListModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/other/ArraysOrder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/other/EncodingTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/other/GenericityModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/other/ListIteratorTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/other/LoopDependency.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/other/StringModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/other/YunSuan.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/stream/PhotoEncodeBase64.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/thread/AutoClosableModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/thread/VolatileModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/thread/VolatileModel2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../compoundProject/src/test/java/hashcode/HashMapModelTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../compoundProject/src/test/java/jvm/JvmClassLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/bean/UserOrders.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/handler/common/CommonHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/handler/test/TestController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/handler/uploadHanlder/UploadHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/intercept/UploadIntercept.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/util/PhotoEncodeBase64.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../firstMybatis/src/main/resource/log4j2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../firstMybatis/src/main/webapp/WEB-INF/jsp/imageUpload.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../firstMybatis/src/main/webapp/WEB-INF/jsp/uploadDemo2.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../firstMybatis/src/main/webapp/css/upload/webuploader.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../firstMybatis/src/main/webapp/js/upload/webuploader.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../firstMybatis/src/main/webapp/test.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../springmvc01/src/main/java/com/beitie/controller/StreamController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../springmvc01/src/main/java/com/beitie/controller/WebserviceController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../springmvc01/src/main/java/com/beitie/util/HttpConnectionUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../springmvc01/src/main/java/com/beitie/util/HttpConnectionUtilDemo2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../springmvc01/src/main/webapp/test.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../springmvc01/src/main/webapp/test2.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../springmvc02/springmvc02/Struts2AndIbatisFrame/src/main/struts.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../springmvc02/springmvc02/Struts2AndIbatisWebFrame/Struts2AndIbatisWebFrame/Struts2AndIbatisWebFrame/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../springmvc02/springmvc02/Struts2AndIbatisWebFrame/Struts2AndIbatisWebFrame/Struts2AndIbatisWebFrame/src/main/java/com/neixiang/beitie/test/action/LoginAction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../springmvc02/springmvc02/Struts2AndIbatisWebFrame/Struts2AndIbatisWebFrame/Struts2AndIbatisWebFrame/src/main/resources/struts.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../springmvc02/springmvc02/Struts2AndIbatisWebFrame/Struts2AndIbatisWebFrame/Struts2AndIbatisWebFrame/src/main/webapp/page/success.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../springmvc02/springmvc02/Struts2AndIbatisWebFrame/Struts2AndIbatisWebFrame/springmvcIbatis/springmvcIbatis/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../springmvc02/springmvc02/Struts2AndIbatisWebFrame/Struts2AndIbatisWebFrame/springmvcIbatis/springmvcIbatis/src/main/java/com/beitie/test/dao/UserDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../springmvc02/springmvc02/Struts2AndIbatisWebFrame/Struts2AndIbatisWebFrame/springmvcIbatis/springmvcIbatis/src/main/java/com/beitie/test/dao/impl/UserDaoImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../springmvc02/springmvc02/Struts2AndIbatisWebFrame/Struts2AndIbatisWebFrame/springmvcIbatis/springmvcIbatis/src/main/java/com/beitie/test/handler/UserHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../springmvc02/springmvc02/Struts2AndIbatisWebFrame/Struts2AndIbatisWebFrame/springmvcIbatis/springmvcIbatis/src/main/resources/ibatis-config.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../springmvc02/springmvc02/Struts2AndIbatisWebFrame/Struts2AndIbatisWebFrame/springmvcIbatis/springmvcIbatis/src/main/resources/spring-config.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../springmvc02/springmvc02/Struts2AndIbatisWebFrame/Struts2AndIbatisWebFrame/springmvcIbatis/springmvcIbatis/src/main/resources/spring/spring-config-datasource.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../springmvc02/springmvc02/Struts2AndIbatisWebFrame/Struts2AndIbatisWebFrame/springmvcIbatis/springmvcIbatis/src/main/resources/spring/spring-mvc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../springmvc02/springmvc02/Struts2AndIbatisWebFrame/Struts2AndIbatisWebFrame/springmvcIbatis/springmvcIbatis/src/main/resources/sqlMap/user.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/lygdp_normal/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/lygdp_normal/src/main/java/com/beitie/LygdpNormalApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/lygdp_normal/src/main/java/com/beitie/bean/Orders.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/lygdp_normal/src/main/java/com/beitie/bean/People.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/lygdp_normal/src/main/java/com/beitie/bean/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/lygdp_normal/src/main/java/com/beitie/bean/Yjxx.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/lygdp_normal/src/main/java/com/beitie/controller/PhoteViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/lygdp_normal/src/main/java/com/beitie/controller/TestController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/lygdp_normal/src/main/java/com/beitie/controller/UserInfoHandler3.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/lygdp_normal/src/main/java/com/beitie/controller/fzdpzs/LygdpData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/lygdp_normal/src/main/java/com/beitie/filter/CorsFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/lygdp_normal/src/main/java/com/beitie/mapper/UserMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/lygdp_normal/src/main/java/com/beitie/mapper/YjxxMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/lygdp_normal/src/main/java/com/beitie/service/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/lygdp_normal/src/main/java/com/beitie/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/lygdp_normal/src/main/java/com/beitie/util/PhotoEncodeBase64.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/lygdp_normal/src/main/java/com/beitie/util/Test.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/lygdp_normal/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/lygdp_normal/src/main/resources/mapper/UserMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/lygdp_normal/src/main/resources/mapper/YjxxMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/lygdp_normal/src/main/webapp/WEB-INF/jsp/AddUserInfo.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/lygdp_normal/src/main/webapp/WEB-INF/jsp/BatchHandleUserInfo.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/lygdp_normal/src/main/webapp/WEB-INF/jsp/UpdateUserInfo.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/lygdp_normal/src/main/webapp/WEB-INF/jsp/error.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/lygdp_normal/src/main/webapp/WEB-INF/jsp/imageUpload.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/lygdp_normal/src/main/webapp/WEB-INF/jsp/test.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/lygdp_normal/src/main/webapp/WEB-INF/jsp/uploadDemo2.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/lygdp_normal/src/main/webapp/WEB-INF/jsp/userInfo.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/lygdp_normal/src/test/java/com/beitie/lygdp_normal/LygdpNormalApplicationTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/spring-boot-web-service-master/src/main/java/com/tang/webserviceServer/pojo/ProxyRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/ssiTie/src/main/java/com/beitie/action/UserAction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/ssiTie/src/main/java/com/beitie/bean/UserInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/ssiTie/src/main/java/com/beitie/dao/UserDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/ssiTie/src/main/java/com/beitie/dao/impl/UserDaoImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/ssiTie/src/main/java/com/beitie/sqlMap/T_USER.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/ssiTie/src/main/resources/ibatis/ibatis-config.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/ssiTie/src/main/resources/properties/jdbc.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/ssiTie/src/main/resources/properties/validator.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/ssiTie/src/main/resources/spring/spring-action.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/ssiTie/src/main/resources/spring/spring-applicationContext.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/ssiTie/src/main/resources/spring/spring-dao.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/ssiTie/src/main/resources/spring/spring-datasource.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/ssiTie/src/main/resources/spring/spring-service.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/ssiTie/src/main/resources/struts-config.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../work/ssiTie/src/main/resources/struts.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/linux/linux.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TyporaFiles/linux/linux.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/mysql/mysql补充..md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TyporaFiles/mysql/mysql补充..md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/nginx/Nginx.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TyporaFiles/nginx/Nginx.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/redis/redis.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TyporaFiles/redis/redis.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/springCloud/SpringCloud.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TyporaFiles/springCloud/SpringCloud.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/ssm/SPRINGMVC  AND  MYBATIS (2).md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/ssm/SPRINGMVC  AND  MYBATIS.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/ssm/SPRINGMVC  AND  MYBATIS/1460000024464170" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/ssm/SPRINGMVC  AND  MYBATIS/1460000024464171" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/ssm/SPRINGMVC  AND  MYBATIS/view" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/多线程/多线程.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TyporaFiles/多线程/多线程.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/设计模式/设计模式.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TyporaFiles/设计模式/设计模式.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/面试题/202108/202108面试题.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TyporaFiles/面试题/202108/202108面试题.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../compoundProject/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../compoundProject/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/thread/CallableTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/thread/CallableTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../compoundProject/target/classes/com/beitie/designModel/dutyChain/AHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/../compoundProject/target/classes/com/beitie/designModel/dutyChain/AHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../compoundProject/target/classes/com/beitie/designModel/dutyChain/BHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/../compoundProject/target/classes/com/beitie/designModel/dutyChain/BHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../compoundProject/target/classes/com/beitie/designModel/dutyChain/CHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/../compoundProject/target/classes/com/beitie/designModel/dutyChain/CHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../compoundProject/target/classes/com/beitie/designModel/model/AWorker.class" beforeDir="false" afterPath="$PROJECT_DIR$/../compoundProject/target/classes/com/beitie/designModel/model/AWorker.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../compoundProject/target/classes/com/beitie/designModel/model/BWorker.class" beforeDir="false" afterPath="$PROJECT_DIR$/../compoundProject/target/classes/com/beitie/designModel/model/BWorker.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../compoundProject/target/classes/com/beitie/designModel/observer/ConcreteObserver.class" beforeDir="false" afterPath="$PROJECT_DIR$/../compoundProject/target/classes/com/beitie/designModel/observer/ConcreteObserver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../compoundProject/target/classes/com/beitie/designModel/observer/ObserverTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/../compoundProject/target/classes/com/beitie/designModel/observer/ObserverTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../compoundProject/target/classes/com/beitie/proxy/jdkproxy/JDkProxyHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/../compoundProject/target/classes/com/beitie/proxy/jdkproxy/JDkProxyHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../compoundProject/target/classes/com/beitie/thread/CallableTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/../compoundProject/target/classes/com/beitie/thread/CallableTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../compoundProject/target/classes/com/beitie/thread/CallableThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/../compoundProject/target/classes/com/beitie/thread/CallableThread.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../compoundProject/target/classes/com/beitie/thread/MyRunnable.class" beforeDir="false" afterPath="$PROJECT_DIR$/../compoundProject/target/classes/com/beitie/thread/MyRunnable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/bean/Orders.java" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/bean/Orders.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/bean/People.java" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/bean/People.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/bean/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/bean/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/bean/UserVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/bean/UserVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/handler/UserInfoHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/handler/UserInfoHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/handler/UserInfoHandler2.java" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/handler/UserInfoHandler2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/handler/UserInfoHandler3.java" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/handler/UserInfoHandler3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/mapper/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/util/exception/GlobalRuntimeExceptionResolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/util/exception/GlobalRuntimeExceptionResolver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/resource/com/beitie/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/resource/com/beitie/mapper/UserMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/resource/mybatis/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/resource/mybatis/mybatis-config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/resource/spring/springmvc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/resource/spring/springmvc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/webapp/WEB-INF/jsp/AddUserInfo.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/webapp/WEB-INF/jsp/AddUserInfo.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/webapp/WEB-INF/jsp/userInfo.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/webapp/WEB-INF/jsp/userInfo.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/test/java/com/beitie/UserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/test/java/com/beitie/UserTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/bean/Orders.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/bean/Orders.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/bean/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/bean/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/handler/UserInfoHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/handler/UserInfoHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/handler/UserInfoHandler2.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/handler/UserInfoHandler2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/handler/UserInfoHandler3.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/handler/UserInfoHandler3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/mapper/UserMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/mapper/UserMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/mapper/UserMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/service/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/service/impl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/service/impl/UserServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/util/exception/GlobalRuntimeExceptionResolver.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/util/exception/GlobalRuntimeExceptionResolver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/classes/mybatis/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/classes/mybatis/mybatis-config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/classes/spring/springmvc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/classes/spring/springmvc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/bean/Orders.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/bean/Orders.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/bean/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/bean/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/handler/UserInfoHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/handler/UserInfoHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/handler/UserInfoHandler2.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/handler/UserInfoHandler2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/handler/UserInfoHandler3.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/handler/UserInfoHandler3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/mapper/UserMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/mapper/UserMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/mapper/UserMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/service/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/service/impl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/service/impl/UserServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/util/exception/GlobalRuntimeExceptionResolver.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/util/exception/GlobalRuntimeExceptionResolver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/mybatis/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/mybatis/mybatis-config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/spring/springmvc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/spring/springmvc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/jsp/AddUserInfo.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/jsp/AddUserInfo.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/jsp/userInfo.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/jsp/userInfo.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/test-classes/com/beitie/UserTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/test-classes/com/beitie/UserTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-provider-8080/src/main/java/com/beitie/provider/Dept_Provider_8080.java" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud/microservicecloud-provider-8080/src/main/java/com/beitie/provider/Dept_Provider_8080.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-config-client3355/src/main/resources/bootstrap.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-config-client3355/src/main/resources/bootstrap.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-config-client3355/target/classes/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-config-client3355/target/classes/bootstrap.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-config-client3355/target/classes/bootstrap.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-config-client3366/src/main/resources/bootstrap.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-config-client3366/src/main/resources/bootstrap.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-config-server-8537/src/main/resources/bootstrap.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-config-server-8537/src/main/resources/bootstrap.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-config-server-8537/target/classes/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-custom-80/target/classes/com/beitie/custom/DeptController_Consumer_80.class" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-custom-80/target/classes/com/beitie/custom/DeptController_Consumer_80.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-eureka-config7001/target/classes/com/beitie/springcloud/AppStart_7001.class" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-eureka-config7001/target/classes/com/beitie/springcloud/AppStart_7001.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-provider-8002/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-provider-8002/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-provider-8002/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-provider-8002/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-stream-rabbit-consumer-10003/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-stream-rabbit-consumer-10003/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-stream-rabbit-consumer-10003/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-stream-rabbit-consumer-10003/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-stream-rabbit-consumer-10003/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-stream-rabbit-consumer-10003/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/classes/com/beitie/bean/Student.class" beforeDir="false" afterPath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/classes/com/beitie/bean/Student.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/classes/com/beitie/controller/SpecialController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/classes/com/beitie/controller/SpecialController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/classes/com/beitie/controller/StudentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/classes/com/beitie/controller/StudentController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/classes/com/beitie/handlerIntercept/TesthandlerIntercept.class" beforeDir="false" afterPath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/classes/com/beitie/handlerIntercept/TesthandlerIntercept.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/classes/spring/springmvcConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/classes/spring/springmvcConfig.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/src/main/java/com/beitie/bean/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/../springmvc01/src/main/java/com/beitie/bean/Student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/src/main/java/com/beitie/controller/SpecialController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../springmvc01/src/main/java/com/beitie/controller/SpecialController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/src/main/java/com/beitie/controller/StudentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../springmvc01/src/main/java/com/beitie/controller/StudentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/src/main/java/com/beitie/handlerIntercept/TesthandlerIntercept.java" beforeDir="false" afterPath="$PROJECT_DIR$/../springmvc01/src/main/java/com/beitie/handlerIntercept/TesthandlerIntercept.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/src/main/resources/spring/springmvcConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../springmvc01/src/main/resources/spring/springmvcConfig.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/target/classes/com/beitie/bean/Student.class" beforeDir="false" afterPath="$PROJECT_DIR$/../springmvc01/target/classes/com/beitie/bean/Student.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/target/classes/com/beitie/controller/SpecialController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../springmvc01/target/classes/com/beitie/controller/SpecialController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/target/classes/com/beitie/controller/StudentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../springmvc01/target/classes/com/beitie/controller/StudentController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/target/classes/com/beitie/handlerIntercept/TesthandlerIntercept.class" beforeDir="false" afterPath="$PROJECT_DIR$/../springmvc01/target/classes/com/beitie/handlerIntercept/TesthandlerIntercept.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springmvc01/target/classes/spring/springmvcConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../springmvc01/target/classes/spring/springmvcConfig.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="FxmlFile" />
-        <option value="Interface" />
-        <option value="Class" />
-      </list>
-    </option>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
   </component>
-  <component name="LogFilters">
-    <option name="FILTER_ERRORS" value="false" />
-    <option name="FILTER_WARNINGS" value="false" />
-    <option name="FILTER_INFO" value="true" />
-    <option name="FILTER_DEBUG" value="true" />
-    <option name="CUSTOM_FILTER" />
-  </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHome" value="D:/worksoft/apache-maven-3.2.5" />
-      </MavenGeneralSettings>
-    </option>
-    <option name="importingSettings">
-      <MavenImportingSettings>
-        <option name="importAutomatically" value="true" />
-      </MavenImportingSettings>
-    </option>
-  </component>
-  <component name="ProjectId" id="1aiVyds3g7ZZI8YVUY9uDr8YtAy" />
+  <component name="ProjectId" id="21ET428dqtrgYlBPq4eqLlaG5wU" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
+    <option name="showExcludedFiles" value="false" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resource/spring" />
-    <property name="project.structure.last.edited" value="Facets" />
-    <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.34827587" />
-    <property name="settings.editor.selected.configurable" value="File.Encoding" />
   </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\work\idea_java\secondSSM\src\main\resource\spring" />
-      <recent name="D:\work\secondSSM\src\main\resource" />
-      <recent name="D:\work\secondSSM\src\main\resource\properties" />
-      <recent name="D:\work\secondSSM\src\main\java\com\beitie\util" />
-      <recent name="D:\work\secondSSM\src\main\webapp" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.beitie.util.resolver" />
-      <recent name="com.beitie.convert" />
-      <recent name="com.beitie.webserviceBeiTie" />
-      <recent name="com.beitie.webserviceBeiTie.impl" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\work\secondSSM\src\main\resource\properties" />
-    </key>
-  </component>
-  <component name="RunManager" selected="Tomcat Server.SSM2Start">
-    <configuration name="UserInfoServicePublisher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.beitie.publisher.UserInfoServicePublisher" />
-      <module name="secondSSM" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.beitie.publisher.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="GlossaryTest.testDirectInvokeCodeMapUtils" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="secondSSM" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="GlossaryTest" />
-      <option name="METHOD_NAME" value="testDirectInvokeCodeMapUtils" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="GlossaryTest.testGetNameByCategoryAndCode" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="secondSSM" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="GlossaryTest" />
-      <option name="METHOD_NAME" value="testGetNameByCategoryAndCode" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UserInfoMapperTest.testFindUserInfoById" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="secondSSM" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="UserInfoMapperTest" />
-      <option name="METHOD_NAME" value="testFindUserInfoById" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UserInfoServiceTest.testFindUserInfoByid" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="secondSSM" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="UserInfoServiceTest" />
-      <option name="METHOD_NAME" value="testFindUserInfoByid" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="SSM2Start" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 8.5.16" ALTERNATIVE_JRE_ENABLED="false">
-      <option name="BROWSER_ID" value="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" />
-      <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
-      <option name="UPDATE_CLASSES_ON_FRAME_DEACTIVATION" value="true" />
-      <deployment>
-        <artifact name="secondSSM:war exploded">
-          <settings>
-            <option name="CONTEXT_PATH" value="/" />
-          </settings>
-        </artifact>
-      </deployment>
-      <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="Unnamed_secondSSM" />
-        <option name="HTTP_PORT" value="8090" />
-      </server-settings>
-      <predefined_log_file enabled="true" id="Tomcat" />
-      <predefined_log_file enabled="true" id="Tomcat Catalina" />
-      <predefined_log_file id="Tomcat Manager" />
-      <predefined_log_file id="Tomcat Host Manager" />
-      <predefined_log_file id="Tomcat Localhost Access" />
-      <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="51556" />
-      </RunnerSettings>
-      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
-        <option name="USE_ENV_VARIABLES" value="true" />
-        <STARTUP>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </STARTUP>
-        <SHUTDOWN>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </SHUTDOWN>
-      </ConfigurationWrapper>
-      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
-        <option name="USE_ENV_VARIABLES" value="true" />
-        <STARTUP>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </STARTUP>
-        <SHUTDOWN>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </SHUTDOWN>
-      </ConfigurationWrapper>
-      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
-        <option name="USE_ENV_VARIABLES" value="true" />
-        <STARTUP>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </STARTUP>
-        <SHUTDOWN>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </SHUTDOWN>
-      </ConfigurationWrapper>
-      <method v="2">
-        <option name="Make" enabled="true" />
-        <option name="BuildArtifacts" enabled="true">
-          <artifact name="secondSSM:war exploded" />
-        </option>
-      </method>
-    </configuration>
-    <list>
-      <item itemvalue="Application.UserInfoServicePublisher" />
-      <item itemvalue="JUnit.GlossaryTest.testDirectInvokeCodeMapUtils" />
-      <item itemvalue="JUnit.GlossaryTest.testGetNameByCategoryAndCode" />
-      <item itemvalue="JUnit.UserInfoMapperTest.testFindUserInfoById" />
-      <item itemvalue="JUnit.UserInfoServiceTest.testFindUserInfoByid" />
-      <item itemvalue="Tomcat Server.SSM2Start" />
-    </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="JUnit.UserInfoServiceTest.testFindUserInfoByid" />
-        <item itemvalue="Application.UserInfoServicePublisher" />
-        <item itemvalue="JUnit.GlossaryTest.testDirectInvokeCodeMapUtils" />
-        <item itemvalue="JUnit.GlossaryTest.testGetNameByCategoryAndCode" />
-        <item itemvalue="JUnit.UserInfoMapperTest.testFindUserInfoById" />
-      </list>
-    </recent_temporary>
-  </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
-      <list>
-        <serviceView>
-          <option name="contentProportion" value="0.10750193" />
-          <treeState>
-            <expand>
-              <path>
-                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-                <item name="Tomcat Server" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              </path>
-            </expand>
-            <select />
-          </treeState>
-        </serviceView>
-      </list>
-    </option>
-  </component>
-  <component name="StructureViewFactory">
-    <option name="ACTIVE_ACTIONS" value=",ALPHA_COMPARATOR" />
-  </component>
-  <component name="SvnConfiguration">
-    <configuration />
-  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="58aa2c2f-9a60-4008-8209-3a2bb3d45a07" name="Default Changelist" comment="" />
-      <created>1587218656042</created>
+      <changelist id="cf971373-a1ed-4727-8467-a10e94be7ccf" name="Default Changelist" comment="" />
+      <created>1637505052236</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1587218656042</updated>
-      <workItem from="1587218659292" duration="483000" />
-      <workItem from="1587219163702" duration="6494000" />
-      <workItem from="1587392852888" duration="4095000" />
-      <workItem from="1587396988016" duration="1482000" />
-      <workItem from="1587478910642" duration="9001000" />
-      <workItem from="1587561845173" duration="602000" />
-      <workItem from="1588300251189" duration="1153000" />
-      <workItem from="1589207548976" duration="2934000" />
-      <workItem from="1589386040022" duration="837000" />
-      <workItem from="1589470695962" duration="772000" />
-      <workItem from="1591284757883" duration="747000" />
-      <workItem from="1604675618942" duration="1842000" />
-      <workItem from="1604931313334" duration="2762000" />
-      <workItem from="1604934608672" duration="3922000" />
-      <workItem from="1605019329234" duration="107000" />
-      <workItem from="1605020141917" duration="675000" />
-      <workItem from="1605021477015" duration="255000" />
-      <workItem from="1605021967400" duration="20000" />
-      <workItem from="1605100700088" duration="843000" />
-      <workItem from="1606834961270" duration="1622000" />
-      <workItem from="1606922500479" duration="1064000" />
-      <workItem from="1606923735727" duration="1841000" />
-      <workItem from="1607010408473" duration="662000" />
-      <workItem from="1607093501789" duration="634000" />
-      <workItem from="1607611999884" duration="661000" />
-      <workItem from="1617938180597" duration="747000" />
-      <workItem from="1618132064153" duration="5812000" />
-      <workItem from="1618196816138" duration="1556000" />
-      <workItem from="1618232074434" duration="1113000" />
-      <workItem from="1618283894970" duration="5645000" />
+      <updated>1637505052236</updated>
+      <workItem from="1637505053544" duration="363000" />
+      <workItem from="1637505653532" duration="669000" />
+      <workItem from="1637595438044" duration="606000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="49" y="84" key="#xdebugger.evaluate" timestamp="1618153205545">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="49" y="84" key="#xdebugger.evaluate/0.0.1366.728@0.0.1366.728" timestamp="1618153205545" />
-    <state width="1153" height="241" key="GridCell.Tab.0.bottom" timestamp="1618232590892">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="1153" height="241" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1618232590892" />
-    <state width="1153" height="241" key="GridCell.Tab.0.center" timestamp="1618232590891">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="1153" height="241" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1618232590891" />
-    <state width="1153" height="241" key="GridCell.Tab.0.left" timestamp="1618232590891">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="1153" height="241" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1618232590891" />
-    <state width="1153" height="241" key="GridCell.Tab.0.right" timestamp="1618232590891">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="1153" height="241" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1618232590891" />
-    <state width="1153" height="241" key="GridCell.Tab.1.bottom" timestamp="1618232590892">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="1153" height="241" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1618232590892" />
-    <state width="1153" height="241" key="GridCell.Tab.1.center" timestamp="1618232590892">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="1153" height="241" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1618232590892" />
-    <state width="1153" height="241" key="GridCell.Tab.1.left" timestamp="1618232590892">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="1153" height="241" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1618232590892" />
-    <state width="1153" height="241" key="GridCell.Tab.1.right" timestamp="1618232590892">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="1153" height="241" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1618232590892" />
-    <state width="1153" height="241" key="GridCell.Tab.2.bottom" timestamp="1618232590893">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="1153" height="241" key="GridCell.Tab.2.bottom/0.0.1366.728@0.0.1366.728" timestamp="1618232590893" />
-    <state width="1153" height="241" key="GridCell.Tab.2.center" timestamp="1618232590892">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="1153" height="241" key="GridCell.Tab.2.center/0.0.1366.728@0.0.1366.728" timestamp="1618232590892" />
-    <state width="1153" height="241" key="GridCell.Tab.2.left" timestamp="1618232590892">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="1153" height="241" key="GridCell.Tab.2.left/0.0.1366.728@0.0.1366.728" timestamp="1618232590892" />
-    <state width="1153" height="241" key="GridCell.Tab.2.right" timestamp="1618232590892">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="1153" height="241" key="GridCell.Tab.2.right/0.0.1366.728@0.0.1366.728" timestamp="1618232590892" />
-    <state width="1153" height="241" key="GridCell.Tab.3.bottom" timestamp="1618232590893">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="1153" height="241" key="GridCell.Tab.3.bottom/0.0.1366.728@0.0.1366.728" timestamp="1618232590893" />
-    <state width="1153" height="241" key="GridCell.Tab.3.center" timestamp="1618232590893">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="1153" height="241" key="GridCell.Tab.3.center/0.0.1366.728@0.0.1366.728" timestamp="1618232590893" />
-    <state width="1153" height="241" key="GridCell.Tab.3.left" timestamp="1618232590893">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="1153" height="241" key="GridCell.Tab.3.left/0.0.1366.728@0.0.1366.728" timestamp="1618232590893" />
-    <state width="1153" height="241" key="GridCell.Tab.3.right" timestamp="1618232590893">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="1153" height="241" key="GridCell.Tab.3.right/0.0.1366.728@0.0.1366.728" timestamp="1618232590893" />
-    <state x="53" y="58" key="new project wizard" timestamp="1618197698735">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="53" y="58" key="new project wizard/0.0.1366.728@0.0.1366.728" timestamp="1618197698735" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1618149032826">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1618149032826" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/UserInfoMapperTest.java</url>
-          <line>33</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/UserInfoServiceTest.java</url>
-          <line>9</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/GlossaryTest.java</url>
-          <line>15</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/GlossaryTest.java</url>
-          <line>20</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/5.1.0.RELEASE/spring-webmvc-5.1.0.RELEASE-sources.jar!/org/springframework/web/servlet/DispatcherServlet.java</url>
-          <line>957</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/beitie/handler/UserInfoHandler.java</url>
-          <line>24</line>
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <option name="version" value="3" />
   </component>
   <component name="se.expertsystem.intellij.aop.aspectj.AspectJProjectComponent">
     <setting name="isActivated" value="false" />

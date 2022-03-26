@@ -1,8 +1,8 @@
-package com.beitie.lygdp_normal.service.impl;
+package com.beitie.service.impl;
 
-import com.beitie.lygdp_normal.bean.User;
-import com.beitie.lygdp_normal.mapper.UserMapper;
-import com.beitie.lygdp_normal.service.UserService;
+import com.beitie.bean.User;
+import com.beitie.mapper.UserMapper;
+import com.beitie.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

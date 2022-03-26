@@ -134,7 +134,7 @@ git config --global --list
 5、配置远程服务名
 
 ~~~git
-git remote add orgin git@github.com:beitieforerver/third
+git remote add origin git@github.com:beitieforerver/third
 ~~~
 
 6、从远程服务器拉取数据
@@ -144,3 +144,25 @@ git pull orgin master
 ~~~
 
 ## 
+
+
+
+
+
+git commit -a -m'提交的方法'：省去了adpud的操作，只针对修改和删除的文件有效，新增的文件还是要通过git add方式进行添加
+
+git branch ：查看本地分支
+
+git branch -d 本地分支名：删除本地分支
+
+git branch -a 查看所有分支：包含本地的和远程的分支
+
+git branch -r： 查看远程分支
+
+git push third --delete 远程分支名：删除远程分支
+
+
+
+git checkout 本地分支名 ：创建本地分支并切换（有的话直接切换）
+
+git checkout -b 本地分支名 third/远程分支名

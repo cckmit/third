@@ -25,7 +25,7 @@
 </head>
 <body>
 <button onclick="showAdress()">点击我</button>
-<img src="/getImage.action">
+<img src="/getImage2.action">
 <h2>Hello World!</h2>
 </body>
 </html>

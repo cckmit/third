@@ -1,6 +1,6 @@
-package com.beitie.lygdp_normal.service;
+package com.beitie.service;
 
-import com.beitie.lygdp_normal.bean.User;
+import com.beitie.bean.User;
 
 import java.util.List;
 

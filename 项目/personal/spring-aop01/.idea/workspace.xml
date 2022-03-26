@@ -5,49 +5,79 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="99dfebad-bf1a-4847-8f95-5e3c36913fa1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/thread/CallableTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/thread/CallableThread.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/thread/MyRunnable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/thread/RunnableTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/other/YunSuan.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/thread/AutoClosableModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/bean/UserOrders.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/linux/linux.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TyporaFiles/linux/linux.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/ssm/SPRINGMVC  AND  MYBATIS.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TyporaFiles/ssm/SPRINGMVC  AND  MYBATIS.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/designModel/adapter/AdapterExecuter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/designModel/adapter/AdapterExecuter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/designModel/adapter/AdapterSampler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/designModel/adapter/AdapterSampler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/designModel/adapter/MyTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/designModel/adapter/MyTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/lamda/lamdaTest1.java" beforeDir="false" afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/lamda/lamdaTest1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dingShiRenWu/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../dingShiRenWu/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dingShiRenWu/src/main/java/jdkR/TimerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dingShiRenWu/src/main/java/jdkR/TimerServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dingShiRenWu/src/main/java/springold/ColorJob.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dingShiRenWu/src/main/java/springold/ColorJob.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dingShiRenWu/src/main/java/springold/JobStateExample.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dingShiRenWu/src/main/java/springold/JobStateExample.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dingShiRenWu/src/main/java/springold/MyScheduler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dingShiRenWu/src/main/java/springold/MyScheduler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dingShiRenWu/src/main/java/springold/SimpleJobQuartz.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dingShiRenWu/src/main/java/springold/SimpleJobQuartz.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dingShiRenWu/src/main/java/springold/config/SpringOldConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dingShiRenWu/src/main/java/springold/config/SpringOldConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dingShiRenWu/src/test/java/jdkR/TimerServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dingShiRenWu/src/test/java/jdkR/TimerServiceImplTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beitie/aop/aspect/LogManagerV2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/beitie/aop/aspect/LogManagerV2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_Web_exploded/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_Web_exploded/WEB-INF/classes/com/beitie/bean/Student.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_Web_exploded/WEB-INF/classes/com/beitie/controller/StudentController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_Web_exploded/WEB-INF/classes/spring/springmvcConfig.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_Web_exploded/WEB-INF/web.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/classes/com/beitie/controller/StudentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/classes/com/beitie/controller/StudentController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/lib/aspectjweaver-1.9.5.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/lib/spring-aop-5.1.13.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/lib/spring-aspects-5.1.13.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/lib/spring-beans-5.1.13.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/lib/spring-context-5.1.13.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/lib/spring-core-5.1.13.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/lib/spring-expression-5.1.13.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/lib/spring-jcl-5.1.13.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/lib/spring-test-5.1.13.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/lib/spring-web-5.1.13.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/lib/spring-webmvc-5.1.13.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springmvc01/out/artifacts/springmvc01_war_exploded/WEB-INF/views/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../springmvc01/src/main/webapp/WEB-INF/views/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springmvc01/src/main/java/com/beitie/bean/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/../springmvc01/src/main/java/com/beitie/bean/Student.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springmvc01/src/main/java/com/beitie/controller/SpecialController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../springmvc01/src/main/java/com/beitie/controller/SpecialController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springmvc01/src/main/java/com/beitie/controller/StudentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../springmvc01/src/main/java/com/beitie/controller/StudentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springmvc01/src/webapp/WEB-INF/views/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../springmvc01/src/main/webapp/WEB-INF/views/error.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springmvc01/src/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../springmvc01/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springmvc01/target/classes/com/beitie/controller/StudentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../springmvc01/target/classes/com/beitie/controller/StudentController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/mysql/mysql补充..md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TyporaFiles/mysql/mysql补充..md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/nginx/Nginx.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TyporaFiles/nginx/Nginx.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/redis/redis.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TyporaFiles/redis/redis.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/springCloud/SpringCloud.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TyporaFiles/springCloud/SpringCloud.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/ssm/SPRINGMVC  AND  MYBATIS (2).md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/ssm/SPRINGMVC  AND  MYBATIS.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/ssm/SPRINGMVC  AND  MYBATIS/1460000024464170" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/ssm/SPRINGMVC  AND  MYBATIS/1460000024464171" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/ssm/SPRINGMVC  AND  MYBATIS/view" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/多线程/多线程.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TyporaFiles/多线程/多线程.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/设计模式/设计模式.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TyporaFiles/设计模式/设计模式.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/面试题/202108/202108面试题.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TyporaFiles/面试题/202108/202108面试题.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/thread/CallableTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../compoundProject/src/main/java/com/beitie/thread/CallableTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../compoundProject/target/classes/com/beitie/thread/CallableTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/../compoundProject/target/classes/com/beitie/thread/CallableTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/bean/Orders.java" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/bean/Orders.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/bean/People.java" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/bean/People.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/bean/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/bean/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/bean/UserVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/bean/UserVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/handler/UserInfoHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/handler/UserInfoHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/handler/UserInfoHandler2.java" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/handler/UserInfoHandler2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/handler/UserInfoHandler3.java" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/handler/UserInfoHandler3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/mapper/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/util/exception/GlobalRuntimeExceptionResolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/util/exception/GlobalRuntimeExceptionResolver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/resource/com/beitie/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/resource/com/beitie/mapper/UserMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/resource/mybatis/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/resource/mybatis/mybatis-config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/webapp/WEB-INF/jsp/AddUserInfo.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/webapp/WEB-INF/jsp/AddUserInfo.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/webapp/WEB-INF/jsp/userInfo.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/webapp/WEB-INF/jsp/userInfo.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/test/java/com/beitie/UserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/test/java/com/beitie/UserTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/bean/Orders.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/bean/Orders.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/bean/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/bean/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/handler/UserInfoHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/handler/UserInfoHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/handler/UserInfoHandler2.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/handler/UserInfoHandler2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/handler/UserInfoHandler3.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/handler/UserInfoHandler3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/mapper/UserMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/mapper/UserMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/mapper/UserMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/service/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/service/impl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/service/impl/UserServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/util/exception/GlobalRuntimeExceptionResolver.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/util/exception/GlobalRuntimeExceptionResolver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/classes/mybatis/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/classes/mybatis/mybatis-config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/bean/Orders.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/bean/Orders.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/bean/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/bean/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/handler/UserInfoHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/handler/UserInfoHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/handler/UserInfoHandler2.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/handler/UserInfoHandler2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/handler/UserInfoHandler3.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/handler/UserInfoHandler3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/mapper/UserMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/mapper/UserMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/mapper/UserMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/service/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/service/impl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/service/impl/UserServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/util/exception/GlobalRuntimeExceptionResolver.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/util/exception/GlobalRuntimeExceptionResolver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/mybatis/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/mybatis/mybatis-config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/jsp/AddUserInfo.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/jsp/AddUserInfo.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/jsp/userInfo.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/jsp/userInfo.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/test-classes/com/beitie/UserTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/test-classes/com/beitie/UserTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-provider-8080/src/main/java/com/beitie/provider/Dept_Provider_8080.java" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud/microservicecloud-provider-8080/src/main/java/com/beitie/provider/Dept_Provider_8080.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-config-client3355/src/main/resources/bootstrap.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-config-client3355/src/main/resources/bootstrap.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-config-client3355/target/classes/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-config-client3355/target/classes/bootstrap.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-config-client3355/target/classes/bootstrap.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-config-client3366/src/main/resources/bootstrap.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-config-client3366/src/main/resources/bootstrap.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-config-server-8537/src/main/resources/bootstrap.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-config-server-8537/src/main/resources/bootstrap.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-config-server-8537/target/classes/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-custom-80/target/classes/com/beitie/custom/DeptController_Consumer_80.class" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-custom-80/target/classes/com/beitie/custom/DeptController_Consumer_80.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-eureka-config7001/target/classes/com/beitie/springcloud/AppStart_7001.class" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-eureka-config7001/target/classes/com/beitie/springcloud/AppStart_7001.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-provider-8002/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-provider-8002/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-provider-8002/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-provider-8002/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-stream-rabbit-consumer-10003/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-stream-rabbit-consumer-10003/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-stream-rabbit-consumer-10003/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-stream-rabbit-consumer-10003/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-stream-rabbit-consumer-10003/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-stream-rabbit-consumer-10003/target/classes/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +98,10 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../dingShiRenWu" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
@@ -92,6 +125,9 @@
       <option name="presentableId" value="Default" />
       <updated>1630417793489</updated>
       <workItem from="1630417821940" duration="318000" />
+      <workItem from="1634032888419" duration="237000" />
+      <workItem from="1634033135950" duration="38000" />
+      <workItem from="1634033184068" duration="2304000" />
     </task>
     <servers />
   </component>

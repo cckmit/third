@@ -1,8 +1,8 @@
-package com.beitie.lygdp_normal.controller;
+package com.beitie.controller;
 
-import com.beitie.lygdp_normal.bean.User;
-import com.beitie.lygdp_normal.service.UserService;
-import com.beitie.lygdp_normal.util.PhotoEncodeBase64;
+import com.beitie.bean.User;
+import com.beitie.service.UserService;
+import com.beitie.util.PhotoEncodeBase64;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

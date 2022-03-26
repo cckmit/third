@@ -15,3 +15,8 @@
 <div class="warning">${exception.code}:${exception.msg}</div>
 </body>
 </html>
+<style>
+    .jlsj {
+        color: #0a1139;
+    }
+</style>

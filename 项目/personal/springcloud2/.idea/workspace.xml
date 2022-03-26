@@ -5,41 +5,68 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb79773b-f29e-4040-8a01-6199fbbe9e65" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../microservicecloud/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../microservicecloud/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/springCloud/git使用.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../microservicecloud/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../microservicecloud/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../microservicecloud/mc_hystix_dashboard_9001/mc_hystix_dashboard_9001.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud/.idea/microservicecloud.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-api-nx/microservicecloud-api-nx.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-config-client/microservicecloud-config-client.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-config-provider/microservicecloud-config-provider.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-custom-80/microservicecloud-custom-80.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-custom-80/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud/microservicecloud-custom-80/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-custom-80/src/main/java/com/beitie/custom/configBeans/ConfigBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud/microservicecloud-custom-80/src/main/java/com/beitie/custom/configBeans/ConfigBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-custom-80/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud/microservicecloud-custom-80/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-custom-80/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud/microservicecloud-custom-80/target/classes/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-custom-80/target/classes/com/beitie/custom/DeptController_Consumer_80.class" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud/microservicecloud-custom-80/target/classes/com/beitie/custom/DeptController_Consumer_80.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-custom-feign80/microservicecloud-custom-feign80.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-eureka-config7001/microservicecloud-eureka-config7001.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-provider-8002/microservicecloud-provider-8002.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-provider-8003/microservicecloud-provider-8003.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-provider-8080/microservicecloud-provider-8080.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-provider-8080/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud/microservicecloud-provider-8080/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-provider-8080/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud/microservicecloud-provider-8080/target/classes/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-provider-hystrix8080/microservicecloud-provider-hystrix8080.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../microservicecloud/microserviceeureka7001/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud/microserviceeureka7001/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../microservicecloud/microserviceeureka7001/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud/microserviceeureka7001/target/classes/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../microservicecloud/microserviceeureka7002/microserviceeureka7002.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../microservicecloud/microserviceeureka7002/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud/microserviceeureka7002/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../microservicecloud/microserviceeureka7002/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud/microserviceeureka7002/target/classes/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../microservicecloud/microserviceeureka7003/microserviceeureka7003.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../microservicecloud/microserviceeureka7003/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud/microserviceeureka7003/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../microservicecloud/microserviceeureka7003/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud/microserviceeureka7003/target/classes/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springcloud2_api/springcloud2_api.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/linux/linux.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TyporaFiles/linux/linux.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/mysql/mysql补充..md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TyporaFiles/mysql/mysql补充..md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/nginx/Nginx.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TyporaFiles/nginx/Nginx.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/redis/redis.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TyporaFiles/redis/redis.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/springCloud/SpringCloud.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TyporaFiles/springCloud/SpringCloud.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/ssm/SPRINGMVC  AND  MYBATIS (2).md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/ssm/SPRINGMVC  AND  MYBATIS.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/ssm/SPRINGMVC  AND  MYBATIS/1460000024464170" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/ssm/SPRINGMVC  AND  MYBATIS/1460000024464171" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/ssm/SPRINGMVC  AND  MYBATIS/view" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/设计模式/设计模式.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TyporaFiles/设计模式/设计模式.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TyporaFiles/面试题/202108/202108面试题.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TyporaFiles/面试题/202108/202108面试题.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/bean/People.java" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/bean/People.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/bean/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/bean/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/bean/UserVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/bean/UserVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/handler/UserInfoHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/handler/UserInfoHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/handler/UserInfoHandler2.java" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/handler/UserInfoHandler2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/handler/UserInfoHandler3.java" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/handler/UserInfoHandler3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/mapper/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/util/exception/GlobalRuntimeExceptionResolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/java/com/beitie/util/exception/GlobalRuntimeExceptionResolver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/resource/com/beitie/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/resource/com/beitie/mapper/UserMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/resource/mybatis/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/resource/mybatis/mybatis-config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/webapp/WEB-INF/jsp/AddUserInfo.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/webapp/WEB-INF/jsp/AddUserInfo.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/src/main/webapp/WEB-INF/jsp/userInfo.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/src/main/webapp/WEB-INF/jsp/userInfo.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/bean/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/bean/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/handler/UserInfoHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/handler/UserInfoHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/handler/UserInfoHandler2.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/handler/UserInfoHandler2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/handler/UserInfoHandler3.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/handler/UserInfoHandler3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/mapper/UserMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/mapper/UserMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/mapper/UserMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/service/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/service/impl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/service/impl/UserServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/util/exception/GlobalRuntimeExceptionResolver.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/classes/com/beitie/util/exception/GlobalRuntimeExceptionResolver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/classes/mybatis/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/classes/mybatis/mybatis-config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/bean/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/bean/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/handler/UserInfoHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/handler/UserInfoHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/handler/UserInfoHandler2.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/handler/UserInfoHandler2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/handler/UserInfoHandler3.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/handler/UserInfoHandler3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/mapper/UserMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/mapper/UserMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/mapper/UserMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/service/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/service/impl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/service/impl/UserServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/util/exception/GlobalRuntimeExceptionResolver.class" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/com/beitie/util/exception/GlobalRuntimeExceptionResolver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/mybatis/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/classes/mybatis/mybatis-config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/jsp/AddUserInfo.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/jsp/AddUserInfo.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/jsp/userInfo.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../firstMybatis/target/firstMybatis/WEB-INF/jsp/userInfo.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud/microservicecloud-provider-8080/src/main/java/com/beitie/provider/Dept_Provider_8080.java" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud/microservicecloud-provider-8080/src/main/java/com/beitie/provider/Dept_Provider_8080.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-config-client3355/src/main/resources/bootstrap.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-config-client3355/src/main/resources/bootstrap.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-config-client3355/target/classes/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-config-client3355/target/classes/bootstrap.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-config-client3355/target/classes/bootstrap.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-config-client3366/src/main/resources/bootstrap.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-config-client3366/src/main/resources/bootstrap.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-config-server-8537/src/main/resources/bootstrap.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-config-server-8537/src/main/resources/bootstrap.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-config-server-8537/target/classes/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-custom-80/target/classes/com/beitie/custom/DeptController_Consumer_80.class" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-custom-80/target/classes/com/beitie/custom/DeptController_Consumer_80.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-eureka-config7001/target/classes/com/beitie/springcloud/AppStart_7001.class" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-eureka-config7001/target/classes/com/beitie/springcloud/AppStart_7001.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-provider-8002/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-provider-8002/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-provider-8002/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-provider-8002/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-stream-rabbit-consumer-10003/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-stream-rabbit-consumer-10003/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-stream-rabbit-consumer-10003/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-stream-rabbit-consumer-10003/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-stream-rabbit-consumer-10003/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../microservicecloud_v2/microservicecloud-stream-rabbit-consumer-10003/target/classes/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +83,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="MavenRunner">
     <option name="skipTests" value="true" />
@@ -74,7 +109,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../microservicecloud" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -132,6 +167,7 @@
       <workItem from="1626950400709" duration="1858000" />
       <workItem from="1627035867138" duration="1229000" />
       <workItem from="1627090777604" duration="23000" />
+      <workItem from="1633916887169" duration="640000" />
     </task>
     <servers />
   </component>

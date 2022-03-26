@@ -1,8 +1,0 @@
-keystore.file=classpath:org/opoo/apps/license/client/ws/ssl-client.p12
-keystore.type=PKCS12
-keystore.password=123456
-truststore.file=classpath:org/opoo/apps/license/client/ws/ssl-client.truststore
-truststore.type=jks
-truststore.password=123456
-ssl.port=58443
-ssl.scheme=lichttps

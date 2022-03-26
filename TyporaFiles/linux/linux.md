@@ -2,7 +2,7 @@
 
 ### 不能ping通外网ip
 
-1. vim /etc/sysconfig/network-scripts/ifcfg-ens33![image-20210507204009963](linux/image-20210507204009963.png)
+1. vim /etc/sysconfig/network-scripts/ifcfg-ens33
 
    1）将 BOOTPROTO=“DHCP” 改为：BOOTPROTO=“**static**”；
 
@@ -65,6 +65,8 @@ service keepalived start |stop |restart
 
 5、：q没有修改的正常退出，：q！强制退出并销毁更改的内容
 
+6、在打开的文档中如果需要搜索，输入斜杠“/”,然后输入待搜索的内容既可；按n就会向后搜索下一个，大写的N就会向前搜索
+
 ~~~
 pageup|pagedown 上下翻页
 home | end 返回行首和行尾
@@ -96,7 +98,13 @@ cat file1 file2 >> file3#将file1、file2和file3文件的内容合并后写入f
 /usr/local/bin  #移至此目录下的命令可以直接执行
 ~~~
 
-tail -f 循环读取文件的内容（默认末尾10行内容）
+循环读取文件的内容（默认末尾10行内容）
+
+~~~
+tail -f -n 30 #可以读取动态文件尾部的30条数据
+~~~
+
+
 
 ## 切换用户
 
@@ -111,7 +119,7 @@ cat /etc/passwd
 ## 查找文件
 
 ~~~
-find -name 【filename】
+find / -name 【filename】
 -name 按照名字查找
 -type 按照类型查找
 -size 按照文件大小查找
