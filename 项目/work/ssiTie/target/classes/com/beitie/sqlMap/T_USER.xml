@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap>
+    <resultMap id="userInfo" class="com.beitie.bean.UserInfo">
+        <result property="userName" column="uname" jdbcType="varchar"></result>
+        <result property="address" column="address" jdbcType="varchar"></result>
+    </resultMap>
+    <select id="T_User_FindUserList" resultMap="userInfo">
+        SELECT u.`uname`,u.`address` FROM users u;
+    </select>
+</sqlMap>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zb.mapper.SsjyxxMapper">
+    <select id="fetchListedBizInfo" resultType="com.zb.ws.po.fetchBizInfo.Jyxx">
+        select o.ywslid as ywbh ,o.sqrmc as sqrxm,o.sqrzjhm as sqrsfzhm,o.zjnje as zjnje,o.fwzl as fwzl,o.fwjzmj as jzmj  from lygzb_zfbz.ssjyxx o
+        <where>
+            <if test="ywslid != null">
+               and o.ywslid = #{ywslid}
+            </if>
+            <if test="sqrmc != null">
+               and o.sqrmc = #{sqrmc}
+            </if>
+            <if test="sqrzjhm != null">
+               and o.sqrzjhm = #{sqrzjhm}
+            </if>
+        </where>
+    </select>
+</mapper>

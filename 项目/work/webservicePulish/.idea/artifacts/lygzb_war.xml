@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="lygzb:war">
+    <output-path>$PROJECT_DIR$/webservicePulish/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>lygzb</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="lygzb.war">
+      <element id="artifact" artifact-name="lygzb:war exploded" />
+    </root>
+  </artifact>
+</component>
