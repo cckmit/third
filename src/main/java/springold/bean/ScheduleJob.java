@@ -28,7 +28,7 @@ public class ScheduleJob extends VersionableBean {
 
     private String jobStatusName;
 
-    /** 任务运行时间表达式 */
+    /** 任务运行时间表达式  */
     private String cronExpression;
 
     /** 任务执行类 */

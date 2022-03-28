@@ -48,6 +48,9 @@ public class TaskController
     {
         List<ScheduleJob> pb = quartzJobService.getJobsByPage( jobReq );
         model.addAttribute( "pb", pb );
+        if(null == null){
+            
+        }
         return("task/taskList");
     }
 
